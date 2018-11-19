@@ -1,10 +1,979 @@
 <!DOCTYPE html>
-<html>
+<html lang="utf-8">
 <head>
-<meta charset="UTF-8">
-<title>Trip Weaver</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi">
+    <title>TripWeaver</title>
+	<link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico" />
+    
+    <!-- 공통 style -->
+    <link rel="stylesheet" href="/static/js/jquery-ui-1.11.4.custom/jquery-ui.min.css">
+    <link rel="stylesheet" href="/static/css/style.min.css">
+    <!-- 공통 style -->
+
+	<script type="text/javascript">
+		var videoHtml = [];
+	</script>
 </head>
+
 <body>
-	<h1>Hi, This is Test Homepage for TripWeaver :)</h1>
+   	
+   	
+   	
+    <!-- 공통 - header -->
+    <div id="header">
+    	<div class="line"></div><div class="logo"><img src="/img/logo2.png" width="70%"/></div><div class="line"></div>
+    </div>
+    <!-- //공통 - header -->
+
+    <!-- 공통 - gnb -->
+    <div id="gnb">
+    </div>
+
+	<!-- skipCt -->
+	<div id="skipCt">
+		<h3 class="hidden">여행지 소개</h3>
+		<div class="box-mainVisualBnr">
+			<div id="mainVisualBnr">
+				<div class="slide-wrap">
+					<div class="bg_layer"></div>
+					<!-- <div class="bg" style="background-image: url('/img/logo.png')"></div> -->
+					<div class="bg" style="background-image: url('/img/test.jpg')"></div>
+					<div class="banner-inner">
+						<div class="txt-wrap">
+						<p class="txt-1 onlyPc">
+							<a href="https://lonelyplanet.co.kr/magazine/articles/group/AG_00000158"
+								target="_self"
+								onclick="ga('send', 'event', '메인-상단 빅배너', 'click', '2019년 TripWeaver 오픈');">
+								2019년 TripWeaver 오픈
+							</a>
+						</p>
+						<p class="txt-1 onlyMobile">
+							<a
+								href="https://lonelyplanet.co.kr/magazine/articles/group/AG_00000158"
+								target="_self"
+								onclick="ga('send', 'event', '메인-상단 빅배너', 'click', '2019년 TripWeaver 오픈');">
+								2019년 TripWeaver 오픈
+							</a>
+						</p>
+						<p class="txt-2">
+							<a class="btn-1"
+								href="https://lonelyplanet.co.kr/magazine/articles/AI_00002153"
+								target="_self">바로가기</a>
+							<br/>
+							<br/>
+							<br/>
+							<br/>
+							<a href="" class="mian_go_btn">메인으로 바로가기</a>
+						</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="slide-wrap">
+					<div class="bg_layer"></div>
+					<div class="bg" style="background-image: url('/img/main_02.jpg')"></div>
+					<div class="banner-inner">
+						<div class="txt-wrap">
+
+							<p class="txt-1 onlyPc">
+								<a
+									href="https://lonelyplanet.co.kr/magazine/articles/group/AG_00000158"
+									target="_self"
+									onclick="ga('send', 'event', '메인-상단 빅배너', 'click', '대전 하늘공원 여행');">
+									대전 하늘공원 여행</a>
+							</p>
+							<p class="txt-1 onlyMobile">
+								<a
+									href="https://lonelyplanet.co.kr/magazine/articles/group/AG_00000158"
+									target="_self"
+									onclick="ga('send', 'event', '메인-상단 빅배너', 'click', '대전 하늘공원 여행');">
+									대전 하늘공원 여행</a>
+							</p>
+							<p class="txt-2">
+								<a
+									href="https://lonelyplanet.co.kr/magazine/articles/group/AG_00000158"
+									class="btn-1" target="_self"
+									onclick="ga('send', 'event', '메인-상단 빅배너', 'click', '대전 하늘공원 여행');">
+									바로가기
+								</a>
+								<br/>
+								<a href="" class="mian_go_btn">메인으로 바로가기</a>
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="slide-wrap">
+					<div class="bg_layer"></div>
+					<div class="bg" style="background-image: url('/img/main_03.jpg')"></div>
+					<div class="banner-inner">
+						<div class="txt-wrap">
+
+							<p class="txt-1 onlyPc">
+								<a
+									href="https://lonelyplanet.co.kr/magazine/articles/group/AG_00000157"
+									target="_self"
+									onclick="ga('send', 'event', '메인-상단 빅배너', 'click', '제주 자동차 여행');">제주에서
+									영화처럼 여행하기</a>
+							</p>
+							<p class="txt-1 onlyMobile">
+								<a
+									href="https://lonelyplanet.co.kr/magazine/articles/group/AG_00000157"
+									target="_self"
+									onclick="ga('send', 'event', '메인-상단 빅배너', 'click', '제주 자동차 여행');">제주에서
+									영화처럼 여행하기</a>
+							</p>
+							<p class="txt-2">
+								<a
+									href="https://lonelyplanet.co.kr/magazine/articles/group/AG_00000157"
+									class="btn-1" target="_self"
+									onclick="ga('send', 'event', '메인-상단 빅배너', 'click', '제주 자동차 여행');">바로가기</a>
+								<br/>
+								<a href="" class="mian_go_btn">메인으로 바로가기</a>
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="slide-wrap">
+					<div class="bg_layer"></div>
+					<div class="bg" style="background-image: url('/img/main_04.jpg')"></div>
+					<div class="banner-inner">
+						<div class="txt-wrap">
+
+							<p class="txt-1 onlyPc">
+								<a
+									href="https://lonelyplanet.co.kr/magazine/articles/group/AG_00000156"
+									target="_self"
+									onclick="ga('send', 'event', '메인-상단 빅배너', 'click', '부산 해운대 여행');">
+									부산 해운대 여행
+								</a>
+							</p>
+							<p class="txt-1 onlyMobile">
+								<a
+									href="https://lonelyplanet.co.kr/magazine/articles/group/AG_00000156"
+									target="_self"
+									onclick="ga('send', 'event', '메인-상단 빅배너', 'click', '부산 해운대 여행');">
+									부산 해운대 여행
+								</a>
+							</p>
+							<p class="txt-2">
+								<a
+									href="https://lonelyplanet.co.kr/magazine/articles/group/AG_00000156"
+									class="btn-1" target="_self"
+									onclick="ga('send', 'event', '메인-상단 빅배너', 'click', '부산 해운대 여행');">바로가기</a>
+								<br/>
+								<a href="" class="mian_go_btn">메인으로 바로가기</a>
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="slide-wrap">
+					<div class="bg_layer"></div>
+					<div class="bg" style="background-image: url('/img/main_05.jpg')"></div>
+					<div class="banner-inner">
+						<div class="txt-wrap">
+
+							<p class="txt-1 onlyPc">
+								<a
+									href="https://lonelyplanet.co.kr/magazine/articles/group/AG_00000154"
+									target="_self"
+									onclick="ga('send', 'event', '메인-상단 빅배너', 'click', '거제·통영 요트 투어 체험기');">남쪽빛
+									감성여행, 거제·통영 요트 투어</a>
+							</p>
+							<p class="txt-1 onlyMobile">
+								<a
+									href="https://lonelyplanet.co.kr/magazine/articles/group/AG_00000154"
+									target="_self"
+									onclick="ga('send', 'event', '메인-상단 빅배너', 'click', '거제·통영 요트 투어 체험기');">남쪽빛
+									감성여행, 거제·통영 요트 투어</a>
+							</p>
+							<p class="txt-2">
+								<a
+									href="https://lonelyplanet.co.kr/magazine/articles/group/AG_00000154"
+									class="btn-1" target="_self"
+									onclick="ga('send', 'event', '메인-상단 빅배너', 'click', '거제·통영 요트 투어 체험기');">바로가기</a>
+								<br/>
+								<a href="" class="mian_go_btn">메인으로 바로가기</a>
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="slide-wrap">
+					<div class="bg_layer"></div>
+					<div class="bg" style="background-image: url('/img/main_06.jpg')"></div>
+					<div class="banner-inner">
+						<div class="txt-wrap">
+
+							<p class="txt-1 onlyPc">
+								<a
+									href="https://lonelyplanet.co.kr/magazine/articles/AI_00002093"
+									target="_self"
+									onclick="ga('send', 'event', '메인-상단 빅배너', 'click', '전라 남도 · 보성 여행');">
+									전라 남도 · 보성 여행
+								</a>
+							</p>
+							<p class="txt-1 onlyMobile">
+								<a
+									href="https://lonelyplanet.co.kr/magazine/articles/AI_00002093"
+									target="_self"
+									onclick="ga('send', 'event', '메인-상단 빅배너', 'click', '전라 남도 · 보성 여행');">
+									전라 남도 · 보성 여행
+								</a>
+							</p>
+							<p class="txt-2">
+								<a
+									href="https://lonelyplanet.co.kr/magazine/articles/AI_00002093"
+									class="btn-1" target="_self"
+									onclick="ga('send', 'event', '메인-상단 빅배너', 'click', '전라 남도 · 보성 여행');">바로가기</a>
+								<br/>
+								<a href="" class="mian_go_btn">메인으로 바로가기</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="dot-wrap">
+
+				<div class="dot-list">
+					<a href="#none"><span class="txt-num">01</span><span
+						class="txt-1">2019년 TripWeaver 오픈</span></a>
+				</div>
+
+				<div class="dot-list">
+					<a href="#none"><span class="txt-num">02</span><span
+						class="txt-1">대전 하늘공원 여행</span></a>
+				</div>
+
+				<div class="dot-list">
+					<a href="#none"><span class="txt-num">03</span><span
+						class="txt-1">제주 자동차 여행</span></a>
+				</div>
+
+				<div class="dot-list">
+					<a href="#none"><span class="txt-num">04</span><span
+						class="txt-1">부산 해운대 여행</span></a>
+				</div>
+
+				<div class="dot-list">
+					<a href="#none"><span class="txt-num">05</span><span
+						class="txt-1">거제·통영 요트 투어 체험기</span></a>
+				</div>
+
+				<div class="dot-list">
+					<a href="#none"><span class="txt-num">06</span><span
+						class="txt-1">전라 남도 · 보성 여행</span></a>
+				</div>
+
+				<span class="dot-bar"><span>&npsp;</span></span>
+			</div>
+			<div class="btn-wrap">
+				<a href="#none" class="btn-stop show" title="자동재생정지">자동재생정지</a><a
+					href="#none" class="btn-play" title="자동재생시작">자동재생시작</a>
+			</div>
+		</div>
+		<div id="main_include"></div>
+	</div>
+	<!-- //skipCt -->
+
+	<div id="COMM_AREA_LOADING" style="display:none;">
+		<div style="position:fixed;top:50%;left:50%;margin:-25px 0 0 -25px;z-index:9999;"><img src="/static/images/bl/bl_loading.gif" alt="로딩" style="width:50px;height:50px;"></div>
+		<div style="background:#000;opacity: 0.3;-ms-filter:alpha(opacity=30);filter:alpha(opacity=30);position:fixed;top:0;height:100%;width:100%;z-index:9998;"></div>
+	</div>
+	<form id="frmGlobalSearch" name="frmGlobalSearch" method="get">
+		<input type="hidden" id="globalKeyword" name="keyWord" value="" />
+	</form>
+	<script type="text/javascript">
+		var GLOBAL_SESSION_ID	= "anonymousUser";
+		var GLOBAL_CSRF_NAME	= "_csrf";
+		var GLOBAL_CSRF_VALUE	= "ed15bb8d-da3b-467a-974a-21e3c9c57a31";
+		var GLOBAL_UPLOAD_URL	= "/upload/";
+		var GLOBAL_DOMAIN_HTTP	= "http://lonelyplanet.co.kr";
+		var GLOBAL_DOMAIN_HTTPS	= "https://lonelyplanet.co.kr";
+	</script>
+    <!-- 공통 script -->
+    <script src="/static/js/jquery-1.12.1.min.js"></script>
+    <script src="/static/js/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script src="//gwk.adlibr.com/script/web/smart/banner_ad.js"></script>
+	<script src="/static/js/front.min.js"></script>
+    <script src="/static/js/common.js?d=20181016"></script>
+    <!-- //공통 script -->
+    
+    <script type="text/javascript">
+    $(function(){
+        var mobileSns = new MobileSns($('#mobile-sns'), 'normal', 'none'); // new MobileSns(타겟, 스크롤 맨위로 올렸을때 이미지 체인지(normal 변경o, null 변경x), sns(none 숨기기, block 활성화));
+    });
+    </script>
+    <!-- //공통 script -->
+    <script src="/static/js/slick.min.js"></script>
+    <script src="/static/js/masonry-docs.min.js"></script>
+    <script type="text/javascript">
+    $(function(){
+        var mainSlick = new MainSlick($('#main-slick'));
+    });
+
+    $(document).ready(function(){
+        var totalBrowser = new TotalBrowser($(window), 1006, 1005); //스크롤바 보정 -17
+
+        // 메인 상단 배너
+        var $mainVisualBnr = $('#mainVisualBnr');
+        var mainVisualBnrTime = 5000; //롤링 시간 3초
+        var mainVisualBnrAuto = 1; //play stop 체크
+
+        $mainVisualBnr.slick({
+            pauseOnFocus: false,
+            pauseOnHover: false,
+            autoplay: true,
+            autoplaySpeed: mainVisualBnrTime,
+            arrows: false,
+            dots: false,
+            //infinite: false,
+            draggable: false,
+            fade: true,
+            speed: 1000,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            customPaging: function(slider, i) {
+                return '<a href="#none">'+ (i + 1) +'번 슬라이드 버튼</a>';
+            },
+            prevArrow: '<a href="#none" class="slick-prev">이전</a>',
+            nextArrow: '<a href="#none" class="slick-next">다음</a>',
+            responsive: [
+                {   
+                    //모바일
+                    breakpoint: 1023,
+                    settings: {
+                        arrows: false,
+                        dots: true,
+                        draggable: true,
+                    }
+                }
+            ]
+        });
+
+        // 움직이는 bar
+        var $boxMainVisualBnr = $('.box-mainVisualBnr');
+        var mainDotListWidth = $boxMainVisualBnr.find('.dot-wrap .dot-list').eq(0).width();
+        var mainDotListNum = $boxMainVisualBnr.find('.dot-wrap .dot-list').length;
+        var mainDotListNow = $mainVisualBnr.slick('slickCurrentSlide');
+
+        $boxMainVisualBnr.find('.dot-wrap .dot-list').css({'width': (100 / mainDotListNum) + '%'});
+        $boxMainVisualBnr.find('.dot-wrap .dot-bar').css({'width': mainDotListWidth + 'px'});
+
+        $mainVisualBnr.on('beforeChange', function(event, slick, currentSlide, nextSlide){
+            mainDotListNow = nextSlide;
+            $mainVisualBnr.find('.slide-wrap').removeClass('motion');
+            $mainVisualBnr.find('.slide-wrap:not(.slick-cloned)').eq(nextSlide).addClass('motion');
+
+            // 움직이는 bar
+            $boxMainVisualBnr.find('.dot-wrap .dot-bar > span').css({'transition': 'none'});
+            $boxMainVisualBnr.find('.dot-wrap .dot-bar > span').removeClass('on');
+            $boxMainVisualBnr.find('.dot-wrap .dot-bar').css({'left':(nextSlide * mainDotListWidth) + 'px'});         
+            setTimeout(function(){
+                $boxMainVisualBnr.find('.dot-wrap .dot-bar > span').css({'transition': 'All ' + mainVisualBnrTime / 1000 + 's ease'});
+                $boxMainVisualBnr.find('.dot-wrap .dot-bar > span').addClass('on');
+            }, 20);
+
+            // 동영상 처리
+            if (stateBrowser == 'pc') {
+                if ($mainVisualBnr.find('.slick-slide:not(.slick-cloned)').eq(nextSlide).find('.video-1').length > 0) {
+                    var totalTime = $mainVisualBnr.find('.slick-slide:not(.slick-cloned)').eq(nextSlide).find('.video-1').attr('data-video-time');
+
+                    $mainVisualBnr.slick('slickPause');
+
+                    $mainVisualBnr.find('.slick-slide:not(.slick-cloned)').eq(nextSlide).find('.video-1').get(0).ontimeupdate = function(){
+                        if (this.currentTime >=  (totalTime / 1000)) {
+                            if (mainVisualBnrAuto == 1) {
+                                $mainVisualBnr.slick('slickNext');
+                            };
+                        };
+                    }
+                    //움직이는 bar 
+                    setTimeout(function(){
+                        $boxMainVisualBnr.find('.dot-wrap .dot-bar > span').css({'transition': 'All ' + totalTime / 1000 + 's ease'});
+                    }, 20); 
+
+                }else{
+                    if (mainVisualBnrAuto == 1) {
+                        $mainVisualBnr.slick('slickPlay');
+                    };
+                };
+                $mainVisualBnr.find('.slick-slide').find('.video-1').each(function(){
+                    $(this).get(0).pause();
+                });
+                if ($mainVisualBnr.find('.slick-slide:not(.slick-cloned)').eq(nextSlide).find('.video-1').length > 0) {
+                    setTimeout(function(){
+                        $mainVisualBnr.find('.slick-slide:not(.slick-cloned)').eq(nextSlide).find('.video-1').get(0).currentTime = 0;
+                        $mainVisualBnr.find('.slick-slide:not(.slick-cloned)').eq(nextSlide).find('.video-1').get(0).play();
+                    }, 20); 
+                };
+            };
+            // //동영상 처리
+        });
+
+        // 리스트버튼
+        $boxMainVisualBnr.find('.dot-wrap .dot-list > a').each(function(index){
+            $(this).on('click',function(e){
+                $mainVisualBnr.slick('slickGoTo', index);
+                $mainVisualBnr.find('.slick-slide:not(.slick-cloned)').eq(mainDotListNow).focus();
+                e.preventDefault();
+            });
+        });
+        $mainVisualBnr.find('.slick-dots > li > a').on('click',function(e){
+            e.preventDefault();
+        });
+
+        // play stop 버튼
+        $boxMainVisualBnr.find('.btn-stop').click(function(e){
+            $(this).removeClass('show');
+            $boxMainVisualBnr.find('.btn-play').addClass('show');
+            $mainVisualBnr.slick('slickPause');
+            mainVisualBnrAuto = 0;
+            e.preventDefault();
+        });
+        $boxMainVisualBnr.find('.btn-play').click(function(e){
+            $(this).removeClass('show');
+            $boxMainVisualBnr.find('.btn-stop').addClass('show');
+            $mainVisualBnr.slick('slickPlay');
+            mainVisualBnrAuto = 1;
+            e.preventDefault();
+        });
+        $boxMainVisualBnr.on('mouseleave',function(){
+            if (mainVisualBnrAuto == 0) {
+                $mainVisualBnr.slick('slickPause');
+            };
+        });
+
+        // 분기시 초기화
+        $mainVisualBnr.on('breakpoint',function(){
+            mainVisualBnrFull();
+            $mainVisualBnr.find('.slide-wrap').removeClass('motion');
+            setTimeout(function(){
+                $mainVisualBnr.find('.slide-wrap.slick-current').addClass('motion'); 
+            }, 20);
+            $boxMainVisualBnr.find('.dot-wrap .dot-bar > span').css({'transition': 'none'});
+            $boxMainVisualBnr.find('.dot-wrap .dot-bar > span').removeClass('on');
+            setTimeout(function(){
+                $boxMainVisualBnr.find('.dot-wrap .dot-bar > span').css({'transition': 'All ' + mainVisualBnrTime / 1000 + 's ease'});
+                $boxMainVisualBnr.find('.dot-wrap .dot-bar > span').addClass('on');
+            }, 20);
+
+            if (mainVisualBnrAuto == 0) {
+                $mainVisualBnr.slick('slickPause');
+            };
+
+            //동영상 처리
+            if (stateBrowser == 'pc') {
+                if ($mainVisualBnr.find('.slick-slide.slick-current').find('.video-1').length > 0) {
+                    $mainVisualBnr.slick('slickPause');
+                    if ($mainVisualBnr.find('.slick-slide.slick-current').find('.video-1').get(0).currentTime > 0) {
+                        $mainVisualBnr.find('.slick-slide.slick-current').find('.video-1').get(0).currentTime = 0;
+                    };
+                    $mainVisualBnr.find('.slick-slide.slick-current').find('.video-1').get(0).play();
+
+                    var totalTime = $mainVisualBnr.find('.slick-slide.slick-current').find('.video-1').attr('data-video-time');
+                    $mainVisualBnr.find('.slick-slide.slick-current').find('.video-1').get(0).ontimeupdate = function(){
+                        if (this.currentTime >=  (totalTime / 1000)) {
+                            if (mainVisualBnrAuto == 1) {
+                                $mainVisualBnr.slick('slickNext');
+                            };
+                        };
+                    }
+                    setTimeout(function(){
+                        $boxMainVisualBnr.find('.dot-wrap .dot-bar > span').css({'transition': 'All ' + totalTime / 1000 + 's ease'});
+                    }, 20);
+                };
+            };
+            // //동영상 처리
+        });
+
+        $(window).on('load resize',function(){
+            mainVisualBnrFull();
+
+            if (stateBrowser == 'pc') {
+                //움직이는 bar
+                mainDotListWidth = $boxMainVisualBnr.find('.dot-wrap .dot-list').eq(0).width();
+                mainDotListNow = $mainVisualBnr.slick('slickCurrentSlide');
+                $boxMainVisualBnr.find('.dot-wrap .dot-bar').css({'left':(mainDotListNow * mainDotListWidth) + 'px'});
+                $boxMainVisualBnr.find('.dot-wrap .dot-bar').css({'width': mainDotListWidth + 'px'});
+            };
+        });
+
+        // 동영상 처리
+        var videoCopy= 0;
+        $(window).on('load resize',function(){
+            videoActive();
+        });
+
+        function videoActive(){
+            if (stateBrowser == 'pc') {
+                if (videoCopy == 0) {
+                    if (videoHtml.length > 0 && videoHtml != '') {
+                        $mainVisualBnr.find('.slick-slide:not(.slick-cloned)').find('[data-video-index]').each(function(index){
+                            var arrayNum = $(this).attr('data-video-index');
+                            $(this).prepend(videoHtml[arrayNum]);
+                        });
+                    };
+
+                    if ($mainVisualBnr.find('.slick-slide.slick-current').find('.video-1').length > 0) {
+                        $mainVisualBnr.slick('slickPause');
+                        if ($mainVisualBnr.find('.slick-slide.slick-current').find('.video-1').get(0).currentTime > 0) {
+                            $mainVisualBnr.find('.slick-slide.slick-current').find('.video-1').get(0).currentTime = 0;
+                        };
+                        $mainVisualBnr.find('.slick-slide.slick-current').find('.video-1').get(0).play();
+
+                        var totalTime = $mainVisualBnr.find('.slick-slide.slick-current').find('.video-1').attr('data-video-time');
+
+                        $mainVisualBnr.find('.slick-slide.slick-current').find('.video-1').get(0).ontimeupdate = function(){
+                            if (this.currentTime >=  (totalTime / 1000)) {
+                                if (mainVisualBnrAuto == 1) {
+                                    $mainVisualBnr.slick('slickNext');
+                                };
+                            };
+                        }
+                    }
+                    videoCopy = 1;
+                };
+            }else{
+                $mainVisualBnr.find('.video-1').each(function(){
+                    $(this).remove();
+                });
+                videoCopy = 0;
+                if (mainVisualBnrAuto == 1) {
+                    $mainVisualBnr.slick('slickPlay');
+                };
+            };
+        }
+        // //동영상 처리
+
+        // 브라우저 꽉차게
+        function mainVisualBnrFull(){
+            var wH = $(window).height();
+            var $ggAd = $('.box-ggAd');
+            var $mainVisualBnrImage = $('#mainVisualBnr .slide-wrap');
+
+            if (stateBrowser == 'mobile') {
+                // 모바일 최소높이
+                $mainVisualBnrImage.css({'height': wH + 'px','min-height':'550px'});
+            }else{
+                if ($ggAd.length > 0 && $ggAd.css('display') != 'none') {
+                    var adH = $ggAd.eq(0).outerHeight(true);
+                    //pc 상단 배너있을경우 높이와 최소높이
+                    $mainVisualBnrImage.css({'height': wH - adH + 'px','min-height':'700px'});
+                }else{
+                    //pc 최소높이
+                    $mainVisualBnrImage.css({'height': wH + 'px','min-height':'700px'});
+                };
+            };
+        }
+        
+        // 모션 시작
+        $(window).on('load',function(){
+            if ($mainVisualBnr.find('.slick-slide:not(.slick-cloned)').eq(0).find('.video-1').length > 0) {
+                var totalTime = $mainVisualBnr.find('.slick-slide:not(.slick-cloned)').eq(0).find('.video-1').attr('data-video-time');
+
+                $mainVisualBnr.slick('slickPause');
+
+                $mainVisualBnr.find('.slick-slide:not(.slick-cloned)').eq(0).find('.video-1').get(0).ontimeupdate = function(){
+                    if (this.currentTime >=  (totalTime / 1000)) {
+                        if (mainVisualBnrAuto == 1) {
+                            $mainVisualBnr.slick('slickNext');
+                        };
+                    };
+                }
+                //움직이는 bar 
+                setTimeout(function(){
+                    $boxMainVisualBnr.find('.dot-wrap .dot-bar > span').css({'transition': 'All ' + totalTime / 1000 + 's ease'});
+                }, 20); 
+
+            }else{
+                if (mainVisualBnrAuto == 1) {
+                    $mainVisualBnr.slick('slickPlay');
+                };
+                //움직이는 bar 
+                setTimeout(function(){
+                    $boxMainVisualBnr.find('.dot-wrap .dot-bar > span').css({'transition': 'All ' + mainVisualBnrTime / 1000 + 's ease'});
+                }, 20); 
+            };
+            // 현재 배너 모션 시작
+            $mainVisualBnr.find('.slick-slide.slick-current').addClass('motion');
+            // 움직이는 bar
+            setTimeout(function(){
+                $boxMainVisualBnr.find('.dot-wrap .dot-bar > span').addClass('on');
+            }, 20); 
+            
+        });
+        // // 모션 시작
+        // // 메인 상단 배너
+    });
+
+    // main-slick
+    function MainSlick(select){
+        this.init(select);
+        this.at();
+    }
+
+    MainSlick.prototype.init = function(select){
+        var state = null,
+            cnt = null;
+
+        this.$mainSlick = select;
+    }
+
+    MainSlick.prototype.at = function(){
+        var tg = this;
+
+        tg.$mainSlick.slick({
+            dots: true, // pc
+            infinite: true,
+            slidesToShow: 2,
+            slidesToScroll: 2,
+            arrows: false,
+            responsive: [
+                {
+                    breakpoint: 1023, // mobile
+                    settings: {
+                        infinite: true,
+                        slidesToScroll: 1,
+                        variableWidth: true,
+                        arrows: false,
+                        dots: false
+                    }
+                }
+            ]
+        });
+    }
+
+    // box-travelEx
+    function BoxTravelEx(select){
+        this.init(select);
+        this.ac();
+    }
+
+    BoxTravelEx.prototype.init = function(select){
+        this.$boxTravelEx = select;
+    }
+
+    BoxTravelEx.prototype.ac = function(){
+        var tg = this;
+
+        tg.$boxTravelEx.find('.one-time').slick({
+            dots: true,
+            infinite: true,
+            speed: 300,
+            slidesToShow: 1,
+            adaptiveHeight: true,
+            arrows: false
+        });
+    }
+
+    $(document).ready(function(){
+        var scTgSt = true;
+
+        $(window).scroll(function(){
+            if( scTgSt ){
+                $("#main_include").load('/mainLoad', function(){
+                    var mobileSns = new MobileSns($('#mobile-sns'), 'normal', 'none');
+                    var boxTravelEx = new BoxTravelEx($('#box-travelEx'));
+
+                    // 메인 이벤트 배너
+                    var $boxMainEventBnr = $('.box-mainEventBnr');
+                    var $mainEventBnr = $('#mainEventBnr');
+                    var mainEventBnrNum = $mainEventBnr.find('.slide-wrap').length;
+                    var mainEventBnrHtml = $mainEventBnr.html();
+
+                    // 배너 갯수 작을때 좌우 공백체워줌
+                    while(1){
+                        if ($mainEventBnr.find('.slide-wrap').length >= 5) {
+                            break;
+                        };
+                        $mainEventBnr.append(mainEventBnrHtml);
+                    }
+
+                    $mainEventBnr.slick({
+                        slidesToShow: $mainEventBnr.find('.slide-wrap').length - 1,
+                        // slidesToScroll: 1,
+                        infinite: true,
+                        dots: false,
+                        arrows: true,
+                        speed: 400,
+                        // autoplay:true,
+                        // autoplaySpeed:3000,
+                        centerMode: true,
+                        centerPadding: '0px',
+                        variableWidth: true,
+                        prevArrow: '<a href="#none" class="slick-prev">이전</a>',
+                        nextArrow: '<a href="#none" class="slick-next">다음</a>',
+                        touchMove: false,
+                        draggable: false,
+                        // focusOnSelect: true,
+                        responsive: [
+                            {   
+                                //모바일
+                                breakpoint: 1023,
+                                settings: {
+                                    arrows: false,
+                                    // dots: true,
+                                    draggable: true,
+                                    centerMode: false,
+                                }
+                            }
+                        ]
+                    });
+
+                    // 스크롤시 나오는 모션
+                    $(window).on('load scroll',function(){
+                        if (stateBrowser == 'pc') {
+                            if (!$boxMainEventBnr.hasClass('show')) {
+                                var psiGallery = $boxMainEventBnr.offset().top;
+                                var wHeight = $(this).outerHeight(true);
+                                if (psiGallery < $(this).scrollTop() + wHeight ) {
+                                    // 갤러리 좌측 여백 조정
+                                    var wW = $(this).outerWidth(true);
+                                    var mainEventBnrWidth = $mainEventBnr.find('.slide-wrap').eq(0).outerWidth(true);
+                                    calPx = mainEventBnrWidth - (((wW / 2) - (mainEventBnrWidth / 2)) % mainEventBnrWidth);
+                                    $mainEventBnr.find('.slick-list').css({'margin-left' : - calPx + 'px','padding-left' : calPx + 'px'});
+                                    $mainEventBnr.slick('slickSetOption', 'centerPadding', '0px 0px 0px ' + calPx + 'px', true);
+                                    // 모션 시작
+                                    $boxMainEventBnr.addClass('show');
+                                };
+                            };
+                        };              
+                    });
+
+                    // 마우스 위치 체크 적용
+                    mousePosiCheck($boxMainEventBnr);
+
+                    // 마우스 위치 체크
+                    function mousePosiCheck(tg){
+                        //좌 .mouseLeft 추가
+                        //우 .mouseRight 추가
+                        //상 .mouseTop 추가
+                        //하 .mouseBottom 추가
+
+                        var boxW, boxH, boxTop, boxLeft, boxRight, boxBottom, mouseX, mouseY;
+
+                        tg.on('mouseover mousemove',function(e){
+                            boxW = $(this).width();
+                            boxH = $(this).height();
+                            boxTop = $(this).offset().top;
+                            boxLeft = $(this).offset().left;
+                            boxRight = boxLeft + boxW;
+                            boxBottom = boxTop + boxH;
+                            mouseX = e.pageX;
+                                mouseY = e.pageY; 
+
+                            if (mouseX - boxLeft < ((boxRight - boxLeft) / 2)) {
+                                //left
+                                $(this).addClass('mouseLeft');
+                                $(this).removeClass('mouseRight');
+                            }else{
+                                //right
+                                $(this).addClass('mouseRight');
+                                $(this).removeClass('mouseLeft');
+                            };
+                            if (mouseY < boxTop + (boxH / 2)) {
+                                //top
+                                $(this).addClass('mouseTop');
+                                $(this).removeClass('mouseBottom');
+                            }else{
+                                //bottom
+                                $(this).addClass('mouseBottom');
+                                $(this).removeClass('mouseTop');
+                            };
+                        });
+
+                        tg.on('mouseleave',function(){
+                            //초기화
+                            $(this).removeClass('mouseLeft mouseRight mouseTop mouseBottom');
+                        });
+
+                    }
+                    // //메인 이벤트 배너
+                    
+                    // 메인 북 배너
+                    var $boxMainBookBnr = $('.box-mainBookBnr');
+                    var $mainBookBnr = $('#mainBookBnr');
+
+                    $mainBookBnr.slick({
+                        autoplay: true,
+                        autoplaySpeed: 5000,
+                        dots: true,
+                        draggable: false,
+                        speed: 400,
+                        customPaging: function(slider, i) {
+                            return '<a href="#none">'+ (i + 1) +'번 슬라이드 버튼</a>';
+                        },
+                        prevArrow: '<a href="#none" class="slick-prev">이전</a>',
+                        nextArrow: '<a href="#none" class="slick-next">다음</a>',
+                        responsive: [
+                            {   
+                                //모바일
+                                breakpoint: 1023,
+                                settings: {
+                                    arrows: false,
+                                    draggable: true
+                                }
+                            }
+                        ]
+                    });
+
+                    // 리스트 버튼
+                    $boxMainBookBnr.find('.list-wrap > li > a').each(function(index){
+                        $(this).attr('data-index', index);
+                    });
+                    $boxMainBookBnr.find('.list-wrap > li > a').on('click',function(e){
+                        $mainBookBnr.slick('slickGoTo', $(this).attr('data-index'));
+                        e.preventDefault();
+                    });
+                    $mainBookBnr.on('beforeChange', function(event, slick, currentSlide, nextSlide){
+                        $boxMainBookBnr.find('.list-wrap > li > a').removeClass('on');
+                        $boxMainBookBnr.find('.list-wrap > li').eq(nextSlide).find('> a').addClass('on');
+                    });
+                    $mainBookBnr.find('.slick-dots > li > a').on('click',function(e){
+                        e.preventDefault();
+                    });
+
+                    // play stop 버튼
+                    var mainBookBnrAuto = 1;
+                    $boxMainBookBnr.find('.btn-stop').click(function(e){
+                        $(this).removeClass('show');
+                        $boxMainBookBnr.find('.btn-play').addClass('show');
+                        $mainBookBnr.slick('slickPause');
+                        mainBookBnrAuto = 0;
+                        e.preventDefault();
+                    });
+                    $boxMainBookBnr.find('.btn-play').click(function(e){
+                        $(this).removeClass('show');
+                        $boxMainBookBnr.find('.btn-stop').addClass('show');
+                        $mainBookBnr.slick('slickPlay');
+                        mainBookBnrAuto = 1;
+                        e.preventDefault();
+                    });
+                    $boxMainBookBnr.on('mouseleave',function(){
+                        if (mainBookBnrAuto == 0) {
+                            $mainBookBnr.slick('slickPause');
+                        };
+                    });
+                    
+                    $(window).on('load resize',function(){
+                        // play stop 버튼 위치
+                        var listTotalWidth = 0;
+                        var btnPosiPx  = 16; // dot끝에서 버튼 위치 left값
+
+                        for (var i = 0; i < $mainBookBnr.find('.slick-dots > li').length; i++) {
+                            listTotalWidth += $mainBookBnr.find('.slick-dots > li').eq(i).outerWidth(true);
+                        };
+                        $boxMainBookBnr.find('.btn-wrap').css({'margin-left': (listTotalWidth / 2) + btnPosiPx + 'px'});
+                    });
+
+                    //분기시 초기화
+                    $mainBookBnr.on('breakpoint',function(){
+                        if (mainBookBnrAuto == 0) {
+                            $mainBookBnr.slick('slickPause');
+                        };
+                    });
+                    // //메인 북 배너
+
+                    // grid
+                    var totalBrowser = new TotalBrowser($(window), 1023, 1022);
+
+                    var grid = document.querySelector('#grid'),
+                        msnry,
+                        mnIng = 0;
+
+                    function mnDom(){
+                        msnry = new Masonry( grid, {
+                            itemSelector: '#grid .grid-item',
+                            columnWidth: '#grid .grid-sizer',
+							percentPosition: true,
+							transitionDuration: 0
+                        });
+
+                        imagesLoaded( grid ).on( 'progress', function() {
+                            msnry.layout();
+                        });
+                    }
+
+                    setTimeout(function(){
+                        mnDom();
+                    }, 1000);
+
+                    if( (/msie/i).test(navigator.userAgent) || (/Trident/i).test(navigator.userAgent) ){
+                        mnDom();
+                    }
+                    else{
+                        $(window).on('resize load', function(){
+							clearInterval(mnDom);
+							setInterval(mnDom, 1000);
+                        });
+                    }
+
+                    if( $(window).width() <= 1022 ){
+                        var gridItemCnt = 0;
+
+                        $('#grid .grid-item').each(function(){
+                            ++gridItemCnt;
+
+                            if( gridItemCnt > 3 ){
+                                $('#grid .grid-item:eq(' + gridItemCnt + ')').hide();
+                            }
+                        });
+                    }
+
+                    $(window).trigger('resize');
+                });
+                
+                scTgSt = !scTgSt
+            }
+        });
+
+        
+    	$('.box-layer .btn-close').click(function(){
+        	if($("#cjkLayerMain").is(':checked')){
+        		setCookie('cntLayerMain', 'Y', 1);
+        	}
+    		$('.box-layer').hide();
+    	});
+    });
+    function boxPopupMainOpen(){
+    	$('.box-layer').show();
+    	$('.box-layer').focus();
+    }
+
+    </script>
+
+<form method="post" id="frmPageCommon" name="frmPageCommon" >
+<input type="hidden" id="snsTitle" name="snsTitle" value="메인 - 론리플래닛 코리아" />
+<input type="hidden" id="snsSummary" name="snsSummary" value="메인" />
+<input type="hidden" id="snsUrl" name="snsUrl" value="https://lonelyplanet.co.kr/main" />
+</form>
+<script type="text/javascript">
+//<![CDATA[
+	
+	$(document).ready(function(){
+		//blockRightClick();
+	});
+
+//]]>
+</script>
+<script type="text/javascript" async defer data-pin-no-hover src="//assets.pinterest.com/js/pinit.js"></script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-18548563-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
 </body>
 </html>
