@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+	<bean id="loggingAdvice" class="kr.co.tripweaver.aop.LoggingAdvice"/>
+	
+	
+	<!-- pointCut : advice가 적용될 상황(특정 패키지, 클래스명)  -->
+	<aop:config>
+		
+	<!--<aop:pointcut id="servicePointcut" expression="execution(* exam.*Service..*(..))"/>
+		<aop:aspect ref="loggingAdvice">
+			<aop:before method="beforeAdvice" pointcut-ref="servicePointcut"/>
+		</aop:aspect>
+		<aop:aspect ref="loggingAdvice">
+			<aop:after method="afterAdivce" pointcut-ref="servicePointcut"/>
+			<aop:around method="aroundAdvice" pointcut-ref="servicePointcut"/>
+		</aop:aspect>-->
+		 
+	</aop:config>
+</beans>

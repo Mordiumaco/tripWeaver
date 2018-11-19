@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+	
+	<mvc:annotation-driven/>
+	
+	<!-- 스프링에서 처리 불가능한 리소스를 was의 default servlet으로 전달 -->
+	<mvc:default-servlet-handler/>
+	
+	
+	<context:annotation-config/>
+	
+	<context:component-scan base-package="kr.co.tripweaver">
+	</context:component-scan>
+	
+	
+	<!-- view resolver -->
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="0"/>	
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="2"/>
+		<property name="prefix" value="/WEB-INF/view/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	
+	<!-- json 처리용 view -->
+	<!-- <bean id="loginCheck" class="exam.util.error.LoginCheck"/>
+	<bean id="loginRight" class="exam.util.error.LoginRight"/>
+	<bean id="dbError" class="exam.util.error.DBError"/> -->
+	
+	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+	<!-- <bean id="timesTablesView" class="kr.or.ddit.mvc.view.TimesTablesView"/> -->
+	
+	
+	<!-- hello : /WEB-INF/view/hello.jsp -->
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="26214400"></property>
+	</bean>	
+	
+
+	
+	<!-- type -->
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean"></bean>
+	
+<!-- 	
+	messageSource
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>classpath:kr/or/ddit/config/msg/error</value>
+				<value>classpath:kr/or/ddit/config/msg/msg</value>
+			</list>
+		</property>
+	</bean>
+	 -->
+	
+	
+	
+</beans>
