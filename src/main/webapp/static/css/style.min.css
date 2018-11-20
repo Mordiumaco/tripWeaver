@@ -32239,7 +32239,7 @@ _:-ms-input-placeholder, :root #box-galleryLayer #gallery-slick .img {
 
 #header div { float: left; display: inline-block; border-top: 1px solid #ddd; width: 42%; height: 1px; margin-top: 50px;}
 .logo { float:left; width:16% !important;  height:120px;  text-align: center; border-top: 0 !important; margin-top: 0 !important;}
-.mian_go_btn { margin-top: 40px; color: #fff; border: 1px solid #ddd; padding: 5px;}
+.mian_go_btn { margin-top: 40px; color: #fff; border: 1px solid #ddd; padding: 10px; display: inline-block;}
 
 
 
