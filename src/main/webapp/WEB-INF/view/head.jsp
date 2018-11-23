@@ -4,10 +4,12 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi">
-<%@include file="lib/lib.jsp" %>
-
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico" />
+
+<title>TripWeaver</title>
+
+<%@include file="lib/lib.jsp" %>
 </head>
 <body>
 
@@ -24,7 +26,9 @@
 			</ul>
 		</div>
 		<div class="head_con head_mid">
-			<img src="/img/logo3.png"  >
+			<a href="/main/main">
+				<img src="/img/logo3.png"  >
+			</a>
 		</div>
 		<div class="head_con head_right">
 			<ul>

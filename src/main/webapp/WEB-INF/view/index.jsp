@@ -1,7 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%@include file="head.jsp" %>
+
+<script type="text/javascript">
+$(window).load(function() {
+  $('.flexslider').flexslider({
+    animation: "slide"
+  });
+});
+
+</script>
+
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a5f2e82aa9bad5f393255b6d8c3200cb"></script>
 <div class="filter_rap">
 	<div class="filter">
@@ -213,6 +222,35 @@
 	</div>
 	
 
+</div>
+
+
+<div class="main_con_02">
+	<div class="flexslider">
+	  	<ul class="slides">
+		    <li>
+		    	<a href="">
+			      	<div><img src="slide2.jpg" /></div>
+			      	<div>
+			      		<ul>
+			      			<li>Post Card</li>
+			      			<li>엄청나게 좋은 여행 잇힝</li>
+			      			<li>내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄</li>
+			      		</ul>
+			      	</div>
+		      	</a>
+		    </li>
+		    <li>
+		      <img src="slide2.jpg" />
+		    </li>
+		    <li>
+		      <img src="slide3.jpg" />
+		    </li>
+		    <li>
+		      <img src="slide4.jpg" />
+		    </li>
+		</ul>
+	</div>
 </div>
 
 
