@@ -9,6 +9,8 @@
 
 <title>TripWeaver</title>
 
+
+
 <%@include file="lib/lib.jsp" %>
 </head>
 <body>
@@ -31,13 +33,38 @@
 			</a>
 		</div>
 		<div class="head_con head_right">
-			<ul>
-				<li><a href="" >PostCard</a></li>
-				<li><a href="" >동행</a></li>
+			<ul >
+				<li ><a href="" >PostCard</a></li>
+				<li id="tnb"><a href="" >동행</a></li>
 				<li><a href="" >베스트</a></li>
 				<li><a href="" >추천컨텐츠</a></li>
 				<li><a href="" >고객센터</a></li>
 			</ul>
+			
+			<div id="sub_menu">
+		        <div class="sub_menu_wrap">
+		            <ul>
+		                <li><a href="">가이드 찾기</a></li>
+		                <li><a href="">파트너 찾기</a></li>
+		            </ul> 
+		        </div>
+    		</div>
+    		
 		</div>
+		
+		
 	</div>
 </div>
+
+
+<script type="text/javascript">
+
+$('#sub_menu').hide();
+$('#tnb').mouseover(function(){
+        $('#sub_menu').slideDown(300);
+});
+$('#sub_menu').mouseleave(function(){
+        $('#sub_menu').slideUp(300);
+});
+
+</script>

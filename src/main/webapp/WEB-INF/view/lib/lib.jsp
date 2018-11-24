@@ -3,6 +3,7 @@
 
 <link rel="stylesheet" href="/css/default.css">
 <link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/js/font-awesome/css/font-awesome.min.css">
 
 <script defer src="/js/jquery.flexslider.js"></script>
-<script src="/js/jquery.jquery-3.3.1.min.js"></script>
+<script src="/js/jquery-3.3.1.min.js"></script>
