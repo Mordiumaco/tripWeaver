@@ -54,7 +54,7 @@ input[type=text], input[type=password], input[type=submit], input[type=image], b
 .head_mid {width: 20%; text-align: center;}
 .head_mid img { height: 75px; margin-top: -5px;}
 
-.head_right {width: 40%; height: 50px; font-size: 1.4em;}
+.head_right {width: 40%; height: 50px; font-size: 1.2em;}
 
 .head_left li { float: left; text-align: center; margin-right: 40px;}
 .head_right li { float: left; width: 20%; text-align: center;}
@@ -63,18 +63,124 @@ input[type=text], input[type=password], input[type=submit], input[type=image], b
 /*==================  헤더 끝  ============================*/
 
 /*==================  헤더 메뉴 시작  ============================*/
-#tnb {   
-    list-style: none;
-    zoom: 1;
-    z-index: 9999;
+/* 메뉴 css*/
+
+.oe_menu_wrap { width:476px; height:80px; line-height:80px; background:#fff; z-index: 9999; }
+
+.oe_overlay{
+	background:#fff;
+	opacity:0;
+	position:fixed;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+}
+ul.oe_menu{
+	list-style:none;
+	position:relative;
+	margin:0 auto;
+	width:478px;
+	clear:both;
 }
 
-#sub_menu { width: 200px; z-index: 9999; background: #fff; position: absolute; top:75px; margin-left: -50px;}
-#sub_menu .sub_menu_wrap {width: 200px; margin: 0 auto;  box-sizing: border-box; height:300px; border: 1px solid #ccc;}
-#sub_menu .sub_menu_wrap ul { width: 200px;   height: 300px; text-align:center;}
-#sub_menu .sub_menu_wrap ul li { width: 100%; height: 40px; margin-top: 10px;}
-#sub_menu .sub_menu_wrap ul li a {font-size: 1em; color: #333; padding: 10px; border-bottom: 1px solid #ddd; display:block; width: 60%; height: 25px; margin: 0 auto; line-height: 25px;}
-#sub_menu .sub_menu_wrap ul li a:hover {color:#19674e; text-decoration:underline;}
+ul.oe_menu > li{
+	width:20%;
+	height:80px;
+	padding-bottom:2px;
+	float:left;
+	
+}
+
+ul.oe_menu > li > a{
+	display:block;
+	height:80px;
+	background-color:#fff;
+	color:#333;
+	text-decoration:none;
+	font-weight:bold;
+	font-size:1.2em;
+	text-align:center;
+	padding:10px 5px;
+}
+
+ul.oe_menu > li > a:hover,
+ul.oe_menu > li.selected > a{
+	background:#389e7d;
+	color:#fff;
+	opacity:1.0;
+	padding:10px 5px;
+}
+
+.oe_wrapper ul.hovered > li > a{
+	background:#fff;
+	text-shadow:0px 0px 1px #FFF;
+}
+
+
+ul.oe_menu div{
+	position:absolute;
+	top:100px;
+	margin-left:-45px;
+	background:#fff;
+	width:180px;
+	height:240px;
+	display:none;
+	box-shadow: 0px 2px 10px #aaa;
+}
+
+.tri {
+	border: .5rem solid transparent;
+    border-bottom-color: #fff;
+    content: "";
+    display: block !important;
+    height: 0 !important;
+    left: 50%;
+    margin-left: -.4rem !important;
+    position: absolute !important;
+    top: -1rem !important;
+    width: 0 !important;
+    background: none !important;
+    box-shadow: 0px 0px 0px transparent !important;
+}
+
+ul.oe_menu div ul {
+	width: 100%;	
+	margin-top: 20px;
+}
+
+ul.oe_menu div ul li {
+	font-size:1em;
+	width:100%;
+	margin-bottom: 5px;
+}
+
+ul.oe_menu div ul li a{
+	text-decoration:none;
+	color:#222;
+	padding:2px 2px 2px 4px;
+	margin:0 auto;
+	display:block;
+	height: 40px;
+	line-height: 40px;
+	width:80%;
+	font-weight: bold;
+	border-bottom: 1px solid #ccc;
+	
+}
+ul.oe_menu div ul.oe_full{
+	width:100%;
+}
+ul.oe_menu div ul li:hover{
+	background-color: rgba(100,100,100,0.1);
+}
+
+ul.oe_menu li ul{
+	list-style:none;
+	width: 100%;
+}
+
+
 
 /*==================  헤더 메뉴 끝  ============================*/
 
@@ -82,9 +188,9 @@ input[type=text], input[type=password], input[type=submit], input[type=image], b
 .filter_rap { width: 1190px; height: 60px; background:linear-gradient( 45deg, #389e7d, #a5cd95  );   margin: 0 auto 10px; position: relative; z-index: 9998;}
 .filter { width: 1162px; height: 32px;background: #fff; padding: 10px;  position: absolute; top:4px; left: 4px;   }
 .filter li { float: left; width: 15%;}
-.filter li:nth-child(6){ width: 25%; text-align: right;}
-.filter li:nth-child(6) input[type=text] { width:173px; border: 1px solid #aaa; height: 30px; padding-left: 10px; font-size: 1.4em;}
-.filter li:nth-child(6) input[type=submit] { 
+.filter li:nth-child(5){ width: 25%; text-align: right;}
+.filter li:nth-child(5) input[type=text] { width:173px; border: 1px solid #aaa; height: 30px; padding-left: 10px; font-size: 1.4em;}
+.filter li:nth-child(5) input[type=submit] { 
 	width:50px; 
 	height: 32px; 
 	border:1px solid #19674e; 

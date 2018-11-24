@@ -55,13 +55,11 @@ $(document).ready(function () {
 				</select>
 			</li>
 			<li>
-				<select>
-					<option>성별</option>
-				</select>
-			</li>
-			<li>
 				<input type="text" placeholder="지역을 적어주세요.">
 				<input type="submit"  value="검색"> 
+			</li>
+			<li>
+				<a href="">Essay 글쓰기</a>
 			</li>
 		</ul>
 	</div>
