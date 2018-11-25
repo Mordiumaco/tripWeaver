@@ -20,7 +20,7 @@
 		<div class="head_con head_left">
 			<ul>
 				<!--  이뿌!!!!! 시작-->
-				<li><a href="" >로그인</a></li>
+				<li><a href="/main/login" >로그인</a></li>
 				<li><a href="" >관리자</a></li>
 				<li><a href="" >회원가입</a></li>
 				<!--  이뿌!!!!!  끝-->

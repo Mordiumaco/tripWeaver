@@ -13,4 +13,19 @@ public class mainController {
 		return "index";
 	}
 	
+	@RequestMapping("/login")
+	public String loginView() {
+		return "login/login";
+	}
+	
+	@RequestMapping("/register")
+	public String registerView() {
+		return "login/register";
+	}
+	
+	@RequestMapping("/register_form")
+	public String register_formView() {
+		return "login/register_form";
+	}
+	
 }
