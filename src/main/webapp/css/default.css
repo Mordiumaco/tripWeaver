@@ -91,7 +91,7 @@ ul.oe_menu{
 
 ul.oe_menu > li{
 	width:20%;
-	height:80px;
+	height:100px;
 	padding-bottom:2px;
 	float:left;
 	
@@ -99,7 +99,7 @@ ul.oe_menu > li{
 
 ul.oe_menu > li > a{
 	display:block;
-	height:80px;
+	height:100px;
 	background-color:#fff;
 	color:#333;
 	text-decoration:none;
@@ -336,7 +336,7 @@ to {transform: translate(30px);}
 
 .RankingA {
 	width: 60% !important;
-	height: 120px;
+	height: 140px;
 	display: block;
 	margin: 0px auto 20px;
 	border: 1px solid #ddd;
