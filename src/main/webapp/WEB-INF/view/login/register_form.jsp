@@ -152,7 +152,7 @@
 
 		</div>
 		<div class="btn_confirm">
-			<a href="https://demo.sir.kr/gnuboard5" class="btn_cancel">취소</a> <input
+			<a href="/main/main" class="btn_cancel">취소</a> <input
 				type="submit" value="회원가입" id="btn_submit" class="btn_submit"
 				accesskey="s">
 		</div>
