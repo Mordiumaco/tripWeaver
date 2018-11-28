@@ -66,7 +66,7 @@ function imageview(id, w, h)
                         	<a href="">팝업관리</a>
                         	<a href="">투표관리</a>
                         	<a href="">이벤트관리</a>
-                        	<a href="">신고관리</a>
+                        	<a href="/main/declaration">신고관리</a>
                     </div>
                 </div>
             </li>
@@ -96,10 +96,10 @@ function imageview(id, w, h)
                 <div class="gnb_oparea_wr">
                     <div class="gnb_oparea">
                         <h3>통계</h3>
-                        	<a href="">접속자 통계</a>
-                        	<a href="">접속자 시간 통계</a>
-                        	<a href="">게시물 통계</a>
-                        	<a href="">해시태그 통계</a>
+                        	<a href="/main/contact">접속자 통계</a>
+                        	<a href="/main/contactTime">접속자 시간 통계</a>
+                        	<a href="/main/post">게시물 통계</a>
+                        	<a href="/main/hashTag">해시태그 통계</a>
                     </div>
                 </div>
             </li>

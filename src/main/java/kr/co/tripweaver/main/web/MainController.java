@@ -35,12 +35,22 @@ public class MainController {
 	
 	@RequestMapping("/member")
 	public String memberView() {
-		return "admin/member";
+		return "admin/membership/member";
 	}
 	
 	@RequestMapping("/create_board")
 	public String create_boardView() {
-		return "admin/create_board";
+		return "admin/board/create_board";
+	}
+	
+	@RequestMapping("/declaration")
+	public String declarationView() {
+		return "admin/setting/declaration";
+	}
+	
+	@RequestMapping("/contact")
+	public String contactView() {
+		return "admin/statistics/contact";
 	}
 
 }

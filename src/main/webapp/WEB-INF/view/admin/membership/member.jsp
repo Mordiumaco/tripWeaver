@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@include file="adminHead.jsp" %>
+<%@include file="../adminHead.jsp" %>
  
 <section>
 	<div class="container_wr">
@@ -182,4 +182,4 @@
 	
 </section>
  
-<%@include file="adminTail.jsp" %>
+<%@include file="../adminTail.jsp" %>
