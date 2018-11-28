@@ -86,7 +86,7 @@ function imageview(id, w, h)
                 <div class="gnb_oparea_wr">
                     <div class="gnb_oparea">
                         <h3>게시판관리</h3>
-                        	<a href="">게시판관리</a>
+                        	<a href="/main/create_board">게시판관리</a>
                     </div>
                 </div>
             </li>

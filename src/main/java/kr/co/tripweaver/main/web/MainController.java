@@ -27,5 +27,20 @@ public class MainController {
 	public String register_formView() {
 		return "login/register_form";
 	}
+	
+	@RequestMapping("/adminMain")
+	public String adminMainView() {
+		return "admin/adminMain";
+	}
+	
+	@RequestMapping("/member")
+	public String memberView() {
+		return "admin/member";
+	}
+	
+	@RequestMapping("/create_board")
+	public String create_boardView() {
+		return "admin/create_board";
+	}
 
 }
