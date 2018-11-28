@@ -40,32 +40,14 @@
             <span class="txt">네이버<i> 로그인</i></span>
         </a>
         
-                <script>
-            jQuery(function($){
-                $(".sns-wrap").on("click", "a.social_link", function(e){
-                    e.preventDefault();
-
-                    var pop_url = $(this).attr("href");
-                    var newWin = window.open(
-                        pop_url, 
-                        "social_sing_on", 
-                        "location=0,status=0,scrollbars=1,width=600,height=500"
-                    );
-
-                    if(!newWin || newWin.closed || typeof newWin.closed=='undefined')
-                         alert('브라우저에서 팝업이 차단되어 있습니다. 팝업 활성화 후 다시 시도해 주세요.');
-
-                    return false;
-                });
-            });
-        </script>
+         
         
     </div>
 </div>
     <aside id="login_info">
         <h2>회원로그인 안내</h2>
-        <div>
-            <a href="" target="_blank" id="login_password_lost">아이디 비밀번호 찾기</a>
+        <div class="sns-wrap">
+            <a href="/main/idPw_lost" target="_blank" id="login_password_lost" class="social_link">아이디 비밀번호 찾기</a>
             <a href="/main/register">회원 가입</a>
         </div>
     </aside>
@@ -90,6 +72,25 @@ function flogin_submit(f)
 }
 </script>
 
+<script>
+     jQuery(function($){
+         $(".sns-wrap").on("click", "a.social_link", function(e){
+             e.preventDefault();
+
+             var pop_url = $(this).attr("href");
+             var newWin = window.open(
+                 pop_url, 
+                 "social_sing_on", 
+                 "location=0,status=0,scrollbars=1,width=600,height=500"
+             );
+
+             if(!newWin || newWin.closed || typeof newWin.closed=='undefined')
+                  alert('브라우저에서 팝업이 차단되어 있습니다. 팝업 활성화 후 다시 시도해 주세요.');
+
+             return false;
+         });
+     });
+</script>
 
 </body>
 </html>

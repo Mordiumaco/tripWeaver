@@ -28,4 +28,19 @@ public class mainController {
 		return "login/register_form";
 	}
 	
+	@RequestMapping("/idPw_lost")
+	public String idPw_lostView() {
+		return "login/idPw_lost";
+	}
+	
+	@RequestMapping("/adminMain")
+	public String adminMainView() {
+		return "admin/adminMain";
+	}
+	
+	@RequestMapping("/member")
+	public String memberView() {
+		return "admin/member";
+	}
+	
 }
