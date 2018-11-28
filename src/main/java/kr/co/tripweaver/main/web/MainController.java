@@ -52,5 +52,26 @@ public class MainController {
 	public String contactView() {
 		return "admin/statistics/contact";
 	}
+	
+	@RequestMapping("/contactTime")
+	public String contactTimeView() {
+		return "admin/statistics/contactTime";
+	}
+	
+	@RequestMapping("/hashTag")
+	public String hashTagView() {
+		return "admin/statistics/hashTag";
+	}
+	
+	@RequestMapping("/adminPost")
+	public String adminPostView() {
+		return "admin/statistics/post";
+	}
+	
+	@RequestMapping("/codetable")
+	public String codetableView() {
+		return "admin/codetable/codetable";
+	}
+	
 
 }

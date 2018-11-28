@@ -98,7 +98,7 @@ function imageview(id, w, h)
                         <h3>통계</h3>
                         	<a href="/main/contact">접속자 통계</a>
                         	<a href="/main/contactTime">접속자 시간 통계</a>
-                        	<a href="/main/post">게시물 통계</a>
+                        	<a href="/main/adminPost">게시물 통계</a>
                         	<a href="/main/hashTag">해시태그 통계</a>
                     </div>
                 </div>
@@ -109,7 +109,7 @@ function imageview(id, w, h)
                 <div class="gnb_oparea_wr">
                     <div class="gnb_oparea">
                         <h3>필터생성</h3>
-                        	<a href="">코드테이블</a>
+                        	<a href="/main/codetable">코드테이블</a>
                     </div>
                 </div>
             </li>
