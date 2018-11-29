@@ -16,6 +16,13 @@
 </head>
 
 <body>
+
+${loginInfo.mem_name}
+${loginInfo.mem_age}
+${loginInfo.mem_email}
+${loginInfo.mem_gender}
+${loginInfo.mem_nick}
+
 <%--
     String clientId = "hAi60RWrlDCU1L3kMH90";//애플리케이션 클라이언트 아이디값";
     String clientSecret = "ZiJQLHBcOK";//애플리케이션 클라이언트 시크릿값";

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberSQL">
+	
+  <!-- 해당 이메일에 해당하는 회원이 존재하는지 확인 -->
+  <select id="selectMemberByEmail" parameterType="String" resultType="memberVo" >
+  	select * from member where mem_email = #{mem_email}
+  </select>
+	
+  <!-- Naver Member 에 대한 값을 DB에 넣어주는 일을 한다. -->
+  <insert id="insertNaverMember" parameterType="memberVo">
+  	insert into member(mem_email, mem_name, mem_nick, mem_age, mem_gender, mem_author) values(#{mem_email}, #{mem_name}, #{mem_nick}, #{mem_age}, #{mem_gender}, '1')
+  </insert>
+  
+  <!-- 해당 이메일에 해당하는 회원이 존재할 시 해당 회원에 대한 정보를 지운다.  -->
+  <delete id="eternalDeleteMemberByEmail" parameterType="String">
+  	delete from member where mem_email = #{mem_email}
+  </delete>
+  
+</mapper>

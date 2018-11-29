@@ -6,9 +6,11 @@
 	
  <typeAliases>
  	<typeAlias type="kr.co.tripweaver.user.model.UserTestVO" alias="userTestVo"/>
+ 	<typeAlias type="kr.co.tripweaver.member.model.MemberVO" alias="memberVo"/>
  </typeAliases>	
 	
   <mappers>
   	<mapper resource="kr/co/tripweaver/config/db/usertest.xml"/>
+  	<mapper resource="kr/co/tripweaver/config/db/member.xml"/>
   </mappers>
 </configuration>
