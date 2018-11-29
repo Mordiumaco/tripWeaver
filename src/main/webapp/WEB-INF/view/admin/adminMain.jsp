@@ -12,8 +12,7 @@
 	               신규 가입자  5건
 	    </p>
 	</div>
-
-
+	
 		<form name="fmemberlist" id="fmemberlist" action="" onsubmit="return fmemberlist_submit(this);" method="post">
 			<input type="hidden" name="sst" value="mb_datetime">
 			<input type="hidden" name="sod" value="desc">
@@ -50,7 +49,6 @@
 					        <th scope="col" rowspan="2" id="mb_list_cert"><a href="">휴대폰</a></th>
 					        <th scope="col" id="mb_list_open"><a href="">생년월일</a></th>
 					        <th scope="col" id="mb_list_mailr"><a href="">성별</a></th>
-
 					    </tr>
 				    </thead>
 				    
@@ -77,29 +75,24 @@
 					        <td headers="mb_list_auth" class="td_mbstat">
 					           	 남       
 					        </td>
-					      
-					
 					    </tr>
-				
 				  </tbody>
 				</table>
 			</div>
+		</form>
 			
 			<div class="btn_list03 btn_list">
 		        <a href="./member_list.php">회원 전체보기</a>
 		    </div>
-		
-			
-			
-			 <h2>신규 가이드 지원 5건 목록</h2>
+
+			<h2>신규 가이드 지원 5건 목록</h2>
     
     <div class="local_desc01 local_desc">
 	    <p>
 	               신규 가이드 지원  5건
 	    </p>
 	</div>
-
-
+	
 		<form name="fmemberlist" id="fmemberlist" action="" onsubmit="return fmemberlist_submit(this);" method="post">
 			<input type="hidden" name="sst" value="mb_datetime">
 			<input type="hidden" name="sod" value="desc">
@@ -136,7 +129,6 @@
 					        <th scope="col" rowspan="2" id="mb_list_cert"><a href="">휴대폰</a></th>
 					        <th scope="col" id="mb_list_open"><a href="">생년월일</a></th>
 					        <th scope="col" id="mb_list_mailr"><a href="">성별</a></th>
-
 					    </tr>
 				    </thead>
 				    
@@ -163,18 +155,16 @@
 					        <td headers="mb_list_auth" class="td_mbstat">
 					           	 남       
 					        </td>
-					      
-					
 					    </tr>
 				
 				  </tbody>
 				</table>
 			</div>
-    		<div class="btn_list03 btn_list">
-			     <a href="./member_list.php">가이드 지원 전체보기</a>
-			 </div>
-    
-    
+		</form>
+			
+   		<div class="btn_list03 btn_list">
+		     <a href="./member_list.php">가이드 지원 전체보기</a>
+		</div>
 </section>
  
 <%@include file="adminTail.jsp" %>

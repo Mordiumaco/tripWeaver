@@ -37,7 +37,7 @@
 
 		<div class="local_desc01 local_desc">
 		    <p>
-		        	회원자료 삭제 시 다른 회원이 기존 회원아이디를 사용하지 못하도록 회원아이디, 이름, 닉네임은 삭제하지 않고 영구 보관합니다.
+				회원자료 삭제 시 다른 회원이 기존 회원아이디를 사용하지 못하도록 회원아이디, 이름, 닉네임은 삭제하지 않고 영구 보관합니다.
 		    </p>
 		</div>
 
@@ -72,15 +72,29 @@
 					            <label for="chkall" class="sound_only">회원 전체</label>
 					            <input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
 					        </th>
-					        <th scope="col" id="mb_list_mailc"><a href="">이메일</a></th>
-					        <th scope="col" id="mb_list_id"><a href="">이름</a></th>
+					        <th scope="col" id="mb_list_mailc">
+					        	<a href="">이메일</a>
+					        </th>
+					        <th scope="col" id="mb_list_id">
+					        	<a href="">이름</a>
+					        </th>
 					        <th scope="col" id="mb_list_mobile">닉네임</th>
-					        <th scope="col" rowspan="2" id="mb_list_cert"><a href="">휴대폰</a></th>
-					        <th scope="col" id="mb_list_open"><a href="">생년월일</a></th>
-					        <th scope="col" id="mb_list_mailr"><a href="">성별</a></th>
+					        <th scope="col" rowspan="2" id="mb_list_cert">
+					        	<a href="">휴대폰</a>
+					        </th>
+					        <th scope="col" id="mb_list_open">
+					        	<a href="">생년월일</a>
+					        </th>
+					        <th scope="col" id="mb_list_mailr">
+					        	<a href="">성별</a>
+					        </th>
 					        <th scope="col" id="mb_list_auth">회원권한</th>
-					        <th scope="col" id="mb_list_lastcall"><a href="">수정</a></th>
-					        <th scope="col" id="mb_list_lastcall"><a href="">삭제</a></th>
+					        <th scope="col" id="mb_list_lastcall">
+					        	<a href="">수정</a>
+					        </th>
+					        <th scope="col" id="mb_list_lastcall">
+					        	<a href="">삭제</a>
+					        </th>
 					    </tr>
 				    </thead>
 				    
@@ -114,7 +128,6 @@
 					        		<option>블랙리스트</option>
 					        	</select>
 					        </td>
-					
 					        <td headers="mb_list_grp" class="td_numsmall">
 					        	<a href="" class="btn btn_02">수정</a>
 					        </td>
@@ -126,13 +139,10 @@
 				  </tbody>
 				</table>
 			</div>
-		
 			<div class="btn_fixed_top">
 			    <input type="submit" name="act_button" value="선택수정" onclick="document.pressed=this.value" class="btn btn_02">
 			    <input type="submit" name="act_button" value="선택삭제" onclick="document.pressed=this.value" class="btn btn_02">
 			</div>
-		
-		
 		</form>
 
 		<nav class="pg_wrap"><span class="pg">
@@ -153,33 +163,29 @@
 		</nav>
 	
 		<script>
-		function fmemberlist_submit(f)
-		{
-		    if (!is_checked("chk[]")) {
-		        alert(document.pressed+" 하실 항목을 하나 이상 선택하세요.");
-		        return false;
-		    }
-		
-		    if(document.pressed == "선택삭제") {
-		        if(!confirm("선택한 자료를 정말 삭제하시겠습니까?")) {
-		            return false;
-		        }
-		    }
-		
-		    return true;
-		}
+			function fmemberlist_submit(f)
+			{
+			    if (!is_checked("chk[]")) {
+			        alert(document.pressed+" 하실 항목을 하나 이상 선택하세요.");
+			        return false;
+			    }
+			
+			    if(document.pressed == "선택삭제") {
+			        if(!confirm("선택한 자료를 정말 삭제하시겠습니까?")) {
+			            return false;
+			        }
+			    }
+			
+			    return true;
+			}
 		</script>
-
-
 	    <noscript>
 	        <p>
 	                        귀하께서 사용하시는 브라우저는 현재 <strong>자바스크립트를 사용하지 않음</strong>으로 설정되어 있습니다.<br>
 	            <strong>자바스크립트를 사용하지 않음</strong>으로 설정하신 경우는 수정이나 삭제시 별도의 경고창이 나오지 않으므로 이점 주의하시기 바랍니다.
 	        </p>
 	    </noscript>
-
 	</div>
-	
 </section>
  
 <%@include file="../adminTail.jsp" %>

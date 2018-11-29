@@ -1,6 +1,7 @@
 package kr.co.tripweaver.main.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/main")
@@ -27,49 +28,63 @@ public class MainController {
 	public String register_formView() {
 		return "login/register_form";
 	}
+
+	@RequestMapping("/idPw_lost")
+	public String idPw_lostView() {
+		return "login/idPw_lost";
+	}
 	
 	@RequestMapping("/adminMain")
-	public String adminMainView() {
+	public String adminMainView(Model model) {
+		model.addAttribute("gnb", 0);
 		return "admin/adminMain";
 	}
 	
 	@RequestMapping("/member")
-	public String memberView() {
+	public String memberView(Model model) {
+		model.addAttribute("gnb", 1);
 		return "admin/membership/member";
 	}
 	
 	@RequestMapping("/create_board")
-	public String create_boardView() {
+	public String create_boardView(Model model) {
+		model.addAttribute("gnb", 2);
 		return "admin/board/create_board";
 	}
 	
 	@RequestMapping("/declaration")
-	public String declarationView() {
+	public String declarationView(Model model) {
+		model.addAttribute("gnb", 0);
 		return "admin/setting/declaration";
 	}
 	
 	@RequestMapping("/contact")
-	public String contactView() {
+	public String contactView(Model model) {
+		model.addAttribute("gnb", 3);
 		return "admin/statistics/contact";
 	}
 	
 	@RequestMapping("/contactTime")
-	public String contactTimeView() {
+	public String contactTimeView(Model model) {
+		model.addAttribute("gnb", 3);
 		return "admin/statistics/contactTime";
 	}
 	
 	@RequestMapping("/hashTag")
-	public String hashTagView() {
+	public String hashTagView(Model model) {
+		model.addAttribute("gnb", 3);
 		return "admin/statistics/hashTag";
 	}
 	
 	@RequestMapping("/adminPost")
-	public String adminPostView() {
+	public String adminPostView(Model model) {
+		model.addAttribute("gnb", 3);
 		return "admin/statistics/post";
 	}
 	
 	@RequestMapping("/codetable")
-	public String codetableView() {
+	public String codetableView(Model model) {
+		model.addAttribute("gnb", 4);
 		return "admin/codetable/codetable";
 	}
 	

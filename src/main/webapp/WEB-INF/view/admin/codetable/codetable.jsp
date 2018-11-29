@@ -21,10 +21,9 @@
 </style> 
 <script type="text/javascript" src="/js/zTree_v3/jquery.ztree.core.js"></script>   
    
-   <SCRIPT type="text/javascript" >
-
+<script type="text/javascript" >
 	var zTree; 
-
+	
 	var setting = {
 		view: {
 			dblClickExpand: false,
@@ -58,9 +57,9 @@
 			}
 		}
 	};
-
+	
 	var zNodes =[];
-
+	
 	$(document).ready(function(){ 
 		getCa();
 	});
@@ -90,14 +89,14 @@
 	        },complete: function()		{//console.log("complete");
 	        },success: function(data)	{//console.log(data); 	     
 	        	var t = $("#tree");
-        		zNodes = data.list;
-        		t = $.fn.zTree.init(t, setting, zNodes); 
+	       		zNodes = data.list;
+	       		t = $.fn.zTree.init(t, setting, zNodes); 
 				var zTree = $.fn.zTree.getZTreeObj("tree");	
 				setClear();		 
 	        },fail: function() 			{//console.log("fail"); 
 	        },error:function(request,status,error){
-        		console.log(" error code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-      		 }	 
+	       		console.log(" error code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	     		 }	 
 	    });
 	}
 	//하위추가
@@ -126,12 +125,12 @@
 	        },complete: function()		{//console.log("complete");
 	        },success: function(data)	{//console.log(data); 	     
 	        	 alert('등록되었습니다.');
-        	 	 getCa();
-        	 	 setClear();
+	       	 	 getCa();
+	       	 	 setClear();
 	        },fail: function() 			{//console.log("fail"); 
 	        },error:function(request,status,error){
-        		console.log(" error code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-      		 }	 
+	       		console.log(" error code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	     		 }	 
 	    });	    
 	}
 	//수정
@@ -152,18 +151,18 @@
 	        	mode:"save" 
 	        	,code:$('#code').val()
 	        	,name:$('#name').val()
-
+	
 	        }
 	        ,beforeSend: function()		{//console.log("beforeSend");
 	        },complete: function()		{//console.log("complete");
 	        },success: function(data)	{//console.log(data); 	     
 	        	 alert('수정되었습니다.');
-        	 	 getCa();
-        	 	setClear();
+	       	 	 getCa();
+	       	 	setClear();
 	        },fail: function() 			{//console.log("fail"); 
 	        },error:function(request,status,error){
-        		console.log(" error code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-      		 }	 
+	       		console.log(" error code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	     		 }	 
 	    });	    
 	}
 	//삭제
@@ -186,16 +185,16 @@
 	        ,beforeSend: function()		{//console.log("beforeSend");
 	        },complete: function()		{//console.log("complete");
 	        },success: function(data)	{//console.log(data); 	     
-        	 	 alert('삭제되었습니다.');
-        	 	 getCa();
-        	 	setClear();
+	       	 	 alert('삭제되었습니다.');
+	       	 	 getCa();
+	       	 	setClear();
 	        },fail: function() 			{//console.log("fail"); 
 	        },error:function(request,status,error){
-        		console.log(" error code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-      		 }	 
+	       		console.log(" error code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	     		 }	 
 	    });
 	}
-
+	
 	function loadReady() {
 		var bodyH = demoIframe.contents().find("body").get(0).scrollHeight,
 		htmlH = demoIframe.contents().find("html").get(0).scrollHeight,
@@ -204,9 +203,7 @@
 		if (h < 530) h = 530;
 		demoIframe.height(h);
 	}
-
-
-  </SCRIPT>
+</script>
 
 <TABLE border=0 height=600px align=left>
 	<TR>
@@ -215,18 +212,25 @@
 		</TD>
 		<TH height="20px" align=left valign=top >수정</TH> 
 		<TD align=left valign=top >코드<TD>
-		<TD align=left valign=top ><input readonly type="text" id="code" /></TD> 
+		<TD align=left valign=top >
+			<input readonly type="text" id="code" />
+		</TD> 
 		<TD align=left valign=top >상위코드<TD>
-		<TD align=left valign=top ><input readonly type="text" id="p_code" /></TD> 
+		<TD align=left valign=top >
+			<input readonly type="text" id="p_code" />
+		</TD> 
 		<TD align=left valign=top >레벨<TD>
-		<TD align=left valign=top ><input readonly type="text" id="level" /></TD> 
+		<TD align=left valign=top >
+			<input readonly type="text" id="level" />
+		</TD> 
 		<TD align=left valign=top >코드명<TD>
-		<TD align=left valign=top ><input type="text" id="name" /></TD> 
+		<TD align=left valign=top >
+			<input type="text" id="name" />
+		</TD> 
 
 		<TD align=left valign=top >
 			<input type="button" value="수정" onclick="updateCa();" /> 
 			<input type="button" value="삭제" onclick="deleteCa();" />
-			
 		</TD>  
 	</tr>
 	<tr>
@@ -234,19 +238,22 @@
 		<TD align=left valign=top ><TD>
 		<TD align=left valign=top ></TD> 
 		<TD align=left valign=top >상위코드<TD>
-		<TD align=left valign=top ><input readonly type="text" id="add_p_code" /></TD> 
+		<TD align=left valign=top >
+			<input readonly type="text" id="add_p_code" />
+		</TD> 
 		<TD align=left valign=top >레벨<TD>
-		<TD align=left valign=top ><input readonly type="text" id="add_level" /></TD> 
+		<TD align=left valign=top >
+			<input readonly type="text" id="add_level" />
+		</TD> 
 		<TD align=left valign=top >코드명<TD>
-		<TD align=left valign=top ><input type="text" id="add_name" /></TD> 
-
+		<TD align=left valign=top >
+			<input type="text" id="add_name" />
+		</TD> 
 		<TD align=left valign=top >
 			<input type="button" value="신규" onclick="addCa();" />
 			<input type="button" value="초기화" onclick="setClear();" />
 		</td>	
 	</TR>
 </TABLE> 
-
-
 
 <%@include file="../adminTail.jsp" %>

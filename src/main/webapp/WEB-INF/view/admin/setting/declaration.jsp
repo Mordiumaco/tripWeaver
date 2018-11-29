@@ -7,9 +7,10 @@
     
 		<div class="local_ov01 local_ov">
 		    <a href="" class="ov_listall">전체목록</a>
-		    
-		    <span class="btn_ov01"><span class="ov_txt">신고 수 </span>
-		    <span class="ov_num"> 1,460명 </span></span>
+		    <span class="btn_ov01">
+		    	<span class="ov_txt">신고 수 </span>
+		    	<span class="ov_num"> 1,460명 </span>
+		    </span>
 		    
 		    <a href="" class="btn_ov01"> 
 		    	<span class="ov_txt">완료 </span>
@@ -49,10 +50,9 @@
 
 		<div class="local_desc01 local_desc">
 		    <p>
-		        	사용자가 신고한 게시글, 댓글 등을 관리합니다.
+				사용자가 신고한 게시글, 댓글 등을 관리합니다.
 		    </p>
 		</div>
-
 
 		<form name="fmemberlist" id="fmemberlist" action="" onsubmit="return fmemberlist_submit(this);" method="post">
 			<input type="hidden" name="sst" value="mb_datetime">
@@ -75,7 +75,6 @@
 				    	<col width="10%">
 				    	<col width="10%">
 				    </colgroup>
-				    
 				    <thead>
 					    <tr>
 					        <th scope="col" id="mb_list_chk" rowspan="2">
@@ -99,39 +98,23 @@
 					            <label for="chk_0" class="sound_only">pcpcggg3@naver.com 님</label>
 					            <input type="checkbox" name="chk[]" value="0" id="chk_0">
 					        </td>
-					        <td headers="mb_list_id"  class="td_name sv_use">
-					            11                 
-					        </td>
-					        <td headers="mb_list_cert"  class="td_mbcert">
-					            	이상한 내용이에요
-					        </td>
+					        <td headers="mb_list_id"  class="td_name sv_use">11</td>
+					        <td headers="mb_list_cert"  class="td_mbcert">이상한 내용이에요</td>
 					        <td headers="mb_list_mailc">음란물 유포</td>
-					        <td headers="mb_list_open">
-					            254
-					        </td>
-					        <td headers="mb_list_auth" class="td_mbstat">
-					           	 박   진      
-					        </td>
-					        <td headers="mb_list_mailr">
-					            	처리 완료
-					        </td>
-					      					
+					        <td headers="mb_list_open">254</td>
+					        <td headers="mb_list_auth" class="td_mbstat">박   진</td>
+					        <td headers="mb_list_mailr">처리 완료</td>
 					        <td headers="mb_list_grp" class="td_numsmall">
 					        	<a href="" class="btn btn_02">처리 완료</a>
 					        </td>
-					       
 					    </tr>
-				
 				  </tbody>
 				</table>
 			</div>
-		
 			<div class="btn_fixed_top">
 			    <input type="submit" name="act_button" value="선택수정" onclick="document.pressed=this.value" class="btn btn_02">
 			    <input type="submit" name="act_button" value="선택삭제" onclick="document.pressed=this.value" class="btn btn_02">
 			</div>
-		
-		
 		</form>
 
 		<nav class="pg_wrap"><span class="pg">
@@ -152,33 +135,29 @@
 		</nav>
 	
 		<script>
-		function fmemberlist_submit(f)
-		{
-		    if (!is_checked("chk[]")) {
-		        alert(document.pressed+" 하실 항목을 하나 이상 선택하세요.");
-		        return false;
-		    }
-		
-		    if(document.pressed == "선택삭제") {
-		        if(!confirm("선택한 자료를 정말 삭제하시겠습니까?")) {
-		            return false;
-		        }
-		    }
-		
-		    return true;
-		}
+			function fmemberlist_submit(f)
+			{
+			    if (!is_checked("chk[]")) {
+			        alert(document.pressed+" 하실 항목을 하나 이상 선택하세요.");
+			        return false;
+			    }
+			
+			    if(document.pressed == "선택삭제") {
+			        if(!confirm("선택한 자료를 정말 삭제하시겠습니까?")) {
+			            return false;
+			        }
+			    }
+			
+			    return true;
+			}
 		</script>
-
-
 	    <noscript>
 	        <p>
 	                        귀하께서 사용하시는 브라우저는 현재 <strong>자바스크립트를 사용하지 않음</strong>으로 설정되어 있습니다.<br>
 	            <strong>자바스크립트를 사용하지 않음</strong>으로 설정하신 경우는 수정이나 삭제시 별도의 경고창이 나오지 않으므로 이점 주의하시기 바랍니다.
 	        </p>
 	    </noscript>
-
 	</div>
-	
 </section>
  
 <%@include file="../adminTail.jsp" %>
