@@ -15,6 +15,7 @@ local.properties
 .loadpath
 .recommenders
 
+
 # External tool builders
 .externalToolBuilders/
 
@@ -85,3 +86,6 @@ buildNumber.properties
 
 
 # End of https://www.gitignore.io/api/maven,eclipse
+
+.properties
+
