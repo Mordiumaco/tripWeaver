@@ -93,5 +93,19 @@ public class MainController {
 		return "mypage/myPage";
 	}
 	
+	@RequestMapping("/guide")
+	public String guideView() {
+		return "mypage/guide";
+	}
+	
+	@RequestMapping("/reservation")
+	public String reservationView() {
+		return "mypage/reservation";
+	}
+	
+	@RequestMapping("/myPost")
+	public String myPostView() {
+		return "mypage/myPost";
+	}
  
 }
