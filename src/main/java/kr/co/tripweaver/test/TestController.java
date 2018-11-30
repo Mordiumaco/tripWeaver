@@ -1,6 +1,7 @@
 package kr.co.tripweaver.test;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 import kr.co.tripweaver.member.model.MemberVO;
 import kr.co.tripweaver.member.service.MemberService;
@@ -41,6 +43,7 @@ public class TestController {
 		
 		request.getSession().setAttribute("access_token", access_token);
 		
+		
 		//-------------------------------------------------------------------
 		
 		Map<String, String> userInfoMap = naverLoginService.getNaverUserInfo(access_token);
@@ -55,6 +58,18 @@ public class TestController {
 			logger.debug("{} : {}", str, value);
 		}
 		logger.debug("------------------------------");
+		
+		//네이버회원에게 원하는 필수정보를 제대로 못받아올경우 재동의하도록 리턴시킨다 빠꾸빠꾸
+		//총 8개의 정보를 못받으면 계속 재동의하도록 시키는 부분 
+		//---------------------------------------------------
+		if(userInfoMap.size() != 8) {
+			
+			String state = request.getParameter("state");
+			String redirectURI = URLEncoder.encode("http://localhost:8081/test/callback", "UTF-8");
+			String redirect = request.getScheme()+"s://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=hAi60RWrlDCU1L3kMH90&state="+state+"&redirect_uri="+redirectURI+"&auth_type=reprompt";
+			return "redirect:"+redirect;
+		}
+		//---------------------------------------------------
 		
 		String mem_email = userInfoMap.get("email");
 		
@@ -114,4 +129,22 @@ public class TestController {
         
 		return "test/test";
 	}
+	
+	/*외부 URL 받는 방법
+	 * 
+	 * @RequestMapping("/reVaildTest")
+	public RedirectView reVaildTestView(HttpServletRequest request) throws UnsupportedEncodingException {
+	    RedirectView redirectView = new RedirectView();
+	    String code = request.getParameter("code");
+		String state = request.getParameter("state");
+		String redirectURI = URLEncoder.encode("localhost:8081/test/callback", "UTF-8");
+		redirectView.setUrl("https://nid.naver.com/oauth2.0/authorize?response_type="+code+"&client_id=hAi60RWrlDCU1L3kMH90&state="+state+"&redirect_uri="+redirectURI+"&auth_type=reprompt");
+	    return redirectView;
+	}
+	
+	*/
+	
+	
 }
+
+
