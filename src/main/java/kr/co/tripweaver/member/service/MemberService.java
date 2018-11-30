@@ -59,4 +59,5 @@ public class MemberService implements IMemberService {
 	public int eternalDeleteMemberByEmail(String mem_email) {
 		return memberDao.eternalDeleteMemberByEmail(mem_email);
 	}
+	
 }
