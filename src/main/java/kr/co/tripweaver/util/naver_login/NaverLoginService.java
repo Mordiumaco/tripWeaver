@@ -170,4 +170,7 @@ public class NaverLoginService {
         //네이버 유저의 맵객체를 넘긴다. 
         return userInfoMap;
 	}
+	
+	
+	
 }
