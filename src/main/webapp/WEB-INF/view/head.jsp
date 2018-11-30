@@ -24,7 +24,7 @@
 				<li><a href="/main/adminMain" >관리자</a></li>
 				<li><a href="/main/register" >회원가입</a></li>
 				<!--  이뿌!!!!!  끝-->
-				<li><a href="" >마이 페이지</a></li>
+				<li><a href="/main/mypage" >마이 페이지</a></li>
 			</ul>
 		</div>
 		<div class="head_con head_mid">

@@ -88,5 +88,10 @@ public class MainController {
 		return "admin/codetable/codetable";
 	}
 	
-
+	@RequestMapping("/mypage")
+	public String mypageView() {
+		return "mypage/myPage";
+	}
+	
+ 
 }
