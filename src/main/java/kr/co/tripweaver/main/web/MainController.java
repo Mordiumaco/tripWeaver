@@ -107,5 +107,15 @@ public class MainController {
 	public String myPostView() {
 		return "mypage/myPost";
 	}
+	
+	@RequestMapping("/board")
+	public String boardView() {
+		return "servicecenter/list";
+	}
+	
+	@RequestMapping("/boardWrite")
+	public String boardWriteView() {
+		return "servicecenter/write";
+	}
  
 }
