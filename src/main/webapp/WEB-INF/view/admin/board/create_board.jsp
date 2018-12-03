@@ -68,6 +68,9 @@
 							<input type="text" required="required" name="nt_name" value="" autofocus  >
 						</li>
 						<li>
+							<input type="text" required="required" name="nt_name" value="" autofocus  >
+						</li>
+						<li>
 							<select name="nt_ues">
 								<option value="Y">사용</option>
 								<option value="N">비사용</option>
