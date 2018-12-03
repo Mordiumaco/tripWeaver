@@ -10,7 +10,6 @@
 <title>TripWeaver</title>
 
 
-
 <%@include file="lib/lib.jsp" %>
 </head>
 <body>
@@ -27,7 +26,7 @@
 				
 				<!--  이뿌!!!!!  로그인시에만 보이게-->
 				<li><a href="/main/mypage" >마이 페이지</a></li>
-				<li><a href="">메세지 &nbsp;<img src="/img/icon/message_icon.png" width="20px"></a></li>
+				<li><a class="pointer" onclick="window.open('/main/message','window_name','width=417,height=500,location=no,status=no,scrollbars=yes');" target="blank">메세지 &nbsp;<img src="/img/icon/message_icon.png" width="20px"></a></li>
 				<!--  이뿌!!!!!  끝 -->
 			</ul>
 		</div>
