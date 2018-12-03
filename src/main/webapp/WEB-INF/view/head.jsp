@@ -24,7 +24,11 @@
 				<li><a href="/main/adminMain" >관리자</a></li>
 				<li><a href="/main/register" >회원가입</a></li>
 				<!--  이뿌!!!!!  끝-->
+				
+				<!--  이뿌!!!!!  로그인시에만 보이게-->
 				<li><a href="/main/mypage" >마이 페이지</a></li>
+				<li><a href="">메세지 &nbsp;<img src="/img/icon/message_icon.png" width="20px"></a></li>
+				<!--  이뿌!!!!!  끝 -->
 			</ul>
 		</div>
 		<div class="head_con head_mid">

@@ -117,5 +117,10 @@ public class MainController {
 	public String boardWriteView() {
 		return "servicecenter/write";
 	}
+	
+	@RequestMapping("/message")
+	public String messageView() {
+		return "mypage/message/message";
+	}
  
 }
