@@ -62,4 +62,48 @@ public class MemberDaoTest extends ServiceDaoTestConfig{
 		/***Then***/
 		assertEquals(1, updateCnt);
 	}
+	
+	@Test
+	public void manageDeleteMemberDel() {
+		/***Given***/
+		Map<String, Object> params = new HashMap<String, Object>();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMem_id("test68");
+		params.put("memberVO", memberVO);
+
+		/***When***/
+		int deleteCnt = memberDao.manageDeleteMemberDel(params);
+
+		/***Then***/
+		assertEquals(1, deleteCnt);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -22,6 +22,7 @@
   <!-- 모든 회원리스트를 조회 -->
   <select id="selectMemberAllCount" resultType="integer">
   	SELECT COUNT(*) FROM member
+  	WHERE mem_del = 'N'
   </select>
  
   <!-- 해당페이지릐 회원리스트를 조회 -->
@@ -29,13 +30,20 @@
   	SELECT m.*
 	FROM (SELECT ROWNUM AS rnum,
            		 member.*
-      	 FROM member) m
+      	 FROM member
+      	 WHERE mem_del = 'N') m
 	WHERE rnum BETWEEN (${pageVO.page}*${pageVO.pageSize})-(${pageVO.pageSize}-1) AND ${pageVO.page}*${pageVO.pageSize}
   </select>
   
   <update id="manageUpdateMemberAuthor">
   	UPDATE member
   	SET mem_author = ${memberVO.mem_author}
+  	WHERE mem_id = #{memberVO.mem_id}
+  </update>
+  
+  <update id="manageDeleteMemberDel">
+  	UPDATE member
+  	SET mem_del = 'Y'
   	WHERE mem_id = #{memberVO.mem_id}
   </update>
   

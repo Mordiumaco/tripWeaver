@@ -117,7 +117,19 @@ public class MemberDao implements IMemberDao {
 		int updateCnt = template.update("memberSQL.manageUpdateMemberAuthor", params);
 		return updateCnt;
 	}
-	
-	
+
+	/**
+	* Method : manageDeleteMemberDel
+	* 작성자 : jin
+	* 변경이력 :
+	* @param params
+	* @return
+	* Method 설명 : 관리자 회원관리 회원삭제여부 Y로 수정하는 메서드
+	 */
+	@Override
+	public int manageDeleteMemberDel(Map<String, Object> params) {
+		int deleteCnt = template.update("memberSQL.manageDeleteMemberDel", params);
+		return deleteCnt;
+	}
 	
 }

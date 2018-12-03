@@ -101,5 +101,21 @@ public class MemberService implements IMemberService {
 		resultMap.put("updateCnt", updateCnt);
 		return resultMap;
 	}
+
+	/**
+	* Method : manageDeleteMemberDel
+	* 작성자 : jin
+	* 변경이력 :
+	* @param params
+	* @return
+	* Method 설명 : 관리자 회원관리 삭제여부를 'Y'로 수정하고 해당페이지 멤버리스트를 반환하는 메서드
+	 */
+	@Override
+	public Map<String, Object> manageDeleteMemberDel(Map<String, Object> params) {
+		int deleteCnt = memberDao.manageDeleteMemberDel(params);
+		Map<String, Object> resultMap = selectMemberPageList(params);
+		resultMap.put("deleteCnt", deleteCnt);
+		return resultMap;
+	}
 	
 }

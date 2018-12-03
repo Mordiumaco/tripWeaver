@@ -63,7 +63,17 @@ public interface IMemberService {
 	* 변경이력 :
 	* @param params
 	* @return
-	* Method 설명 : 관리자 회원관리 권한 수정하는 메서드
+	* Method 설명 : 관리자 회원관리 권한 수정하고 해당페이지 멤버리스트를 반환하는 메서드
 	 */
 	public Map<String, Object> manageUpdateMemberAuthor(Map<String, Object> params);
+	
+	/**
+	* Method : manageDeleteMemberDel
+	* 작성자 : jin
+	* 변경이력 :
+	* @param params
+	* @return
+	* Method 설명 : 관리자 회원관리 삭제여부를 'Y'로 수정하고 해당페이지 멤버리스트를 반환하는 메서드
+	 */
+	public Map<String, Object> manageDeleteMemberDel(Map<String, Object> params);
 }

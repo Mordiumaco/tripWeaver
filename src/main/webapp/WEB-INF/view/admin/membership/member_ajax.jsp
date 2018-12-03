@@ -137,11 +137,10 @@
 				        	</select>
 				        </td>
 				        <td headers="mb_list_grp" class="td_numsmall">
-<%-- 				        	<a href="javascript:memberUpdate(${memberVO.mem_id}, ${pageVO.page})" class="btn btn_02">수정</a> --%>
 				        	<input type="button" class="btn btn_02 update" value="수정">
 				        </td>
 				        <td headers="mb_list_grp" class="td_numsmall">
-				        	<a href="" class="btn btn_03">삭제</a>
+				        	<input type="button" class="btn btn_03 delete" value="삭제">
 				        </td>
 				    </tr>
 		        </c:forEach>

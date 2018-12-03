@@ -34,7 +34,7 @@ public class MemberServiceTest extends ServiceDaoTestConfig{
 		
 		/***Then***/
 		assertEquals(10, memberVOs.size());
-		assertEquals(135, memberCnt);
+		assertEquals(133, memberCnt);
 	}
 
 	@Test
@@ -57,6 +57,28 @@ public class MemberServiceTest extends ServiceDaoTestConfig{
 		/***Then***/
 		assertEquals(1, updateCnt);
 		assertEquals(10, memberVOs.size());
-		assertEquals(135, memberCnt);
+		assertEquals(133, memberCnt);
+	}
+	
+	@Test
+	public void manageDeleteMemberDel() {
+		/***Given***/
+		Map<String, Object> params = new HashMap<String, Object>();
+		PageVO pageVO = new PageVO(2, 10);
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMem_id("test68");
+		params.put("pageVO", pageVO);
+		params.put("memberVO", memberVO);
+		
+		/***When***/
+		Map<String, Object> resultMap = memberService.manageDeleteMemberDel(params);
+		List<MemberVO> memberVOs = (List<MemberVO>) resultMap.get("memberVOs");
+		int memberCnt = (int) resultMap.get("memberCnt");
+		int deleteCnt = (int) resultMap.get("deleteCnt");
+		
+		/***Then***/
+		assertEquals(1, deleteCnt);
+		assertEquals(10, memberVOs.size());
+		assertEquals(133, memberCnt);
 	}
 }

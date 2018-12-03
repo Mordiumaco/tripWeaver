@@ -62,4 +62,18 @@ public class UserManagementController {
 		
 		return "admin/membership/member_ajax";
 	}
+	
+	@RequestMapping("memberDeleteAjax")
+	public String memberDeleteAjax(MemberVO memberVO, PageVO pageVO,Model model) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("pageVO", pageVO);
+		params.put("memberVO", memberVO);
+		Map<String, Object> resultMap = memberService.manageDeleteMemberDel(params);
+		model.addAllAttributes(resultMap);
+		model.addAttribute("gnb", 1);
+		model.addAttribute("title", "회원관리");
+		model.addAttribute("pageVO", pageVO);
+		
+		return "admin/membership/member_ajax";
+	}
 }
