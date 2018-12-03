@@ -1,6 +1,8 @@
 
 # Created by https://www.gitignore.io/api/maven,eclipse
 
+src/test/resources/kr/co/tripweaver/config/db/dbtest.properties
+
 ### Eclipse ###
 
 .metadata
@@ -14,7 +16,6 @@ local.properties
 .settings/
 .loadpath
 .recommenders
-
 
 # External tool builders
 .externalToolBuilders/
