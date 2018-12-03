@@ -37,7 +37,7 @@ ul {
 .mes_menu ul li a:hover { background: #1a6d52;}
 .mes_menu ul li a img { padding-top: 5px;}
 
-.mes_menu ul li:nth-child(1) a { background:#1a6d52; }
+.mes_menu ul li:nth-child(2) a { background:#1a6d52; }
 
 .mes_my { width: 100%;}
 .mes_my>b {height: 30px; background: #f1f1f1; display: block; line-height: 30px; padding-left: 10px; margin-bottom: 10px;}
@@ -71,7 +71,6 @@ ul {
 .mes_btn02::after { content:"언팔로워";}
 .mes_btn02:hover::after { content:"팔로워";}
 
-.mes_Search {height: 40px;}
 
 /* 페이지 내 검색 */
 .local_sch{}
@@ -92,6 +91,8 @@ ul {
 .local_sch03 button{height:30px;padding:0 5px;border:0;background:#9eacc6;color:#fff;}
 .local_sch03 .btn_submit{height:30px;padding:0 5px;border:0;;color:#fff;}
 .local_sch03 .frm_input{height:30px;border:1px solid #dcdcdc;padding:0 5px;}
+
+.mes_Search {height: 40px;}
 /* 페이지 내 실행 */
 .local_cmd {min-width:960px}
 
@@ -107,6 +108,42 @@ ul {
 .msg_sound_only, .sound_only {display:inline-block !important; position:absolute;  top:0;  left:0;  margin:0 !important;  padding:0 !important;  font-size:0;  line-height:0; border:0 !important;overflow:hidden !important;}
 
 
+.chatting_list { width: 100%; }
+.chatting_list>ul>li:nth-child(even) { background: #f1f1f1;}
+
+.Chat_room { width:100%; height: 70px;}
+.Chat_room div { width: 20%; float: left; background:#aaa; text-align: center; padding: 15px 0;}
+.Chat_room div img { margin-top: 5px;}
+
+.Chat_room ul { width: 80%; float: left; height: 70px; padding-left: 10px; }
+.Chat_room .chat_con {  
+	display: inline-block; 
+	width: 310px; 
+	white-space: nowrap; 
+	overflow: hidden; 
+	text-overflow: ellipsis; 
+	
+	/* 여러 줄 자르기 추가 스타일 */ 
+	white-space: normal; 
+	height: 40px; 
+	text-align: left; 
+	word-wrap: break-word; 
+	display: -webkit-box; 
+	-webkit-line-clamp: 2; 
+	-webkit-box-orient: vertical;
+	line-height: 150%;
+	color: #666;
+}
+
+.Chat_room li span { float: right;}
+
+.Chat_room ul li:nth-child(1) { padding-top: 3px;}
+
+.Chat_room b { font-size: 0.9em;}
+.chat_con { font-size: 0.8em;}
+
+.Chat_room a { color: #333;}
+
 </style>
 </head>
 <body>
@@ -116,83 +153,46 @@ ul {
 			<li><a href="/main/chatting"><img src="/img/icon/message01_icon.png" height="20px;" /> &nbsp; 채팅</a></li>
 		</ul>
 	</div>
+	
 	<div class="mes_Search">
 		<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
 			<label for="sfl" class="sound_only">검색대상</label>
 		
 			<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
-			<input type="text" name="stx" value="" id="stx" required="" class="required frm_input" placeholder="친구 닉네임으로 검색 하세요.">
+			<input type="text" name="stx" value="" id="stx" required="" class="required frm_input" placeholder="채팅방 이름, 참여자로 검색해 주세요.">
 			<input type="submit" class="btn_submit" value="검색">
 		</form>
 	</div>
 	
-	<div class="mes_my">
-		<b>내프로필</b> 
-		<div>
-			<b><img src="/img/p_01.png"></b>
-		</div>
+	<div class="chatting_list">
 		<ul>
-			<li>닉네임 입니다.</li>
+			<li class="Chat_room">
+				<a href="/main/chatting_view">
+					<div><img src="/img/icon/message01_icon.png"></div>
+					<ul>
+						<li> <b>채팅방 제목 입니다.</b> <span>2018. 01. 12</span></li>
+						<li class="chat_con">
+							마지막 대화 내용입니다. ㅁㄴㅇㅁㄴㅇㅁ니움니12312312321321ewfre 2132132112312321
+						</li>
+					</ul>
+				</a>
+			</li>
+			
+			<li class="Chat_room">
+				<a href="/main/chatting_view">
+					<div><img src="/img/icon/message01_icon.png"></div>
+					<ul>
+						<li> <b>채팅방 제목 입니다.</b> <span>2018. 01. 12</span></li>
+						<li class="chat_con">
+							마지막 대화 내용입니다. ㅁㄴㅇㅁㄴㅇㅁ니움니12312312321321ewfre 21321321123123212321213sdf
+						</li>
+					</ul>
+				</a>
+			</li>
 		</ul>
+		
 	</div>
 	
-	<div class="mes_friend">
-		<h6>팔로잉   <b>272</b>명</h6>
-		<ul class="mes_friendUl">
-			<li class="mes_f_list">
-				<div><img src="/img/p_03.png"></div>
-				<ul>
-					<li>닉네임 입니다.</li>
-					<li>
-						<a href="">쪽지</a>
-						<a href="" class="mes_btn01"></a>
-					</li>
-				</ul>
-			</li>
-			
-			<li class="mes_f_list">
-				<div><img src="/img/p_01.png"></div>
-				<ul>
-					<li>닉네임 입니다.</li>
-					<li>
-						<a href="">쪽지</a>
-						<a href="" class="mes_btn01"></a>
-					</li>
-				</ul>
-			</li>
-			
-			
-			
-		</ul>
-	</div>
-	
-	<div class="mes_friend no_line">
-		<h6>팔로워 <b>272</b>명</h6>
-		<ul class="mes_friendUl">
-			<li class="mes_f_list">
-				<div><img src="/img/p_02.png"></div>
-				<ul>
-					<li>닉네임 입니다.</li>
-					<li>
-						<a href="">쪽지</a>
-						<a href="" class="mes_btn02"></a>
-					</li>
-				</ul>
-			</li>
-			
-			<li class="mes_f_list">
-				<div><img src="/img/p_03.png"></div>
-				<ul>
-					<li>닉네임 입니다.</li>
-					<li>
-						<a href="">쪽지</a>
-						<a href="" class="mes_btn02"></a>
-					</li>
-				</ul>
-			</li>
-			
-		</ul>
-	</div>
 	
 </body>
 </html>
