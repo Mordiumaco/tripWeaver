@@ -15,7 +15,7 @@ public class MemberVO {
 	private String mem_profile;
 	private String mem_qrcode;
 	private String mem_del;
-	private String mem_author;
+	private int mem_author;
 
 	public String getMem_email() {
 		return mem_email;
@@ -104,11 +104,11 @@ public class MemberVO {
 		this.mem_following_count = mem_following_count;
 	}
 
-	public String getMem_author() {
+	public int getMem_author() {
 		return mem_author;
 	}
 
-	public void setMem_author(String mem_author) {
+	public void setMem_author(int mem_author) {
 		this.mem_author = mem_author;
 	}
 

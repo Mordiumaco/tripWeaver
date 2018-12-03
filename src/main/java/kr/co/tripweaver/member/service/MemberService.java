@@ -1,10 +1,15 @@
 package kr.co.tripweaver.member.service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.tripweaver.member.dao.IMemberDao;
 import kr.co.tripweaver.member.model.MemberVO;
+import kr.co.tripweaver.util.page.PageUtil;
 
 @Service
 public class MemberService implements IMemberService {
@@ -58,6 +63,43 @@ public class MemberService implements IMemberService {
 	@Override
 	public int eternalDeleteMemberByEmail(String mem_email) {
 		return memberDao.eternalDeleteMemberByEmail(mem_email);
+	}
+
+	/**
+	* Method : selectMemberPageList
+	* 작성자 : jin
+	* 변경이력 :
+	* @param params
+	* @return
+	* Method 설명 : 해당 페이지의 MemberVO리스트를 반환하는 메서드
+	 */
+	@Override
+	public Map<String, Object> selectMemberPageList(Map<String, Object> params) {
+		int memberCnt = memberDao.selectMemberAllCount();
+		List<MemberVO> memberVOs = memberDao.selectMemberPageList(params);
+		int pageCnt = PageUtil.pageCnt(memberCnt, 10);
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("memberCnt", memberCnt);
+		resultMap.put("memberVOs", memberVOs);
+		resultMap.put("pageCnt", pageCnt);
+		return resultMap;
+	}
+
+	/**
+	* Method : updateMemberAuthor
+	* 작성자 : jin
+	* 변경이력 :
+	* @param params
+	* @return
+	* Method 설명 : 관리자 회원관리 권한 수정하는 메서드
+	 */
+	@Override
+	public Map<String, Object> manageUpdateMemberAuthor(Map<String, Object> params) {
+		int updateCnt = memberDao.manageUpdateMemberAuthor(params);
+		Map<String, Object> resultMap = selectMemberPageList(params);
+		resultMap.put("updateCnt", updateCnt);
+		return resultMap;
 	}
 	
 }

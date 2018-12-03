@@ -1,5 +1,8 @@
 package kr.co.tripweaver.member.service;
 
+import java.util.List;
+import java.util.Map;
+
 import kr.co.tripweaver.member.model.MemberVO;
 
 public interface IMemberService {
@@ -43,4 +46,24 @@ public interface IMemberService {
 	* Method 설명 : 해당 이메일에 해당하는 회원이 존재할 시 해당 회원에 대한 정보를 지운다.
 	*/
 	public int eternalDeleteMemberByEmail(String mem_email);
+	
+	/**
+	* Method : selectMemberPageList
+	* 작성자 : jin
+	* 변경이력 :
+	* @param params
+	* @return
+	* Method 설명 : 해당 페이지의 MemberVO리스트를 반환하는 메서드
+	 */
+	public Map<String, Object> selectMemberPageList(Map<String, Object> params);
+	
+	/**
+	* Method : updateMemberAuthor
+	* 작성자 : jin
+	* 변경이력 :
+	* @param params
+	* @return
+	* Method 설명 : 관리자 회원관리 권한 수정하는 메서드
+	 */
+	public Map<String, Object> manageUpdateMemberAuthor(Map<String, Object> params);
 }

@@ -1,5 +1,8 @@
 package kr.co.tripweaver.member.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -72,6 +75,47 @@ public class MemberDao implements IMemberDao {
 		int result = template.delete("memberSQL.eternalDeleteMemberByEmail", mem_email);
 		
 		return result;
+	}
+
+	/**
+	* Method : selectMemberAll
+	* 작성자 : jin
+	* 변경이력 :
+	* @return
+	* Method 설명 : 모든 MemeberVO리스트를 반환하는 메서드
+	 */
+	@Override
+	public int selectMemberAllCount() {
+		int memberCnt = template.selectOne("memberSQL.selectMemberAllCount");
+		return memberCnt;
+	}
+
+	/**
+	* Method : selectMemberPageList
+	* 작성자 : jin
+	* 변경이력 :
+	* @param params
+	* @return
+	* Method 설명 : 해당 페이지의 MemberVO리스트를 반환하는 메서드
+	 */
+	@Override
+	public List<MemberVO> selectMemberPageList(Map<String, Object> params) {
+		List<MemberVO> memberVOs = template.selectList("memberSQL.selectMemberPageList", params);
+		return memberVOs;
+	}
+
+	/**
+	* Method : updateMemberAuthor
+	* 작성자 : jin
+	* 변경이력 :
+	* @param params
+	* @return
+	* Method 설명 : 관리자 회원관리 권한 수정하는 메서드
+	 */
+	@Override
+	public int manageUpdateMemberAuthor(Map<String, Object> params) {
+		int updateCnt = template.update("memberSQL.manageUpdateMemberAuthor", params);
+		return updateCnt;
 	}
 	
 	
