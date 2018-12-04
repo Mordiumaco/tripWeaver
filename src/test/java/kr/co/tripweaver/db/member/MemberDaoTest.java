@@ -23,12 +23,15 @@ public class MemberDaoTest extends ServiceDaoTestConfig{
 	@Test
 	public void selectMemberAllTest() {
 		/***Given***/
-
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("sfl", "mem_nick");
+		params.put("stx", "");
+		
 		/***When***/
-		int memberCnt = memberDao.selectMemberAllCount();
+		int memberCnt = memberDao.selectMemberAllCount(params );
 
 		/***Then***/
-		assertEquals(135, memberCnt);
+		assertEquals(133, memberCnt);
 	}
 	
 	@Test
@@ -37,6 +40,8 @@ public class MemberDaoTest extends ServiceDaoTestConfig{
 		Map<String, Object> params = new HashMap<String, Object>();
 		PageVO pageVO = new PageVO(2, 10);
 		params.put("pageVO", pageVO);
+		params.put("sfl", "mem_nick");
+		params.put("stx", "");
 		
 		/***When***/
 		List<MemberVO> memberVOs = memberDao.selectMemberPageList(params);

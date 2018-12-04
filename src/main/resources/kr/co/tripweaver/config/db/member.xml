@@ -20,18 +20,20 @@
   </delete>
   
   <!-- 모든 회원리스트를 조회 -->
-  <select id="selectMemberAllCount" resultType="integer">
+  <select id="selectMemberAllCount" parameterType="Map" resultType="integer">
   	SELECT COUNT(*) FROM member
   	WHERE mem_del = 'N'
+  	AND ${sfl} LIKE '%${stx}%'
   </select>
  
   <!-- 해당페이지릐 회원리스트를 조회 -->
-  <select id="selectMemberPageList" resultType="memberVo">
+  <select id="selectMemberPageList" parameterType="Map" resultType="memberVo">
   	SELECT m.*
 	FROM (SELECT ROWNUM AS rnum,
-           		 member.*
-      	 FROM member
-      	 WHERE mem_del = 'N') m
+	            member.*
+	      FROM member
+	      WHERE mem_del = 'N'
+	      AND ${sfl} LIKE '%${stx}%') m
 	WHERE rnum BETWEEN (${pageVO.page}*${pageVO.pageSize})-(${pageVO.pageSize}-1) AND ${pageVO.page}*${pageVO.pageSize}
   </select>
   

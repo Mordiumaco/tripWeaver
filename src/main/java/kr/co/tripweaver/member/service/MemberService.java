@@ -75,7 +75,7 @@ public class MemberService implements IMemberService {
 	 */
 	@Override
 	public Map<String, Object> selectMemberPageList(Map<String, Object> params) {
-		int memberCnt = memberDao.selectMemberAllCount();
+		int memberCnt = memberDao.selectMemberAllCount(params);
 		List<MemberVO> memberVOs = memberDao.selectMemberPageList(params);
 		int pageCnt = PageUtil.pageCnt(memberCnt, 10);
 		

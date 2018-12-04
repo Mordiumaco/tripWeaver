@@ -85,8 +85,8 @@ public class MemberDao implements IMemberDao {
 	* Method 설명 : 모든 MemeberVO리스트를 반환하는 메서드
 	 */
 	@Override
-	public int selectMemberAllCount() {
-		int memberCnt = template.selectOne("memberSQL.selectMemberAllCount");
+	public int selectMemberAllCount(Map<String, Object> params) {
+		int memberCnt = template.selectOne("memberSQL.selectMemberAllCount", params);
 		return memberCnt;
 	}
 

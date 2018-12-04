@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.tripweaver.member.model.MemberVO;
 import kr.co.tripweaver.member.service.IMemberService;
@@ -24,6 +25,8 @@ public class UserManagementController {
 	@RequestMapping("memberView")
 	public String memberView(PageVO pageVO,Model model) {
 		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("sfl", "mem_nick");
+		params.put("stx", "");
 		params.put("pageVO", pageVO);
 		
 		Map<String, Object> resultMap = memberService.selectMemberPageList(params);
@@ -31,20 +34,29 @@ public class UserManagementController {
 		model.addAttribute("gnb", 1);
 		model.addAttribute("title", "회원관리");
 		model.addAttribute("pageVO", pageVO);
+		model.addAttribute("stx", "");
+		model.addAttribute("sfl", "mem_nick");
 		
 		return "admin/membership/member";
 	}
 
 	@RequestMapping("memberViewAjax")
-	public String memberViewAjax(PageVO pageVO,Model model) {
+	public String memberViewAjax(@RequestParam("sfl") String sfl, @RequestParam("stx") String stx, PageVO pageVO, Model model) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("pageVO", pageVO);
+		stx = stx.isEmpty() ? "" : stx;			
+		params.put("sfl", sfl);
+		params.put("stx", stx);
 		
 		Map<String, Object> resultMap = memberService.selectMemberPageList(params);
 		model.addAllAttributes(resultMap);
 		model.addAttribute("gnb", 1);
 		model.addAttribute("title", "회원관리");
 		model.addAttribute("pageVO", pageVO);
+		model.addAttribute("stx", stx);
+		model.addAttribute("sfl", sfl);
+		
+		System.out.println("UserManagementController : " + (int) resultMap.get("pageCnt"));
 		
 		return "admin/membership/member_ajax";
 	}
@@ -76,4 +88,5 @@ public class UserManagementController {
 		
 		return "admin/membership/member_ajax";
 	}
+	
 }

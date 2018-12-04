@@ -2,34 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<div class="local_ov01 local_ov">
-    <a href="" class="ov_listall">전체목록</a>
-    
-    <span class="btn_ov01"><span class="ov_txt">총회원수 </span>
-    <span class="ov_num"> ${memberCnt}명 </span></span>
-    
-    <a href="" class="btn_ov01"> 
-    	<span class="ov_txt">차단 </span>
-    	<span class="ov_num">0명</span>
-    </a>
-    
-    <a href="" class="btn_ov01"> 
-    	<span class="ov_txt">탈퇴  </span>
-    	<span class="ov_num">0명</span>
-    </a>
-</div>
 
-<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
-	<label for="sfl" class="sound_only">검색대상</label>
-	<select name="sfl" id="sfl">
-	    <option value="mb_nick">닉네임</option>
-	    <option value="mb_name">이름</option>
-	    <option value="mb_email">E-MAIL</option>
-	</select>
-	<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
-	<input type="text" name="stx" value="" id="stx" required="" class="required frm_input">
-	<input type="submit" class="btn_submit" value="검색">
-</form>
 
 <div class="local_desc01 local_desc">
     <p>
@@ -90,10 +63,10 @@
 			        </th>
 			        <th scope="col" id="mb_list_auth">회원권한</th>
 			        <th scope="col" id="mb_list_lastcall">
-			        	<a href="">수정</a>
+			        	수정
 			        </th>
 			        <th scope="col" id="mb_list_lastcall">
-			        	<a href="">삭제</a>
+			        	삭제
 			        </th>
 			    </tr>
 		    </thead>

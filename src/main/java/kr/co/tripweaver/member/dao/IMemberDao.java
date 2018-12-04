@@ -54,7 +54,7 @@ public interface IMemberDao {
 	* @return
 	* Method 설명 : 모든 MemeberVO리스트를 반환하는 메서드
 	 */
-	public int selectMemberAllCount();
+	public int selectMemberAllCount(Map<String, Object> params);
 	
 	/**
 	* Method : selectMemberPageList
