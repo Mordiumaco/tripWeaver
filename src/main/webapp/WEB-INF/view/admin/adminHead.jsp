@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,7 +77,7 @@
                 <div class="gnb_oparea_wr">
                     <div class="gnb_oparea">
                         <h3>회원관리</h3>
-                        <a href="/main/member">회원관리</a>
+                        <a href="/manage/memberView?page=1&pageSize=10">회원관리</a>
                     </div>
                 </div>
             </li>
@@ -163,6 +164,6 @@
 
 <div id="wrapper">
     <div id="container" class="">
-        <h1 id="container_title"> <%-- 각 제목 가져오세요. --%> 타이틀 제목</h1>
+        <h1 id="container_title"> <%-- 각 제목 가져오세요. --%> ${title}</h1>
         <div class="container_wr">
 

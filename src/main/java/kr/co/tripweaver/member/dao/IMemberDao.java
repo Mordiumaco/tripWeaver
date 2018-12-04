@@ -1,5 +1,8 @@
 package kr.co.tripweaver.member.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import kr.co.tripweaver.member.model.MemberVO;
 
 public interface IMemberDao {
@@ -44,4 +47,42 @@ public interface IMemberDao {
 	*/
 	public int eternalDeleteMemberByEmail(String mem_email);
 	
+	/**
+	* Method : selectMemberAll
+	* 작성자 : jin
+	* 변경이력 :
+	* @return
+	* Method 설명 : 모든 MemeberVO리스트를 반환하는 메서드
+	 */
+	public int selectMemberAllCount(Map<String, Object> params);
+	
+	/**
+	* Method : selectMemberPageList
+	* 작성자 : jin
+	* 변경이력 :
+	* @param params
+	* @return
+	* Method 설명 : 해당 페이지의 MemberVO리스트를 반환하는 메서드
+	 */
+	public List<MemberVO> selectMemberPageList(Map<String, Object> params);
+	
+	/**
+	* Method : updateMemberAuthor
+	* 작성자 : jin
+	* 변경이력 :
+	* @param params
+	* @return
+	* Method 설명 : 관리자 회원관리 권한 수정하는 메서드
+	 */
+	public int manageUpdateMemberAuthor(Map<String, Object> params);
+	
+	/**
+	* Method : manageDeleteMemberDel
+	* 작성자 : jin
+	* 변경이력 :
+	* @param params
+	* @return
+	* Method 설명 : 관리자 회원관리 회원삭제여부 Y로 수정하는 메서드
+	 */
+	public int manageDeleteMemberDel(Map<String, Object> params);
 }
