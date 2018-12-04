@@ -56,8 +56,7 @@ public class UserManagementController {
 		model.addAttribute("pageVO", pageVO);
 		model.addAttribute("stx", stx);
 		model.addAttribute("sfl", sfl);
-		
-		System.out.println("UserManagementController : " + (int) resultMap.get("pageCnt"));
+		//블랙리스트, 탈퇴회원수 조회
 		
 		return "admin/membership/member_ajax";
 	}
@@ -146,4 +145,16 @@ public class UserManagementController {
 		return "admin/membership/member_ajax";
 	}
 	
+	@RequestMapping("memberCntAjax")
+	public String memberCntAjax(Model model) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("sfl", "mem_nick");
+		params.put("stx", "");
+		params.put("pageVO", new PageVO(1, 10));
+		Map<String, Object> resultMap = memberService.manageMemberCnt(params);
+		
+		model.addAllAttributes(resultMap);
+		
+		return "admin/membership/memberCnt_ajax";
+	}
 }

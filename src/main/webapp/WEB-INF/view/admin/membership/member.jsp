@@ -78,6 +78,27 @@
 				}
 			});
 		});
+		function memberListAll(page) {
+			var pageSize = 10;
+			var sfl = "mem_nick";
+			var stx = "";
+			$.ajax({
+				url : "/manage/memberViewAjax",
+				type : "get",
+				data : "page=" + page + "&pageSize=" + pageSize + "&sfl=" + sfl + "&stx=" + stx,
+				success : function(dt) {
+					$("#memberPage").html(dt);
+				}
+			});
+			$.ajax({
+				url : "/manage/memberCntAjax",
+				success : function(dt) {
+					$("#memberCnt").html(dt);
+				}
+			});
+			$("#sfl").val(sfl).prop("selected", true);
+			$("#stx").val(stx);
+		}
 		function memberPage(page) {
 			var pageSize = 10;
 			var target = document.getElementById("sfl");
@@ -89,6 +110,12 @@
 				data : "page=" + page + "&pageSize=" + pageSize + "&sfl=" + sfl + "&stx=" + stx,
 				success : function(dt) {
 					$("#memberPage").html(dt);
+				}
+			});
+			$.ajax({
+				url : "/manage/memberCntAjax",
+				success : function(dt) {
+					$("#memberCnt").html(dt);
 				}
 			});
 			$("#sfl").val(sfl).prop("selected", true);
@@ -110,6 +137,12 @@
 					alert("에러-아작스실패");	
 				}
 			});
+			$.ajax({
+				url : "/manage/memberCntAjax",
+				success : function(dt) {
+					$("#memberCnt").html(dt);
+				}
+			});
 		}
 		function memberDelete(mem_id, page) {
 			var pageSize = ${pageVO.pageSize};
@@ -122,6 +155,12 @@
 				data : {"mem_id":mem_id,"page":page,"pageSize":pageSize,"sfl":sfl,"stx":stx}, 
 				success : function(dt) {
 					$("#memberPage").html(dt);
+				}
+			});
+			$.ajax({
+				url : "/manage/memberCntAjax",
+				success : function(dt) {
+					$("#memberCnt").html(dt);
 				}
 			});
 		}
@@ -141,6 +180,12 @@
 					alert("에러-아작스실패");	
 				}
 			});
+			$.ajax({
+				url : "/manage/memberCntAjax",
+				success : function(dt) {
+					$("#memberCnt").html(dt);
+				}
+			});
 		}
 		function memberChkDelete(delArr, page) {
 			var pageSize = ${pageVO.pageSize};
@@ -155,24 +200,17 @@
 					$("#memberPage").html(dt);
 				}
 			});
+			$.ajax({
+				url : "/manage/memberCntAjax",
+				success : function(dt) {
+					$("#memberCnt").html(dt);
+				}
+			});
 		}
 	</script>
 	
-	<div class="local_ov01 local_ov">
-    <a href="" class="ov_listall">전체목록</a>
-    
-    <span class="btn_ov01"><span class="ov_txt">총회원수 </span>
-    <span class="ov_num"> ${memberCnt}명 </span></span>
-    
-    <a href="" class="btn_ov01"> 
-    	<span class="ov_txt">차단 </span>
-    	<span class="ov_num">0명</span>
-    </a>
-    
-    <a href="" class="btn_ov01"> 
-    	<span class="ov_txt">탈퇴  </span>
-    	<span class="ov_num">0명</span>
-    </a>
+	<div class="local_ov01 local_ov" id="memberCnt">
+	    
 	</div>
 	
 	<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">

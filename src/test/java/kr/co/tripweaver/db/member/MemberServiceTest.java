@@ -61,7 +61,7 @@ public class MemberServiceTest extends ServiceDaoTestConfig{
 	}
 	
 	@Test
-	public void manageDeleteMemberDel() {
+	public void manageDeleteMemberDelTest() {
 		/***Given***/
 		Map<String, Object> params = new HashMap<String, Object>();
 		PageVO pageVO = new PageVO(2, 10);
