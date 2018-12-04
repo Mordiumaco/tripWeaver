@@ -74,7 +74,7 @@ public interface IMemberDao {
 	* @return
 	* Method 설명 : 관리자 회원관리 권한 수정하는 메서드
 	 */
-	public int manageUpdateMemberAuthor(Map<String, Object> params);
+	public int manageUpdateMemberAuthor(MemberVO memberVO);
 	
 	/**
 	* Method : manageDeleteMemberDel
@@ -84,5 +84,23 @@ public interface IMemberDao {
 	* @return
 	* Method 설명 : 관리자 회원관리 회원삭제여부 Y로 수정하는 메서드
 	 */
-	public int manageDeleteMemberDel(Map<String, Object> params);
+	public int manageDeleteMemberDel(String mem_id);
+	
+	/**
+	* Method : manageCountMemberDel
+	* 작성자 : jin
+	* 변경이력 :
+	* @return
+	* Method 설명 : 관리자 회원관리에서 탈퇴회원 수를 반환하는 메서드
+	 */
+	public int manageCountMemberDel();
+	
+	/**
+	* Method : manageCountMemberAuth
+	* 작성자 : jin
+	* 변경이력 :
+	* @return
+	* Method 설명 : 관리자 회원관리에서 블랙리스트 수를 반환하는 메서드
+	 */
+	public int manageCountMemberAuth();
 }

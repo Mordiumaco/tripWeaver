@@ -62,14 +62,14 @@ public class MemberDaoTest extends ServiceDaoTestConfig{
 		params.put("pageVO", pageVO);
 
 		/***When***/
-		int updateCnt = memberDao.manageUpdateMemberAuthor(params);
+		int updateCnt = memberDao.manageUpdateMemberAuthor(memberVO);
 
 		/***Then***/
 		assertEquals(1, updateCnt);
 	}
 	
 	@Test
-	public void manageDeleteMemberDel() {
+	public void manageDeleteMemberDelTest() {
 		/***Given***/
 		Map<String, Object> params = new HashMap<String, Object>();
 		MemberVO memberVO = new MemberVO();
@@ -77,12 +77,30 @@ public class MemberDaoTest extends ServiceDaoTestConfig{
 		params.put("memberVO", memberVO);
 
 		/***When***/
-		int deleteCnt = memberDao.manageDeleteMemberDel(params);
+		int deleteCnt = memberDao.manageDeleteMemberDel("test68");
 
 		/***Then***/
 		assertEquals(1, deleteCnt);
 	}
-}
+	
+	@Test
+	public void manageCountMemberDel() {
+		/***Given***/
+		/***When***/
+		int delCnt = memberDao.manageCountMemberDel();
+		/***Then***/
+		assertEquals(2, delCnt);
+	}
+	
+	@Test
+	public void manageCountMemberAuth() {
+		/***Given***/
+		/***When***/
+		int authCnt = memberDao.manageCountMemberAuth();
+		/***Then***/
+		assertEquals(0, authCnt);
+	}
+}	
 
 
 

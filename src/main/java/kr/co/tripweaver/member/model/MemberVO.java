@@ -103,7 +103,6 @@ public class MemberVO {
 	public void setMem_following_count(Integer mem_following_count) {
 		this.mem_following_count = mem_following_count;
 	}
-
 	public int getMem_author() {
 		return mem_author;
 	}
