@@ -62,7 +62,7 @@ public class MemberDaoTest extends ServiceDaoTestConfig{
 		params.put("pageVO", pageVO);
 
 		/***When***/
-		int updateCnt = memberDao.manageUpdateMemberAuthor(params);
+		int updateCnt = memberDao.manageUpdateMemberAuthor(memberVO);
 
 		/***Then***/
 		assertEquals(1, updateCnt);
@@ -77,7 +77,7 @@ public class MemberDaoTest extends ServiceDaoTestConfig{
 		params.put("memberVO", memberVO);
 
 		/***When***/
-		int deleteCnt = memberDao.manageDeleteMemberDel(params);
+		int deleteCnt = memberDao.manageDeleteMemberDel("test68");
 
 		/***Then***/
 		assertEquals(1, deleteCnt);

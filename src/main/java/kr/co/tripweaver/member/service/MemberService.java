@@ -96,7 +96,8 @@ public class MemberService implements IMemberService {
 	 */
 	@Override
 	public Map<String, Object> manageUpdateMemberAuthor(Map<String, Object> params) {
-		int updateCnt = memberDao.manageUpdateMemberAuthor(params);
+		MemberVO memberVO = (MemberVO) params.get("memberVO");
+		int updateCnt = memberDao.manageUpdateMemberAuthor(memberVO);
 		Map<String, Object> resultMap = selectMemberPageList(params);
 		resultMap.put("updateCnt", updateCnt);
 		return resultMap;
@@ -112,9 +113,42 @@ public class MemberService implements IMemberService {
 	 */
 	@Override
 	public Map<String, Object> manageDeleteMemberDel(Map<String, Object> params) {
-		int deleteCnt = memberDao.manageDeleteMemberDel(params);
+		String mem_id = ((MemberVO)params.get("memberVO")).getMem_id();
+		int deleteCnt = memberDao.manageDeleteMemberDel(mem_id);
 		Map<String, Object> resultMap = selectMemberPageList(params);
 		resultMap.put("deleteCnt", deleteCnt);
+		return resultMap;
+	}
+
+	@Override
+	public Map<String, Object> manageChkDeleteMemberDel(Map<String, Object> params) {
+		String delArr = (String) params.get("delArr");
+		String[] memList = delArr.split(";");
+		int deleteCnt = 0;
+		for(String mem_id : memList) {
+			deleteCnt += memberDao.manageDeleteMemberDel(mem_id);
+		}
+		Map<String, Object> resultMap = selectMemberPageList(params);
+		resultMap.put("deleteCnt", deleteCnt);
+		return resultMap;
+	}
+
+	@Override
+	public Map<String, Object> manageChkUpdateMemberAuthor(Map<String, Object> params) {
+		String upArr = (String) params.get("upArr");
+		String auArr = (String) params.get("auArr");
+		String[] memList = upArr.split(";");
+		String[] memAuthor = auArr.split(";");
+		int updateCnt = 0;
+		for(int i = 0; i < memList.length; i++) {
+			MemberVO memberVO = new MemberVO();
+			memberVO.setMem_id(memList[i]);
+			memberVO.setMem_author(Integer.parseInt(memAuthor[i]));
+			updateCnt += memberDao.manageUpdateMemberAuthor(memberVO);
+		}
+		
+		Map<String, Object> resultMap = selectMemberPageList(params);
+		resultMap.put("updateCnt", updateCnt);
 		return resultMap;
 	}
 	

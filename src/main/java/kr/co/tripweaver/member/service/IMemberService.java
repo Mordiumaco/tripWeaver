@@ -76,4 +76,24 @@ public interface IMemberService {
 	* Method 설명 : 관리자 회원관리 삭제여부를 'Y'로 수정하고 해당페이지 멤버리스트를 반환하는 메서드
 	 */
 	public Map<String, Object> manageDeleteMemberDel(Map<String, Object> params);
+	
+	/**
+	* Method : manageChkDeleteMemberDel
+	* 작성자 : jin
+	* 변경이력 :
+	* @param params
+	* @return
+	* Method 설명 : 관리자 회원관리에서 해당 멤버들의 삭제여부를 'Y'로 수정하고 해당페이지 멤버리스트를 반환하는 메서드
+	 */
+	public Map<String, Object> manageChkDeleteMemberDel(Map<String, Object> params);
+	
+	/**
+	* Method : manageChkUpdateMemberAuthor
+	* 작성자 : jin
+	* 변경이력 :
+	* @param params
+	* @return
+	* Method 설명 : 관리자 회원관리에서 해당 멤버들의 권한을 수정하고 해당페이지 멤버리스트를 반환하는 메서드
+	 */
+	public Map<String, Object> manageChkUpdateMemberAuthor(Map<String, Object> params);
 }

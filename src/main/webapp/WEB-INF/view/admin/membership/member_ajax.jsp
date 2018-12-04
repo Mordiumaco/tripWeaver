@@ -40,7 +40,7 @@
 			    <tr>
 			        <th scope="col" id="mb_list_chk" rowspan="2">
 			            <label for="chkall" class="sound_only">회원 전체</label>
-			            <input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
+			            <input type="checkbox" name="chkall" id="chkall">
 			        </th>
 			        <th scope="col" id="mb_list_mailc">
 			        	<a href="">아이디</a>
@@ -77,7 +77,7 @@
 				        <td headers="mb_list_chk" class="td_chk" >
 				            <input type="hidden" name="mb_id[0]" value="pcpcggg3@naver.com" id="mb_id_0">
 				            <label for="chk_0" class="sound_only">pcpcggg3@naver.com 님</label>
-				            <input type="checkbox" name="chk[]" value="0" id="chk_0">
+				            <input type="checkbox" name="chk" id="chk">
 				        </td>
 				        <td headers="mb_list_id"  class="td_name sv_use">
 				            <span>${memberVO.mem_id}</span>
@@ -121,8 +121,8 @@
 		</table>
 	</div>
 	<div class="btn_fixed_top">
-	    <input type="submit" name="act_button" value="선택수정" onclick="document.pressed=this.value" class="btn btn_02">
-	    <input type="submit" name="act_button" value="선택삭제" onclick="document.pressed=this.value" class="btn btn_02">
+	    <input type="button" id="chkUpdate" name="act_button" value="선택수정" class="btn btn_02">
+	    <input type="button" id="chkDelete" name="act_button" value="선택삭제" class="btn btn_02">
 	</div>
 </form>
 

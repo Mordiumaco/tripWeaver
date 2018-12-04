@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.tripweaver.member.model.MemberVO;
@@ -61,30 +62,86 @@ public class UserManagementController {
 		return "admin/membership/member_ajax";
 	}
 	
-	@RequestMapping("memberUpdateAjax")
-	public String memberUpdateAjax(MemberVO memberVO, PageVO pageVO,Model model) {
+	@RequestMapping(value="memberUpdateAjax", method=RequestMethod.POST)
+	public String memberUpdateAjax(@RequestParam("sfl") String sfl, @RequestParam("stx") String stx, MemberVO memberVO, PageVO pageVO, Model model) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("pageVO", pageVO);
 		params.put("memberVO", memberVO);
+		stx = stx.isEmpty() ? "" : stx;			
+		params.put("sfl", sfl);
+		params.put("stx", stx);
+		
 		Map<String, Object> resultMap = memberService.manageUpdateMemberAuthor(params);
 		model.addAllAttributes(resultMap);
 		model.addAttribute("gnb", 1);
 		model.addAttribute("title", "회원관리");
 		model.addAttribute("pageVO", pageVO);
+		model.addAttribute("stx", stx);
+		model.addAttribute("sfl", sfl);
 		
 		return "admin/membership/member_ajax";
 	}
 	
-	@RequestMapping("memberDeleteAjax")
-	public String memberDeleteAjax(MemberVO memberVO, PageVO pageVO,Model model) {
+	@RequestMapping(value="memberDeleteAjax", method=RequestMethod.POST)
+	public String memberDeleteAjax(@RequestParam("sfl") String sfl, @RequestParam("stx") String stx, MemberVO memberVO, PageVO pageVO, Model model) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("pageVO", pageVO);
 		params.put("memberVO", memberVO);
+		stx = stx.isEmpty() ? "" : stx;			
+		params.put("sfl", sfl);
+		params.put("stx", stx);
+		
 		Map<String, Object> resultMap = memberService.manageDeleteMemberDel(params);
 		model.addAllAttributes(resultMap);
 		model.addAttribute("gnb", 1);
 		model.addAttribute("title", "회원관리");
 		model.addAttribute("pageVO", pageVO);
+		model.addAttribute("stx", stx);
+		model.addAttribute("sfl", sfl);
+		
+		return "admin/membership/member_ajax";
+	}
+	
+	@RequestMapping(value="memberChkUpdateAjax", method=RequestMethod.POST)
+	public String memberChkUpdateAjax(@RequestParam("sfl") String sfl, @RequestParam("stx") String stx, @RequestParam("upArr") String upArr, @RequestParam("auArr") String auArr, PageVO pageVO, Model model) {
+		
+		System.out.println("memberChkUpdateAjax : " + sfl + " " + stx + " " + upArr + " " + auArr);
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("pageVO", pageVO);
+		params.put("upArr", upArr);
+		params.put("auArr", auArr);
+		stx = stx.isEmpty() ? "" : stx;			
+		params.put("sfl", sfl);
+		params.put("stx", stx);
+		
+		Map<String, Object> resultMap = memberService.manageChkUpdateMemberAuthor(params);
+		model.addAllAttributes(resultMap);
+		model.addAttribute("gnb", 1);
+		model.addAttribute("title", "회원관리");
+		model.addAttribute("pageVO", pageVO);
+		model.addAttribute("stx", stx);
+		model.addAttribute("sfl", sfl);
+		
+		return "admin/membership/member_ajax";
+	}
+	
+	@RequestMapping(value="memberChkDeleteAjax", method=RequestMethod.POST)
+	public String memberChkDeleteAjax(@RequestParam("sfl") String sfl, @RequestParam("stx") String stx, @RequestParam("delArr") String delArr, PageVO pageVO, Model model) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("pageVO", pageVO);
+		params.put("delArr", delArr);
+		stx = stx.isEmpty() ? "" : stx;			
+		params.put("sfl", sfl);
+		params.put("stx", stx);
+		
+		Map<String, Object> resultMap = memberService.manageChkDeleteMemberDel(params);
+		model.addAllAttributes(resultMap);
+		model.addAttribute("gnb", 1);
+		model.addAttribute("title", "회원관리");
+		model.addAttribute("pageVO", pageVO);
+		model.addAttribute("stx", stx);
+		model.addAttribute("sfl", sfl);
 		
 		return "admin/membership/member_ajax";
 	}

@@ -15,6 +15,7 @@
 				var target = document.getElementById(mem_id);
 				var mem_author = target.options[target.selectedIndex].value;
 				var page = tr.children().eq(1).find('input').val();
+				console.log("mem_id, mem_author, page : " + mem_id + " " + mem_author + " " + page);
 				memberUpdate(mem_id, mem_author, page);
 			});
 			
@@ -29,13 +30,59 @@
 				memberPage(1);
 			});
 			
+			$("#memberPage").on("click", "#chkDelete", function() {
+				var delArr = "";
+				var page = "";
+				//페크된 멤버 아이디
+				$("input:checkbox[name=chk]:checked").each(function(i, e) {
+					var tr = $(e).parent().parent();
+					var mem_id = tr.children().eq(1).find('span').text();
+					page = tr.children().eq(1).find('input').val();
+					delArr += mem_id + ";";
+				});
+				if(delArr == ""){
+					alert("삭제할 인원을 선탣해주세요");
+				} else {
+					memberChkDelete(delArr, page);
+				}
+			});
+			
+			$("#memberPage").on("click", "#chkUpdate", function() {
+				var upArr = "";
+				var auArr = "";
+				var page = "";
+				//채크된 멤버 아이디/권합값
+				$("input:checkbox[name=chk]:checked").each(function(i, e) {
+					var tr = $(e).parent().parent();
+					var mem_id = tr.children().eq(1).find('span').text();
+					var target = document.getElementById(mem_id);
+					var mem_author = target.options[target.selectedIndex].value;
+					page = tr.children().eq(1).find('input').val();
+					upArr += mem_id + ";";
+					auArr += mem_author + ";";
+				});
+				console.log("upArr, auArr, page : " + upArr + " " + auArr + " " + page);
+				if(upArr == ""){
+					alert("수정할 인원을 선택해주세요");
+				} else {
+					memberChkUpdate(upArr, auArr, page);
+				}				
+			});
+			
+			//체크박스 전테체크
+			$("#memberPage").on("click", "#chkall", function() {
+				if($("#chkall").prop("checked")){
+					$("input[name=chk]").prop("checked", true);
+				} else {
+					$("input[name=chk]").prop("checked", false);
+				}
+			});
 		});
 		function memberPage(page) {
 			var pageSize = 10;
 			var target = document.getElementById("sfl");
 			var sfl = target.options[target.selectedIndex].value;
 			var stx = $("#stx").val();
-			console.log("stx : " + stx + " sfl : " + sfl);
 			$.ajax({
 				url : "/manage/memberViewAjax",
 				type : "get",
@@ -49,21 +96,61 @@
 		}
 		function memberUpdate(mem_id, mem_author,page) {
 			var pageSize = ${pageVO.pageSize};
+			var target = document.getElementById("sfl");
+			var sfl = target.options[target.selectedIndex].value;
+			var stx = $("#stx").val();
 			$.ajax({
 				url : "/manage/memberUpdateAjax",
 				type : "post",
-				data : {"mem_id":mem_id,"mem_author":mem_author,"page":page,"pageSize":pageSize}, 
+				data : {"mem_id":mem_id,"mem_author":mem_author,"page":page,"pageSize":pageSize,"sfl":sfl,"stx":stx}, 
 				success : function(dt) {
 					$("#memberPage").html(dt);
+				},
+				error : function() {
+					alert("에러-아작스실패");	
 				}
 			});
 		}
 		function memberDelete(mem_id, page) {
 			var pageSize = ${pageVO.pageSize};
+			var target = document.getElementById("sfl");
+			var sfl = target.options[target.selectedIndex].value;
+			var stx = $("#stx").val();
 			$.ajax({
 				url : "/manage/memberDeleteAjax",
 				type : "post",
-				data : {"mem_id":mem_id,"page":page,"pageSize":pageSize}, 
+				data : {"mem_id":mem_id,"page":page,"pageSize":pageSize,"sfl":sfl,"stx":stx}, 
+				success : function(dt) {
+					$("#memberPage").html(dt);
+				}
+			});
+		}
+		function memberChkUpdate(upArr, auArr, page) {
+			var pageSize = ${pageVO.pageSize};
+			var target = document.getElementById("sfl");
+			var sfl = target.options[target.selectedIndex].value;
+			var stx = $("#stx").val();
+			$.ajax({
+				url : "/manage/memberChkUpdateAjax",
+				type : "post",
+				data : {"upArr":upArr,"auArr":auArr,"page":page,"pageSize":pageSize,"sfl":sfl,"stx":stx},
+				success : function(dt) {
+					$("#memberPage").html(dt);
+				},
+				error : function() {
+					alert("에러-아작스실패");	
+				}
+			});
+		}
+		function memberChkDelete(delArr, page) {
+			var pageSize = ${pageVO.pageSize};
+			var target = document.getElementById("sfl");
+			var sfl = target.options[target.selectedIndex].value;
+			var stx = $("#stx").val();
+			$.ajax({
+				url : "/manage/memberChkDeleteAjax",
+				type : "post",
+				data : {"delArr":delArr,"page":page,"pageSize":pageSize,"sfl":sfl,"stx":stx},
 				success : function(dt) {
 					$("#memberPage").html(dt);
 				}

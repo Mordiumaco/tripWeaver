@@ -37,16 +37,16 @@
 	WHERE rnum BETWEEN (${pageVO.page}*${pageVO.pageSize})-(${pageVO.pageSize}-1) AND ${pageVO.page}*${pageVO.pageSize}
   </select>
   
-  <update id="manageUpdateMemberAuthor">
+  <update id="manageUpdateMemberAuthor" parameterType="memberVo">
   	UPDATE member
-  	SET mem_author = ${memberVO.mem_author}
-  	WHERE mem_id = #{memberVO.mem_id}
+  	SET mem_author = ${mem_author}
+  	WHERE mem_id = #{mem_id}
   </update>
   
-  <update id="manageDeleteMemberDel">
+  <update id="manageDeleteMemberDel" parameterType="String">
   	UPDATE member
   	SET mem_del = 'Y'
-  	WHERE mem_id = #{memberVO.mem_id}
+  	WHERE mem_id = #{mem_id}
   </update>
   
 </mapper>
