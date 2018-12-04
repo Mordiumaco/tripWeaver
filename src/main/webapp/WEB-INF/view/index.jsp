@@ -82,7 +82,7 @@ $(document).ready(function () {
 	<div class="main_map main_list">
 		<ul>
 			<li class="essay_list">
-				<a href="">
+				<a href="/main/essay_view">
 					<div class="essay_img">
 						<img src="/img/main_01.jpg"/>
 					</div>
@@ -95,7 +95,7 @@ $(document).ready(function () {
 			</li>
 			
 			<li class="essay_list">
-				<a href="">
+				<a href="/main/essay_view">
 					<div class="essay_img">
 						<img src="/img/main_06.jpg"/>
 					</div>
@@ -109,7 +109,7 @@ $(document).ready(function () {
 			</li>
 			
 			<li class="essay_list">
-				<a href="">
+				<a href="/main/essay_view">
 					<div class="essay_img">
 						<img src="/img/main_02.jpg"/>
 					</div>
@@ -123,7 +123,7 @@ $(document).ready(function () {
 			</li>
 			
 			<li class="essay_list">
-				<a href="">
+				<a href="/main/essay_view">
 					<div class="essay_img">
 						<img src="/img/main_03.jpg"/>
 					</div>
@@ -137,7 +137,7 @@ $(document).ready(function () {
 			</li>
 			
 			<li class="essay_list">
-				<a href="">
+				<a href="/main/essay_view">
 					<div class="essay_img">
 						<img src="/img/main_04.jpg"/>
 					</div>
@@ -151,7 +151,7 @@ $(document).ready(function () {
 			</li>
 			
 			<li class="essay_list">
-				<a href="">
+				<a href="/main/essay_view">
 					<div class="essay_img">
 						<img src="/img/main_05.jpg"/>
 					</div>
@@ -165,7 +165,7 @@ $(document).ready(function () {
 			</li>
 			
 			<li class="essay_list">
-				<a href="">
+				<a href="/main/essay_view">
 					<div class="essay_img">
 						<img src="/img/main_06.jpg"/>
 					</div>
@@ -179,7 +179,7 @@ $(document).ready(function () {
 			</li>
 			
 			<li class="essay_list">
-				<a href="">
+				<a href="/main/essay_view">
 					<div class="essay_img">
 						<img src="/img/main_01.jpg"/>
 					</div>
@@ -192,40 +192,13 @@ $(document).ready(function () {
 			</li>
 			
 			<li class="essay_list">
-				<a href="">
+				<a href="/main/essay_view">
 					<div class="essay_img">
 						<img src="/img/main_01.jpg"/>
 					</div>
 					<ul class="essay_info">
 						<li>20 <span>만원</span> <h6>박  진</h6></li>
 						<li>여행지  : 충청북도 박진집</li>
-						<li>먹거리  / 겨울  /  혼자 </li>
-					</ul>
-				</a>
-			</li>
-			
-			<li class="essay_list">
-				<a href="">
-					<div class="essay_img">
-						<img src="/img/main_01.jpg"/>
-					</div>
-					<ul class="essay_info">
-						<li>20 <span>만원</span> <h6>박  진</h6></li>
-						<li>여행지  : 충청북도 박진집</li>
-						<li>먹거리  / 겨울  /  혼자 </li>
-					</ul>
-				</a>
-			</li>
-			
-			<li class="essay_list">
-				<a href="">
-					<div class="essay_img">
-						<img src="/img/main_01.jpg"/>
-					</div>
-					<ul class="essay_info">
-						<li>20 <span>만원</span> <h6>박  진</h6></li>
-						<li>여행지  : 충청북도 박진집</li>
-						
 						<li>먹거리  / 겨울  /  혼자 </li>
 					</ul>
 				</a>
@@ -315,7 +288,7 @@ $(document).ready(function () {
 
 <div class="main_con_03">
 	<div class="con_03_List">
-		<a href="">
+		<a href="/main/essay_view">
 			<ul>
 				<li>Essay</li>
 				<li>일본 술을 마시다.</li>
@@ -326,7 +299,7 @@ $(document).ready(function () {
 		</a>
 	</div>
 	<div class="con_03_List">
-		<a href="">
+		<a href="/main/essay_view">
 			<ul>
 				<li>Essay</li>
 				<li>일본 술을 마시다.</li>
@@ -337,7 +310,7 @@ $(document).ready(function () {
 		</a>
 	</div>
 	<div class="con_03_List">
-		<a href="">
+		<a href="/main/essay_view">
 			<ul>
 				<li>Essay</li>
 				<li>일본 술을 마시다.</li>
@@ -348,7 +321,7 @@ $(document).ready(function () {
 		</a>
 	</div>
 	<div class="con_03_List">
-		<a href="">
+		<a href="/main/essay_view">
 			<ul>
 				<li>Essay</li>
 				<li>일본 술을 마시다.</li>
@@ -359,7 +332,7 @@ $(document).ready(function () {
 		</a>
 	</div>
 	<div class="con_03_List">
-		<a href="">
+		<a href="/main/essay_view">
 			<ul>
 				<li>Essay</li>
 				<li>일본 술을 마시다.</li>
@@ -370,7 +343,7 @@ $(document).ready(function () {
 		</a>
 	</div>
 	<div class="con_03_List">
-		<a href="">
+		<a href="/main/essay_view">
 			<ul>
 				<li>Essay</li>
 				<li>일본 술을 마시다.</li>

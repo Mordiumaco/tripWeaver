@@ -45,11 +45,14 @@ ul {
 
 .mes_bottom input[type=submit] { background:#ffec42; border: 1px solid #e8d73f; padding: 10px 20px; border-radius: 5px; color: #716919;  }
 
-.mes_con_list { width: 100%; min-height:72px; margin-bottom: 10px;}
+.mes_con_list { width: 100%; min-height:72px; margin-bottom: 15px; display: table;}
 .mes_con_list h6 { width: 20%; float: left;  margin: 0;}
 .mes_con_list h6 img { height: 64px;}
 .mes_con_list ul { width: 80%; float: left; padding-top: 10px;}
 .mes_con_list ul li { padding-left:10px;}
+
+.mes_date { float: right; font-size: 0.75em;}
+.mes_dateMy { float: none;}
 
 .mes_con_list_text { margin-top:5px; background:#fff; padding: 5px; border-radius: 4px; box-shadow: 1px 1px 3px #999; line-height: 160%;
 	display: inline-block;
@@ -96,7 +99,7 @@ $(document).ready(function(){
 		<div class="mes_con_list" >
 			<h6><img src="/img/p_03.png" ></h6>
 			<ul>
-				<li><b>유댕이</b></li>
+				<li><b>유댕이</b> <span class="mes_date">2018. 01. 13. 12:42</span></li>
 				<li class="mes_con_list_text">
 					내용입니다. 내용이에요.
 				</li>
@@ -107,14 +110,17 @@ $(document).ready(function(){
 			<ul>
 				<li class="mes_con_list_text mes_con_list_textMy">
 					내용입니다. 내용이에요.12312321
+					내용입니다. 내용이에요.12312321
+					내용입니다. 내용이에요.12312321
 				</li>
 			</ul>
+			<span class="mes_date mes_dateMy">2018. 01. 13. 12:42</span>
 		</div>
 		
 		<div class="mes_con_list" >
 			<h6><img src="/img/p_02.png" ></h6>
 			<ul>
-				<li><b>유댕댕</b></li>
+				<li><b>유댕댕</b><span class="mes_date">2018. 01. 13. 12:42</span></li>
 				<li class="mes_con_list_text">
 					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ
 					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ
@@ -132,7 +138,7 @@ $(document).ready(function(){
 		<div class="mes_con_list" >
 			<h6><img src="/img/p_02.png" ></h6>
 			<ul>
-				<li><b>유댕댕</b></li>
+				<li><b>유댕댕</b><span class="mes_date">2018. 01. 13. 12:42</span></li>
 				<li class="mes_con_list_text">
 					sdfldsjflsdfl
 				</li>

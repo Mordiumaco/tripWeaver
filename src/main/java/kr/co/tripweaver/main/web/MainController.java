@@ -138,6 +138,17 @@ public class MainController {
 		return "mypage/memModified";
 	}
 	
+	@RequestMapping("/clipBoard")
+	public String clipBoardView() {
+		return "mypage/clipBoard";
+	}
+	
+	
+	@RequestMapping("/essay_view")
+	public String essay_viewView() {
+		return "essay/essay_view";
+	}
+	
 	
  
 }
