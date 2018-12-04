@@ -76,6 +76,9 @@ public class MemberService implements IMemberService {
 	@Override
 	public Map<String, Object> selectMemberPageList(Map<String, Object> params) {
 		int memberCnt = memberDao.selectMemberAllCount(params);
+		int delCnt = memberDao.manageCountMemberDel();
+		int authCnt = memberDao.manageCountMemberAuth();
+		
 		List<MemberVO> memberVOs = memberDao.selectMemberPageList(params);
 		int pageCnt = PageUtil.pageCnt(memberCnt, 10);
 		
@@ -83,6 +86,8 @@ public class MemberService implements IMemberService {
 		resultMap.put("memberCnt", memberCnt);
 		resultMap.put("memberVOs", memberVOs);
 		resultMap.put("pageCnt", pageCnt);
+		resultMap.put("delCnt", delCnt);
+		resultMap.put("authCnt", authCnt);
 		return resultMap;
 	}
 

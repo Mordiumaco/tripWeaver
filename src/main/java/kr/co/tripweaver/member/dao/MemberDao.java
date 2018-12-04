@@ -131,5 +131,17 @@ public class MemberDao implements IMemberDao {
 		int deleteCnt = template.update("memberSQL.manageDeleteMemberDel", mem_id);
 		return deleteCnt;
 	}
-	
+
+	@Override
+	public int manageCountMemberDel() {
+		int delCnt = template.selectOne("memberSQL.manageCountMemberDel");
+		return delCnt;
+	}
+
+	@Override
+	public int manageCountMemberAuth() {
+		int authCnt = template.selectOne("memberSQL.manageCountMemberAuth");
+		return authCnt;
+	}
+
 }

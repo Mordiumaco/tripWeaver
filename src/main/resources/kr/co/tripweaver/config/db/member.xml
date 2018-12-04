@@ -49,4 +49,16 @@
   	WHERE mem_id = #{mem_id}
   </update>
   
+  <select id="manageCountMemberDel" resultType="int">
+  	SELECT COUNT(*) AS delCnt
+    FROM member
+	WHERE mem_del = 'Y'
+  </select>
+  
+  <select id="manageCountMemberAuth" resultType="int">
+  	SELECT COUNT(*) AS authCnt
+    FROM member
+    WHERE mem_author = 3
+  </select>
+  
 </mapper>

@@ -159,20 +159,20 @@
 	</script>
 	
 	<div class="local_ov01 local_ov">
-    <a href="" class="ov_listall">전체목록</a>
-    
-    <span class="btn_ov01"><span class="ov_txt">총회원수 </span>
-    <span class="ov_num"> ${memberCnt}명 </span></span>
-    
-    <a href="" class="btn_ov01"> 
-    	<span class="ov_txt">차단 </span>
-    	<span class="ov_num">0명</span>
-    </a>
-    
-    <a href="" class="btn_ov01"> 
-    	<span class="ov_txt">탈퇴  </span>
-    	<span class="ov_num">0명</span>
-    </a>
+	    <a href="javascript:memberPage(1)" class="ov_listall">전체목록</a>
+	    
+	    <span class="btn_ov01"><span class="ov_txt">총회원수 </span>
+	    <span class="ov_num"> ${memberCnt}명 </span></span>
+	    
+	    <a href="" class="btn_ov01"> 
+	    	<span class="ov_txt">블랙리스트 </span>
+	    	<span class="ov_num">${authCnt}명</span>
+	    </a>
+	    
+	    <div class="btn_ov01"> 
+	    	<span class="ov_txt">탈퇴 </span>
+	    	<span class="ov_num">${delCnt}명</span>
+	    </div>
 	</div>
 	
 	<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">

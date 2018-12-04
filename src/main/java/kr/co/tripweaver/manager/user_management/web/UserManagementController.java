@@ -56,8 +56,7 @@ public class UserManagementController {
 		model.addAttribute("pageVO", pageVO);
 		model.addAttribute("stx", stx);
 		model.addAttribute("sfl", sfl);
-		
-		System.out.println("UserManagementController : " + (int) resultMap.get("pageCnt"));
+		//블랙리스트, 탈퇴회원수 조회
 		
 		return "admin/membership/member_ajax";
 	}
