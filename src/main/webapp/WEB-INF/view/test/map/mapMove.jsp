@@ -45,7 +45,11 @@
 		map.panTo(moveCenter); 
 	}
 	
+	//연습 예제1. 한번 마커를 센터 부분에 생성해보자 
+	var markerOption = {position:map.getCenter()};
+	var marker = new daum.maps.Marker(markerOption);
 	
+	marker.setMap(map);
 	
 </script>	
 </body>

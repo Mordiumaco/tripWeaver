@@ -185,4 +185,46 @@ public class MapTestController {
 	public String addTilesloadedEventViewTest() {
 		return "test/map/addTilesloadedEvent";
 	}
+	
+	
+	/**
+	* Method : addClustererClickEventViewTest
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 4.
+	* 변경이력 :
+	* @return
+	* Method 설명 : 클러스터 뷰 테스트 뷰
+	*/
+	@RequestMapping("addClustererClickEvent")
+	public String addClustererClickEventViewTest() {
+		
+		
+		return "test/map/addClustererClickEvent";
+	}
+	
+	/**
+	* Method : coord2addrViewTest
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 4.
+	* 변경이력 :
+	* @return
+	* Method 설명 : 좌표로 주소 얻어내기 
+	*/
+	@RequestMapping("coord2addr")
+	public String coord2addrViewTest() {
+		return "test/map/coord2addr";
+	}
+	
+	/**
+	* Method : calculatePolylineDistanceViewTest
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 4.
+	* 변경이력 :
+	* @return
+	* Method 설명 : 화살표 테스트
+	*/
+	@RequestMapping("calculatePolylineDistance")
+	public String calculatePolylineDistanceViewTest() {
+		return "test/map/calculatePolylineDistance";
+	}
 }

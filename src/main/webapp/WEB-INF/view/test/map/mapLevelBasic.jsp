@@ -9,6 +9,7 @@
 
 </head>
 <body>
+<!-- <div id="map" style="width:800px;height:600px;" onwheel="mouseWheel()"></div> -->
 <div id="map" style="width:800px;height:600px;" onwheel="mouseWheel()"></div>
 <p id="mapLevel">우왕</p>
 <p>
@@ -57,21 +58,34 @@
 	
 	function displayLevel(){
 		
-		var levelEl = document.getElementById('mapLevel');
-		levelEl.innerHTML = '현재 지도 레벨은'+map.getLevel()+'입니다';
+		/* var levelEl = document.getElementById('mapLevel');
+		levelEl.innerHTML = '현재 지도 레벨은'+map.getLevel()+'입니다'; */
+		
+		var levelDisplay = document.getElementById('mapLevel');
+		levelDisplay.innerHTML = '현재 지도 레벨은'+map.getLevel()+'입니다';
 	}
 
 	
 	//줌 관련 컨트롤러
-	var zoomController = new daum.maps.ZoomControl();
+	/* var zoomController = new daum.maps.ZoomControl();
 	map.addControl(zoomController, daum.maps.ControlPosition.TOPRIGHT); 
 	
 	daum.maps.event.addListener(map, 'zoom_changed', function(){
 		
 		// 지도의 현재 레벨을 얻어옵니다
 		displayLevel();
-	})
+	}) */
 
+	
+	var zoomControl = new daum.maps.ZoomControl();
+	map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+	
+	daum.maps.event.addListener(map, 'zoom_changed', displayLevel);
+	
+	
+	
+	
+	
 	
 </script>
 
