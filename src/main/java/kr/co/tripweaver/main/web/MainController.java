@@ -149,6 +149,11 @@ public class MainController {
 		return "essay/essay_view";
 	}
 	
+	@RequestMapping("/essay_write")
+	public String essay_writeView() {
+		return "essay/essay_write";
+	}
+	
 	
  
 }

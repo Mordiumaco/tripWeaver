@@ -16,6 +16,19 @@ function button_event(){
 	}
 }
 
+$(document).ready(function(){
+	$('#container').on('click','.essay_calendat_btn',function () {
+		$('.essay_calendar').hide('slow'); 
+		$('.essay_calendat_btn').addClass('essay_calendar2');
+	});  
+	
+	$('#container').on('click','.essay_calendar2',function () {
+		$('.essay_calendar').show('slow'); 
+		$('.essay_calendat_btn').removeClass('essay_calendar2');
+	});  
+});
+
+
 </script>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a5f2e82aa9bad5f393255b6d8c3200cb"></script>
@@ -24,6 +37,8 @@ function button_event(){
 #container { width: 100%;}
 
 .bo_vc_act:after { clear: inherit; }
+
+.view_con { border: 1px solid #ddd; margin-top: 20px; width: 100%;}
 
 </style>
 
@@ -53,12 +68,7 @@ function button_event(){
 							</li>
 						</c:if>
 					
-						<li>
-							<form action="/board/insertReplyView" method="get">
-								<input type="hidden" name="po_id" value="${postsVo.po_id}">
-								<input class="btn_bd col_01" type="submit" value="답글">
-							</form>
-						</li>
+				
 						
 					</ul>
 				</div>
@@ -67,8 +77,25 @@ function button_event(){
 					<li><span class="profile_img"><img src="/img/no_profile.gif" alt="no_profile" width="20" height="20" title=""></span><b>&nbsp;&nbsp;${postsVo.userid} 이름이요</b> 님에 글 입니다.</li>
 					<li><i class="fa fa-clock-o" aria-hidden="true"></i> &nbsp;<fmt:formatDate value="${postsVo.po_date}" pattern="yyyy-MM-dd"/>날짜요</li>
 				</ul>
-				
-				<div id="map" class="main_map" style="width:100%;height:600px;"></div>
+				<br/>
+				<div class="essay_filter">
+					<ul>
+						<li>테마 : <b>먹거리 여행</b></li>
+						<li>여행일수 : <b>3박 4일</b></li>
+						<li>구성원별 : <b>커플 여행</b></li>
+					</ul>
+					
+					<ul>
+						<li>식비 : <b>9999</b></li>
+						<li>숙박비 : <b>9999</b></li>
+						<li>교통비 : <b>9999</b></li>
+						<li>기타 : <b>9999</b></li>
+						<li>총비용 : <b>9999</b></li>
+						<li>하루평균비용 : <b>9999</b></li>
+					</ul>
+				</div>
+				<br/>
+				<div id="map" class="main_map" style="width:100%;height:400px;"></div>
 	
 				<script>
 					var container = document.getElementById('map');
@@ -80,8 +107,102 @@ function button_event(){
 					var map = new daum.maps.Map(container, options);
 				</script>
 				
-				<div>
-					일정
+				<div class="essay_calendat_btn essay_calendar1"></div>
+				<div class="essay_calendar">
+					<table>
+						<colgroup>
+							<col width="20%">
+							<col width="20%">
+							<col width="20%">
+							<col width="20%">
+							<col width="20%">
+						</colgroup>
+						<tr>
+							<th><i class="fa fa-calendar-alt" ></i> 날짜</th>
+							<th><i class="fas fa-city"></i> 도시</th>
+							<th><i class="fas fa-bus"></i> 교통</th>
+							<th><i class="far fa-calendar-alt"></i> 일정</th>
+							<th><i class="fas fa-bed"></i> 숙소</th>
+						</tr>
+						
+						<tr>
+							<td>
+								<span>11월27일(금)</span><br/>
+								<b>DAY 1</b>
+							</td>
+							<td>
+								미시령<br/>
+								대관령
+							</td>
+							<td>
+								수영<br/>
+								달리기<br/>
+								자전거<br/>
+							</td>
+							<td>
+								상세 일정 수영 1km<br/>
+								상세 일정 달리기 5km<br/>
+								상세 일정 자전거 10km<br/>
+							</td>
+							<td>
+								신문지<br/>
+								골판지 박스<br/>
+								지하철<br/>
+							</td>
+						</tr>
+						
+						<tr>
+							<td>
+								<span>11월27일(금)</span><br/>
+								<b>DAY 2</b>
+							</td>
+							<td>
+								미시령<br/>
+								대관령
+							</td>
+							<td>
+								수영<br/>
+								달리기<br/>
+								자전거<br/>
+							</td>
+							<td>
+								상세 일정 수영 1km<br/>
+								상세 일정 달리기 5km<br/>
+								상세 일정 자전거 10km<br/>
+							</td>
+							<td>
+								신문지<br/>
+								골판지 박스<br/>
+								지하철<br/>
+							</td>
+						</tr>
+						
+						<tr>
+							<td>
+								<span>11월27일(금)</span><br/>
+								<b>DAY 3</b>
+							</td>
+							<td>
+								미시령<br/>
+								대관령
+							</td>
+							<td>
+								수영<br/>
+								달리기<br/>
+								자전거<br/>
+							</td>
+							<td>
+								상세 일정 수영 1km<br/>
+								상세 일정 달리기 5km<br/>
+								상세 일정 자전거 10km<br/>
+							</td>
+							<td>
+								신문지<br/>
+								골판지 박스<br/>
+								지하철<br/>
+							</td>
+						</tr>
+					</table>
 				</div>
 				
 				<p class="view_con">

@@ -59,7 +59,7 @@ $(document).ready(function () {
 				<input type="submit"  value="검색"> 
 			</li>
 			<li>
-				<a href="">Essay 글쓰기</a>
+				<a href="/main/essay_write">Essay 글쓰기</a>
 			</li>
 		</ul>
 	</div>

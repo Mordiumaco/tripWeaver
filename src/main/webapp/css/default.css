@@ -1041,9 +1041,14 @@ a.btn_ov02:hover,a.ov_listall:hover{background:#3f51b5}
 
 
 /* 에세지 작업 부분 */
-.mypage_right2 { float: right;  background: #fff;}
+.mypage_right2 { float: right;  background: #fff; position: fixed; top: 0px; right: 0; z-index: 9999;}
 
-.mypage_right2 h6 { width: 100%; text-align: center; font-size: 1.2em; margin: 20px 0 10px 0 ; color: #fff; background: #389e7d; padding: 10px 0; }
+.fold_btn { width: 30px; height: 200px; line-height:200px; position: fixed; top: 0px; right: 260px; background: #dddddd; text-align: center; border-radius: 15px 0 0 15px ; font-weight: bold; cursor: pointer; z-index: 9999; }
+.fold_btn::after { content: ">";}
+
+.fold_btnAfter::after { content: "<";}
+
+.leftUl2_title { width: 100%; text-align: center; font-size: 1.2em; margin: 20px 0 10px 0 ; color: #fff; background: #389e7d; padding: 10px 0; }
 
 .reservation_list { border: 1px solid #389e7d; border-spacing: 0; margin: 5px 0; border-radius: 8px 0 8px 0;     border-collapse: inherit; }
 .reservation_list:hover { box-shadow: 1px 2px 4px #aaa;}
@@ -1111,9 +1116,27 @@ a.btn_ov02:hover,a.ov_listall:hover{background:#3f51b5}
 
 /* 상세 뷰 */
 .essayLeft {
-	width: 870px;
 	
 }
 
+.fold_wrap { z-index: 9999;}
+
+.essay_filter { width: 100%; height: 100px;}
+.essay_filter ul {width: 100%; height: 40px; border: 1px solid #ddd; margin-bottom: 10px; line-height: 40px; font-size: 1.2em;}
+.essay_filter ul li { float: left; color: #666; margin-left: 30px;}
+.essay_filter ul li b { color: #333; border-right: 1px solid #ddd; padding-right: 15px;}
+.essay_filter ul li:nth-last-child(1) b { border-right: 0;}
+
+.essay_calendar { width:100%;  font-size: 1.2em; line-height: 160%;}
+.essay_calendar th { height: 40px; background: #41384b; color: #fff; border:1px solid #000;}
+.essay_calendar td { text-align: center; border:1px solid #ddd; padding: 15px; }
+.essay_calendar td:nth-child(1) span { font-weight: bold; }
+.essay_calendar td:nth-child(1) b {font-style: italic; color: #1591f3; font-size: 1.1em; display: block; padding-top: 10px;}
+.essay_calendar td:hover { background: #f1f1f1;}
+
+
+.essay_calendat_btn { width: 200px; height: 40px; background: #ddd; margin-top: 10px; border-radius: 10px 10px 0 0; cursor: pointer;}
+.essay_calendar1::after { content: "▲  일정상세보기 접기"; font-size: 1.2em; line-height: 40px;  margin-left: 20px; color: #333; font-weight: bold;}
+.essay_calendar2::after { content: "▼  일정상세보기 펼치기"; }
 
 
