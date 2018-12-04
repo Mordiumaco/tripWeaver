@@ -145,4 +145,16 @@ public class UserManagementController {
 		return "admin/membership/member_ajax";
 	}
 	
+	@RequestMapping("memberCntAjax")
+	public String memberCntAjax(Model model) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("sfl", "mem_nick");
+		params.put("stx", "");
+		params.put("pageVO", new PageVO(1, 10));
+		Map<String, Object> resultMap = memberService.manageMemberCnt(params);
+		
+		model.addAllAttributes(resultMap);
+		
+		return "admin/membership/memberCnt_ajax";
+	}
 }

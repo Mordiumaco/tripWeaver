@@ -96,4 +96,13 @@ public interface IMemberService {
 	* Method 설명 : 관리자 회원관리에서 해당 멤버들의 권한을 수정하고 해당페이지 멤버리스트를 반환하는 메서드
 	 */
 	public Map<String, Object> manageChkUpdateMemberAuthor(Map<String, Object> params);
+	
+	/**
+	* Method : manageMemberCnt
+	* 작성자 : jin
+	* 변경이력 :
+	* @return
+	* Method 설명 : 관리자 회원관리 회원수를 반환하는 메서드
+	 */
+	public Map<String, Object> manageMemberCnt(Map<String, Object> params);
 }

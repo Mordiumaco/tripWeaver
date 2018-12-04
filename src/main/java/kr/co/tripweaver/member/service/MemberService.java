@@ -156,5 +156,17 @@ public class MemberService implements IMemberService {
 		resultMap.put("updateCnt", updateCnt);
 		return resultMap;
 	}
+
+	@Override
+	public Map<String, Object> manageMemberCnt(Map<String, Object> params) {
+		int memberCnt = memberDao.selectMemberAllCount(params);
+		int delCnt = memberDao.manageCountMemberDel();
+		int authCnt = memberDao.manageCountMemberAuth();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("memberCnt", memberCnt);
+		resultMap.put("delCnt", delCnt);
+		resultMap.put("authCnt", authCnt);
+		return resultMap;
+	}
 	
 }
