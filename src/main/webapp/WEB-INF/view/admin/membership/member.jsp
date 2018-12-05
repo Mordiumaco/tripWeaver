@@ -3,7 +3,16 @@
 <%@include file="../adminHead.jsp" %>
  
 <section>
+<style>
+.cursor {cursor: pointer;}
+</style>
+
 	<script type="text/javascript">
+		var author = "";
+		var sort_id = "mem_id";
+		var sort_st = "ASC";
+		var pageSize = 10;
+		
 		$(document).ready(function() {
 			$("#sfl").val("${sfl}").prop("selected", true);
 			$("#stx").val("${stx}");
@@ -15,7 +24,6 @@
 				var target = document.getElementById(mem_id);
 				var mem_author = target.options[target.selectedIndex].value;
 				var page = tr.children().eq(1).find('input').val();
-				console.log("mem_id, mem_author, page : " + mem_id + " " + mem_author + " " + page);
 				memberUpdate(mem_id, mem_author, page);
 			});
 			
@@ -77,15 +85,26 @@
 					$("input[name=chk]").prop("checked", false);
 				}
 			});
+			
+			//블랙리스트 버튼
+			$("#memberCnt").on("click", "#author4", function() {
+				author = 3;
+				memberAuthorBlack(1);
+			});
 		});
-		function memberListAll(page) {
-			var pageSize = 10;
+		function memberSort(id){
+			sort_st = ((sort_st == "ASC") ? "DESC" : "ASC");
+			sort_id = id;
+			memberPage(1);
+		}
+		
+		function memberAuthorBlack(page) {
 			var sfl = "mem_nick";
 			var stx = "";
 			$.ajax({
 				url : "/manage/memberViewAjax",
 				type : "get",
-				data : "page=" + page + "&pageSize=" + pageSize + "&sfl=" + sfl + "&stx=" + stx,
+				data : "page=" + page + "&pageSize=" + pageSize + "&sfl=" + sfl + "&stx=" + stx + "&author=" + author + "&sort_id=" + sort_id + "&sort_st=" + sort_st,
 				success : function(dt) {
 					$("#memberPage").html(dt);
 				}
@@ -99,15 +118,41 @@
 			$("#sfl").val(sfl).prop("selected", true);
 			$("#stx").val(stx);
 		}
-		function memberPage(page) {
-			var pageSize = 10;
-			var target = document.getElementById("sfl");
-			var sfl = target.options[target.selectedIndex].value;
-			var stx = $("#stx").val();
+		function memberListAll(page) {
+			var sfl = "mem_nick";
+			var stx = "";
 			$.ajax({
 				url : "/manage/memberViewAjax",
 				type : "get",
-				data : "page=" + page + "&pageSize=" + pageSize + "&sfl=" + sfl + "&stx=" + stx,
+				data : "page=" + page + "&pageSize=" + pageSize + "&sfl=" + sfl + "&stx=" + stx + "&author=" + author + "&sort_id=" + sort_id + "&sort_st=" + sort_st,
+				success : function(dt) {
+					$("#memberPage").html(dt);
+				}
+			});
+			$.ajax({
+				url : "/manage/memberCntAjax",
+				success : function(dt) {
+					$("#memberCnt").html(dt);
+				}
+			});
+			$("#sfl").val(sfl).prop("selected", true);
+			$("#stx").val(stx);
+			author = "";
+			console.log("author : " + author);
+		}
+		function memberPage(page) {
+			var target = document.getElementById("sfl");
+			var sfl = target.options[target.selectedIndex].value;
+			var stx = $("#stx").val();
+
+			//////////////////////////////////////////////////////////////////////
+			console.log("sfl, stx, author : " + sfl + " " + stx + " " + author);
+			//////////////////////////////////////////////////////////////////////
+			
+			$.ajax({
+				url : "/manage/memberViewAjax",
+				type : "get",
+				data : "page=" + page + "&pageSize=" + pageSize + "&sfl=" + sfl + "&stx=" + stx + "&author=" + author + "&sort_id=" + sort_id + "&sort_st=" + sort_st,
 				success : function(dt) {
 					$("#memberPage").html(dt);
 				}
@@ -122,14 +167,13 @@
 			$("#stx").val(stx);
 		}
 		function memberUpdate(mem_id, mem_author,page) {
-			var pageSize = ${pageVO.pageSize};
 			var target = document.getElementById("sfl");
 			var sfl = target.options[target.selectedIndex].value;
 			var stx = $("#stx").val();
 			$.ajax({
 				url : "/manage/memberUpdateAjax",
 				type : "post",
-				data : {"mem_id":mem_id,"mem_author":mem_author,"page":page,"pageSize":pageSize,"sfl":sfl,"stx":stx}, 
+				data : {"mem_id":mem_id,"mem_author":mem_author,"page":page,"pageSize":pageSize,"sfl":sfl,"stx":stx,"author":author,"sort_id":sort_id,"sort_st":sort_st}, 
 				success : function(dt) {
 					$("#memberPage").html(dt);
 				},
@@ -145,14 +189,13 @@
 			});
 		}
 		function memberDelete(mem_id, page) {
-			var pageSize = ${pageVO.pageSize};
 			var target = document.getElementById("sfl");
 			var sfl = target.options[target.selectedIndex].value;
 			var stx = $("#stx").val();
 			$.ajax({
 				url : "/manage/memberDeleteAjax",
 				type : "post",
-				data : {"mem_id":mem_id,"page":page,"pageSize":pageSize,"sfl":sfl,"stx":stx}, 
+				data : {"mem_id":mem_id,"page":page,"pageSize":pageSize,"sfl":sfl,"stx":stx,"author":author,"sort_id":sort_id,"sort_st":sort_st}, 
 				success : function(dt) {
 					$("#memberPage").html(dt);
 				}
@@ -165,14 +208,13 @@
 			});
 		}
 		function memberChkUpdate(upArr, auArr, page) {
-			var pageSize = ${pageVO.pageSize};
 			var target = document.getElementById("sfl");
 			var sfl = target.options[target.selectedIndex].value;
 			var stx = $("#stx").val();
 			$.ajax({
 				url : "/manage/memberChkUpdateAjax",
 				type : "post",
-				data : {"upArr":upArr,"auArr":auArr,"page":page,"pageSize":pageSize,"sfl":sfl,"stx":stx},
+				data : {"upArr":upArr,"auArr":auArr,"page":page,"pageSize":pageSize,"sfl":sfl,"stx":stx,"author":author,"sort_id":sort_id,"sort_st":sort_st},
 				success : function(dt) {
 					$("#memberPage").html(dt);
 				},
@@ -188,14 +230,13 @@
 			});
 		}
 		function memberChkDelete(delArr, page) {
-			var pageSize = ${pageVO.pageSize};
 			var target = document.getElementById("sfl");
 			var sfl = target.options[target.selectedIndex].value;
 			var stx = $("#stx").val();
 			$.ajax({
 				url : "/manage/memberChkDeleteAjax",
 				type : "post",
-				data : {"delArr":delArr,"page":page,"pageSize":pageSize,"sfl":sfl,"stx":stx},
+				data : {"delArr":delArr,"page":page,"pageSize":pageSize,"sfl":sfl,"stx":stx,"author":author,"sort_id":sort_id,"sort_st":sort_st},
 				success : function(dt) {
 					$("#memberPage").html(dt);
 				}

@@ -28,7 +28,10 @@ public class UserManagementController {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("sfl", "mem_nick");
 		params.put("stx", "");
+		params.put("author", "");
 		params.put("pageVO", pageVO);
+		params.put("sort_id", "mem_id");
+		params.put("sort_st", "ASC");
 		
 		Map<String, Object> resultMap = memberService.selectMemberPageList(params);
 		model.addAllAttributes(resultMap);
@@ -42,12 +45,15 @@ public class UserManagementController {
 	}
 
 	@RequestMapping("memberViewAjax")
-	public String memberViewAjax(@RequestParam("sfl") String sfl, @RequestParam("stx") String stx, PageVO pageVO, Model model) {
+	public String memberViewAjax(@RequestParam("sort_id") String sort_id, @RequestParam("sort_st") String sort_st, @RequestParam("author") String author, @RequestParam("sfl") String sfl, @RequestParam("stx") String stx, PageVO pageVO, Model model) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("pageVO", pageVO);
 		stx = stx.isEmpty() ? "" : stx;			
 		params.put("sfl", sfl);
 		params.put("stx", stx);
+		params.put("author", author);
+		params.put("sort_id", sort_id);
+		params.put("sort_st", sort_st);
 		
 		Map<String, Object> resultMap = memberService.selectMemberPageList(params);
 		model.addAllAttributes(resultMap);
@@ -62,13 +68,16 @@ public class UserManagementController {
 	}
 	
 	@RequestMapping(value="memberUpdateAjax", method=RequestMethod.POST)
-	public String memberUpdateAjax(@RequestParam("sfl") String sfl, @RequestParam("stx") String stx, MemberVO memberVO, PageVO pageVO, Model model) {
+	public String memberUpdateAjax(@RequestParam("sort_id") String sort_id, @RequestParam("sort_st") String sort_st, @RequestParam("author") String author, @RequestParam("sfl") String sfl, @RequestParam("stx") String stx, MemberVO memberVO, PageVO pageVO, Model model) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("pageVO", pageVO);
 		params.put("memberVO", memberVO);
 		stx = stx.isEmpty() ? "" : stx;			
 		params.put("sfl", sfl);
 		params.put("stx", stx);
+		params.put("author", author);
+		params.put("sort_id", sort_id);
+		params.put("sort_st", sort_st);
 		
 		Map<String, Object> resultMap = memberService.manageUpdateMemberAuthor(params);
 		model.addAllAttributes(resultMap);
@@ -82,13 +91,16 @@ public class UserManagementController {
 	}
 	
 	@RequestMapping(value="memberDeleteAjax", method=RequestMethod.POST)
-	public String memberDeleteAjax(@RequestParam("sfl") String sfl, @RequestParam("stx") String stx, MemberVO memberVO, PageVO pageVO, Model model) {
+	public String memberDeleteAjax(@RequestParam("sort_id") String sort_id, @RequestParam("sort_st") String sort_st, @RequestParam("author") String author, @RequestParam("sfl") String sfl, @RequestParam("stx") String stx, MemberVO memberVO, PageVO pageVO, Model model) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("pageVO", pageVO);
 		params.put("memberVO", memberVO);
 		stx = stx.isEmpty() ? "" : stx;			
 		params.put("sfl", sfl);
 		params.put("stx", stx);
+		params.put("author", author);
+		params.put("sort_id", sort_id);
+		params.put("sort_st", sort_st);
 		
 		Map<String, Object> resultMap = memberService.manageDeleteMemberDel(params);
 		model.addAllAttributes(resultMap);
@@ -102,7 +114,7 @@ public class UserManagementController {
 	}
 	
 	@RequestMapping(value="memberChkUpdateAjax", method=RequestMethod.POST)
-	public String memberChkUpdateAjax(@RequestParam("sfl") String sfl, @RequestParam("stx") String stx, @RequestParam("upArr") String upArr, @RequestParam("auArr") String auArr, PageVO pageVO, Model model) {
+	public String memberChkUpdateAjax(@RequestParam("sort_id") String sort_id, @RequestParam("sort_st") String sort_st, @RequestParam("author") String author, @RequestParam("sfl") String sfl, @RequestParam("stx") String stx, @RequestParam("upArr") String upArr, @RequestParam("auArr") String auArr, PageVO pageVO, Model model) {
 		
 		System.out.println("memberChkUpdateAjax : " + sfl + " " + stx + " " + upArr + " " + auArr);
 		
@@ -113,6 +125,9 @@ public class UserManagementController {
 		stx = stx.isEmpty() ? "" : stx;			
 		params.put("sfl", sfl);
 		params.put("stx", stx);
+		params.put("author", author);
+		params.put("sort_id", sort_id);
+		params.put("sort_st", sort_st);
 		
 		Map<String, Object> resultMap = memberService.manageChkUpdateMemberAuthor(params);
 		model.addAllAttributes(resultMap);
@@ -126,13 +141,16 @@ public class UserManagementController {
 	}
 	
 	@RequestMapping(value="memberChkDeleteAjax", method=RequestMethod.POST)
-	public String memberChkDeleteAjax(@RequestParam("sfl") String sfl, @RequestParam("stx") String stx, @RequestParam("delArr") String delArr, PageVO pageVO, Model model) {
+	public String memberChkDeleteAjax(@RequestParam("sort_id") String sort_id, @RequestParam("sort_st") String sort_st, @RequestParam("author") String author, @RequestParam("sfl") String sfl, @RequestParam("stx") String stx, @RequestParam("delArr") String delArr, PageVO pageVO, Model model) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("pageVO", pageVO);
 		params.put("delArr", delArr);
 		stx = stx.isEmpty() ? "" : stx;			
 		params.put("sfl", sfl);
 		params.put("stx", stx);
+		params.put("author", author);
+		params.put("sort_id", sort_id);
+		params.put("sort_st", sort_st);
 		
 		Map<String, Object> resultMap = memberService.manageChkDeleteMemberDel(params);
 		model.addAllAttributes(resultMap);
