@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -112,8 +113,8 @@ ul {
 <body>
 	<div class="mes_menu">
 		<ul>
-			<li><a href="/main/message"><img src="/img/icon/friend.png" height="20px;"/> &nbsp; 친구</a></li>
-			<li><a href="/main/chatting"><img src="/img/icon/message01_icon.png" height="20px;" /> &nbsp; 채팅</a></li>
+			<li><a href="/message/mainView"><img src="/img/icon/friend.png" height="20px;"/> &nbsp; 친구</a></li>
+			<li><a href="/message/chatRoomListView"><img src="/img/icon/message01_icon.png" height="20px;" /> &nbsp; 채팅</a></li>
 		</ul>
 	</div>
 	<div class="mes_Search">
@@ -129,7 +130,7 @@ ul {
 	<div class="mes_my">
 		<b>내프로필</b> 
 		<div>
-			<b><img src="/img/p_01.png"></b>
+			<b><img src=""></b>
 		</div>
 		<ul>
 			<li>닉네임 입니다.</li>
@@ -137,59 +138,46 @@ ul {
 	</div>
 	
 	<div class="mes_friend">
-		<h6>팔로잉   <b>272</b>명</h6>
+		<h6>팔로잉   <b>${followingCnt}</b>명</h6>
 		<ul class="mes_friendUl">
-			<li class="mes_f_list">
-				<div><img src="/img/p_03.png"></div>
-				<ul>
-					<li>닉네임 입니다.</li>
-					<li>
-						<a href="">쪽지</a>
-						<a href="" class="mes_btn01"></a>
-					</li>
-				</ul>
-			</li>
+		
+			<c:forEach items="${followingVOs}" var="following">
+				<li class="mes_f_list">
+					<div><img src="${following.mem_profile}"></div>
+					<ul>
+						<li>${following.mem_nick}</li>
+						<li>
+							<a href="">쪽지</a>
+							<a href="" class="mes_btn01"></a>
+						</li>
+					</ul>
+				</li>
+			</c:forEach>
 			
-			<li class="mes_f_list">
-				<div><img src="/img/p_01.png"></div>
-				<ul>
-					<li>닉네임 입니다.</li>
-					<li>
-						<a href="">쪽지</a>
-						<a href="" class="mes_btn01"></a>
-					</li>
-				</ul>
-			</li>
-			
+
 			
 			
 		</ul>
 	</div>
 	
 	<div class="mes_friend no_line">
-		<h6>팔로워 <b>272</b>명</h6>
+		<h6>팔로워 <b>${followerCnt}</b>명</h6>
 		<ul class="mes_friendUl">
-			<li class="mes_f_list">
-				<div><img src="/img/p_02.png"></div>
-				<ul>
-					<li>닉네임 입니다.</li>
-					<li>
-						<a href="">쪽지</a>
-						<a href="" class="mes_btn02"></a>
-					</li>
-				</ul>
-			</li>
-			
-			<li class="mes_f_list">
-				<div><img src="/img/p_03.png"></div>
-				<ul>
-					<li>닉네임 입니다.</li>
-					<li>
-						<a href="">쪽지</a>
-						<a href="" class="mes_btn02"></a>
-					</li>
-				</ul>
-			</li>
+	
+			<c:forEach items="${followerVOs}" var="follower">
+				<li class="mes_f_list">
+					<div><img src="/img/p_02.png"></div>
+					<ul>
+						<li>${follower.mem_nick}</li>
+						<li>
+							<a href="">쪽지</a>
+							<a href="" class="mes_btn02"></a>
+						</li>
+					</ul>
+				</li>
+			</c:forEach>
+
+
 			
 		</ul>
 	</div>

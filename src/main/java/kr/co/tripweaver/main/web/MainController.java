@@ -118,21 +118,6 @@ public class MainController {
 		return "servicecenter/write";
 	}
 	
-	@RequestMapping("/message")
-	public String messageView() {
-		return "mypage/message/message";
-	}
-	
-	@RequestMapping("/chatting")
-	public String chattingView() {
-		return "mypage/message/chatting";
-	}
-	
-	@RequestMapping("/chatting_view")
-	public String chatting_viewView() {
-		return "mypage/message/chatting_view";
-	}
-	
 	@RequestMapping("/memModified")
 	public String memModifiedView() {
 		return "mypage/memModified";

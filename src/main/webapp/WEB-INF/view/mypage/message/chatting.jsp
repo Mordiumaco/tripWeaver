@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -149,8 +151,8 @@ ul {
 <body>
 	<div class="mes_menu">
 		<ul>
-			<li><a href="/main/message"><img src="/img/icon/friend.png" height="20px;"/> &nbsp; 친구</a></li>
-			<li><a href="/main/chatting"><img src="/img/icon/message01_icon.png" height="20px;" /> &nbsp; 채팅</a></li>
+			<li><a href="/message/mainView"><img src="/img/icon/friend.png" height="20px;"/> &nbsp; 친구</a></li>
+			<li><a href="/message/chatRoomListView"><img src="/img/icon/message01_icon.png" height="20px;" /> &nbsp; 채팅</a></li>
 		</ul>
 	</div>
 	
@@ -167,7 +169,7 @@ ul {
 	<div class="chatting_list">
 		<ul>
 			<li class="Chat_room">
-				<a href="/main/chatting_view">
+				<a href="/message/chatRoomDetailView">
 					<div><img src="/img/icon/message01_icon.png"></div>
 					<ul>
 						<li> <b>채팅방 제목 입니다.</b> <span>2018. 01. 12</span></li>
@@ -179,7 +181,7 @@ ul {
 			</li>
 			
 			<li class="Chat_room">
-				<a href="/main/chatting_view">
+				<a href="/message/chatRoomDetailView">
 					<div><img src="/img/icon/message01_icon.png"></div>
 					<ul>
 						<li> <b>채팅방 제목 입니다.</b> <span>2018. 01. 12</span></li>

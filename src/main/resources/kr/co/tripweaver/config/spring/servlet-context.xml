@@ -12,9 +12,10 @@
 	<!-- 스프링에서 처리 불가능한 리소스를 was의 default servlet으로 전달 -->
 	<mvc:default-servlet-handler/>
 	
+<!-- 	<mvc:resources location="/upload/" mapping="upload/*"/> -->
 	
 	<context:annotation-config/>
-	
+
 	<context:component-scan base-package="kr.co.tripweaver">
 	</context:component-scan>
 	

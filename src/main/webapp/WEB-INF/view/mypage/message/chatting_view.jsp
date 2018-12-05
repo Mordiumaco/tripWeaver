@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,7 +85,7 @@ $(document).ready(function(){
 	
 	<div class="mes_head">
 		<ul>
-			<li><a class="back" href="/main/chatting">&#9664; </a></li>
+			<li><a class="back" href="/message/chatRoomListView">&#9664; </a></li>
 			<li class="mes_title">
 				<div><img src="/img/p_01.png" ></div>
 				<div><b>박찬배, 최재현, 박진</b> 채팅방</div>
