@@ -19,7 +19,7 @@
 		<div class="head_con head_left">
 			<ul>
 				<!--  이뿌!!!!! 시작-->
-				<li><a href="/main/login" >로그인</a></li>
+				<li><a id="loginBtn" href="/main/login" >로그인</a></li>
 				<li><a href="/main/adminMain" >관리자</a></li>
 				<li><a href="/main/register" >회원가입</a></li>
 				<!--  이뿌!!!!!  끝-->
@@ -135,5 +135,11 @@
 			$oe_overlay.stop(true, true).fadeTo(200, 0);
 			$oe_menu_items.children('div').hide();
 		})
+		
+		var loginStatus = "${loginInfo}";
+		
+		if(loginStatus != null|| loginStatus != ""){
+			$("#loginBtn").text("로그아웃");
+		}
 	});
 </script>

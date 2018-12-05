@@ -123,6 +123,22 @@ public class MainController {
 		return "mypage/memModified";
 	}
 	
+	@RequestMapping("/clipBoard")
+	public String clipBoardView() {
+		return "mypage/clipBoard";
+	}
+	
+	
+	@RequestMapping("/essay_view")
+	public String essay_viewView() {
+		return "essay/essay_view";
+	}
+	
+	@RequestMapping("/essay_write")
+	public String essay_writeView() {
+		return "essay/essay_write";
+	}
+	
 	
  
 }

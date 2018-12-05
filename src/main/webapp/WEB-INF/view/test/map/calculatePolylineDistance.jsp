@@ -104,7 +104,7 @@ daum.maps.event.addListener(map, 'click', function(mouseEvent) {
     
 // 지도에 마우스무브 이벤트를 등록합니다
 // 선을 그리고있는 상태에서 마우스무브 이벤트가 발생하면 그려질 선의 위치를 동적으로 보여주도록 합니다
-daum.maps.event.addListener(map, 'mousemove', function (mouseEvent) {
+/* daum.maps.event.addListener(map, 'mousemove', function (mouseEvent) {
 
     // 지도 마우스무브 이벤트가 발생했는데 선을 그리고있는 상태이면
     if (drawingFlag){
@@ -125,9 +125,9 @@ daum.maps.event.addListener(map, 'mousemove', function (mouseEvent) {
         
         // 거리정보를 지도에 표시합니다
         showDistance(content, mousePosition);   
-    }             
+    }
 });                 
-
+ */
 // 지도에 마우스 오른쪽 클릭 이벤트를 등록합니다
 // 선을 그리고있는 상태에서 마우스 오른쪽 클릭 이벤트가 발생하면 선 그리기를 종료합니다
 daum.maps.event.addListener(map, 'rightclick', function (mouseEvent) {

@@ -21,15 +21,34 @@ public class MemberVO {
 		return mem_email;
 	}
 
+	
+	//일반 회원가입을 하는 회원에 대한 정보를 받기 위한 테스트 
+	public MemberVO(String mem_id, String mem_email, String mem_pass, String mem_name, String mem_nick, String mem_tel,
+			String mem_age, String mem_gender) {
+		this.mem_id = mem_id;
+		this.mem_email = mem_email;
+		this.mem_pass = mem_pass;
+		this.mem_name = mem_name;
+		this.mem_nick = mem_nick;
+		this.mem_tel = mem_tel;
+		this.mem_age = mem_age;
+		this.mem_gender = mem_gender;
+	}
+	
+	
 	// 네이버에 대한 정보를 받기 위한 생성자
-	public MemberVO(String mem_email, String mem_name, String mem_nick, String mem_age, String mem_gender) {
+	public MemberVO(String mem_id, String mem_email, String mem_name, String mem_nick, String mem_age, String mem_gender, String mem_profile) {
 		super();
+		this.mem_id = mem_id;
 		this.mem_email = mem_email;
 		this.mem_name = mem_name;
 		this.mem_nick = mem_nick;
 		this.mem_age = mem_age;
 		this.mem_gender = mem_gender;
+		this.mem_profile = mem_profile;
 	}
+
+
 
 	// 기본 생성자
 	public MemberVO() {
