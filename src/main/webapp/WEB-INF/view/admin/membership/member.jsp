@@ -9,6 +9,10 @@
 
 	<script type="text/javascript">
 		var author = "";
+		var sort_id = "mem_id";
+		var sort_st = "ASC";
+		var pageSize = 10;
+		
 		$(document).ready(function() {
 			$("#sfl").val("${sfl}").prop("selected", true);
 			$("#stx").val("${stx}");
@@ -85,19 +89,22 @@
 			//블랙리스트 버튼
 			$("#memberCnt").on("click", "#author4", function() {
 				author = 3;
-				
-				console.log("author : " + author);
 				memberAuthorBlack(1);
 			});
 		});
+		function memberSort(id){
+			sort_st = ((sort_st == "ASC") ? "DESC" : "ASC");
+			sort_id = id;
+			memberPage(1);
+		}
+		
 		function memberAuthorBlack(page) {
-			var pageSize = 10;
 			var sfl = "mem_nick";
 			var stx = "";
 			$.ajax({
 				url : "/manage/memberViewAjax",
 				type : "get",
-				data : "page=" + page + "&pageSize=" + pageSize + "&sfl=" + sfl + "&stx=" + stx + "&author=" + author,
+				data : "page=" + page + "&pageSize=" + pageSize + "&sfl=" + sfl + "&stx=" + stx + "&author=" + author + "&sort_id=" + sort_id + "&sort_st=" + sort_st,
 				success : function(dt) {
 					$("#memberPage").html(dt);
 				}
@@ -112,13 +119,12 @@
 			$("#stx").val(stx);
 		}
 		function memberListAll(page) {
-			var pageSize = 10;
 			var sfl = "mem_nick";
 			var stx = "";
 			$.ajax({
 				url : "/manage/memberViewAjax",
 				type : "get",
-				data : "page=" + page + "&pageSize=" + pageSize + "&sfl=" + sfl + "&stx=" + stx + "&author=" + author,
+				data : "page=" + page + "&pageSize=" + pageSize + "&sfl=" + sfl + "&stx=" + stx + "&author=" + author + "&sort_id=" + sort_id + "&sort_st=" + sort_st,
 				success : function(dt) {
 					$("#memberPage").html(dt);
 				}
@@ -135,17 +141,18 @@
 			console.log("author : " + author);
 		}
 		function memberPage(page) {
-			var pageSize = 10;
 			var target = document.getElementById("sfl");
 			var sfl = target.options[target.selectedIndex].value;
 			var stx = $("#stx").val();
-			
+
+			//////////////////////////////////////////////////////////////////////
 			console.log("sfl, stx, author : " + sfl + " " + stx + " " + author);
+			//////////////////////////////////////////////////////////////////////
 			
 			$.ajax({
 				url : "/manage/memberViewAjax",
 				type : "get",
-				data : "page=" + page + "&pageSize=" + pageSize + "&sfl=" + sfl + "&stx=" + stx + "&author=" + author,
+				data : "page=" + page + "&pageSize=" + pageSize + "&sfl=" + sfl + "&stx=" + stx + "&author=" + author + "&sort_id=" + sort_id + "&sort_st=" + sort_st,
 				success : function(dt) {
 					$("#memberPage").html(dt);
 				}
@@ -160,14 +167,13 @@
 			$("#stx").val(stx);
 		}
 		function memberUpdate(mem_id, mem_author,page) {
-			var pageSize = ${pageVO.pageSize};
 			var target = document.getElementById("sfl");
 			var sfl = target.options[target.selectedIndex].value;
 			var stx = $("#stx").val();
 			$.ajax({
 				url : "/manage/memberUpdateAjax",
 				type : "post",
-				data : {"mem_id":mem_id,"mem_author":mem_author,"page":page,"pageSize":pageSize,"sfl":sfl,"stx":stx, "author":author}, 
+				data : {"mem_id":mem_id,"mem_author":mem_author,"page":page,"pageSize":pageSize,"sfl":sfl,"stx":stx,"author":author,"sort_id":sort_id,"sort_st":sort_st}, 
 				success : function(dt) {
 					$("#memberPage").html(dt);
 				},
@@ -183,14 +189,13 @@
 			});
 		}
 		function memberDelete(mem_id, page) {
-			var pageSize = ${pageVO.pageSize};
 			var target = document.getElementById("sfl");
 			var sfl = target.options[target.selectedIndex].value;
 			var stx = $("#stx").val();
 			$.ajax({
 				url : "/manage/memberDeleteAjax",
 				type : "post",
-				data : {"mem_id":mem_id,"page":page,"pageSize":pageSize,"sfl":sfl,"stx":stx, "author":author}, 
+				data : {"mem_id":mem_id,"page":page,"pageSize":pageSize,"sfl":sfl,"stx":stx,"author":author,"sort_id":sort_id,"sort_st":sort_st}, 
 				success : function(dt) {
 					$("#memberPage").html(dt);
 				}
@@ -203,14 +208,13 @@
 			});
 		}
 		function memberChkUpdate(upArr, auArr, page) {
-			var pageSize = ${pageVO.pageSize};
 			var target = document.getElementById("sfl");
 			var sfl = target.options[target.selectedIndex].value;
 			var stx = $("#stx").val();
 			$.ajax({
 				url : "/manage/memberChkUpdateAjax",
 				type : "post",
-				data : {"upArr":upArr,"auArr":auArr,"page":page,"pageSize":pageSize,"sfl":sfl,"stx":stx, "author":author},
+				data : {"upArr":upArr,"auArr":auArr,"page":page,"pageSize":pageSize,"sfl":sfl,"stx":stx,"author":author,"sort_id":sort_id,"sort_st":sort_st},
 				success : function(dt) {
 					$("#memberPage").html(dt);
 				},
@@ -226,14 +230,13 @@
 			});
 		}
 		function memberChkDelete(delArr, page) {
-			var pageSize = ${pageVO.pageSize};
 			var target = document.getElementById("sfl");
 			var sfl = target.options[target.selectedIndex].value;
 			var stx = $("#stx").val();
 			$.ajax({
 				url : "/manage/memberChkDeleteAjax",
 				type : "post",
-				data : {"delArr":delArr,"page":page,"pageSize":pageSize,"sfl":sfl,"stx":stx, "author":author},
+				data : {"delArr":delArr,"page":page,"pageSize":pageSize,"sfl":sfl,"stx":stx,"author":author,"sort_id":sort_id,"sort_st":sort_st},
 				success : function(dt) {
 					$("#memberPage").html(dt);
 				}

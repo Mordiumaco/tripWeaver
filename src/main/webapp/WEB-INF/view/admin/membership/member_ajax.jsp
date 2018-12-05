@@ -42,23 +42,23 @@
 			            <input type="checkbox" name="chkall" id="chkall">
 			        </th>
 			        <th scope="col" id="mb_list_mailc">
-			        	<a href="">아이디</a>
+			        	<a href="javascript:memberSort('mem_id')">아이디</a>
 			        </th>
 			        <th scope="col" id="mb_list_id">
-			        	<a href="">이름</a>
+			        	<a href="javascript:memberSort('mem_name')">이름</a>
 			        </th>
 			        <th scope="col" id="mb_list_mobile">닉네임</th>
 			        <th scope="col" id="mb_list_mailc">
-			        	<a href="">이메일</a>
+			        	<a href="javascript:memberSort('mem_email')">이메일</a>
 			        </th>
 			        <th scope="col" rowspan="2" id="mb_list_cert">
-			        	<a href="">휴대폰</a>
+			        	<a href="javascript:memberSort('mem_tel')">휴대폰</a>
 			        </th>
 			        <th scope="col" id="mb_list_open">
-			        	<a href="">연령대</a>
+			        	<a href="javascript:memberSort('mem_age')">연령대</a>
 			        </th>
 			        <th scope="col" id="mb_list_mailr">
-			        	<a href="">성별</a>
+			        	<a href="javascript:memberSort('mem_gender')">성별</a>
 			        </th>
 			        <th scope="col" id="mb_list_auth">회원권한</th>
 			        <th scope="col" id="mb_list_lastcall">

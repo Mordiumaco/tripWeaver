@@ -29,14 +29,15 @@
  
   <!-- 해당페이지릐 회원리스트를 조회 -->
   <select id="selectMemberPageList" parameterType="Map" resultType="memberVo">
-  	SELECT m.*
-	FROM (SELECT ROWNUM AS rnum,
-	            member.*
-	      FROM member
-	      WHERE mem_del = 'N'
-	      AND ${sfl} LIKE '%${stx}%'
-	      AND mem_author LIKE '%${author}%'
-	      ) m
+  	SELECT m2.*
+	FROM (  SELECT ROWNUM AS rnum, 
+	               m.*
+	        FROM (SELECT *
+	              FROM member
+	              WHERE mem_del = 'N'
+	              AND ${sfl} LIKE '%${stx}%'
+	              AND mem_author LIKE '%${author}%'
+	              ORDER BY ${sort_id} ${sort_st}) m) m2
 	WHERE rnum BETWEEN (${pageVO.page}*${pageVO.pageSize})-(${pageVO.pageSize}-1) AND ${pageVO.page}*${pageVO.pageSize}
   </select>
   
