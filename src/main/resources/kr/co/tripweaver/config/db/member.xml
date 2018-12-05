@@ -24,6 +24,7 @@
   	SELECT COUNT(*) FROM member
   	WHERE mem_del = 'N'
   	AND ${sfl} LIKE '%${stx}%'
+  	AND mem_author LIKE '%${author}%'
   </select>
  
   <!-- 해당페이지릐 회원리스트를 조회 -->
@@ -33,7 +34,9 @@
 	            member.*
 	      FROM member
 	      WHERE mem_del = 'N'
-	      AND ${sfl} LIKE '%${stx}%') m
+	      AND ${sfl} LIKE '%${stx}%'
+	      AND mem_author LIKE '%${author}%'
+	      ) m
 	WHERE rnum BETWEEN (${pageVO.page}*${pageVO.pageSize})-(${pageVO.pageSize}-1) AND ${pageVO.page}*${pageVO.pageSize}
   </select>
   
