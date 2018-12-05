@@ -17,6 +17,9 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="datasource"/>
 		<property name="configLocation" value="classpath:kr/co/tripweaver/config/db/mybatis-config.xml"/>
+		<property name="transactionFactory">
+			<bean class="org.mybatis.spring.transaction.SpringManagedTransactionFactory"/>
+		</property>
 	</bean>
 	
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">

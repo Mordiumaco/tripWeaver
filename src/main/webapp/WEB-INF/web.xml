@@ -34,6 +34,9 @@
   		설정파일이 복수개일 경우, 혹은 줄바꿈을 통해 기술할 수 있다. 
   		초기화 파라미터 명은 정해져 있으므로 임의로 수정 불가 
    -->
+   	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
    
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
@@ -44,9 +47,6 @@
 		</param-value>
 	</context-param>
 
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
    
   	<servlet>
    		<servlet-name>springDispatcherServlet</servlet-name>

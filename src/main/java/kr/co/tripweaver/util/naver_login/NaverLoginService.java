@@ -164,7 +164,7 @@ public class NaverLoginService {
         
         logger.debug("네이버에서 주는 값 : "+naverResponse);
         
-        //Key 값 = age, profile, name, nickname, birthday, gender , id(고유 64bit 숫자로 이루어짐), email
+        //Key 값 = age, profile_image, name, nickname, birthday, gender , id(고유 64bit 숫자로 이루어짐), email
         Map<String, String> userInfoMap = gson.fromJson(naverResponse.toString(), Map.class);
         
         //네이버 유저의 맵객체를 넘긴다. 

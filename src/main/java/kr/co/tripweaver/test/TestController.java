@@ -49,7 +49,7 @@ public class TestController {
 		Map<String, String> userInfoMap = naverLoginService.getNaverUserInfo(access_token);
 		
 		//해당 유저에 대한 키 : 값 로그
-		//age, profile, name, nickname, birthday, gender , id(고유 64bit 숫자로 이루어짐), email
+		//age, profile_image, name, nickname, birthday, gender , id(고유 64bit 숫자로 이루어짐), email
 		logger.debug("------------------------------");
 		for(String str : userInfoMap.keySet()) {
 			
@@ -71,29 +71,32 @@ public class TestController {
 		}
 		//---------------------------------------------------
 		
-		String mem_email = userInfoMap.get("email");
+		String mem_id = userInfoMap.get("id");
 		
-		//먼저 네이버 회원과 일치하는 멤버 email이 있는지 확인한다. 
-		MemberVO naverMemberVo = memberService.selectMemberByEmail(mem_email);
+		//먼저 네이버 회원과 일치하는 멤버 아이디가 있는지 확인한다. 
+		MemberVO naverMemberVo = memberService.selectMemberById(mem_id);
 		
 		//기존에 회원이 없을 경우에는 네이버 아이디에 대한 정보로 회원 DB 정보가 만들어 진다. 
 		if(naverMemberVo == null) {
 			
+			mem_id = userInfoMap.get("id");
 			String mem_gender = userInfoMap.get("gender");
 			String mem_name =  userInfoMap.get("name");
 			String mem_nick = userInfoMap.get("nickname");
 			//String mem_profile =  userInfoMap.get("profile");
 			String mem_age = userInfoMap.get("age");
+			String mem_email = userInfoMap.get("email");
+			String mem_profile = userInfoMap.get("profile_image");
 			
 			//네이버에 대한 정보를 객체에 담아준다. 
-			naverMemberVo = new MemberVO(mem_email,mem_name,mem_nick,mem_age,mem_gender);
+			naverMemberVo = new MemberVO(mem_id,mem_email ,mem_name,mem_nick,mem_age,mem_gender,mem_profile);
 			
 			//회원 DB 주입이 정상적으로 이루어지면 1을 반환 아니면 0
 			int insertResult = memberService.insertNaverMember(naverMemberVo);
 			
 			if(insertResult == 1) {
 				
-				naverMemberVo = memberService.selectMemberByEmail(mem_email);
+				naverMemberVo = memberService.selectMemberById(mem_id);
 				request.getSession().setAttribute("loginInfo", naverMemberVo);
 				
 			}else {
@@ -103,7 +106,7 @@ public class TestController {
 			}
 			
 			
-		//기존에 네이버 회원과 아이디 정보가 일치할 경우 해당 정보를 받아와 session에 Member 객체를 넣어준다. 
+		//기존에 네이버 회원과 아이디 정보 일치하는 회원이 있을 경우, 해당 정보를 받아와 session에 Member 객체를 넣어준다. 
 		}else {
 			
 			request.getSession().setAttribute("loginInfo", naverMemberVo);

@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.View;
 
-public class LoginCheckError implements View{
-
+public class JoinCheckError implements View{
+	
 	@Override
 	public String getContentType() {
 		return null;
@@ -23,11 +23,10 @@ public class LoginCheckError implements View{
 		PrintWriter script = response.getWriter();
 		
 		script.println("<script>");
-		script.println("alert('먼저 로그인을 해주세요.');");
-		script.println("location.href = '/main/login';");
+		script.println("alert('이미 존재하는 회원입니다. 다시 가입해주세요.');");
+		script.println("location.href = '/main/main';");
 		script.println("</script>");
 		script.flush();
 		script.close();
 	}
-	
 }

@@ -3,9 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 	
 	<mvc:annotation-driven/>
 	
@@ -16,6 +18,9 @@
 	<context:annotation-config/>
 	
 	<context:component-scan base-package="kr.co.tripweaver">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	    <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+	    <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
 	</context:component-scan>
 	
 	
@@ -34,6 +39,11 @@
 	<!-- <bean id="loginCheck" class="exam.util.error.LoginCheck"/>
 	<bean id="loginRight" class="exam.util.error.LoginRight"/>
 	<bean id="dbError" class="exam.util.error.DBError"/> -->
+	
+	<bean id="dbError" class="kr.co.tripweaver.error.DBError"/>
+	<bean id="loginCheckError" class="kr.co.tripweaver.error.LoginCheckError"/>
+	<bean id="joinCheckError" class="kr.co.tripweaver.error.JoinCheckError"/>
+	<bean id="joinCheckSuccess" class="kr.co.tripweaver.error.JoinCheckSuccess"/>
 	
 	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
 	<!-- <bean id="timesTablesView" class="kr.or.ddit.mvc.view.TimesTablesView"/> -->
@@ -61,7 +71,11 @@
 		</property>
 	</bean>
 	 -->
-	
+	 
+	 
+	<!-- transaction annotation -->
+
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
 	
 </beans>
