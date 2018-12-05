@@ -18,20 +18,37 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	$('.reservation_list1').on('click', function() {
-		$("input:radio[id='re1']").prop("checked", true); /* by ID */
+		if($("input:radio[id='re1']").is(":checked") == false){
+			$("input:radio[id='re1']").prop("checked", true); /* by ID */
+		}else{
+			$("input:radio[id='re1']").prop("checked", false);
+		}
 	});
 	$('.reservation_list2').on('click', function() {
-		$("input:radio[id='re2']").prop("checked", true); /* by ID */
+		if($("input:radio[id='re2']").is(":checked") == false){
+			$("input:radio[id='re2']").prop("checked", true); /* by ID */
+		}else{
+			$("input:radio[id='re2']").prop("checked", false);
+		}
 	});
 	$('.reservation_list3').on('click', function() {
-		$("input:radio[id='re3']").prop("checked", true); /* by ID */
+		if($("input:radio[id='re3']").is(":checked") == false){
+			$("input:radio[id='re3']").prop("checked", true); /* by ID */
+		}else{
+			$("input:radio[id='re3']").prop("checked", false);
+		}
 	});
 	$('.reservation_list4').on('click', function() {
-		$("input:radio[id='re4']").prop("checked", true); /* by ID */
+		if($("input:radio[id='re4']").is(":checked") == false){
+			$("input:radio[id='re4']").prop("checked", true); /* by ID */
+		}else{
+			$("input:radio[id='re4']").prop("checked", false);
+		}
 	});
 });
 
 </script>
+
 
 
     
