@@ -7,7 +7,7 @@
 
 <span class="btn_ov01"><span class="ov_txt">총회원수 </span> <span class="ov_num"> ${memberCnt}명 </span></span>
 
-<a href="" class="btn_ov01"> <span class="ov_txt">블랙리스트 </span> <span class="ov_num">${authCnt}명</span></a>
+<div id="author4" class="btn_ov01 cursor"> <span class="ov_txt">블랙리스트 </span> <span class="ov_num">${authCnt}명</span></div>
 
 <div class="btn_ov01">
 	<span class="ov_txt">탈퇴 </span> <span class="ov_num">${delCnt}명</span>

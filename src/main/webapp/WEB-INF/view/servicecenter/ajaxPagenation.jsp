@@ -5,11 +5,12 @@
 
 <c:set var="pageSize" value="10"/>
 
+<%-- 
 <c:if test="${param.page != 1}">
 	<a class="pg_page pg_start" href="javascript:getAjaxList(${1},'${param.search_key}','${param.search_value}');"></a>
 	<a class="pg_page pg_prev" href="javascript:getAjaxList(${pageVo.page - 1},'${param.search_key}','${param.search_value}');"></a>			
 </c:if>
-
+--%>
 
 <c:forEach var="pageWrap"  varStatus="status" begin="1" end="${pageCnt}">
 

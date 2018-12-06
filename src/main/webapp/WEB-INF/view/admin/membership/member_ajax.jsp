@@ -42,23 +42,23 @@
 			            <input type="checkbox" name="chkall" id="chkall">
 			        </th>
 			        <th scope="col" id="mb_list_mailc">
-			        	<a href="">아이디</a>
+			        	<a href="javascript:memberSort('mem_id')">아이디</a>
 			        </th>
 			        <th scope="col" id="mb_list_id">
-			        	<a href="">이름</a>
+			        	<a href="javascript:memberSort('mem_name')">이름</a>
 			        </th>
 			        <th scope="col" id="mb_list_mobile">닉네임</th>
 			        <th scope="col" id="mb_list_mailc">
-			        	<a href="">이메일</a>
+			        	<a href="javascript:memberSort('mem_email')">이메일</a>
 			        </th>
 			        <th scope="col" rowspan="2" id="mb_list_cert">
-			        	<a href="">휴대폰</a>
+			        	<a href="javascript:memberSort('mem_tel')">휴대폰</a>
 			        </th>
 			        <th scope="col" id="mb_list_open">
-			        	<a href="">연령대</a>
+			        	<a href="javascript:memberSort('mem_age')">연령대</a>
 			        </th>
 			        <th scope="col" id="mb_list_mailr">
-			        	<a href="">성별</a>
+			        	<a href="javascript:memberSort('mem_gender')">성별</a>
 			        </th>
 			        <th scope="col" id="mb_list_auth">회원권한</th>
 			        <th scope="col" id="mb_list_lastcall">
@@ -71,6 +71,8 @@
 		    </thead>
 		    
 		    <tbody>
+				<c:choose>
+					<c:when test="${memberVOs.size() > 0}">
 		        <c:forEach items="${memberVOs}" var="memberVO">
 				    <tr class="bg0">
 				        <td headers="mb_list_chk" class="td_chk" >
@@ -116,6 +118,15 @@
 				        </td>
 				    </tr>
 		        </c:forEach>
+		        	</c:when>
+		        	<c:otherwise>
+		        		<tr  class="bg0">
+		        			<th colspan="11">
+		        				조회된 리스트가 없습니다
+		        			</th>
+		        		</tr>
+		        	</c:otherwise>
+		        </c:choose>
 		  </tbody>
 		</table>
 	</div>
@@ -127,6 +138,8 @@
 
 
 <nav class="pg_wrap"><span class="pg">
+	<c:choose>
+		<c:when test="${memberVOs.size() > 0}">
 	<fmt:parseNumber var="page" value="${pageVO.page/10}" integerOnly="true"/>
 	<c:choose>
 		<c:when test="${page != 0 && pageVO.page%10 == 0}">
@@ -158,6 +171,11 @@
 			<a href="javascript:memberPage(${pageCnt})" class="pg_page pg_end">맨끝</a>
 		</c:if>
 	</span>
+		</c:when>
+		<c:otherwise>
+			<strong class="pg_current">1</strong><span class="sound_only">페이지</span>
+		</c:otherwise>
+	</c:choose>
 </nav>
 
 <script>

@@ -47,6 +47,42 @@ public interface IMemberService {
 	*/
 	public int eternalDeleteMemberByEmail(String mem_email);
 	
+	
+	/**
+	* Method : selectMemberById
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 5.
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 해당 아이디에 해당하는 회원이 존재할시 해당 회원에 대한 정보를 가져온다.
+	* 없을경우에는 null을 반환한다. 
+	*/
+	public MemberVO selectMemberById(String mem_id);
+	
+	/**
+	* Method : insertMember
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 5.
+	* 변경이력 :
+	* @param int
+	* @return
+	* Method 설명 : 해당 회원정보를 DB에 있는 member 테이블에 주입해준다. 
+	*/
+	public int insertMember(MemberVO memberVo);
+
+	/**
+	* Method : selectMemberByIdAndPass
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 5.
+	* 변경이력 :
+	* @param memberVo
+	* @return
+	* Method 설명 : 아이디와 비밀번호가 일치하면 해당 회원을 리턴 
+	*/
+	public MemberVO selectMemberByIdAndPass(MemberVO memberVo);
+	
+			
 	/**
 	* Method : selectMemberPageList
 	* 작성자 : jin
