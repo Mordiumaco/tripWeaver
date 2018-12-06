@@ -53,7 +53,7 @@ $(document).ready(function(){
 					<ul>
 						<c:if test="${postsVo.userid == S_USER.userId}">
 							<li>
-								<form action="/board/updateBoardView" method="get">
+								<form action="/main/essay_update" method="get">
 									<input type="hidden"  name="postsId" value="${postsVo.po_id}">
 									<input class="btn_bd col_03" type="submit" value="수정">
 								</form>
