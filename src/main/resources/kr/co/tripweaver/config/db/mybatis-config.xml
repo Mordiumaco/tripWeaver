@@ -13,6 +13,7 @@
   <mappers>
   	<mapper resource="kr/co/tripweaver/config/db/usertest.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/member.xml"/>
+  	<mapper resource="kr/co/tripweaver/config/db/follow.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/board.xml"/>
   </mappers>
 </configuration>

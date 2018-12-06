@@ -118,21 +118,6 @@ public class MainController {
 		return "servicecenter/write";
 	}
 	
-	@RequestMapping("/message")
-	public String messageView() {
-		return "mypage/message/message";
-	}
-	
-	@RequestMapping("/chatting")
-	public String chattingView() {
-		return "mypage/message/chatting";
-	}
-	
-	@RequestMapping("/chatting_view")
-	public String chatting_viewView() {
-		return "mypage/message/chatting_view";
-	}
-	
 	@RequestMapping("/memModified")
 	public String memModifiedView() {
 		return "mypage/memModified";
@@ -154,6 +139,34 @@ public class MainController {
 		return "essay/essay_write";
 	}
 	
+	@RequestMapping("/essay_update")
+	public String essay_updateView() {
+		return "essay/essay_update";
+	}
 	
- 
+	@RequestMapping("/mytravel_write")
+	public String mytravel_writeView() {
+		return "mypage/travelmanagement/mytravel_write";
+	}
+	
+	@RequestMapping("/mytravel_write2")
+	public String mytravel_write2View() {
+		return "mypage/travelmanagement/mytravel_write2";
+	}
+	
+	
+	@RequestMapping("/mytravel_update")
+	public String mytravel_updateView() {
+		return "mypage/travelmanagement/mytravel_update";
+	}
+	
+	@RequestMapping("/mytravel_update2")
+	public String mytravel_update2View() {
+		return "mypage/travelmanagement/mytravel_update2";
+	}
+	
+	@RequestMapping("/mytravel_view")
+	public String mytravel_viewView() {
+		return "mypage/travelmanagement/mytravel_view";
+	}
 }
