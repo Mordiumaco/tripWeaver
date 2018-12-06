@@ -145,7 +145,7 @@ public class NaverLoginService {
                 br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
             }
             String inputLine;
-           
+            
             while ((inputLine = br.readLine()) != null) {
                 response.append(inputLine);
             }
