@@ -26,7 +26,7 @@
 				
 				<!--  이뿌!!!!!  로그인시에만 보이게-->
 				<li><a href="/main/mypage" >마이 페이지</a></li>
-				<li><a class="pointer" onclick="window.open('/main/message','window_name','width=417,height=500,location=no,status=no,scrollbars=yes');" target="blank">메세지 &nbsp;<img src="/img/icon/message_icon.png" width="20px"></a></li>
+				<li><a class="pointer" onclick="window.open('/message/mainView?mem_id=${loginInfo.mem_id}','window_name','width=417,height=500,location=no,status=no,scrollbars=yes');" target="blank">메세지 &nbsp;<img src="/img/icon/message_icon.png" width="20px"></a></li>
 				<!--  이뿌!!!!!  끝 -->
 			</ul>
 		</div>
@@ -75,7 +75,7 @@
 							<ul>
 								<li><a href="">추천 여행지</a></li>
 								<li><a href="">축제 기간</a></li>
-								<li><a href="">숙박 찾기</a></li>
+								<li><a href="/recommendation/lodgment">숙박 찾기</a></li>
 								<li><a href="">도서 찾기</a></li>
 							</ul>
 						</div>
@@ -138,8 +138,16 @@
 		
 		var loginStatus = "${loginInfo}";
 		
-		if(loginStatus != null|| loginStatus != ""){
+		 
+		if(loginStatus != null && loginStatus != ""){
+			$("#loginBtn").click(function () {
+				naverLogin.logout();
+			});
 			$("#loginBtn").text("로그아웃");
+			$("#loginBtn").attr({"href":"/login/logout"})
 		}
+		 
+		
+		 
 	});
 </script>
