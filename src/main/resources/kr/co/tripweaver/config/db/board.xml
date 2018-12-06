@@ -4,6 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="boardSQL">
 
+	<!-- 전체 게시판 리스트 -->
+	<select id="selectBoardAllList" resultType="boardVo">
+		select * from board
+	</select>
+
 	<!-- 게시판 생성 -->
 	<insert id="insertBoard" parameterType="boardVo">
 		insert into board(board_id, mem_id, board_title, board_date, board_use, board_del)
