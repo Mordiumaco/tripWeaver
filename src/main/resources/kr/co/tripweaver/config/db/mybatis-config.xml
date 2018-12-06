@@ -7,10 +7,12 @@
  <typeAliases>
  	<typeAlias type="kr.co.tripweaver.user.model.UserTestVO" alias="userTestVo"/>
  	<typeAlias type="kr.co.tripweaver.member.model.MemberVO" alias="memberVo"/>
+ 	<typeAlias type="kr.co.tripweaver.board.model.BoardVO" alias="boardVo"/>
  </typeAliases>	
 	
   <mappers>
   	<mapper resource="kr/co/tripweaver/config/db/usertest.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/member.xml"/>
+  	<mapper resource="kr/co/tripweaver/config/db/board.xml"/>
   </mappers>
 </configuration>

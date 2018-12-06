@@ -27,7 +27,7 @@
 				<ul class="create_borad_th create_borad_ul">
 					<li>게시판 코드</li>
 					<li>게시판 이름</li>
-					<li>사용여부</li>
+					<li>사용여부</li> 
 					<li>수정</li>
 					<li>삭제</li>
 				</ul>
