@@ -75,7 +75,7 @@
 							<ul>
 								<li><a href="">추천 여행지</a></li>
 								<li><a href="">축제 기간</a></li>
-								<li><a href="">숙박 찾기</a></li>
+								<li><a href="/recommendation/lodgment">숙박 찾기</a></li>
 								<li><a href="">도서 찾기</a></li>
 							</ul>
 						</div>

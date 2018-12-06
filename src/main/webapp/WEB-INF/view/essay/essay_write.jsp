@@ -167,6 +167,13 @@ $(document).ready(function(){
 });
 
 
+function call()
+{
+ if(document.getElementById("sell1").value && document.getElementById("sell2").value){
+  document.getElementById('sell5').value =parseInt(document.getElementById('sell1').value) + parseInt(document.getElementById('sell2').value) + parseInt(document.getElementById('sell4').value) + parseInt(document.getElementById('sell2').value);
+ }
+}
+
 
 </script>
 
@@ -181,6 +188,8 @@ $(document).ready(function(){
 .view_con { border: 1px solid #ddd; margin-top: 20px; width: 100%;}
 .essay_calendar th { text-align: center;}
 .essay_filterLi { display:block !important; padding: 0 !important;}
+.essay_filterLi b input[type=number] { width: 84px;}
+
 .myCalendar_btn { padding: 10px;  cursor: pointer; width: 100%; height:45px; line-height:24px; display: block; font-size: 1.2em; font-weight: bold; text-align: center; border-radius: 30px; color: #fff !important;}
 .myCalendar_btn:hover { background: #389e7d;}
 .view_title input { width: 95.5%; padding: 10px 0px; padding-left: 10px;}
@@ -216,12 +225,12 @@ $(document).ready(function(){
 							</ul>
 							
 							<ul>
-								<li class="essay_filterLi">식비 : <b>9999</b></li>
-								<li class="essay_filterLi">숙박비 : <b>9999</b></li>
-								<li class="essay_filterLi">교통비 : <b>9999</b></li>
-								<li class="essay_filterLi">기타 : <b>9999</b></li>
-								<li class="essay_filterLi">총비용 : <b>9999</b></li>
-								<li class="essay_filterLi">하루평균비용 : <b>9999</b></li>
+								<li class="essay_filterLi">식비 : <b><input type="number" name="" id="sell1" onkeyup="call()"> 원</b></li>
+								<li class="essay_filterLi">숙박비 : <b><input type="number" name="" id="sell2" onkeyup="call()"> 원</b></li>
+								<li class="essay_filterLi">교통비 : <b><input type="number" name="" id="sell3" onkeyup="call()"> 원</b></li>
+								<li class="essay_filterLi">기타 : <b><input type="number" name="" id="sell4" onkeyup="call()"> 원</b></li>
+								<li class="essay_filterLi">총비용 : <b><input type="number" readonly="readonly" id="sell5"> 원</b></li>
+								<li class="essay_filterLi">하루평균비용 : <b><input type="number" readonly="readonly" id="sell6"> 원</b></li>
 							</ul>
 						</div>
 						<br/>
@@ -378,12 +387,12 @@ $(document).ready(function(){
 							</ul>
 							
 							<ul>
-								<li class="essay_filterLi">식비 : <b>9999</b></li>
-								<li class="essay_filterLi">숙박비 : <b>9999</b></li>
-								<li class="essay_filterLi">교통비 : <b>9999</b></li>
-								<li class="essay_filterLi">기타 : <b>9999</b></li>
-								<li class="essay_filterLi">총비용 : <b>9999</b></li>
-								<li class="essay_filterLi">하루평균비용 : <b>9999</b></li>
+								<li class="essay_filterLi">식비 : <b><input type="number" name="" id="wr_10"> 원</b></li>
+								<li class="essay_filterLi">숙박비 : <b><input type="number" name="" id="wr_11"> 원</b></li>
+								<li class="essay_filterLi">교통비 : <b><input type="number" name="" id="wr_12"> 원</b></li>
+								<li class="essay_filterLi">기타 : <b><input type="number" name="" id="wr_13"> 원</b></li>
+								<li class="essay_filterLi">총비용 : <b><input type="number" readonly="readonly"> 원</b></li>
+								<li class="essay_filterLi">하루평균비용 : <b><input type="number" readonly="readonly"> 원</b></li>
 							</ul>
 						</div>
 						<br/>
@@ -714,7 +723,7 @@ $(document).ready(function(){
               	</li>
 
               	<%-- 이뿌~~~ 일정 정보가 없다면 --%>
-              	<li class="produce"><a href=""><img src="/img/calendar_add.jpg"></a></li>
+              	<li class="produce"><a href="/main/mytravel_write"><img src="/img/calendar_add.jpg"></a></li>
             </ul> 
             <div class="view_btn">
 				<ul>
