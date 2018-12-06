@@ -63,7 +63,7 @@ public class NaverLoginService {
 		String clientSecret = "ZiJQLHBcOK";//애플리케이션 클라이언트 시크릿값";
 		String code = request.getParameter("code");
 		String state = request.getParameter("state");
-		String redirectURI = URLEncoder.encode("test/getInfo", "UTF-8");
+		String redirectURI = URLEncoder.encode("main/main", "UTF-8");
 		String apiURL;
 		apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
 		apiURL += "client_id=" + clientId;
@@ -172,5 +172,50 @@ public class NaverLoginService {
 	}
 	
 	
-	
+	/**
+	* Method : naverUserLogOut
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 6.
+	* 변경이력 :
+	* @param access_token
+	* @param request
+	* Method 설명 : 네이버 로그아웃 처리하는 로직
+	 * @throws UnsupportedEncodingException 
+	*/
+	public void naverUserLogOut(String access_token) throws UnsupportedEncodingException {
+		String clientId = "hAi60RWrlDCU1L3kMH90";//애플리케이션 클라이언트 아이디값";
+		String clientSecret = "ZiJQLHBcOK";//애플리케이션 클라이언트 시크릿값";
+		String token = URLEncoder.encode(access_token, "UTF-8");
+		
+		System.out.println("token : "+token);
+        String header = "Bearer " + token; // Bearer 다음에 공백 추가
+        StringBuffer response = new StringBuffer();
+        try {
+            String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id="+clientId+
+        			"&client_secret="+clientSecret+
+        			"&access_token="+token+
+        			"&service_provider=NAVER";
+            URL url = new URL(apiURL);
+            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+//            con.setRequestMethod("GET");
+//            con.setRequestProperty("Authorization", header);
+            int responseCode = con.getResponseCode();
+            BufferedReader br;
+            if(responseCode==200) { // 정상 호출
+                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            } else {  // 에러 발생
+                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+            }
+            String inputLine;
+           
+            while ((inputLine = br.readLine()) != null) {
+                response.append(inputLine);
+            }
+            br.close();
+            System.out.println(response.toString());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+		
+	}
 }

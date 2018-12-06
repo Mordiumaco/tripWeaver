@@ -138,8 +138,16 @@
 		
 		var loginStatus = "${loginInfo}";
 		
-		if(loginStatus != null|| loginStatus != ""){
+		 
+		if(loginStatus != null&& loginStatus != ""){
+			$("#loginBtn").click(function () {
+				naverLogin.logout();
+			});
 			$("#loginBtn").text("로그아웃");
+			$("#loginBtn").attr({"href":"/login/logout"})
 		}
+		 
+		
+		 
 	});
 </script>
