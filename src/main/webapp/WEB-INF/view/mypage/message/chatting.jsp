@@ -151,7 +151,7 @@ ul {
 <body>
 	<div class="mes_menu">
 		<ul>
-			<li><a href="/message/mainView"><img src="/img/icon/friend.png" height="20px;"/> &nbsp; 친구</a></li>
+			<li><a href="/message/mainView?mem_id=${loginInfo.mem_id}"><img src="/img/icon/friend.png" height="20px;"/> &nbsp; 친구</a></li>
 			<li><a href="/message/chatRoomListView"><img src="/img/icon/message01_icon.png" height="20px;" /> &nbsp; 채팅</a></li>
 		</ul>
 	</div>

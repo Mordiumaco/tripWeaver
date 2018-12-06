@@ -26,7 +26,7 @@
 				
 				<!--  이뿌!!!!!  로그인시에만 보이게-->
 				<li><a href="/main/mypage" >마이 페이지</a></li>
-				<li><a class="pointer" onclick="window.open('/message/mainView','window_name','width=417,height=500,location=no,status=no,scrollbars=yes');" target="blank">메세지 &nbsp;<img src="/img/icon/message_icon.png" width="20px"></a></li>
+				<li><a class="pointer" onclick="window.open('/message/mainView?mem_id=${loginInfo.mem_id}','window_name','width=417,height=500,location=no,status=no,scrollbars=yes');" target="blank">메세지 &nbsp;<img src="/img/icon/message_icon.png" width="20px"></a></li>
 				<!--  이뿌!!!!!  끝 -->
 			</ul>
 		</div>
@@ -133,12 +133,11 @@
 			var $this = $(this);
 			$this.removeClass('hovered');
 			$oe_overlay.stop(true, true).fadeTo(200, 0);
-			$oe_menu_items.children('div').hide();
+			$oe_menu_items.children('div').hide();	
 		})
 		
 		var loginStatus = "${loginInfo}";
-		
-		if(loginStatus != null|| loginStatus != ""){
+		if(loginStatus != null && loginStatus != ""){
 			$("#loginBtn").text("로그아웃");
 		}
 	});

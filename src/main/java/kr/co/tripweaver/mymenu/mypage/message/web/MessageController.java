@@ -19,7 +19,6 @@ public class MessageController {
 	
 	@RequestMapping("/mainView")
 	public String messageView(MemberVO memberVO, Model model) {
-		memberVO.setMem_id("normal1");
 		Map<String, Object> resultMap = messageService.messagePageView(memberVO.getMem_id());
 		model.addAllAttributes(resultMap);
 		

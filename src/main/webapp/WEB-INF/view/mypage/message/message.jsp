@@ -130,10 +130,10 @@ ul {
 	<div class="mes_my">
 		<b>내프로필</b> 
 		<div>
-			<b><img src=""></b>
+			<b><img src="/file/read?mem_profile=${loginInfo.mem_profile}"></b>
 		</div>
 		<ul>
-			<li>닉네임 입니다.</li>
+			<li>${loginInfo.mem_nick}</li>
 		</ul>
 	</div>
 	
@@ -143,7 +143,7 @@ ul {
 		
 			<c:forEach items="${followingVOs}" var="following">
 				<li class="mes_f_list">
-					<div><img src="${following.mem_profile}"></div>
+					<div><img src="/file/read?mem_profile=${following.mem_profile}"></div>
 					<ul>
 						<li>${following.mem_nick}</li>
 						<li>
@@ -166,7 +166,7 @@ ul {
 	
 			<c:forEach items="${followerVOs}" var="follower">
 				<li class="mes_f_list">
-					<div><img src="/img/p_02.png"></div>
+					<div><img src="/file/read?mem_profile=${follower.mem_profile}"></div>
 					<ul>
 						<li>${follower.mem_nick}</li>
 						<li>
