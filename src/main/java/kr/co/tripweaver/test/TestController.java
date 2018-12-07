@@ -146,8 +146,16 @@ public class TestController {
 	}
 	
 	*/
+	@RequestMapping("mytravel_write")
+	public String mytravel_writeView1() {
+		return "test/map/mytravel_write";
+	}
 	
-
+	
+	@RequestMapping("mytravel_write2")
+	public String mytravel_writeView2() {
+		return "test/map/mytravel_write2";
+	}
 }
 
 
