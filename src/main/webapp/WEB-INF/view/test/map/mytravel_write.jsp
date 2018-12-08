@@ -12,7 +12,7 @@
 
 </script>
 
-<form method="post" action="/test/mytravel_write2" >
+<form method="post" action="/test/mytravel_write2" onsubmit="checkData()" >
 
 <div class="sub_container">
 	
@@ -27,7 +27,7 @@
 		</ul>
 		<ul class="testSchedule">
 			<li> <i class="fa fa-thumbtack"></i> 테스트용</li>
-			<li> <i class="fa fa-calendar-alt" ></i> Day : <input type="number" required placeholder="1박 ( ex:1 ) "> <b>박</b></li>
+			<li> <i class="fa fa-calendar-alt" ></i> Day : <input id="testday" type="number" required placeholder="1박 ( ex:1 ) "> <b>박</b></li>
 		</ul>
 	</div>
 	
@@ -42,7 +42,7 @@
 	<div class="view_btn">
 		<ul>
 			<li class="essay_filterLi">
-				<input class="btn_bd col_03 " type="submit" value="다음">
+				<input class="btn_bd col_03 " type="submit" value="다음" >
 			</li>
 			<li class="essay_filterLi">
 				<input class="btn_bd col_02 " type="button" onclick="button_event();" value="취소">	 					
@@ -52,6 +52,9 @@
 
 	
 </div>	
+
+	<input id="markers" name="markers" type="hidden" value=""/>
+	
 </form>
 	<script>
 		$('#datepicker').datepicker({
@@ -174,6 +177,26 @@
 		    
 		    polyline.setPath(polylinePostion);
 		    
+		    //http://huskdoll.tistory.com/11 JSON 관련 사이트
+		    var totalObj = new Object();
+		    totalObj.markers = polylinePostion;
+		    var jsonInfo = JSON.stringify(totalObj.markers);
+		    console.log(jsonInfo);
+		    /* for(let i = 0; i < markers.length; i++){
+		    	
+		    	if(i>0){
+		    		document.getElementById("markers").value += markers[i].value;	
+		    		 var jsonInfo = JSON.stringify(totalObj.markers);
+		    		 console.log(jsonInfo); //브라우저 f12개발자 모드에서 confole로 확인 가능
+		    	}else{
+		    		document.getElementById("markers").value = markers[i];
+		    		var jsonInfo = JSON.stringify(totalObj.markers);
+		    		 console.log(jsonInfo); //브라우저 f12개발자 모드에서 confole로 확인 가능
+		    	}
+		    } */
+		    
+		    
+		    
 		    //마커에 대한 정보 UL HTML 에 담는다. 
 		    //addMarkerInfoAndArea();
 		    
@@ -191,6 +214,16 @@
 					polyline.setPath(polylinePostion);
 					//해당 마커 정보를 저장할 html input절을 지운다
 					$(".markerSchedule_bg").siblings().not(".testSchedule")[idx].remove();
+					
+				   for(let i = 0; i < markers.length; i++){
+				    	
+				    	if(i>0){
+				    		document.getElementById("markers").value += markers[i];	
+				    	}else{
+				    		document.getElementById("markers").value = markers[i];
+				    	}
+				    }
+				   
 				}
 			});
 		    
@@ -239,6 +272,23 @@
 		    setMarkers(null);    
 		} */
 		
+		//form 관련 기능
+		function checkData(){
+			
+			//달력에 값이 있는지 확인 
+			var dateChecker = document.getElementById("datepicker").value;
+		
+			//달력 관련 input에 값이 없거나 공백이면 다시 입력하라고 한다. 
+			if(dateChecker == "" || dateChecker == null){
+				alert("출발일을 정해주세요");
+				
+				return false;
+			}else{
+				
+				return true;
+			}
+			
+		}
 	
 	
 		

@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@include file="../../head.jsp" %>
 
+<%
+	String test = request.getParameter("markers");
+%>
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/js/font-awesome/css/font-awesome.min.css">   
 
@@ -26,7 +29,7 @@ $( function() {
 <form action="" method="get">
 <div class="sub_container">
 	
-	<h1 class="mypage_title">나의여행 일정 작성</h1>	
+	<h1 class="mypage_title">나의여행 일정 작성 ${markers[0]}<%=test%></h1>	
 	<div class="essay_filter">
 		<ul style=" height: 60px; line-height: 60px;">
 			<li>제목: <b><input type="text" placeholder="제목을 적어주세요." size="72" style="height: 40px; padding-left: 10px;"></b></li>
