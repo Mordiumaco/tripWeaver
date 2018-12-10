@@ -1,5 +1,7 @@
 package kr.co.tripweaver.board.dao;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -14,9 +16,15 @@ public class BoardDao implements IBoardDao{
 	private SqlSessionTemplate template;
 
 	@Override
+	public List<BoardVO> selectBoardAllList() {
+		return template.selectList("boardSQL.selectBoardAllList");
+	}
+	
+	@Override
 	public int insertBoard(BoardVO boardVo) {
 		return template.insert("boardSQL.insertBoard");
 	}
+
 
 	
 	

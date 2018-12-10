@@ -1,5 +1,7 @@
 package kr.co.tripweaver.board.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,18 @@ public class BoardService implements IBoardService{
 	IBoardDao boardDao;
 
 	/**
+	* Method : selectBoardAllList
+	* 작성자 : pc23
+	* 변경이력 :
+	* @return
+	* Method 설명 : 게시판 전체 불러오기
+	*/
+	@Override
+	public List<BoardVO> selectBoardAllList() {
+		return boardDao.selectBoardAllList();
+	}
+	
+	/**
 	* Method : insertBoard
 	* 작성자 : pc23
 	* 변경이력 :
@@ -23,5 +37,6 @@ public class BoardService implements IBoardService{
 	public int insertBoard(BoardVO boardVo) {
 		return boardDao.insertBoard(boardVo);
 	}
+
 	
 }

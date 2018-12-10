@@ -62,16 +62,16 @@
 
 			</c:forEach>
 			<li>
-				<form method="post" action="/board/insertNotice">	
+				<form method="post" action="/board/boardCreate">	
 					<ul class="create_borad_ul">
 						<li>
-							<input type="text" required="required" name="nt_name" value="" autofocus  >
+							<input type="text" required="required" name="board_title" value="" autofocus  >
 						</li>
 						<li>
-							<input type="text" required="required" name="nt_name" value="" autofocus  >
+							<input type="text" required="required" name="board_title" value="" autofocus  >
 						</li>
 						<li>
-							<select name="nt_ues">
+							<select name="board_use">
 								<option value="Y">사용</option>
 								<option value="N">비사용</option>
 							</select>
