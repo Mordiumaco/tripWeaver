@@ -2,34 +2,60 @@
     pageEncoding="UTF-8"%>
 <%@include file="../../head.jsp" %>
 
-<%
-	String test = request.getParameter("markers");
-%>
+
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/js/font-awesome/css/font-awesome.min.css">   
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a5f2e82aa9bad5f393255b6d8c3200cb"></script>
 
 <script type="text/javascript">
-$( function() {
-    $('#datepicker').datepicker({
-      showOn: "button",
-      buttonImage: "/img/calendar.gif",
-      buttonImageOnly: true,
-      buttonText: "Select date",
-      changeYear : true,
-      changeMonth : true,
-      yearRange : "1930:2020",
-      dateFormat: "yy-mm-dd"
-    });
-} );
-
+	$( function() {
+	    $('#datepicker').datepicker({
+	      showOn: "button",
+	      buttonImage: "/img/calendar.gif",
+	      buttonImageOnly: true,
+	      buttonText: "Select date",
+	      changeYear : true,
+	      changeMonth : true,
+	      yearRange : "1930:2020",
+	      dateFormat: "yy-mm-dd"
+	    });
+	    
+	} );
+	
+	
+	var jsonInfo = JSON.parse('${positionInfo}');
+	console.log(jsonInfo.positions);
+	
+	var departDate = new Date('${departDate}');
+	console.log(departDate);
+	
+	var daysArray = new Array();
+	var totalDays;
+	
+	console.log('${days[0]}');
+	
+	
+	var thisScheduleDays;
+	<c:forEach items='${days}' varStatus="loop">
+		thisScheduleDays = '${days[loop.index]}';
+		daysArray.push(thisScheduleDays);
+		totalDays += parseInt(thisScheduleDays);
+	</c:forEach>
+		
+	console.log(daysArray);
+	console.log(totalDays);
+	
+	function generateDetailDays(){
+		
+	}
+	
+	generateDetailDays();
 </script>
 
 <form action="" method="get">
 <div class="sub_container">
-	
-	<h1 class="mypage_title">나의여행 일정 작성 ${markers[0]}<%=test%></h1>	
+	<h1 class="mypage_title">나의여행 일정 작성 </h1>	
 	<div class="essay_filter">
 		<ul style=" height: 60px; line-height: 60px;">
 			<li>제목: <b><input type="text" placeholder="제목을 적어주세요." size="72" style="height: 40px; padding-left: 10px;"></b></li>
@@ -37,7 +63,7 @@ $( function() {
 		</ul>
 	
 		<ul>
-			<li><b>3 박 4일</b> </li>
+			<li><b>박일</b> </li>
 			<li>
 				<b>
 					<select>
@@ -89,17 +115,17 @@ $( function() {
 					대관령
 				</td>
 				<td>
-					<textarea rows="" cols="">
+					<textarea name="traffic" id="trafficArea">
 					
 					</textarea>
 				</td>
 				<td>
-					<textarea rows="" cols="">
+					<textarea name="plan" id="planArea">
 					
 					</textarea>
 				</td>
 				<td>
-					<textarea rows="" cols="">
+					<textarea name="accommodation" id="accommondationArea">
 					
 					</textarea>
 				</td>

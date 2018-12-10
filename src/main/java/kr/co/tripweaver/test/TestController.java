@@ -11,7 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.tripweaver.member.model.MemberVO;
 import kr.co.tripweaver.member.service.MemberService;
@@ -72,7 +73,6 @@ public class TestController {
 		//---------------------------------------------------
 		
 		String mem_id = userInfoMap.get("id");
-		
 		//먼저 네이버 회원과 일치하는 멤버 아이디가 있는지 확인한다. 
 		MemberVO naverMemberVo = memberService.selectMemberById(mem_id);
 		
@@ -153,8 +153,20 @@ public class TestController {
 	
 	
 	@RequestMapping("mytravel_write2")
-	public String mytravel_writeView2() {
-		return "test/map/mytravel_write2";
+	public ModelAndView mytravel_writeView2(@RequestParam("departDate") String departDate, 
+			String[] days, String positionInfo 
+			) {
+		
+		logger.debug("departDate : {}", departDate);
+		logger.debug("days : {}", days[0]);
+		logger.debug("positionInfo : {}", positionInfo);
+		
+		ModelAndView mav = new ModelAndView("test/map/mytravel_write2");
+		mav.addObject("departDate", departDate);
+		mav.addObject("days", days);
+		mav.addObject("positionInfo", positionInfo);
+		
+		return mav;
 	}
 }
 
