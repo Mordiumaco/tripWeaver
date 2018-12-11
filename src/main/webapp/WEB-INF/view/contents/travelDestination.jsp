@@ -2,4 +2,265 @@
     pageEncoding="UTF-8"%>
 <%@include file="../head.jsp" %>
 
+<script type="text/javascript">
+
+
+function getSigunguList(value){
+	
+	var SigunguList_1 = "<option value=''>시군구 선택</option><option value='1'>강남구</option><option value='2'>강동구</option><option value='3'>강북구</option><option value='4'>강서구</option><option value='5'>관악구</option><option value='6'>광진구</option><option value='7'>구로구</option><option value='8'>금천구</option><option value='9'>노원구</option><option value='10'>도봉구</option><option value='11'>동대문구</option><option value='12'>동작구</option><option value='13'>마포구</option><option value='14'>서대문구</option><option value='15'>서초구</option><option value='16'>성동구</option><option value='17'>성북구</option><option value='18'>송파구</option><option value='19'>양천구</option><option value='20'>영등포구</option><option value='21'>용산구</option><option value='22'>은평구</option><option value='23'>종로구</option><option value='24'>중구</option><option value='25'>중랑구</option>";
+	var SigunguList_2 = "<option value=''>시군구 선택</option><option value='1'>강화군</option><option value='2'>계양구</option><option value='3'>남구</option><option value='4'>남동구</option><option value='5'>동구</option><option value='6'>부평구</option><option value='7'>서구</option><option value='8'>연수구</option><option value='9'>옹진군</option><option value='10'>중구</option> ";
+	var SigunguList_3 = "<option value=''>시군구 선택</option><option value='1'>대덕구</option><option value='2'>동구</option><option value='3'>서구</option><option value='4'>유성구</option><option value='5'>중구</option> ";
+	var SigunguList_4 = "<option value=''>시군구 선택</option><option value='1'>남구</option><option value='2'>달서구</option><option value='3'>달성군</option><option value='4'>동구</option><option value='5'>북구</option><option value='6'>서구</option><option value='7'>수성구</option><option value='8'>중구</option> ";
+	var SigunguList_5 = "<option value=''>시군구 선택</option><option value='1'>광산구</option><option value='2'>남구</option><option value='3'>동구</option><option value='4'>북구</option><option value='5'>서구</option> ";
+	var SigunguList_6 = "<option value=''>시군구 선택</option><option value='1'>강서구</option><option value='2'>금정구</option><option value='3'>기장군</option><option value='4'>남구</option><option value='5'>동구</option><option value='6'>동래구</option><option value='7'>부산진구</option><option value='8'>북구</option><option value='9'>사상구</option><option value='10'>사하구</option><option value='11'>서구</option><option value='12'>수영구</option><option value='13'>연제구</option><option value='14'>영도구</option><option value='15'>중구</option><option value='16'>해운대구</option> ";
+	var SigunguList_7 = "<option value=''>시군구 선택</option><option value='1'>중구</option><option value='2'>남구</option><option value='3'>동구</option><option value='4'>북구</option><option value='5'>울주군</option> ";
+	var SigunguList_8 = "<option value=''>시군구 선택</option><option value='1'>세종특별자치시</option> ";
+	var SigunguList_31 = "<option value=''>시군구 선택</option><option value='1'>가평군</option><option value='2'>고양시</option><option value='3'>과천시</option><option value='4'>광명시</option><option value='5'>광주시</option><option value='6'>구리시</option><option value='7'>군포시</option><option value='8'>김포시</option><option value='9'>남양주시</option><option value='10'>동두천시</option><option value='11'>부천시</option><option value='12'>성남시</option><option value='13'>수원시</option><option value='14'>시흥시</option><option value='15'>안산시</option><option value='16'>안성시</option><option value='17'>안양시</option><option value='18'>양주시</option><option value='19'>양평군</option><option value='20'>여주시</option><option value='21'>연천군</option><option value='22'>오산시</option><option value='23'>용인시</option><option value='24'>의왕시</option><option value='25'>의정부시</option><option value='26'>이천시</option><option value='27'>파주시</option><option value='28'>평택시</option><option value='29'>포천시</option><option value='30'>하남시</option><option value='31'>화성시</option> ";
+	var SigunguList_32 = "<option value=''>시군구 선택</option><option value='1'>강릉시</option><option value='2'>고성군</option><option value='3'>동해시</option><option value='4'>삼척시</option><option value='5'>속초시</option><option value='6'>양구군</option><option value='7'>양양군</option><option value='8'>영월군</option><option value='9'>원주시</option><option value='10'>인제군</option><option value='11'>정선군</option><option value='12'>철원군</option><option value='13'>춘천시</option><option value='14'>태백시</option><option value='15'>평창군</option><option value='16'>홍천군</option><option value='17'>화천군</option><option value='18'>횡성군</option> ";
+	var SigunguList_32 = "<option value=''>시군구 선택</option><option value='1'>괴산군</option><option value='2'>단양군</option><option value='3'>보은군</option><option value='4'>영동군</option><option value='5'>옥천군</option><option value='6'>음성군</option><option value='7'>제천시</option><option value='8'>진천군</option><option value='9'>청원군</option><option value='10'>청주시</option><option value='11'>충주시</option><option value='12'>증평군</option> ";
+	var SigunguList_34 = "<option value=''>시군구 선택</option><option value='1'>공주시</option><option value='2'>금산군</option><option value='3'>논산시</option><option value='4'>당진시</option><option value='5'>보령시</option><option value='6'>부여군</option><option value='7'>서산시</option><option value='8'>서천군</option><option value='9'>아산시</option><option value='11'>예산군</option><option value='12'>천안시</option><option value='13'>청양군</option><option value='14'>태안군</option><option value='15'>홍성군</option><option value='16'>계룡시</option> ";
+	var SigunguList_35 = "<option value=''>시군구 선택</option><option value='1'>경산시</option><option value='2'>경주시</option><option value='3'>고령군</option><option value='4'>구미시</option><option value='5'>군위군</option><option value='6'>김천시</option><option value='7'>문경시</option><option value='8'>봉화군</option><option value='9'>상주시</option><option value='10'>성주군</option><option value='11'>안동시</option><option value='12'>영덕군</option><option value='13'>영양군</option><option value='14'>영주시</option><option value='15'>영천시</option><option value='16'>예천군</option><option value='17'>울릉군</option><option value='18'>울진군</option><option value='19'>의성군</option><option value='20'>청도군</option><option value='21'>청송군</option><option value='22'>칠곡군</option><option value='23'>포항시</option> ";
+	var SigunguList_36 = "<option value=''>시군구 선택</option><option value='1'>거제시</option><option value='2'>거창군</option><option value='3'>고성군</option><option value='4'>김해시</option><option value='5'>남해군</option><option value='6'>마산시</option><option value='7'>밀양시</option><option value='8'>사천시</option><option value='9'>산청군</option><option value='10'>양산시</option><option value='12'>의령군</option><option value='13'>진주시</option><option value='14'>진해시</option><option value='15'>창녕군</option><option value='16'>창원시</option><option value='17'>통영시</option><option value='18'>하동군</option><option value='19'>함안군</option><option value='20'>함양군</option><option value='21'>합천군</option>";
+	var SigunguList_37 = "<option value=''>시군구 선택</option><option value='1'>고창군</option><option value='2'>군산시</option><option value='3'>김제시</option><option value='4'>남원시</option><option value='5'>무주군</option><option value='6'>부안군</option><option value='7'>순창군</option><option value='8'>완주군</option><option value='9'>익산시</option><option value='10'>임실군</option><option value='11'>장수군</option><option value='12'>전주시</option><option value='13'>정읍시</option><option value='14'>진안군</option> ";
+	var SigunguList_38 = "<option value=''>시군구 선택</option><option value='1'>강진군</option><option value='2'>고흥군</option><option value='3'>곡성군</option><option value='4'>광양시</option><option value='5'>구례군</option><option value='6'>나주시</option><option value='7'>담양군</option><option value='8'>목포시</option><option value='9'>무안군</option><option value='10'>보성군</option><option value='11'>순천시</option><option value='12'>신안군</option><option value='13'>여수시</option><option value='16'>영광군</option><option value='17'>영암군</option><option value='18'>완도군</option><option value='19'>장성군</option><option value='20'>장흥군</option><option value='21'>진도군</option><option value='22'>함평군</option><option value='23'>해남군</option><option value='24'>화순군</option> ";
+	var SigunguList_39 = "<option value=''>시군구 선택</option><option value='1'>남제주군</option><option value='2'>북제주군</option><option value='3'>서귀포시</option><option value='4'>제주시</option>";
+	
+	if(value == 1){
+		$('.sigungucode').html(SigunguList_1);
+	}else if (value == 2){
+		$('.sigungucode').html(SigunguList_2);
+	}else if (value == 3){
+		$('.sigungucode').html(SigunguList_3);
+	}else if (value == 4){
+		$('.sigungucode').html(SigunguList_4);
+	}else if (value == 5){
+		$('.sigungucode').html(SigunguList_5);
+	}else if (value == 6){
+		$('.sigungucode').html(SigunguList_6);
+	}else if (value == 7){
+		$('.sigungucode').html(SigunguList_7);
+	}else if (value == 8){
+		$('.sigungucode').html(SigunguList_8);
+	}else if (value == 31){
+		$('.sigungucode').html(SigunguList_31);
+	}else if (value == 32){
+		$('.sigungucode').html(SigunguList_32);
+	}else if(value == 33){
+		$('.sigungucode').html(SigunguList_33);
+	}else if (value == 34){
+		$('.sigungucode').html(SigunguList_34);
+	}else if (value == 35){
+		$('.sigungucode').html(SigunguList_35);
+	}else if (value == 36){
+		$('.sigungucode').html(SigunguList_36);
+	}else if (value == 37){
+		$('.sigungucode').html(SigunguList_37);
+	}else if (value == 38){
+		$('.sigungucode').html(SigunguList_38);
+	}else if (value == 39){
+		$('.sigungucode').html(SigunguList_39);
+	}
+}
+
+</script>
+
+<style>
+
+.sub_container { }
+.sub_container ul { width:49%; height:150px; background:#f1f1f1; margin: 10px 0; border: 1px solid #ddd; margin-right: 2%; float: left;  }
+.sub_container ul:hover { background: #fff;}
+.sub_container ul:nth-child(even) { margin-right: 0;}
+
+.sub_container ul li:nth-child(8) { width: 40%; height:150px; overflow:hidden; float:left;  text-align: center; border-right: 1px solid #ddd; box-sizing: border-box;}
+.sub_container ul li:nth-child(8) img { height:148px; }
+
+.sub_container ul li:nth-child(9) {width:60%; height:40px; margin:18px 0 10px 0;  float:left; padding-left: 10px; font-size: 1.4em; font-weight: bolder;}
+.sub_container ul li:nth-child(10) {width:60%; height:25px; margin:5px 0; float:left; padding-left: 10px; font-size: 1.3em;}
+.sub_container ul li:nth-child(11) { width:60%; height:24px; margin:5px 0; float:left; padding-left: 10px; font-size: 1.3em;}
+
+
+.searchUtill { margin: 20px 0 10px 0; border-bottom: 1px solid #ddd; padding-bottom: 10px; font-size: 1.2em;}
+
+.bbsSearch th { background: #f1f1f1; height: 50px; width: 112px !important; border-bottom: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd; }
+.bbsSearch td { border-bottom: 1px solid #ddd; border-right: 1px solid #ddd;}
+.bbsSearch td select { margin-left: 10px; height: 30px; }
+.bbsSearch td input[type=radio] { margin-left: 10px; margin-right: 5px; width: 20px; height: 20px;}
+.bbsSearch td input[type=text] { margin-left: 10px; margin-right: 5px;} 
+.bbsSearch td input[type=submit] { margin-left: 10px; margin-right: 5px;}
+.bbsSearch td label { margin-right: 10px;} 
+.search_btn00 { background: #253dbe; color: #fff; padding: 10px; border: 0; cursor: pointer;}
+
+.lodgment_title {
+	width: 100%;
+	text-align: center;
+	font-size: 3em;
+	margin: 20px 0 30px 0;
+	color: #1087e3;
+}
+</style>
+
+<div class="sub_container">
+	<h2 class="lodgment_title">추천 여행지</h2>
+	<fieldset>
+		<legend>지역별 관광정보 검색</legend>					
+	
+		<div class="tableWrap searchWrap mgNone">
+	 	<table class="bbsSearch">
+				<caption>검색 순서 1 – 관광데이터 검색을 위한 언어선택</caption>
+				<colgroup>
+					<col style="width:10%;">
+					<col style="width:90%;">
+				</colgroup>
+				<tbody>
+					<tr>
+						<td></td>
+						<td>
+							<input type="hidden" name="rlangtype" title="한국어" value="KOR" id="rlangType_KOR"></label>
+						</td>
+					</tr>
+				</tbody>
+			</table>	
+			<div id="selectArea">
+				<table class="bbsSearch" style="border:0px;">
+					<caption>검색 순서 2 - 관광데이터 검색을 위한 관광타입선택, 서비스 분류 선택(대, 중, 소), 지역 선택</caption>
+					<colgroup>
+						<col style="width:10%;">
+						<col style="width:90%;">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="row">관광타입</th>
+							<td>
+							    <select title="타입 선택" name="contenttypeid" onchange="typeChange(this);">
+									<option value="" selected="selected">타입선택</option>
+									<option value="12">관광지</option><option value="14">문화시설</option><option value="15">축제공연행사</option><option value="25">여행코스</option><option value="28">레포츠</option><option value="32">숙박</option><option value="38">쇼핑</option><option value="39">음식점</option>		
+								</select>
+								
+							</td>
+						</tr>
+					  
+						<tr>
+							<th scope="row">서비스분류</th>
+							<td class="dataSearch">
+								<div>
+									<span>
+										<select title="대분류" name="cat1" onchange="getCat2List(this);">
+											<option value="">대분류</option>
+											<option value="A01">자연</option><option value="A02">인문(문화/예술/역사)</option><option value="A03">레포츠</option><option value="A04">쇼핑</option><option value="A05">음식</option><option value="B02">숙박</option><option value="C01">추천코스</option>		
+										</select>
+										<select name="cat2" onchange="getCat3List(this);" title="중분류"> 
+											<option value="">중분류</option>
+										</select>
+										
+										<select name="cat3" style="width:308px;" title="소분류">
+											<option value="">소분류</option>
+										</select>
+									</span>
+									<span>
+										<select title="대분류" style="display:none" name="cat1" onchange="getCat2List(this);">
+											<option value="">대분류</option>
+											<option value="A01">자연</option><option value="A02">인문(문화/예술/역사)</option><option value="A03">레포츠</option><option value="A04">쇼핑</option><option value="A05">음식</option><option value="B02">숙박</option><option value="C01">추천코스</option>		
+										</select>
+										
+										<select name="cat2" onchange="getCat3List(this);" style="display:none" title="중분류"> 
+											<option value="">중분류</option>
+										</select>
+										
+										<select name="cat3" style="display:none;width:308px;" title="소분류">
+											<option value="">소분류</option>
+										</select>
+									</span>
+									<span>
+										<select title="대분류" style="display:none" name="cat1" onchange="getCat2List(this);">
+											<option value="">대분류</option>
+											<option value="A01">자연</option><option value="A02">인문(문화/예술/역사)</option><option value="A03">레포츠</option><option value="A04">쇼핑</option><option value="A05">음식</option><option value="B02">숙박</option><option value="C01">추천코스</option>		
+										</select>
+										
+										<select name="cat2" onchange="getCat3List(this);" style="display:none" title="중분류"> 
+											<option value="">중분류</option>
+										</select>
+										
+										<select name="cat3" style="display:none;width:308px;" title="소분류">
+											<option value="">소분류</option>
+										</select>
+									</span>
+								</div>
+				
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">지역</th>
+							<td>
+								<select title="지역선택" name="areacode" onchange="getSigunguList(this.value);">
+									<option value="" selected="selected">지역선택</option>
+									<option value="1">서울</option>
+									<option value="2">인천</option>
+									<option value="3">대전</option>
+									<option value="4">대구</option>
+									<option value="5">광주</option>
+									<option value="6">부산</option>
+									<option value="7">울산</option>
+									<option value="8">세종특별자치시</option>
+									<option value="31">경기도</option>
+									<option value="32">강원도</option>
+									<option value="33">충청북도</option>
+									<option value="34">충청남도</option>
+									<option value="35">경상북도</option>
+									<option value="36">경상남도</option>
+									<option value="37">전라북도</option>
+									<option value="38">전라남도</option>
+									<option value="39">제주도</option>
+							</select>
+							
+								<select class="sigungucode" name="sigungucode" title="시군구선택">
+									<option value="" selected="selected">시군구 선택</option>
+								</select>
+							</td>
+							
+						</tr>
+					</tbody>
+				</table>
+			</div>
+					 			
+			<table class="bbsSearch">
+				<caption>검색 순서 3  - 검색버튼을 클릭(엔터)하면 관광데이터 검색 결과를 확인할 수 있음</caption>
+				<colgroup>
+					<col style="width:10%;">
+					<col style="width:90%;">
+				</colgroup>
+				<tbody>				
+					<tr>
+						<th class="last wHacki8" scope="row">검색</th>
+						<td class="last">
+							<input class="search_btn00" type="submit" id="search" value="검색" >
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		
+		</div>
+	</fieldset>	
+	
+	<div class="searchUtill">
+		<p>총 데이터 수 <strong></strong>개</p>
+		
+	</div>
+	
+	<div class="sub_container2">
+		
+	</div>
+	
+	
+	<nav class="pg_wrap"><span class="pg">
+		<span class="sound_only">열린</span>
+			<a href="" class="pg_page pg_start">시작</a>
+			<a href="" class="pg_page pg_prev">이전</a>
+			
+			<a href="" class="pg_page pg_next">다음</a>
+			<a href="" class="pg_page pg_end">맨끝</a>
+		</span>
+	</nav>
+
+</div>
+
 <%@include file="../tail.jsp" %>
