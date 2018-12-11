@@ -4,6 +4,213 @@
 
 <script type="text/javascript">
 
+//key
+var key = "Mslgp6qkRb0NprdclOGja92DX%2BGabfSzvMkTSnHGEnr4%2FmIN3T81Cj%2BeING4U0MHaqyUibfiHnzCKSuf4WdXTg%3D%3D";
+
+var pageNum = "";
+var areacode = "";
+var sigungucode = "";
+
+var eventStartDate = "";
+var eventEndDate = "";
+var cat1 = "";
+var cat2 = "";
+var cat3 = "";
+
+var startNum = 0;
+var endNum = 10;
+
+var pagingCount = null;
+var PagingUrl = "";
+
+// 검색 버튼 이벤트 실행
+$(document).ready(function searchsearch(){
+	
+	$('.searchUtill p strong').text("");
+	$('#search').on('click', function () {
+		// 시군구 파라미터 검색 변수 
+		areacode = $("select[name=areacode]").val();
+		sigungucode = $("select[name=sigungucode]").val();
+		
+		//카테고리 분류
+		cat1 = $("select[name=cat1]").val();
+		cat2 = $("select[name=cat2]").val();
+		cat3 = $("select[name=cat3]").val();
+	
+		var searchUrl ="http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey="+key+"&contentTypeId=&areaCode="+areacode+"&sigunguCode="+sigungucode+"&cat1="+cat1+"&cat2="+cat2+"&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=A&numOfRows=12&pageNo=1" ;
+		
+		console.log(searchUrl);
+		
+		ajaxSearch(searchUrl);
+		
+	
+	})
+	//트리거 첫 페이지 접속시 검색조건 실행 시키기
+	$('#search').trigger('click');
+});
+
+
+// 페이징 버튼 클릭시 url 이동
+$(document).ready(function(){
+	$('.pg_wrap').on('click','.pg_page', function name() {
+		
+		if(Number($(this).text()) > pagingCount){
+			pageNum = pagingCount;
+		}else{
+			pageNum = $(this).text();
+		}
+		
+		PagingUrl = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey="+key+"&contentTypeId=&areaCode="+areacode+"&sigunguCode="+sigungucode+"&cat1="+cat1+"&cat2="+cat2+"&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=A&numOfRows=12&pageNo="+pageNum;
+
+		ajaxSearch(PagingUrl);
+	});
+	$('.pg_wrap').on('click','.pg_next', function() {
+		startNum = startNum + 10;
+		
+		if(endNum + 10 > pagingCount){
+			endNum = pagingCount; 
+			
+		}else{ 
+			endNum = endNum + 10;
+		}; 
+		
+		ajaxSearch(PagingUrl);
+	});
+	
+	$('.pg_wrap').on('click','.pg_prev', function() {
+		startNum = startNum - 10;
+		
+		if(endNum -10 < 10){
+			endNum = 10;
+		}else{
+			endNum = endNum - 10;
+		}
+		
+		ajaxSearch(PagingUrl);
+	});
+	
+	$('.pg_wrap').on('click','.pg_start', function() {
+		startNum = 0;
+		endNum = 0 + 10;
+		
+		ajaxSearch(PagingUrl);
+	});
+	
+	$('.pg_wrap').on('click','.pg_end', function() {
+		
+		startNum = (parseInt(Number(pagingCount)/10))*10;
+		
+		
+		endNum = pagingCount;
+				
+		ajaxSearch(PagingUrl);
+	});
+});
+
+// xml 파싱 + 아작스 검색
+function ajaxSearch(searchUrl){
+
+	$.ajax({
+	    url : searchUrl,
+	    type : "GET",
+	    
+	    dataType : "xml",
+	    success : function(xml){
+	    	
+	    	var ul = "";
+	        
+	    	var img = "";
+	    	
+	        $.each($(xml).find("item"), function(idx, item) {
+	        	ul += ("<ul>");
+	        	
+	        		// 컨텐츠 이미지 없을때 대체 이미지 적용
+	        		
+	        		if($(item).find('firstimage').val() == null){
+	        			img = "/img/no_image.png";
+	        		}else{
+	        			img = $(item).find('firstimage').text()
+	        		};	
+	        		
+	        		// 컨텐츠 내용 넣기
+	     
+	        		ul += ("<li> <input type='hidden' name='areacode' value='"+ $(item).find('areacode').text() +"'></li>");
+	        		ul += ("<li> <input type='hidden' name='cat1' value='"+ $(item).find('cat1').text() +"'></li>");
+	        		ul += ("<li> <input type='hidden' name='cat2' value='"+ $(item).find('cat2').text() +"'></li>");
+	        		ul += ("<li> <input type='hidden' name='cat3' value='"+ $(item).find('cat3').text() +"'></li>");
+	        		ul += ("<li> <input type='hidden' name='contentid' value='"+ $(item).find('contentid').text() +"'></li>");
+	        		ul += ("<li> <input type='hidden' name='contenttypeid' value='"+ $(item).find('contenttypeid').text() +"'></li>");
+	        		ul += ("<li> <input type='hidden' name='sigungucode' value='"+ $(item).find('sigungucode').text() +"'></li>");
+	        		ul += ("<li><img src='"+ img +"'</li>");
+	        		ul += ("<li>"+ $(item).find('title').text() +"</li>");
+	        		ul += ("<li>"+ $(item).find('addr1').text() +"</li>");
+	        		ul += ("<li> Tel : "+ $(item).find('tel').text() +"</li>");
+	        	
+	        	ul += "</ul>";
+	        	
+	        	
+	        });
+	        
+	        /*  페이징 버튼 처리 */
+	        // XML 현재 검색 결과 총 게시글 수 가져오기
+	        totalCount = $(xml).find('totalCount').text();
+		    
+	        // 한페이지 나오는 리스트 수
+	    	var counList = 12;
+	    	
+	        // xml 현재 페이지 값 가져오기
+	    	var pageNo = Number($(xml).find('pageNo').text());
+	    	console.log(pageNo);
+	        
+	        var aTag = "";
+	    	var selectNum = "";
+	    	
+	    	// 총 결과 리스트 수  페이징 페이지 숫자로 변환 (총토탈 / 게시물수{12} )
+			pagingCount = (totalCount / counList) ;
+	    	
+	    	if ( pagingCount % counList >0 ){
+	    		pagingCount++;
+	    		pagingCount = parseInt(pagingCount);
+	    	}else{
+	    		pagingCount = parseInt(pagingCount);
+	    	}
+	        
+	    	// a 태그로 페이징 번호들 html에 삽입
+	        $('.sub_container2').html(ul);
+	        
+	        if(startNum > 9){
+				aTag += "<a  class='pg_page pg_start' style='cursor: pointer;'>1</a>";
+				aTag += "<a class='pg_page pg_prev' style='cursor: pointer;'>"+(Number(pageNo)-10)+"</a>";
+			}
+	    	for(var i =0; i < pagingCount; i++){
+	    		if( startNum <= i && i < endNum){ 
+		    		if(Number(pageNo) == (i+1)){
+		    			selectNum = " background:#4c4f6f; color:#fff;";
+		    				aTag += "<a class='pg_page' style='cursor: pointer;"+selectNum+"'>"+(i+1)+"</a>";
+		    			continue;
+		    		}
+		    		aTag += "<a class='pg_page' style='cursor: pointer;'>"+(i+1)+"</a>";
+	    		}
+	    	}
+	    	
+	    	if(endNum < pagingCount){
+	    		aTag += "<a class='pg_page pg_next' style='cursor: pointer;'>"+ Number(Number(pageNo)+10) +"</a>";
+	    		aTag += "<a  class='pg_page pg_end' style='cursor: pointer;'>"+Number(pagingCount)+"</a>";
+	    	}
+	    	
+	    	$('.pg_wrap span').html(aTag);
+	    	
+	    	// 총 게시물 숫자 html 태그에 삽입하기
+	    	$('.searchUtill strong').html(totalCount);
+	    	searchUrl += "&numOfRows="+counList+"&pageNo="+1 ;
+
+	    }
+	});
+};
+
+
+
+
 
 function getSigunguList(value){
 	
@@ -59,6 +266,32 @@ function getSigunguList(value){
 		$('.sigungucode').html(SigunguList_38);
 	}else if (value == 39){
 		$('.sigungucode').html(SigunguList_39);
+	}
+}
+
+function getCat2List(value){
+	var getCat2List_01 = "<option value=''>중분류</option><option value='A0101'>자연관광지</option><option value='A0102'>관광자원</option> ";
+	var getCat2List_02 = "<option value=''>중분류</option><option value='A0201'>역사관광지</option><option value='A0202'>휴양관광지</option><option value='A0203'>체험관광지</option><option value='A0204'>산업관광지</option><option value='A0205'>건축/조형물</option><option value='A0206'>문화시설</option><option value='A0207'>축제</option><option value='A0208'>공연/행사</option> ";
+	var getCat2List_03 = "<option value=''>중분류</option><option value='A0301'>레포츠소개</option><option value='A0302'>육상 레포츠</option><option value='A0303'>수상 레포츠</option><option value='A0304'>항공 레포츠</option><option value='A0305'>복합 레포츠</option> ";
+	var getCat2List_04 = "<option value=''>중분류</option><option value='A0401'>쇼핑</option> ";
+	var getCat2List_05 = "<option value=''>중분류</option><option value='A0502'>음식점</option> ";
+	var getCat2List_06 = "<option value=''>중분류</option><option value='B0201'>숙박시설</option> ";
+	var getCat2List_07 = "<option value=''>중분류</option><option value='C0112'>가족코스</option><option value='C0113'>나홀로코스</option><option value='C0114'>힐링코스</option><option value='C0115'>도보코스</option><option value='C0116'>캠핑코스</option><option value='C0117'>맛코스</option> ";
+	
+	if(value == 'A01'){
+		$('.cat2').html(getCat2List_01);
+	}else if (value == 'A02'){
+		$('.cat2').html(getCat2List_02);
+	}else if (value == 'A03'){
+		$('.cat2').html(getCat2List_03);
+	}else if (value == 'A04'){
+		$('.cat2').html(getCat2List_04);
+	}else if (value == 'A05'){
+		$('.cat2').html(getCat2List_05);
+	}else if (value == 'B02'){
+		$('.cat2').html(getCat2List_06);
+	}else if (value == 'C01'){
+		$('.cat2').html(getCat2List_07);
 	}
 }
 
@@ -128,61 +361,26 @@ function getSigunguList(value){
 						<col style="width:90%;">
 					</colgroup>
 					<tbody>
-						<tr>
-							<th scope="row">관광타입</th>
-							<td>
-							    <select title="타입 선택" name="contenttypeid" onchange="typeChange(this);">
-									<option value="" selected="selected">타입선택</option>
-									<option value="12">관광지</option><option value="14">문화시설</option><option value="15">축제공연행사</option><option value="25">여행코스</option><option value="28">레포츠</option><option value="32">숙박</option><option value="38">쇼핑</option><option value="39">음식점</option>		
-								</select>
-								
-							</td>
-						</tr>
 					  
 						<tr>
 							<th scope="row">서비스분류</th>
 							<td class="dataSearch">
 								<div>
 									<span>
-										<select title="대분류" name="cat1" onchange="getCat2List(this);">
-											<option value="">대분류</option>
-											<option value="A01">자연</option><option value="A02">인문(문화/예술/역사)</option><option value="A03">레포츠</option><option value="A04">쇼핑</option><option value="A05">음식</option><option value="B02">숙박</option><option value="C01">추천코스</option>		
+										<select title="대분류" name="cat1" onchange="getCat2List(this.value);">
+												<option value="">대분류</option>
+												<option value="A01">자연</option>
+												<option value="A02">인문(문화/예술/역사)</option>
+												<option value="A03">레포츠</option>
+												<option value="A04">쇼핑</option>
+												<option value="A05">음식</option>
+												<option value="B02">숙박</option>
+												<option value="C01">추천코스</option>
 										</select>
-										<select name="cat2" onchange="getCat3List(this);" title="중분류"> 
+										<select class="cat2" name="cat2"  title="중분류"> 
 											<option value="">중분류</option>
 										</select>
 										
-										<select name="cat3" style="width:308px;" title="소분류">
-											<option value="">소분류</option>
-										</select>
-									</span>
-									<span>
-										<select title="대분류" style="display:none" name="cat1" onchange="getCat2List(this);">
-											<option value="">대분류</option>
-											<option value="A01">자연</option><option value="A02">인문(문화/예술/역사)</option><option value="A03">레포츠</option><option value="A04">쇼핑</option><option value="A05">음식</option><option value="B02">숙박</option><option value="C01">추천코스</option>		
-										</select>
-										
-										<select name="cat2" onchange="getCat3List(this);" style="display:none" title="중분류"> 
-											<option value="">중분류</option>
-										</select>
-										
-										<select name="cat3" style="display:none;width:308px;" title="소분류">
-											<option value="">소분류</option>
-										</select>
-									</span>
-									<span>
-										<select title="대분류" style="display:none" name="cat1" onchange="getCat2List(this);">
-											<option value="">대분류</option>
-											<option value="A01">자연</option><option value="A02">인문(문화/예술/역사)</option><option value="A03">레포츠</option><option value="A04">쇼핑</option><option value="A05">음식</option><option value="B02">숙박</option><option value="C01">추천코스</option>		
-										</select>
-										
-										<select name="cat2" onchange="getCat3List(this);" style="display:none" title="중분류"> 
-											<option value="">중분류</option>
-										</select>
-										
-										<select name="cat3" style="display:none;width:308px;" title="소분류">
-											<option value="">소분류</option>
-										</select>
 									</span>
 								</div>
 				
