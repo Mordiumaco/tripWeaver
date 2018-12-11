@@ -10,11 +10,12 @@
 		WHERE mem_id2 = #{mem_id}
 	</select>
   
-  	<select id="selectFollowing" parameterType="String" resultType="memberVo">
+  	<select id="selectFollowing" parameterType="Map" resultType="memberVo">
 		SELECT m.*
 		FROM member m INNER JOIN follow f
 		ON (m.mem_id = f.mem_id)
 		AND (f.mem_id2 = #{mem_id})
+		WHERE mem_nick LIKE '%${stx}%'
 	</select>
 	
 	<select id="selectFollowerCount" parameterType="String" resultType="int">
@@ -28,5 +29,37 @@
 		FROM member m INNER JOIN follow f
 		ON (m.mem_id = f.mem_id2)
 		AND (f.mem_id = #{mem_id})
+		WHERE mem_nick LIKE '%${stx}%'
+	</select>
+	
+	<insert id="insertFollowing" parameterType="followVo">
+		INSERT INTO follow
+		VALUES (#{mem_id2}, #{mem_id}, ${fol_state})
+	</insert>
+	
+	<delete id="deleteUnfollow" parameterType="followVo">
+		DELETE FROM follow
+		WHERE mem_id2 = #{mem_id2}
+		AND	  mem_id = #{mem_id}
+	</delete>
+	
+	<select id="selectFolState" parameterType="followVo" resultType="int">
+		SELECT COUNT(*)
+		FROM follow
+		WHERE mem_id2 = #{mem_id2}
+		AND	  mem_id = #{mem_id}
+	</select>
+	
+	<update id="updateFolState" parameterType="followVo">
+		UPDATE follow
+		SET fol_state = ${fol_state}
+		WHERE mem_id2 = #{mem_id2}
+		AND	  mem_id = #{mem_id}
+	</update>
+	
+	<select id="selectFollow" parameterType="String" resultType="followVo">
+		SELECT *
+		FROM follow
+		WHERE mem_id = #{mem_id}
 	</select>
 </mapper>

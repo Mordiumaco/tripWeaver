@@ -32,6 +32,14 @@ ul {
 	height: 50px;
 }
 
+.count {
+	text-align:center; 
+	font-size:13px; 
+	background-color:#f1f1f1; 
+	height:30px; 
+	line-height:30px;
+}
+
 .mes_menu ul {}
 .mes_menu ul li { width: 50%; float: left; text-align: center; line-height: 50px;}
 .mes_menu ul li a { color: #fff; font-weight: bold; text-decoration: none; display: inline-block; width: 100%;}
@@ -66,11 +74,11 @@ ul {
 
 .mes_btn01, .mes_btn02 { width: 40px; }
 
-.mes_btn01::after { content:"언팔로잉"; }
-.mes_btn01:hover::after { content:"팔로잉"; }
+.mes_btn01::after { content:"팔로잉"; }
+.mes_btn01:hover::after { content:"언팔로우"; }
 
-.mes_btn02::after { content:"언팔로워";}
-.mes_btn02:hover::after { content:"팔로워";}
+.mes_btn02::after { content:"팔로우";}
+.mes_btn02:hover::after { content:"팔로우";}
 
 .mes_Search {height: 40px;}
 
@@ -108,21 +116,107 @@ ul {
 .msg_sound_only, .sound_only {display:inline-block !important; position:absolute;  top:0;  left:0;  margin:0 !important;  padding:0 !important;  font-size:0;  line-height:0; border:0 !important;overflow:hidden !important;}
 
 
+.followBtn {
+	width:50px;
+    background-color: transparent;
+    border: none;
+    color:black;
+    padding: 3px 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    cursor: pointer;
+}
+
 </style>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var login_id = '${loginInfo.mem_id}';
+		follow_count(login_id);
+		
+		$('.followBtn').on({
+			click : function() {
+				var follow;
+				var following_id = '${loginInfo.mem_id}';
+				var followed_id = $(this).prev().val();
+				console.log("following : " + following_id + "/ followed : " + followed_id);
+				if($(this).hasClass('following') == true){
+					$(this).val("팔로우");
+					$(this).addClass("follower");
+					$(this).removeClass("following");
+					follow = 'N';
+					unfollow(following_id, followed_id);
+				} else {
+					$(this).val("팔로잉");
+					$(this).addClass("following");
+					$(this).removeClass("follower");
+					follow = 'Y';
+					following(following_id, followed_id);
+				}	
+			},
+			mouseenter : function() {
+				$(this).css({'background-color' : '#389e7d', "color" : "white"});
+				if($(this).hasClass('following') == true){
+					$(this).val("언팔로우");
+				}
+			},
+			mouseleave : function() {
+				$(this).css({'background-color': 'transparent', "color" : "black"});
+				if($(this).hasClass('following') == true) {
+					$(this).val("팔로잉");
+				}
+			}
+		});
+	});
+	
+	function following(following_id, followed_id) {
+		$.ajax({
+			url : "/follow/following",
+			type : "post",
+			data : {"mem_id2":following_id,"mem_id":followed_id},
+			error : function() {
+				follow_count(following_id);
+			}
+		});
+	}
+	function unfollow(following_id, followed_id) {
+		$.ajax({
+			url : "/follow/unfollow",
+			type : "post",
+			data : {"mem_id2":following_id,"mem_id":followed_id},
+			error : function() {
+				follow_count(following_id);
+			}
+		});
+	}
+	function follow_count(mem_id) {
+		$.ajax({
+			url : "/follow/followCountAjax",
+			type : "post",
+			data : {"mem_id":mem_id},
+			success : function(dt) {
+				$("#follow_count").html(dt);
+			}
+		});
+	}
+</script>
+
 </head>
 <body>
 	<div class="mes_menu">
 		<ul>
-			<li><a href="/message/mainView"><img src="/img/icon/friend.png" height="20px;"/> &nbsp; 친구</a></li>
-			<li><a href="/message/chatRoomListView"><img src="/img/icon/message01_icon.png" height="20px;" /> &nbsp; 채팅</a></li>
+			<li><a href="/message/mainView?mem_id=${loginInfo.mem_id}"><img src="/img/icon/friend.png" height="20px;"/> &nbsp; 친구</a></li>
+			<li><a href="/message/chatRoomListView?mem_id=${loginInfo.mem_id}"><img src="/img/icon/message01_icon.png" height="20px;" /> &nbsp; 채팅</a></li>
 		</ul>
 	</div>
 	<div class="mes_Search">
-		<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
+		<form action="/message/searchFollow" id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
 			<label for="sfl" class="sound_only">검색대상</label>
-		
 			<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
 			<input type="text" name="stx" value="" id="stx" required="" class="required frm_input" placeholder="친구 닉네임으로 검색 하세요.">
+			<input type="hidden" name="mem_id" value="${loginInfo.mem_id}">
 			<input type="submit" class="btn_submit" value="검색">
 		</form>
 	</div>
@@ -136,9 +230,11 @@ ul {
 			<li>${loginInfo.mem_nick}</li>
 		</ul>
 	</div>
+	<div id="follow_count">
+		<!-- follow count ajax -->
+	</div>
 	
 	<div class="mes_friend">
-		<h6>팔로잉   <b>${followingCnt}</b>명</h6>
 		<ul class="mes_friendUl">
 		
 			<c:forEach items="${followingVOs}" var="following">
@@ -148,7 +244,8 @@ ul {
 						<li>${following.mem_nick}</li>
 						<li>
 							<a href="">쪽지</a>
-							<a href="" class="mes_btn01"></a>
+							<input type="hidden" value="${following.mem_id}">
+							<input type="button" class="following followBtn" value="팔로잉">
 						</li>
 					</ul>
 				</li>
@@ -161,17 +258,30 @@ ul {
 	</div>
 	
 	<div class="mes_friend no_line">
-		<h6>팔로워 <b>${followerCnt}</b>명</h6>
 		<ul class="mes_friendUl">
 	
 			<c:forEach items="${followerVOs}" var="follower">
+				<c:set var="fol_state" value=""/>
+				<c:forEach items="${followVOs}" var="fol">
+					<c:if test="${fol.mem_id2 == follower.mem_id}">
+						<c:set var="fol_state" value="${fol.fol_state}"/>
+					</c:if>
+				</c:forEach>
 				<li class="mes_f_list">
 					<div><img src="/file/read?mem_profile=${follower.mem_profile}"></div>
 					<ul>
 						<li>${follower.mem_nick}</li>
 						<li>
 							<a href="">쪽지</a>
-							<a href="" class="mes_btn02"></a>
+							<input type="hidden" value="${follower.mem_id}">
+							<c:choose>
+								<c:when test="${fol_state == 0}">
+									<input type="button" class="follower followBtn" value="팔로우">
+								</c:when>
+								<c:otherwise>
+									<input type="button" class="following followBtn" value="팔로잉">
+								</c:otherwise>
+							</c:choose>
 						</li>
 					</ul>
 				</li>
