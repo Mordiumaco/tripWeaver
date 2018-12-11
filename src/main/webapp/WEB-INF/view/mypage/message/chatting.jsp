@@ -152,7 +152,7 @@ ul {
 	<div class="mes_menu">
 		<ul>
 			<li><a href="/message/mainView?mem_id=${loginInfo.mem_id}"><img src="/img/icon/friend.png" height="20px;"/> &nbsp; 친구</a></li>
-			<li><a href="/message/chatRoomListView"><img src="/img/icon/message01_icon.png" height="20px;" /> &nbsp; 채팅</a></li>
+			<li><a href="/message/chatRoomListView?mem_id=${loginInfo.mem_id}"><img src="/img/icon/message01_icon.png" height="20px;" /> &nbsp; 채팅</a></li>
 		</ul>
 	</div>
 	
@@ -168,31 +168,22 @@ ul {
 	
 	<div class="chatting_list">
 		<ul>
-			<li class="Chat_room">
-				<a href="/message/chatRoomDetailView">
-					<div><img src="/img/icon/message01_icon.png"></div>
-					<ul>
-						<li> <b>채팅방 제목 입니다.</b> <span>2018. 01. 12</span></li>
-						<li class="chat_con">
-							마지막 대화 내용입니다. ㅁㄴㅇㅁㄴㅇㅁ니움니12312312321321ewfre 2132132112312321
-						</li>
-					</ul>
-				</a>
-			</li>
-			
-			<li class="Chat_room">
-				<a href="/message/chatRoomDetailView">
-					<div><img src="/img/icon/message01_icon.png"></div>
-					<ul>
-						<li> <b>채팅방 제목 입니다.</b> <span>2018. 01. 12</span></li>
-						<li class="chat_con">
-							마지막 대화 내용입니다. ㅁㄴㅇㅁㄴㅇㅁ니움니12312312321321ewfre 21321321123123212321213sdf
-						</li>
-					</ul>
-				</a>
-			</li>
-		</ul>
 		
+			<c:forEach items="${messageVOs}" var="chatroom">
+				<li class="Chat_room">
+					<a href="/message/chatRoomDetailView?group_id=${chatroom.group_id}&mem_id=${chatroom.mem_id}">
+						<div><img src="/img/icon/message01_icon.png"></div>
+						<ul>
+							<li> <b>${chatroom.chatroom_name}</b> <span><fmt:formatDate value="${chatroom.msg_date}" pattern="yyyy.MM.dd"/></span></li>
+							<li class="chat_con">
+								${chatroom.msg_cnt}
+							</li>
+						</ul>
+					</a>
+				</li>
+			</c:forEach>
+			
+		</ul>
 	</div>
 	
 	

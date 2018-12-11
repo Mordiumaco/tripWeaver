@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="messageSQL">
+	
+	<select id="selectChatroom" parameterType="String" resultType="messageVo">
+		SELECT *
+		FROM participant p INNER JOIN (SELECT *
+		                                FROM (SELECT group_id, msg_cnt, msg_date
+		                                    , MAX(msg_date) OVER(PARTITION BY group_id) AS max_date 
+		                                      FROM message m)
+		                                WHERE msg_date = max_date) m 
+		ON (p.group_id = m.group_id)
+		WHERE p.mem_id = #{mem_id}
+		ORDER BY max_date DESC
+	</select>
+	
+	<select id="selectChatroomName" parameterType="participantVo" resultType="String">
+		SELECT chatroom_name
+		FROM participant
+		WHERE group_id = #{group_id}
+		AND mem_id = #{mem_id}
+	</select>
+	
+	<select id="selectParticipantNickList" parameterType="String" resultType="String">
+		SELECT m.mem_nick
+		FROM participant p INNER JOIN member m
+		ON (p.mem_id = m.mem_id)
+		AND group_id = #{group_id}
+	</select>
+	
+	<select id="selectMessageList" parameterType="String" resultType="messageVo">
+		SELECT mem_nick, mem_profile, msg.*, NVL(mr.unread, 0) AS unread
+		FROM message msg INNER JOIN member mem
+		ON(msg.mem_id = mem.mem_id) LEFT OUTER JOIN (SELECT COUNT(*) unread, msg_id
+		                                            FROM msgreciver
+		                                            GROUP BY msg_id) mr
+		ON(msg.msg_id = mr.msg_id)
+		WHERE group_id = #{group_id}
+		ORDER BY msg_date ASC
+	</select>
+	
+</mapper>

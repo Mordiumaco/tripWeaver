@@ -1,5 +1,72 @@
 package kr.co.tripweaver.mymenu.mypage.message.model;
 
-public class MessageVO {
+import java.util.Date;
 
+public class MessageVO {
+	
+	private int unread;
+	private String mem_profile;
+	private String mem_nick;
+	private String msg_id;
+	private Date msg_date;
+	private String msg_cnt;
+	private String mem_id;
+	private String group_id;
+	private String chatroom_name;
+	
+	public int getUnread() {
+		return unread;
+	}
+	public void setUnread(int unread) {
+		this.unread = unread;
+	}
+	public String getMem_profile() {
+		return mem_profile;
+	}
+	public void setMem_profile(String mem_profile) {
+		this.mem_profile = mem_profile;
+	}
+	public String getMem_nick() {
+		return mem_nick;
+	}
+	public void setMem_nick(String mem_nick) {
+		this.mem_nick = mem_nick;
+	}
+	public String getChatroom_name() {
+		return chatroom_name;
+	}
+	public void setChatroom_name(String chatroom_name) {
+		this.chatroom_name = chatroom_name;
+	}
+	public String getMsg_id() {
+		return msg_id;
+	}
+	public void setMsg_id(String msg_id) {
+		this.msg_id = msg_id;
+	}
+	public Date getMsg_date() {
+		return msg_date;
+	}
+	public void setMsg_date(Date msg_date) {
+		this.msg_date = msg_date;
+	}
+	public String getMsg_cnt() {
+		return msg_cnt;
+	}
+	public void setMsg_cnt(String msg_cnt) {
+		this.msg_cnt = msg_cnt;
+	}
+	public String getMem_id() {
+		return mem_id;
+	}
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
+	}
+	public String getGroup_id() {
+		return group_id;
+	}
+	public void setGroup_id(String group_id) {
+		this.group_id = group_id;
+	}
+	
 }
