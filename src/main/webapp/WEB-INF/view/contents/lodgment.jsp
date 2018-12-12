@@ -117,7 +117,7 @@ function totalCountSearch(searchUrl){
 	    
 	    	var counList = 12;
 	    	var totalPage = Number(totalCount) / counList;
-	    	if(totalPage % counList > 0 && totalPage % counList < 1){
+	    	if(totalCount % counList > 0 && totalPage % counList < 1){
 	    		totalPage++;
 	    		totalPage = parseInt(totalPage);
 	    	}else{
@@ -132,7 +132,7 @@ function totalCountSearch(searchUrl){
 	    	
 	    	pagingCount = (totalCount / counList) ;
 	    	
-	    	if ( pagingCount % counList >0 ){
+	    	if ( totalCount % counList >0 ){
 	    		pagingCount++;
 	    		pagingCount = parseInt(pagingCount);
 	    	}else{
