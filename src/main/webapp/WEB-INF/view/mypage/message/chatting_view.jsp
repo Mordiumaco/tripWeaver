@@ -72,6 +72,11 @@ ul {
 
 .back { text-decoration: none; font-size: 1.7em; color: #4a461f; display: block; line-height: 80px; padding-left: 10px;}
 .back:hover { color:#ffeb33 ; }
+
+.unread {
+	font-size: 10px;
+	color: #FFE400;
+}
 </style>
 
 <script language="JavaScript" type="text/javascript">
@@ -88,64 +93,75 @@ $(document).ready(function(){
 	
 	<div class="mes_head">
 		<ul>
-			<li><a class="back" href="/message/chatRoomListView">&#9664; </a></li>
+			<li><a class="back" href="/message/chatRoomListView?mem_id=${loginInfo.mem_id}">&#9664; </a></li>
 			<li class="mes_title">
-				<div><img src="/img/p_01.png" ></div>
-				<div><b>박찬배, 최재현, 박진</b> 채팅방</div>
+				<div><img src="/file/read?mem_profile=${loginInfo.mem_profile}" ></div>
+				<div><b>
+					<c:forEach items="memNickList" var="nick">
+						${nick}&nbsp;
+					</c:forEach>
+				</b> ${chatrrom_name}</div>
 			</li>
 		</ul>
 	</div>
 	
 	<div class="mes_con">
+		<c:set var="prev_mem_id" value=""/>
+				<c:set var="prev_mem_id" value=""/>
 		
-		<div class="mes_con_list" >
-			<h6><img src="/img/p_03.png" ></h6>
-			<ul>
-				<li><b>유댕이</b> <span class="mes_date">2018. 01. 13. 12:42</span></li>
-				<li class="mes_con_list_text">
-					내용입니다. 내용이에요.
-				</li>
-			</ul>
-		</div>
+		<c:forEach items="${messageVOs}" var="msg">
+			<div class="mes_con_list ${msg.mem_id eq loginInfo.mem_id ? 'mes_con_listMy' : ''}" >
+				<c:if test="${msg.mem_id ne loginInfo.mem_id}">
+					<h6><img src="/file/read?mem_profile=${msg.mem_profile}" ></h6>
+				</c:if>
+				<ul>
+					<li><c:if test="${msg.mem_id ne loginInfo.mem_id}"><b>${msg.mem_nick}</b></c:if> <span class="mes_date ${msg.mem_id eq loginInfo.mem_id ? 'mes_dateMy' : ''}"><fmt:formatDate value="${msg.msg_date}" pattern="yyyy.MM.dd hh:mm"/></span></li>
+					<li class="mes_con_list_text ${msg.mem_id eq loginInfo.mem_id ? 'mes_con_list_textMy' : ''}">
+						${msg.msg_cnt}
+					</li><span class="unread">${msg.unread}</span> 
+				</ul>
+			</div>
+		</c:forEach>
 		
-		<div class="mes_con_list mes_con_listMy" >
-			<ul>
-				<li class="mes_con_list_text mes_con_list_textMy">
-					내용입니다. 내용이에요.12312321
-					내용입니다. 내용이에요.12312321
-					내용입니다. 내용이에요.12312321
-				</li>
-			</ul>
-			<span class="mes_date mes_dateMy">2018. 01. 13. 12:42</span>
-		</div>
 		
-		<div class="mes_con_list" >
-			<h6><img src="/img/p_02.png" ></h6>
-			<ul>
-				<li><b>유댕댕</b><span class="mes_date">2018. 01. 13. 12:42</span></li>
-				<li class="mes_con_list_text">
-					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ
-					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ
-					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ
-					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ
-					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ
-					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ
-					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ
-					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ
-					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ
-				</li>
-			</ul>
-		</div>
+<!-- 		<div class="mes_con_list mes_con_listMy" > -->
+<!-- 			<ul> -->
+<!-- 				<li class="mes_con_list_text mes_con_list_textMy"> -->
+<!-- 					내용입니다. 내용이에요.12312321 -->
+<!-- 					내용입니다. 내용이에요.12312321 -->
+<!-- 					내용입니다. 내용이에요.12312321 -->
+<!-- 				</li> -->
+<!-- 			</ul> -->
+<!-- 			<span class="mes_date mes_dateMy">2018. 01. 13. 12:42</span> -->
+<!-- 		</div> -->
 		
-		<div class="mes_con_list" >
-			<h6><img src="/img/p_02.png" ></h6>
-			<ul>
-				<li><b>유댕댕</b><span class="mes_date">2018. 01. 13. 12:42</span></li>
-				<li class="mes_con_list_text">
-					sdfldsjflsdfl
-				</li>
-			</ul>
-		</div>
+<!-- 		<div class="mes_con_list" > -->
+<!-- 			<h6><img src="/img/p_02.png" ></h6> -->
+<!-- 			<ul> -->
+<!-- 				<li><b>유댕댕</b><span class="mes_date">2018. 01. 13. 12:42</span></li> -->
+<!-- 				<li class="mes_con_list_text"> -->
+<!-- 					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ -->
+<!-- 					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ -->
+<!-- 					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ -->
+<!-- 					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ -->
+<!-- 					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ -->
+<!-- 					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ -->
+<!-- 					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ -->
+<!-- 					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ -->
+<!-- 					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ -->
+<!-- 				</li> -->
+<!-- 			</ul> -->
+<!-- 		</div> -->
+		
+<!-- 		<div class="mes_con_list" > -->
+<!-- 			<h6><img src="/img/p_02.png" ></h6> -->
+<!-- 			<ul> -->
+<!-- 				<li><b>유댕댕</b><span class="mes_date">2018. 01. 13. 12:42</span></li> -->
+<!-- 				<li class="mes_con_list_text"> -->
+<!-- 					sdfldsjflsdfl -->
+<!-- 				</li> -->
+<!-- 			</ul> -->
+<!-- 		</div> -->
 	
 	     
 	</div>
