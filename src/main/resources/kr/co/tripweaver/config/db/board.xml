@@ -14,5 +14,18 @@
 		insert into board(board_id, mem_id, board_title, board_date, board_use, board_del)
 		values(bd_seq.nextval, #{mem_id}, #{board_title}, sysdate, #{board_use}, 'N')
 	</insert>
+	
+	<!-- 게시판 수정 -->
+	<update id="updateBoard" parameterType="boardVo">
+		update board 
+		set board_title= #{board_title}, board_use= #{board_use}
+		where board_id= #{board_id}
+	</update>
 
+	<!-- 게시판 삭제 -->
+	<delete id="deleteBoard" parameterType="boardVo">
+		delete from board 
+		where mem_id = #{mem_id}
+	</delete>
+	
 </mapper>

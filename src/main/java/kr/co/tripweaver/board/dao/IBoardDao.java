@@ -24,4 +24,23 @@ public interface IBoardDao {
 	*/
 	public int insertBoard(BoardVO boardVo);
 	
+	/**
+	* Method : updateBoard
+	* 작성자 : pc23
+	* 변경이력 :
+	* @param boardVo
+	* @return
+	* Method 설명 : 게시판 수정
+	*/
+	public int updateBoard(BoardVO boardVo);
+	
+	/**
+	* Method : deleteBoard
+	* 작성자 : pc23
+	* 변경이력 :
+	* @param boardVo
+	* @return
+	* Method 설명 : 게시판 삭제
+	*/
+	public int deleteBoard(BoardVO boardVo);
 }

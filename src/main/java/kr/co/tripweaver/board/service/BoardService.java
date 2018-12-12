@@ -38,5 +38,31 @@ public class BoardService implements IBoardService{
 		return boardDao.insertBoard(boardVo);
 	}
 
+	/**
+	* Method : updateBoard
+	* 작성자 : pc23
+	* 변경이력 :
+	* @param boardVo
+	* @return
+	* Method 설명 : 게시판 수정
+	*/
+	@Override
+	public int updateBoard(BoardVO boardVo) {
+		return boardDao.updateBoard(boardVo);
+	}
+
+	/**
+	* Method : deleteBoard
+	* 작성자 : pc23
+	* 변경이력 :
+	* @param boardVo
+	* @return
+	* Method 설명 : 게시판 삭제
+	*/
+	@Override
+	public int deleteBoard(BoardVO boardVo) {
+		return boardDao.deleteBoard(boardVo);
+	}
+
 	
 }
