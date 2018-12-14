@@ -18,16 +18,23 @@
 	<div class="head_sub_rap">
 		<div class="head_con head_left">
 			<ul>
-				<!--  이뿌!!!!! 시작-->
 				<li><a id="loginBtn" href="/main/login" >로그인</a></li>
-				<li><a href="/main/adminMain" >관리자</a></li>
-				<li><a href="/main/register" >회원가입</a></li>
-				<!--  이뿌!!!!!  끝-->
-				
-				<!--  이뿌!!!!!  로그인시에만 보이게-->
-				<li><a href="/main/mypage" >마이 페이지</a></li>
-				<li><a class="pointer" onclick="window.open('/message/mainView?mem_id=${loginInfo.mem_id}','window_name','width=417,height=500,location=no,status=no,scrollbars=yes');" target="blank">메세지 &nbsp;<img src="/img/icon/message_icon.png" width="20px"></a></li>
-				<!--  이뿌!!!!!  끝 -->
+				<c:choose>
+					<c:when test="${loginInfo.mem_id == null}">
+						<li><a href="/main/register" >회원가입</a></li>
+					</c:when>
+					
+					<c:when test="${loginInfo.mem_id == 'admin'}">
+						<li><a href="/main/adminMain" >관리자</a></li>
+					</c:when>
+					
+					<c:otherwise>
+						<li><a href="/main/mypage" >마이 페이지</a></li>
+						<li><a class="pointer" onclick="window.open('/message/mainView?mem_id=${loginInfo.mem_id}','window_name','width=417,height=500,location=no,status=no,scrollbars=yes');" target="blank">메세지 &nbsp;<img src="/img/icon/message_icon.png" width="20px"></a></li>
+					</c:otherwise>
+				</c:choose>
+
+	
 			</ul>
 		</div>
 		<div class="head_con head_mid">

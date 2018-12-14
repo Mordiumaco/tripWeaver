@@ -103,7 +103,11 @@ $(document).ready(function(){
 				<ul class=" postCard_con">
 					<li>
 						<div class="postli_l"><b><img src="/file/read?mem_profile=${pcl.mem_profile}"></b><span>${pcl.mem_nick}</span></div> 
-						<div class="postli_r"><a href="">수정</a> <a href="">삭제</a></div>
+						<c:choose>
+							<c:when test="${loginInfo.mem_id == pcl.mem_id}">
+								<div class="postli_r"><a href="">수정</a> <a href="">삭제</a></div>
+							</c:when>
+						</c:choose>
 					</li>
 					<li><img src="/img/main_01.jpg"></li>
 					<li><div class="postli_l postli_l2">하트 &nbsp; <i class="far fa-comment"></i></div> <div class="postli_r"><i class="fa fa-share-alt fa-share-alt2" aria-hidden="true"></i></div></li>
@@ -132,7 +136,27 @@ $(document).ready(function(){
 		<div class="post_right_wrap" id="post_right_wrap">
 			<ul>
 				<li>
-					<div class="postli_l"><b class="my_profile"><img src="/img/p_01.png"></b><span>아이디디디디</span></div> 
+					<div class="postli_l">
+						<b class="my_profile">
+							<c:choose>
+								<c:when test="${loginInfo.mem_profile == null}">
+									<img src="../img/no_profile.png">
+								</c:when>
+								<c:otherwise>
+									<img src="/file/read?mem_profile=${loginInfo.mem_profile}">
+								</c:otherwise>
+							</c:choose>
+							
+						</b>
+						<c:choose>
+							<c:when test="${loginInfo.mem_nick == null}">
+								<span>회원 정보가 없습니다.</span>
+							</c:when>
+							<c:otherwise>
+								<span>${loginInfo.mem_nick}</span>
+							</c:otherwise>
+						</c:choose>
+					</div> 
 				</li>
 			</ul>
 			
