@@ -8,9 +8,17 @@
  	<typeAlias type="kr.co.tripweaver.user.model.UserTestVO" alias="userTestVo"/>
  	<typeAlias type="kr.co.tripweaver.member.model.MemberVO" alias="memberVo"/>
  	<typeAlias type="kr.co.tripweaver.board.model.BoardVO" alias="boardVo"/>
+ 	<typeAlias type="kr.co.tripweaver.article.model.ArticleVO" alias="articleVo"/>
  	<typeAlias type="kr.co.tripweaver.mymenu.mypage.follow_following.model.FollowVO" alias="followVo"/>
  	<typeAlias type="kr.co.tripweaver.mymenu.mypage.message.model.MessageVO" alias="messageVo"/>
  	<typeAlias type="kr.co.tripweaver.mymenu.mypage.message.model.ParticipantVO" alias="participantVo"/>
+ 	<typeAlias type="kr.co.tripweaver.postcard.model.PostCardVO" alias="postcardVo"/>
+ 	<typeAlias type="kr.co.tripweaver.hashtag.model.HashTagVO" alias="hashtagVo"/>
+ 	<typeAlias type="kr.co.tripweaver.mymenu.mypage.tripplan.model.TripplanVO" alias="tripplanVo"/>
+ 	<typeAlias type="kr.co.tripweaver.mymenu.mypage.tripplan.model.TripareaVO" alias="tripareaVo"/>
+ 	<typeAlias type="kr.co.tripweaver.mymenu.mypage.tripplan.model.MapMarkerVO" alias="mapMarkerVo"/>
+ 	<typeAlias type="kr.co.tripweaver.mymenu.mypage.tripplan.model.DailyPlanVO" alias="dailyPlanVo"/>
+ 	<typeAlias type="kr.co.tripweaver.mymenu.mypage.tripplan.model.MypageTripPlanForListVO" alias="mypageTripPlanForListVo"/>
  </typeAliases>	
 	
   <mappers>
@@ -18,6 +26,13 @@
   	<mapper resource="kr/co/tripweaver/config/db/member.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/follow.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/board.xml"/>
+  	<mapper resource="kr/co/tripweaver/config/db/article.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/message.xml"/>
+  	<mapper resource="kr/co/tripweaver/config/db/tripplan.xml"/>
+  	<mapper resource="kr/co/tripweaver/config/db/triparea.xml"/>
+  	<mapper resource="kr/co/tripweaver/config/db/mapmarker.xml"/>
+  	<mapper resource="kr/co/tripweaver/config/db/dailyplan.xml"/>
+  	<mapper resource="kr/co/tripweaver/config/db/postcard.xml"/>
+  	<mapper resource="kr/co/tripweaver/config/db/hashtag.xml"/>
   </mappers>
 </configuration>

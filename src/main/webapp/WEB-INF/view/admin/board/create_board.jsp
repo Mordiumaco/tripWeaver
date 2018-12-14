@@ -32,29 +32,30 @@
 					<li>삭제</li>
 				</ul>
 			</li>
-			<c:forEach items="${noticeList}" var="cr" varStatus="status">
+			<c:forEach items="${boardList}" var="cr" varStatus="status">
 			
 			<li>
-				<form method="post" action="/board/updateNotice">	
+				<form method="post" action="/board/boardUpdate">	
 					<ul class="create_borad_ul">
 						<li>
-							<a href="">123</a> <%-- 클릭시 파라미터 url 링크로 해당 게시판 리스트로 이동 --%>
+<%-- 							<a href="">123</a> 클릭시 파라미터 url 링크로 해당 게시판 리스트로 이동 --%>
+							<input type="text" name="board_id" value="${cr.board_id}" readonly="readonly"/>
 						</li>
 						<li>
-							<input name="nt_name" class="sm_${status.index}" required="required" type="text" value="${cr.nt_name}">
-							<input type="hidden" name="nt_id" value="${cr.nt_id}">
+							<input name="board_title" class="sm_${status.index}" required="required" type="text" value="${cr.board_title}">
+<%-- 							<input type="hidden" name="board_id" value="${cr.board_id}"> --%>
 						</li>
 						<li>
-							<select class="sm_${status.index}" name="nt_ues">
-								<option value="Y" ${cr.nt_ues.equals("Y")? "selected":"" }>사용</option>
-								<option value="N" ${cr.nt_ues != 'Y'? "selected":""}>비사용</option>
+							<select class="sm_${status.index}" name="board_use">
+								<option value="Y" ${cr.board_use.equals("Y")? "selected":"" }>사용</option>
+								<option value="N" ${cr.board_use != 'Y'? "selected":""}>비사용</option>
 							</select>
 						</li>
 						<li>
 							<input class="sm_${status.index} subBtn" type="submit" value="수정">
 						</li>
-						<li>
-							<input class="sm_${status.index} subBtn subBtn2" type="submit" value="삭제">
+						<li>  
+							<a href="/board/boardDelete?board_id=${cr.board_id}"  class="subBtn subBtn2">삭제</a>
 						</li>
 					</ul>
 				</form>
@@ -65,7 +66,7 @@
 				<form method="post" action="/board/boardCreate">	
 					<ul class="create_borad_ul">
 						<li>
-							<input type="text" required="required" name="board_title" value="" autofocus  >
+							<input type="text" required="required" name="board_id" value="" disabled="disabled" >
 						</li>
 						<li>
 							<input type="text" required="required" name="board_title" value="" autofocus  >

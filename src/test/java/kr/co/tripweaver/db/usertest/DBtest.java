@@ -35,7 +35,7 @@ import kr.co.tripweaver.user.model.UserTestVO;
 public class DBtest extends ServiceDaoTestConfig{
 	
 	@Autowired
-	IUserTestDao userTestService;
+	IUserTestDao userTestDao;
 	
 	/**
 	* Method : DBConnectionTest
@@ -46,7 +46,7 @@ public class DBtest extends ServiceDaoTestConfig{
 	@Test
 	public void DBConnectionTest() {
 		
-		List<UserTestVO> userTestList = userTestService.selectUserTest();
+		List<UserTestVO> userTestList = userTestDao.selectUserTest();
 		
 		assertEquals(1, userTestList.size());
 	}

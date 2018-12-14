@@ -126,7 +126,17 @@
 		//폴리라인 객체 생성 및 옵션을 파라미터로 넣어준다. 
 		var polyline = new daum.maps.Polyline(polylineOption); 
 		var polylinePosition = [];
+		//상세 주소에 대한 배열
 		var addressFullNames = [];
+		//시도에 대한 배열 
+		var sidoNames = [];
+		
+		//시군구에 대한 배열 
+		var sigunguNames = [];
+		
+		//읍명동에 대한 배열
+		var enbmyeondongNames = [];
+		
 		// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
 		var markers = [];
 
@@ -183,14 +193,24 @@
 		        if (status === daum.maps.services.Status.OK) {
 		        	//
 		            var detailAddr =  result[0].address.address_name;
+		        	let sido = result[0].address.region_1depth_name;
+		        	let sigungu = result[0].address.region_2depth_name;
+		        	let enbmyeondong = result[0].address.region_3depth_name;
 		            //var detailAddr2 =  result[0].address.region_3depth_name;
 		            
 		            //마커에 대한 정보 UL HTML 에 담는다. 
 				    addressFullNames.push(detailAddr);
+		            sidoNames.push(sido);
+		            sigunguNames.push(sigungu);
+		            enbmyeondongNames.push(enbmyeondong);
 				    addMarkerInfoAndArea(detailAddr);
 				    
 				    totalObj.positions = polylinePosition;
 				    totalObj.address_names = addressFullNames;
+				    totalObj.sidoNames = sidoNames;
+				    totalObj.sigunguNames = sigunguNames;
+				    totalObj.enbmyeondongNames = enbmyeondongNames;
+				    
 				    jsonInfo = JSON.stringify(totalObj);
 				    console.log(jsonInfo);
 				    document.getElementById("positionInfo").value = jsonInfo;
@@ -230,10 +250,16 @@
 					//해당 마커 정보를 저장할 html input절을 지운다
 					$(".markerSchedule_bg").siblings().not(".testSchedule")[idx].remove();
 					addressFullNames.splice(idx,1);
+					sidoNames.splice(idx,1);
+					sigunguNames.splice(idx,1);
+					enbmyeondongNames.splice(idx,1);
 					
 					//지웠으므로 다시 지운 포지션 좌표를 다시 json 객체에 넣어준다. 
 					totalObj.positions = polylinePosition;
 					totalObj.address_names = addressFullNames;
+					totalObj.sidoNames = sidoNames;
+					totalObj.sigunguNames = sigunguNames;
+					totalObj.enbmyeondongNames = enbmyeondongNames;
 					jsonInfo = JSON.stringify(totalObj);
 					console.log(jsonInfo);
 					document.getElementById("positionInfo").value = jsonInfo;

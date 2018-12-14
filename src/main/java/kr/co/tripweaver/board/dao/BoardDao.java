@@ -22,9 +22,18 @@ public class BoardDao implements IBoardDao{
 	
 	@Override
 	public int insertBoard(BoardVO boardVo) {
-		return template.insert("boardSQL.insertBoard");
+		return template.insert("boardSQL.insertBoard", boardVo);
 	}
 
+	@Override
+	public int updateBoard(BoardVO boardVo) {
+		return template.update("boardSQL.updateBoard", boardVo);
+	}
+
+	@Override
+	public int deleteBoard(BoardVO boardVo) {
+		return template.delete("boardSQL.deleteBoard", boardVo);
+	}
 
 	
 	

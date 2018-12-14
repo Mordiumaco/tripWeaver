@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapMarkerSQL">
+
+	<!-- triparea 아이디 반환 및 triparea insert 구문 -->
+	<insert id="insertMapmarker" parameterType="mapMarkerVo">
+		insert into mapmarker(triparea_id,mapmark_sido,mapmark_sigungu,mapmarker_enbmyeondong,mapmark_x_coor,mapmark_y_coor)
+		values(#{triparea_id},#{mapmark_sido},#{mapmark_sigungu},#{mapmarker_enbmyeondong},#{mapmark_x_coor},#{mapmark_y_coor})
+	</insert>
+
+</mapper>

@@ -110,8 +110,8 @@ $(document).ready(function(){
 	<div class="write_warp">
 		<ul class="write_warpL">
 			<li><b>이름 &nbsp;&nbsp;: </b></li>
-			<li><label > ${S_USER.userId} </label></li>
-			<input type="hidden" id="userId" name="${S_USER.userId}">
+			<li><label > ${loginInfo.mem_id} </label></li>
+			<input type="hidden" id="userId" name="mem_id">
 		</ul>
 				
 	</div>

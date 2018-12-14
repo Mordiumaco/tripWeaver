@@ -202,7 +202,7 @@ function ajaxSearch(searchUrl){
 	    	// 총 결과 리스트 수  페이징 페이지 숫자로 변환 (총토탈 / 게시물수{12} )
 			pagingCount = (totalCount / counList) ;
 	    	
-	    	if ( pagingCount % counList >0 ){
+	    	if ( totalCount % counList >0 ){
 	    		pagingCount++;
 	    		pagingCount = parseInt(pagingCount);
 	    	}else{

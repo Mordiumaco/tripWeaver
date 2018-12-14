@@ -40,7 +40,7 @@
 			<div class="oe_menu_wrap">
 				<ul id="oe_menu" class="oe_menu">
 					<li>
-						<a href="">PostCard</a>
+						<a href="/postCard/postCardList">PostCard</a>
 						
 					</li>
 					

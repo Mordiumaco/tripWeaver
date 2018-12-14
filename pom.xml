@@ -214,7 +214,11 @@
 		    <artifactId>jackson-mapper-asl</artifactId>
 		    <version>1.4.2</version>
 		</dependency>
-		
-				
+		<!-- 네이버 도서 검색을 위한 xml 적용 -->
+		<dependency>
+            <groupId>net.sf.sociaal</groupId>
+            <artifactId>xmlpull-xpp3</artifactId>
+            <version>3.0.0.20130526</version>
+        </dependency>
 	</dependencies>
 </project>
