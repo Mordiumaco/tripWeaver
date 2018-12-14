@@ -76,6 +76,7 @@ public class MessageService implements IMessageService {
 		resultMap.put("chatrrom_name", chatrrom_name);
 		resultMap.put("memNickList", memNickList);
 		resultMap.put("messageVOs", messageVOs);
+		resultMap.put("group_id", group_id);
 		
 		return resultMap;
 	}

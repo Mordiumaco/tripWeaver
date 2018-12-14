@@ -67,7 +67,7 @@
 			SELECT 'msg' || LPAD(msg_seq.NEXTVAL, 5, 0) FROM DUAL
 		</selectKey>
 		INSERT INTO message
-		VALUES (#{msg_id}, SYSDATE, #{msg_cnt}, #{mem_id}, #{group_id})
+		VALUES (#{msg_id}, #{msg_date}, #{msg_cnt}, #{mem_id}, #{group_id})
 	</insert>
 	
 	<delete id="deleteParticipant" parameterType="participantVo">
@@ -97,7 +97,7 @@
 	
 	<insert id="insertMsgReciver" parameterType="Map">
 		INSERT INTO msgreciver
-		VALUES (#{rec_id}, #{msg_id})
+		VALUES (#{mem_id}, #{msg_id})
 	</insert>
 	
 </mapper>

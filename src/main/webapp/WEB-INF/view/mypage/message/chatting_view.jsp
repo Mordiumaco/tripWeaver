@@ -82,8 +82,8 @@ ul {
 <script src="http://cdn.sockjs.org/sockjs-0.3.4.js"></script>
 
 <script language="JavaScript" type="text/javascript">
+var sock;
 connect();
-var group_id = ${};
 $(document).ready(function(){ 
 	$("#sendMessage").on("click", function() {
 		send();
@@ -93,9 +93,11 @@ $(document).ready(function(){
     $(window).resize(function() { 
         $('.mes_con').css('height', $(window).height()-180); 
     }); 
+	$(".mes_con").scrollTop($(".mes_con")[0].scrollHeight); //스크롤 최하단으로이동
 });
+
 function connect() {
-	var sock = new SockJS('/message');
+	sock = new SockJS('/message');
 	sock.onopen = function() {
 		console.log('onopen');
 	};
@@ -104,11 +106,11 @@ function connect() {
 		console.log(data);
 		var obj = JSON.parse(data);
 		console.log(obj);
-		appendMessage(obj.message_content);
-	}
+		appendMessage(obj);
+	};
 	sock.onclose = function() {
-		appendMessage('onclose');
-	}
+		console.log('onclose');
+	};
 };
 
 function send() {
@@ -118,45 +120,38 @@ function send() {
 		message.msg_cnt = msg;
 		message.msg_date = new Date();
 		message.mem_id = '${loginInfo.mem_id}';
-		message.group_id = group_id;
+		message.group_id = '${group_id}';
 	}
 	sock.send(JSON.stringify(message));
 	$("#msg").val("");
 }
 
-function getTimeStamp() {
-	var d = new Date();
-	var s = leadingZeros(d.getFullYear(), 4) + '.' +
-			leadingZeros(d.getMonth() + 1, 2) + '.' +
-			leadingZeros(d.getDate(), 2) + '.' +
-			leadingZeros(d.getHours(), 2) + ':' +
-			leadingZeros(d.getMinutes(), 2) + ':' +
-			leadingZeros(d.getSeconds(), 2);
-	return s;
-}
-
-function leadingZeros(n, digits) {
-	var zero = '';
-	n = n.toString();
-	if(n.length < digits){
-		for(var i = 0; i < digits - n.length; i++){
-			zero += '0';
-		}
-	}
-	return zero + n;
-}
-
 function appendMessage(msg) {
+	var html;
+	console.log("msg.mem_id : " + msg.mem_id + " + " + '${loginInfo.mem_id}');
+	if(msg.mem_id == '${loginInfo.mem_id}'){
+		html = '<div class="mes_con_list mes_con_listMy" >';
+		html += '<ul><li>';
+		html += '<span class="mes_date mes_dateMy">' + msg.msg_date + '</span></li>';
+		html += '<li class="mes_con_list_text mes_con_list_textMy">';
+		html +=	msg.msg_cnt + '</li><span class="unread">2</span></ul><div>';
+	} else {
+		html = '<div class="mes_con_list" >';
+		html += '<h6><img src="img/profile/profile3.jpg" ></h6>';
+// 		html += '<h6><img src="/img/${msg.mem_profile}" ></h6>';
+		html += '<ul><li>';
+		html += '<span class="mes_date">' + msg.msg_date + '</span></li>';
+		html += '<li class="mes_con_list_text">';
+		html +=	msg.msg_cnt + '</li><span class="unread">2</span></ul><div>';
+	}
 	if(msg == ''){
 		return false;
 	} else {
-		var t = getTimeStamp();
-		$('#').append();
-		var chatAreaHeight = $("#").height();
-		var maxScroll = $("#").height() - chatAreaHeight;
-		$("#").scrollTop(maxScroll);
+		$('.mes_con').append(html);
+		$(".mes_con").scrollTop($(".mes_con")[0].scrollHeight);
 	}
 }
+
 </script>
 
 </head>
@@ -175,7 +170,6 @@ function appendMessage(msg) {
 			</li>
 		</ul>
 	</div>
-	
 	<div class="mes_con">
 		<c:set var="prev_mem_id" value=""/>
 				<c:set var="prev_mem_id" value=""/>
@@ -193,53 +187,11 @@ function appendMessage(msg) {
 				</ul>
 			</div>
 		</c:forEach>
-		
-		
-<!-- 		<div class="mes_con_list mes_con_listMy" > -->
-<!-- 			<ul> -->
-<!-- 				<li class="mes_con_list_text mes_con_list_textMy"> -->
-<!-- 					내용입니다. 내용이에요.12312321 -->
-<!-- 					내용입니다. 내용이에요.12312321 -->
-<!-- 					내용입니다. 내용이에요.12312321 -->
-<!-- 				</li> -->
-<!-- 			</ul> -->
-<!-- 			<span class="mes_date mes_dateMy">2018. 01. 13. 12:42</span> -->
-<!-- 		</div> -->
-		
-<!-- 		<div class="mes_con_list" > -->
-<!-- 			<h6><img src="/img/p_02.png" ></h6> -->
-<!-- 			<ul> -->
-<!-- 				<li><b>유댕댕</b><span class="mes_date">2018. 01. 13. 12:42</span></li> -->
-<!-- 				<li class="mes_con_list_text"> -->
-<!-- 					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ -->
-<!-- 					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ -->
-<!-- 					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ -->
-<!-- 					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ -->
-<!-- 					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ -->
-<!-- 					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ -->
-<!-- 					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ -->
-<!-- 					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ -->
-<!-- 					야 그거 알아? this 이상하다 아아아 sssssss asdasdsad ㅁㄴㅇㅁㄴㅇㅁㄴ -->
-<!-- 				</li> -->
-<!-- 			</ul> -->
-<!-- 		</div> -->
-		
-<!-- 		<div class="mes_con_list" > -->
-<!-- 			<h6><img src="/img/p_02.png" ></h6> -->
-<!-- 			<ul> -->
-<!-- 				<li><b>유댕댕</b><span class="mes_date">2018. 01. 13. 12:42</span></li> -->
-<!-- 				<li class="mes_con_list_text"> -->
-<!-- 					sdfldsjflsdfl -->
-<!-- 				</li> -->
-<!-- 			</ul> -->
-<!-- 		</div> -->
-	
-	     
 	</div>
 	<div class="mes_bottom">
-		<form action="">
+		<form action="/message/send" method="post">
 			<input type="text" id="msg" name="msg">
-			<input type="submit" id="sendMessage" value="전송">
+			<input type="button" id="sendMessage" value="전송">
 		</form>
 	</div>
 	
