@@ -2,6 +2,8 @@ package kr.co.tripweaver.mymenu.mypage.message.model;
 
 import java.util.Date;
 
+import com.google.gson.Gson;
+
 public class MessageVO {
 	
 	private int unread;
@@ -13,6 +15,13 @@ public class MessageVO {
 	private String mem_id;
 	private String group_id;
 	private String chatroom_name;
+	
+	public static MessageVO convertMessage(String msg) {
+		MessageVO messageVO = new MessageVO();
+		Gson gson = new Gson();
+		messageVO = gson.fromJson(msg, MessageVO.class);
+		return messageVO;
+	}
 	
 	public int getUnread() {
 		return unread;

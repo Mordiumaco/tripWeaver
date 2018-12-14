@@ -5,14 +5,16 @@
 <mapper namespace="messageSQL">
 	
 	<select id="selectChatroom" parameterType="String" resultType="messageVo">
-		SELECT *
-		FROM participant p INNER JOIN (SELECT *
+		SELECT p.*, m.msg_cnt, m.msg_date
+		FROM participant p LEFT OUTER JOIN (SELECT *
 		                                FROM (SELECT group_id, msg_cnt, msg_date
 		                                    , MAX(msg_date) OVER(PARTITION BY group_id) AS max_date 
-		                                      FROM message m)
-		                                WHERE msg_date = max_date) m 
-		ON (p.group_id = m.group_id)
+		                                      FROM message)
+		                                WHERE msg_date = max_date) m
+		ON (p.group_id = m.group_id) , chatroom c
 		WHERE p.mem_id = #{mem_id}
+		AND (p.group_id = c.group_id)
+		AND (c.group_del = 'N')
 		ORDER BY max_date DESC
 	</select>
 	
@@ -40,5 +42,62 @@
 		WHERE group_id = #{group_id}
 		ORDER BY msg_date ASC
 	</select>
+	
+	<select id="selectChatroomMemberList" parameterType="String" resultType="String">
+		SELECT mem_id
+		FROM participant
+		WHERE group_id = #{group_id}
+	</select>
+	
+	<insert id="insertChatroom" parameterType="String">
+		<selectKey keyProperty="group_id" resultType="String" order="BEFORE">
+			SELECT 'chat' || LPAD(CHR_SEQ.NEXTVAL, 5, 0) FROM DUAL
+		</selectKey>
+		INSERT INTO chatroom
+		VALUES (#{group_id})
+	</insert>
+	
+	<delete id="deleteChatroom" parameterType="String">
+		DELETE FROM chatroom
+		WHERE group_id = #{group_id}
+	</delete>
+	
+	<insert id="insertMessage" parameterType="messageVo">
+		<selectKey keyProperty="msg_id" resultType="String" order="BEFORE">
+			SELECT 'msg' || LPAD(msg_seq.NEXTVAL, 5, 0) FROM DUAL
+		</selectKey>
+		INSERT INTO message
+		VALUES (#{msg_id}, SYSDATE, #{msg_cnt}, #{mem_id}, #{group_id})
+	</insert>
+	
+	<delete id="deleteParticipant" parameterType="participantVo">
+		DELETE FROM participant
+		WHERE group_id = #{group_id}
+		AND	mem_id = #{mem_id}
+	</delete>
+	
+	<update id="updateChatroomName" parameterType="participantVo">
+		UPDATE participant
+		SET chatroom_name = #{chatroom_name}
+		WHERE group_id = #{group_id}
+		AND mem_id = #{mem_id}
+	</update>
+	
+	<select id="selectParticipantCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM participant
+		WHERE group_id = #{group_id}
+	</select>
+	
+	<update id="updateChatroomDel" parameterType="String">
+		UPDATE chatroom
+		SET group_del = 'Y'
+		WHERE group_id = #{group_id}
+	</update>
+	
+	<insert id="insertMsgReciver" parameterType="Map">
+		INSERT INTO msgreciver
+		VALUES (#{rec_id}, #{msg_id})
+	</insert>
 	
 </mapper>

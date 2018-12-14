@@ -68,5 +68,4 @@ public class MessageController {
 		return "mypage/message/message";
 	}
 	
-	
 }

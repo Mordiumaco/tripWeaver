@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
@@ -79,13 +78,85 @@ ul {
 }
 </style>
 
+ <!-- Web socket CDN -->
+<script src="http://cdn.sockjs.org/sockjs-0.3.4.js"></script>
+
 <script language="JavaScript" type="text/javascript">
+connect();
+var group_id = ${};
 $(document).ready(function(){ 
+	$("#sendMessage").on("click", function() {
+		send();
+	});
+	
     $('.mes_con').css('height', $(window).height()-180); 
     $(window).resize(function() { 
         $('.mes_con').css('height', $(window).height()-180); 
     }); 
 });
+function connect() {
+	var sock = new SockJS('/message');
+	sock.onopen = function() {
+		console.log('onopen');
+	};
+	sock.onmessage = function(event) {
+		var data = event.data;
+		console.log(data);
+		var obj = JSON.parse(data);
+		console.log(obj);
+		appendMessage(obj.message_content);
+	}
+	sock.onclose = function() {
+		appendMessage('onclose');
+	}
+};
+
+function send() {
+	var msg = $("#msg").val();
+	if(msg != ""){
+		message = {};
+		message.msg_cnt = msg;
+		message.msg_date = new Date();
+		message.mem_id = '${loginInfo.mem_id}';
+		message.group_id = group_id;
+	}
+	sock.send(JSON.stringify(message));
+	$("#msg").val("");
+}
+
+function getTimeStamp() {
+	var d = new Date();
+	var s = leadingZeros(d.getFullYear(), 4) + '.' +
+			leadingZeros(d.getMonth() + 1, 2) + '.' +
+			leadingZeros(d.getDate(), 2) + '.' +
+			leadingZeros(d.getHours(), 2) + ':' +
+			leadingZeros(d.getMinutes(), 2) + ':' +
+			leadingZeros(d.getSeconds(), 2);
+	return s;
+}
+
+function leadingZeros(n, digits) {
+	var zero = '';
+	n = n.toString();
+	if(n.length < digits){
+		for(var i = 0; i < digits - n.length; i++){
+			zero += '0';
+		}
+	}
+	return zero + n;
+}
+
+function appendMessage(msg) {
+	if(msg == ''){
+		return false;
+	} else {
+		var t = getTimeStamp();
+		$('#').append();
+		var chatAreaHeight = $("#").height();
+		var maxScroll = $("#").height() - chatAreaHeight;
+		$("#").scrollTop(maxScroll);
+	}
+}
 </script>
 
 </head>
@@ -167,8 +238,8 @@ $(document).ready(function(){
 	</div>
 	<div class="mes_bottom">
 		<form action="">
-			<input type="text">
-			<input type="submit" value="전송">
+			<input type="text" id="msg" name="msg">
+			<input type="submit" id="sendMessage" value="전송">
 		</form>
 	</div>
 	

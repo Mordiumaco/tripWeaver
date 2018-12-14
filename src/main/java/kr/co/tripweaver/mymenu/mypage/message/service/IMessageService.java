@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.tripweaver.mymenu.mypage.message.model.MessageVO;
+import kr.co.tripweaver.mymenu.mypage.message.model.ParticipantVO;
 
 public interface IMessageService {
 
@@ -27,13 +28,44 @@ public interface IMessageService {
 	 */
 	public List<MessageVO> selectChatroom(String mem_id);
 	
+	
 	/**
-	* Method : enterChatroom
+	* Method : selectChatroomMemberList
+	* 작성자 : jin
+	* 변경이력 :
+	* @param group_id
+	* @return
+	* Method 설명 : 그룹에 해당되는 멤버들의 id를 반환하는 메서드
+	 */
+	public List<String> selectChatroomMemberList(String group_id);
+	
+	/**
+	* Method : sendMessage
 	* 작성자 : jin
 	* 변경이력 :
 	* @param params
 	* @return
-	* Method 설명 : (채팅방 입장)선택한 채팅방에 대한 정보를 반환하는 메서드
+	* Method 설명 : 메세지를 보내는 메서드
+	 */
+	public String sendMessage(MessageVO messageVO);
+	
+	/**
+	 * Method : enterChatroom
+	 * 작성자 : jin
+	 * 변경이력 :
+	 * @param params
+	 * @return
+	 * Method 설명 : (채팅방 입장)선택한 채팅방에 대한 정보를 반환하는 메서드
 	 */
 	public Map<String, Object> enterChatroom(Map<String, Object> params);
+	
+	/**
+	* Method : exitChatroom
+	* 작성자 : jin
+	* 변경이력 :
+	* @param params
+	* @return
+	* Method 설명 : 채팅방을 아예 퇴장하는 메서드
+	 */
+	public int exitChatroom(ParticipantVO participantVO);
 }
