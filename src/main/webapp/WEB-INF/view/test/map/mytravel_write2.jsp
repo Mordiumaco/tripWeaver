@@ -201,7 +201,7 @@
 	
 </script>
 <!-- 모든 정보를 받아올 폼 -->
-<form name="planForm" class="planForm" action="/test/mytravelForm" method="post" enctype="multipart/form-data">
+<form name="planForm" class="planForm" action="/test/mytravelForm" method="post" enctype="multipart/form-data" runat="server">
 <div class="sub_container">
 	<h1 class="mypage_title">나의여행 일정 작성 </h1>	
 	<div class="essay_filter">
@@ -209,8 +209,17 @@
 			<!-- tripplan table 제목 -->
 			<li>제목: <b><input name="tripplan_title" type="text" placeholder="제목을 적어주세요." size="72" style="height: 40px; padding-left: 10px;" required="required"></b></li>
 			<!-- 이미지 파일 받을 부분 -->
-			<li>대표이미지 : <b><input name="tripplan_image_file" type="file"></b></li>
+			<img id="image_section"/>
+			<li>대표이미지 : <b><input name="tripplan_image_file" type="file" onchange="loadFile(event)"/></b></li>
 		</ul>
+		<img id="output"/>
+		<script>
+		  var loadFile = function(event) {
+		    var output = document.getElementById('image_section');
+		    output.src = URL.createObjectURL(event.target.files[0]);
+		    output.style.height = "40px";
+		  };
+		</script>
 		<!-- 총 여행일수 tripplan table에 들어갈 부분 -->
 		<input class="tripplan_days" name="tripplan_days" type="hidden"/>
 		<!-- 출발일 -->

@@ -16,7 +16,7 @@
 	
 	<!-- mypage tripplan list를 위한 select 쿼리 -->
 	<select id="tripplanListForMypageByMemberId" resultType="mypageTripPlanForListVo" parameterType="String">
-		select tp.tripplan_id tripplan_id, tp.tripplan_start_day tripplan_start_day, tp.tripplan_days tripplan_days, tp.tripplan_image tripplan_image, mm.mapmark_sido mapmark_sido, mm.mapmarker_enbmyeondong mapmarker_enbmyeondong, ta.triparea_order triparea_order,
+		select tp.tripplan_title tripplan_title,tp.tripplan_id tripplan_id, tp.tripplan_start_day tripplan_start_day, tp.tripplan_days tripplan_days, tp.tripplan_image tripplan_image, mm.mapmark_sido mapmark_sido, mm.mapmarker_enbmyeondong mapmarker_enbmyeondong, ta.triparea_order triparea_order,
        (select count(*) from triparea where tripplan_id = tp.tripplan_id) totalmarker_count
 		from tripplan tp, mapmarker mm, triparea ta
 		where tp.mem_id = #{mem_id} and tp.tripplan_del='N' and tp.tripplan_id = ta.tripplan_id and ta.triparea_id= mm.triparea_id and ta.triparea_order = 1

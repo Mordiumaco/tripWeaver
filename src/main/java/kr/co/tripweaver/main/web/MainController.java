@@ -1,14 +1,30 @@
 package kr.co.tripweaver.main.web;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import kr.co.tripweaver.member.model.MemberVO;
+import kr.co.tripweaver.mymenu.mypage.tripplan.model.MypageTripPlanForListVO;
+import kr.co.tripweaver.mymenu.mypage.tripplan.service.ITripPlanService;
 
 @RequestMapping("/main")
 @Controller
 public class MainController {
 
-
+	Logger logger = LoggerFactory.getLogger(MainController.class);
+	
+	@Autowired
+	ITripPlanService tripPlanService;
+	
 	@RequestMapping("/main")
 	public String mainView() {
 		return "index";
@@ -89,8 +105,29 @@ public class MainController {
 	}
 	
 	@RequestMapping("/mypage")
-	public String mypageView() {
-		return "mypage/myPage";
+	public ModelAndView mypageView(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		
+		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
+		
+		if(memberVo == null) {
+			mav.setViewName("LoginCheckError");
+			return mav;
+		}
+		
+		String mem_id = memberVo.getMem_id();
+		
+		List<MypageTripPlanForListVO> mypageTripPlanForListVoList = tripPlanService.tripplanListForMypageByMemberId(mem_id);
+		
+		logger.debug("-----------------------------");
+		for(int i = 0; i < mypageTripPlanForListVoList.size(); i++) {
+			logger.debug("mypageTrip 내용 : {}", mypageTripPlanForListVoList.get(i));
+		}
+		
+		mav.addObject("mypageTripPlanForListVoList", mypageTripPlanForListVoList);
+		mav.setViewName("mypage/myPage");
+		
+		return mav;
 	}
 	
 	@RequestMapping("/guide")
