@@ -129,6 +129,29 @@ ul {
     cursor: pointer;
 }
 
+/* 이미지  수정 동그라미*/
+.my_profile { 
+	width:80px ; 
+	height:80px; 
+	line-height:80px; 
+	border-radius: 50%; 
+	display: inline-block; 
+	vertical-align: bottom; 
+	overflow: hidden;
+	margin-left: 5px;
+}
+
+.my_profile2 {
+	width: 60px;
+	height: 60px;
+}
+
+.my_profile2 img {
+	min-height: 60px;
+	
+}
+
+
 </style>
 <script src="/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
@@ -224,7 +247,7 @@ ul {
 	<div class="mes_my">
 		<b>내프로필</b> 
 		<div>
-			<b><img src="/file/read?mem_profile=${loginInfo.mem_profile}"></b>
+			<b class="my_profile"><img src="/file/read?mem_profile=${loginInfo.mem_profile}"></b>
 		</div>
 		<ul>
 			<li>${loginInfo.mem_nick}</li>
@@ -239,7 +262,7 @@ ul {
 		
 			<c:forEach items="${followingVOs}" var="following">
 				<li class="mes_f_list">
-					<div><img src="/file/read?mem_profile=${following.mem_profile}"></div>
+					<div><b class="my_profile my_profile2"><img src="/file/read?mem_profile=${following.mem_profile}"></b></div>
 					<ul>
 						<li>${following.mem_nick}</li>
 						<li>
@@ -268,7 +291,7 @@ ul {
 					</c:if>
 				</c:forEach>
 				<li class="mes_f_list">
-					<div><img src="/file/read?mem_profile=${follower.mem_profile}"></div>
+					<div><b class="my_profile my_profile2"><img src="/file/read?mem_profile=${follower.mem_profile}"></b></div>
 					<ul>
 						<li>${follower.mem_nick}</li>
 						<li>
