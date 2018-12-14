@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="postcardSQL">
+	
+	<select id="selectPostCardAll" parameterType="String" resultType="postcardVo">
+		select 
+		p. *
+		, m.mem_nick
+		, m.mem_profile
+		from POSTCARD p INNER JOIN member m
+		on (p.mem_id = m.mem_id)
+		ORDER by p.pc_date desc
+	</select>
+	
+	
+</mapper>
