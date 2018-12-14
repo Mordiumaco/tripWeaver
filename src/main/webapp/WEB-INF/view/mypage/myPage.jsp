@@ -11,7 +11,7 @@
 		
 		<ul class="mypage_list">
 			<li>
-				<a href="/test/mytravel_write"><img src="/img/calendar_add.jpg"/></a>
+				<a href="/myplan/mytravel_write"><img src="/img/calendar_add.jpg"/></a>
 				
 			</li>
 			<li class="mypage_list_add">
@@ -23,7 +23,7 @@
 			<ul class="mypage_list">
 			<li>
 				<c:if test="${mypageTripPlanForListVo.tripplan_image}" ></c:if>
-				<a href="/test/mytravel_view?tripplan_id=+${mypageTripPlanForListVo.tripplan_id}">
+				<a href="/myplan/mytravel_view?tripplan_id=${mypageTripPlanForListVo.tripplan_id}">
 					<c:choose>
 						<c:when test="${mypageTripPlanForListVo.tripplan_image eq ''}">
 							<img src="/img/no_image.png"/>
@@ -32,7 +32,7 @@
 							<img src="/img/no_image.png"/>
 						</c:when>
 						<c:otherwise>
-							<img src="/img/${mypageTripPlanForListVo.tripplan_image}"/>
+							<img src="/upload/${mypageTripPlanForListVo.tripplan_image}"/>
 						</c:otherwise>
 					</c:choose>
 				</a>

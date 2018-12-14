@@ -20,7 +20,11 @@
        (select count(*) from triparea where tripplan_id = tp.tripplan_id) totalmarker_count
 		from tripplan tp, mapmarker mm, triparea ta
 		where tp.mem_id = #{mem_id} and tp.tripplan_del='N' and tp.tripplan_id = ta.tripplan_id and ta.triparea_id= mm.triparea_id and ta.triparea_order = 1
-		order by tripplan_id desc
+		order by to_number(tripplan_id) desc
 	</select>
 	
+	<!-- tripplan id 로 tripplan 객체 리스트 받아오기  -->
+	<select id="selectTripPlanByTripplanId" parameterType="String" resultType="tripplanVo">
+		select * from tripplan where tripplan_id = #{tripplan_id}
+	</select>
 </mapper>

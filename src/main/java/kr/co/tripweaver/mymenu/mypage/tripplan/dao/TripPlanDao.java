@@ -91,4 +91,29 @@ public class TripPlanDao implements ITripPlanDao{
 		return mypageTripPlanForListVoList;
 	}
 	
+	/**
+	* Method : selectTripPlanByTripplanId
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 14.
+	* 변경이력 :
+	* @param tripplan_id
+	* @return
+	* Method 설명 : tripplan_id 로 해당 객체를 받아온다.
+	*/
+	@Override
+	public TripplanVO selectTripPlanByTripplanId(String tripplan_id) {
+		
+		TripplanVO tripplanVo =  null;
+		
+		try {
+			
+			tripplanVo = template.selectOne("tripplanSQL.selectTripPlanByTripplanId", tripplan_id);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return tripplanVo;
+		}
+		
+		return tripplanVo;
+	}
 }

@@ -10,4 +10,7 @@
 		values(dp_seq.nextval,#{dailyplan_order},#{dailyplan_area},#{dailyplan_cnt},#{dailyplan_day},#{dailyplan_traffic},#{dailyplan_room},#{tripplan_id})
 	</insert>
 
+	<select id="selectDailyPlanByTripplanId" parameterType="String" resultType="dailyPlanVo">
+		select * from dailyplan where tripplan_id = #{tripplan_id}
+	</select>
 </mapper>

@@ -1,5 +1,7 @@
 package kr.co.tripweaver.mymenu.mypage.tripplan.service;
 
+import java.util.List;
+
 import kr.co.tripweaver.mymenu.mypage.tripplan.model.TripareaVO;
 
 public interface ITripAreaService {
@@ -15,4 +17,14 @@ public interface ITripAreaService {
 	*/
 	public String insertTripAreaReturnId(TripareaVO tripareaVo);
 	
+	/**
+	* Method : selectTripAreaByTripplanId
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 14.
+	* 변경이력 :
+	* @param tripplan_id
+	* @return
+	* Method 설명 : tripplan_id 로 해당 tripareaVo 객체를 받아온다.
+	*/
+	public List<TripareaVO> selectTripAreaByTripplanId(String tripplan_id);
 }

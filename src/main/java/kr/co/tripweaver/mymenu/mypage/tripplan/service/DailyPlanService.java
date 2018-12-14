@@ -1,5 +1,7 @@
 package kr.co.tripweaver.mymenu.mypage.tripplan.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +28,18 @@ public class DailyPlanService implements IDailyPlanService {
 	@Override
 	public int insertDailyPlan(DailyPlanVO dailyplanVo) {
 		return dailyPlanDao.insertDailyPlan(dailyplanVo);
+	}
+	/**
+	* Method : selectDailyPlanByTripplanId
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 14.
+	* 변경이력 :
+	* @param tripplan_id
+	* @return
+	* Method 설명 : tripplan_id를 매개변수로 하여 dailyplanVo 리스트를 받아온다.
+	*/
+	@Override
+	public List<DailyPlanVO> selectDailyPlanByTripplanId(String tripplan_id){
+		return dailyPlanDao.selectDailyPlanByTripplanId(tripplan_id);
 	}
 }

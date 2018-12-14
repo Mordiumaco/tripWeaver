@@ -49,4 +49,14 @@ public interface ITripPlanDao {
 	*/
 	public List<MypageTripPlanForListVO> tripplanListForMypageByMemberId(String mem_id);
 	
+	/**
+	* Method : selectTripPlanByTripplanId
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 14.
+	* 변경이력 :
+	* @param tripplan_id
+	* @return
+	* Method 설명 : tripplan_id 로 해당 객체를 받아온다.
+	*/
+	public TripplanVO selectTripPlanByTripplanId(String tripplan_id);
 }

@@ -29,4 +29,15 @@ public interface ITripPlanService {
 	* Method 설명 : 멤버가 가지고 있는 tripplan list 및 my page view에 맞게 필요한 정보를 가져온 객체 MypageTripPlanForListVO 리스트를 반환한다.
 	*/
 	public List<MypageTripPlanForListVO> tripplanListForMypageByMemberId(String mem_id);
+	
+	/**
+	* Method : selectTripPlanByTripplanId
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 14.
+	* 변경이력 :
+	* @param tripplan_id
+	* @return
+	* Method 설명 : tripplan_id 로 해당 객체를 받아온다.
+	*/
+	public TripplanVO selectTripPlanByTripplanId(String tripplan_id);
 }

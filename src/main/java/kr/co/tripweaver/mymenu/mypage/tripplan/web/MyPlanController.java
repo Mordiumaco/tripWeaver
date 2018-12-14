@@ -3,6 +3,8 @@ package kr.co.tripweaver.mymenu.mypage.tripplan.web;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -94,7 +96,7 @@ public class MyPlanController {
 		logger.debug("days : {}", days[0]);
 		logger.debug("positionInfo : {}", positionInfo);
 		
-		ModelAndView mav = new ModelAndView("test/map/mytravel_write2");
+		ModelAndView mav = new ModelAndView("mypage/travelmanagement/mytravel_write2");
 		mav.addObject("departDate", departDate);
 		mav.addObject("days", days);
 		mav.addObject("positionInfo", positionInfo);
@@ -121,7 +123,7 @@ public class MyPlanController {
 	* @throws IOException
 	* Method 설명 : 나의 일정을 작성을 완료하고 완료버튼을 클릭헀을때 가는 메서드 부분
 	*/
-	@RequestMapping("mytravelForm")
+	@RequestMapping("/mytravelForm")
 	public ModelAndView mytrableFormView(String[] dailyplan_order, String[] dailyplan_cnt, 
 			String[] dailyplan_day, String[] dailyplan_traffic, String[] dailyplan_room,
 			String[] dailyplan_area, TripplanVO tripplanVo, @RequestParam("tripplan_image_file") MultipartFile tripplan_image_file,
@@ -306,8 +308,47 @@ public class MyPlanController {
 		return "mypage/travelmanagement/mytravel_update2";
 	}
 	
+	/**
+	* Method : mytravel_viewView
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 14.
+	* 변경이력 :
+	* @param tripplan_id
+	* @param session
+	* @return
+	* Method 설명 : 일정을 클릭했을때 나오는 상세보기에 대한 뷰를 담당하는 메서드
+	*/
 	@RequestMapping("/mytravel_view")
-	public String mytravel_viewView() {
-		return "mypage/travelmanagement/mytravel_view";
+	public ModelAndView mytravel_viewView(String tripplan_id, HttpSession session) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("mypage/travelmanagement/mytravel_view");
+		
+		logger.debug("tripplan ID : {}", tripplan_id);
+		
+		//tripplan 객체 받아오기
+		TripplanVO tripplanVo =  tripPlanService.selectTripPlanByTripplanId(tripplan_id);
+		
+		//tripplan id로 triparea 리스트 받아오기 
+		List<TripareaVO> tripAreaList = tripAreaService.selectTripAreaByTripplanId(tripplan_id);
+		
+		List<MapMarkerVO> mapMarkerList = new ArrayList<>();
+		//triparea로 mapmarker정보 받아오기 
+		for(int i = 0 ; i < tripAreaList.size(); i++) {
+			
+			String triparea_id = tripAreaList.get(i).getTriparea_id();
+			MapMarkerVO mapMarkerVo =  mapMarkerService.selectMapMarkerByTripAreaId(triparea_id);
+			mapMarkerList.add(mapMarkerVo);
+			
+		}
+		
+		List<DailyPlanVO> dailyPlanList = dailyPlanService.selectDailyPlanByTripplanId(tripplan_id);
+		
+		
+		mav.addObject("tripplanVo", tripplanVo);
+		mav.addObject("mapMarkerList", mapMarkerList);
+		mav.addObject("dailyPlanList", dailyPlanList);
+		
+		return mav;
 	}
 }
