@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dailyPlanSQL">
+
+	<!-- dailyplan insert 구문 -->
+	<insert id="insertDailyPlan" parameterType="dailyPlanVo">
+		insert into dailyplan(dailyplan_id,dailyplan_order,dailyplan_area,dailyplan_cnt,dailyplan_day,dailyplan_traffic,dailyplan_room,tripplan_id)
+		values(dp_seq.nextval,#{dailyplan_order},#{dailyplan_area},#{dailyplan_cnt},#{dailyplan_day},#{dailyplan_traffic},#{dailyplan_room},#{tripplan_id})
+	</insert>
+
+</mapper>

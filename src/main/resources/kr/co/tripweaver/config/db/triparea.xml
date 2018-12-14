@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tripareaSQL">
+
+	<!-- triparea 아이디 반환 및 triparea insert 구문 -->
+	<insert id="insertTripAreaReturnId" parameterType="tripareaVo">
+		insert into triparea(triparea_id, triparea_stay_days, triparea_order, tripplan_id)
+		values(ta_seq.nextval, #{triparea_stay_days}, #{triparea_order}, #{tripplan_id})
+		<selectKey order="AFTER" keyProperty="triparea_id" resultType="String">
+			select ta_seq.currval from dual
+		</selectKey>
+	</insert>
+
+</mapper>

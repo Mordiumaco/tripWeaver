@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tripplanSQL">
+
+
+	<!-- tripplan insert tp 아이디 반환 -->
+	<insert id="insertTripplanReturnId" parameterType="tripplanVo">
+		insert into tripplan(tripplan_id,tripplan_title,tripplan_theme,tripplan_season,tripplan_peo_type,tripplan_start_day,tripplan_days,tripplan_peo_count,mem_id,tripplan_image,tripplan_del)
+		values(tp_seq.nextval, #{tripplan_title}, #{tripplan_theme}, #{tripplan_season}, #{tripplan_peo_type},#{tripplan_start_day},#{tripplan_days},#{tripplan_peo_count},#{mem_id},#{tripplan_image},'N')
+		<selectKey order="AFTER" keyProperty="tripplan_id" resultType="String">
+			select tp_seq.currval from dual
+		</selectKey>
+	</insert>
+	
+	<!-- mypage tripplan list를 위한 select 쿼리 -->
+	<select id="tripplanListForMypageByMemberId" resultType="mypageTripPlanForListVo" parameterType="String">
+		select tp.tripplan_id tripplan_id, tp.tripplan_start_day tripplan_start_day, tp.tripplan_days tripplan_days, tp.tripplan_image tripplan_image, mm.mapmark_sido mapmark_sido, mm.mapmarker_enbmyeondong mapmarker_enbmyeondong, ta.triparea_order triparea_order,
+       (select count(*) from triparea where tripplan_id = tp.tripplan_id) totalmarker_count
+		from tripplan tp, mapmarker mm, triparea ta
+		where tp.mem_id = #{mem_id} and tp.tripplan_del='N' and tp.tripplan_id = ta.tripplan_id and ta.triparea_id= mm.triparea_id and ta.triparea_order = 1
+		order by tripplan_id desc
+	</select>
+	
+</mapper>

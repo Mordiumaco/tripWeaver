@@ -13,6 +13,10 @@
 		
 		generateDetailDays(daysArray);
 		$('.totalDays').text(totalDays+'박 '+(totalDays+1)+'일');
+		$('.tripplan_days').val(totalDays+1);
+		$('.tripplan_start_day').val('${departDate}');
+		$('.triparea_stay_days').val(daysArray);
+		$('.mapMarkers').val('${positionInfo}');
 		
 	} );
 	
@@ -80,24 +84,27 @@
 					
 					let detailSchedule = '<tr>';
 					detailSchedule +='<td>';
+					detailSchedule +='<input class="dailyplan_day" name="dailyplan_day" type="hidden" value='+departDate.getFullYear()+'-'+(departDate.getMonth()+1)+'-'+departDate.getDate()+'>';
 					detailSchedule +='<span>'+(departDate.getMonth()+1)+'월'+departDate.getDate()+'일</span><br/>';
 					departDate.setDate(departDate.getDate()+1);
 					dayCheck += 1;
+					detailSchedule +='<input class="dailyplan_order" name="dailyplan_order" type="hidden" value='+dayCheck+'>';
 					detailSchedule +='<b>DAY '+(dayCheck)+'</b>';
 					detailSchedule +='</td>';
 					detailSchedule +='<td class="address_collect">';
 					detailSchedule +=frontValue+tempValue+jsonInfo.address_names[i]+'<br/>';
+					detailSchedule +='<input class="dailyplan_area" name="dailyplan_area" type="hidden" value="'+frontValue+tempValue+jsonInfo.address_names[i]+'">';
 					detailSchedule +='</td>';
 					detailSchedule +='<td>';
-					detailSchedule +='<textarea name="traffic" id="trafficArea">';
+					detailSchedule +='<textarea name="dailyplan_traffic" id="dailyplan_traffic">';
 					detailSchedule +='</textarea>';
 					detailSchedule +='</td>';
 					detailSchedule +='<td>';
-					detailSchedule +='<textarea name="plan" id="planArea">';
+					detailSchedule +='<textarea name="dailyplan_cnt" id="dailyplan_cnt">';
 					detailSchedule +='</textarea>';
 					detailSchedule +='</td>';
 					detailSchedule +='<td>';
-					detailSchedule +='<textarea name="accommodation" id="accommondationArea">';
+					detailSchedule +='<textarea name="dailyplan_room" id="dailyplan_room">';
 					detailSchedule +='</textarea>';
 					detailSchedule +='</td>';
 					detailSchedule +='</tr>';
@@ -116,24 +123,27 @@
 					
 					let detailSchedule = '<tr>';
 					detailSchedule +='<td>';
+					detailSchedule +='<input class="dailyplan_day" name="dailyplan_day" type="hidden" value='+departDate.getFullYear()+'-'+(departDate.getMonth()+1)+'-'+departDate.getDate()+'>';
 					detailSchedule +='<span>'+(departDate.getMonth()+1)+'월'+departDate.getDate()+'일</span><br/>';
 					departDate.setDate(departDate.getDate()+1);
 					dayCheck += 1;
+					detailSchedule +='<input class="dailyplan_order" name="dailyplan_order" type="hidden" value='+dayCheck+'>';
 					detailSchedule +='<b>DAY '+(dayCheck)+'</b>';
 					detailSchedule +='</td>';
 					detailSchedule +='<td class="address_collect">';
+					detailSchedule +='<input class="dailyplan_area" name="dailyplan_area" type="hidden" value="'+frontValue+tempValue+jsonInfo.address_names[i]+'">';
 					detailSchedule +=frontValue+tempValue+jsonInfo.address_names[i]+'<br/>';
 					detailSchedule +='</td>';
 					detailSchedule +='<td>';
-					detailSchedule +='<textarea name="traffic" id="trafficArea">';
+					detailSchedule +='<textarea name="dailyplan_traffic" id="dailyplan_traffic">';
 					detailSchedule +='</textarea>';
 					detailSchedule +='</td>';
 					detailSchedule +='<td>';
-					detailSchedule +='<textarea name="plan" id="planArea">';
+					detailSchedule +='<textarea name="dailyplan_cnt" id="dailyplan_cnt">';
 					detailSchedule +='</textarea>';
 					detailSchedule +='</td>';
 					detailSchedule +='<td>';
-					detailSchedule +='<textarea name="accommodation" id="accommondationArea">';
+					detailSchedule +='<textarea name="dailyplan_room" id="dailyplan_room">';
 					detailSchedule +='</textarea>';
 					detailSchedule +='</td>';
 					detailSchedule +='</tr>';
@@ -157,24 +167,27 @@
 		if(allZero == true){
 			let detailSchedule = '<tr>';
 			detailSchedule +='<td>';
-			departDate.setDate(departDate.getDate()+1);
+			detailSchedule +='<input class="dailyplan_day" name="dailyplan_day" type="hidden" value='+departDate.getFullYear()+'-'+(departDate.getMonth()+1)+'-'+departDate.getDate()+'>';
 			detailSchedule +='<span>'+(departDate.getMonth()+1)+'월'+departDate.getDate()+'일</span><br/>';
+			departDate.setDate(departDate.getDate()+1);
 			dayCheck += 1;
+			detailSchedule +='<input class="dailyplan_order" name="dailyplan_order" type="hidden" value='+dayCheck+'>';
 			detailSchedule +='<b>DAY '+(dayCheck)+'</b>';
 			detailSchedule +='</td>';
 			detailSchedule +='<td class="address_collect">';
 			detailSchedule +=tempValue+'<br/>';
+			detailSchedule +='<input class="dailyplan_area" name="dailyplan_area" type="hidden" value="'+tempValue+'">';
 			detailSchedule +='</td>';
 			detailSchedule +='<td>';
-			detailSchedule +='<textarea name="traffic" id="trafficArea">';
+			detailSchedule +='<textarea name="dailyplan_traffic" id="dailyplan_traffic" maxlength="200">';
 			detailSchedule +='</textarea>';
 			detailSchedule +='</td>';
 			detailSchedule +='<td>';
-			detailSchedule +='<textarea name="plan" id="planArea">';
+			detailSchedule +='<textarea name="dailyplan_cnt" id="dailyplan_cnt" maxlength="200">';
 			detailSchedule +='</textarea>';
 			detailSchedule +='</td>';
 			detailSchedule +='<td>';
-			detailSchedule +='<textarea name="accommodation" id="accommondationArea">';
+			detailSchedule +='<textarea name="dailyplan_room" id="dailyplan_room" maxlength="200">';
 			detailSchedule +='</textarea>';
 			detailSchedule +='</td>';
 			detailSchedule +='</tr>';
@@ -187,21 +200,31 @@
 	
 	
 </script>
-
-<form action="" method="get">
+<!-- 모든 정보를 받아올 폼 -->
+<form name="planForm" class="planForm" action="/test/mytravelForm" method="post" enctype="multipart/form-data">
 <div class="sub_container">
 	<h1 class="mypage_title">나의여행 일정 작성 </h1>	
 	<div class="essay_filter">
 		<ul style=" height: 60px; line-height: 60px;">
-			<li>제목: <b><input type="text" placeholder="제목을 적어주세요." size="72" style="height: 40px; padding-left: 10px;" required="required"></b></li>
-			<li>대표이미지 : <b><input type="file"></b></li>
+			<!-- tripplan table 제목 -->
+			<li>제목: <b><input name="tripplan_title" type="text" placeholder="제목을 적어주세요." size="72" style="height: 40px; padding-left: 10px;" required="required"></b></li>
+			<!-- 이미지 파일 받을 부분 -->
+			<li>대표이미지 : <b><input name="tripplan_image_file" type="file"></b></li>
 		</ul>
-	
+		<!-- 총 여행일수 tripplan table에 들어갈 부분 -->
+		<input class="tripplan_days" name="tripplan_days" type="hidden"/>
+		<!-- 출발일 -->
+		<input class="tripplan_start_day" name="tripplan_start_day" type="hidden"/>
+		<!-- 일수에 대한 input -->
+		<input class="triparea_stay_days" name="triparea_stay_days" type="hidden"/>
+		<!-- db markers 에 대한 정보를 담아놓은 json -->
+		<input class="mapMarkers" name="mapMarkers" type="hidden"/>
 		<ul>
 			<li><b class="totalDays">박일</b> </li>
 				<li>
 				<b>
-					<select>
+					<!-- 시즌 코드를 받는 부분 -->
+					<select name="tripplan_season">
 						<option value="1">봄</option>
 						<option value="2">여름</option>
 						<option value="3">가을</option>
@@ -212,7 +235,7 @@
 			</li>
 			<li>
 				<b>
-					<select>
+					<select name="tripplan_theme">
 						<option value="1">먹거리</option>
 						<option value="2">레저</option>
 						<option value="3">쇼핑</option>
@@ -224,7 +247,7 @@
 			</li>
 			<li>
 				<b>
-					<select>
+					<select name="tripplan_peo_type">
 						<option value="1">혼자</option>
 						<option value="2">커플</option>
 						<option value="3">친구</option>
@@ -235,6 +258,7 @@
 					</select>
 				</b>
 			</li>
+			<li> 인원수 : <input name="tripplan_peo_count" type="number" placeholder="1인 이상" required> <b>인</b></li>
 		</ul>
 		
 	</div>

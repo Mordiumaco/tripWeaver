@@ -7,6 +7,7 @@
  <typeAliases>
  	<typeAlias type="kr.co.tripweaver.user.model.UserTestVO" alias="userTestVo"/>
  	<typeAlias type="kr.co.tripweaver.member.model.MemberVO" alias="memberVo"/>
+ 	<typeAlias type="kr.co.tripweaver.mymenu.mypage.tripplan.model.TripplanVO" alias="tripplanVo"/>
  	<typeAlias type="kr.co.tripweaver.mymenu.mypage.follow_following.model.FollowVO" alias="followVo"/>
  </typeAliases>	
 	
@@ -14,5 +15,6 @@
   	<mapper resource="kr/co/tripweaver/config/db/usertest.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/member.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/follow.xml"/>
+  	<mapper resource="kr/co/tripweaver/config/db/tripplan.xml"/>
   </mappers>
 </configuration>
