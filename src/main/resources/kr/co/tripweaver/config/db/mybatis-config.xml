@@ -11,6 +11,8 @@
  	<typeAlias type="kr.co.tripweaver.mymenu.mypage.follow_following.model.FollowVO" alias="followVo"/>
  	<typeAlias type="kr.co.tripweaver.mymenu.mypage.message.model.MessageVO" alias="messageVo"/>
  	<typeAlias type="kr.co.tripweaver.mymenu.mypage.message.model.ParticipantVO" alias="participantVo"/>
+ 	<typeAlias type="kr.co.tripweaver.postcard.model.PostCardVO" alias="postcardVo"/>
+ 	<typeAlias type="kr.co.tripweaver.hashtag.model.HashTagVO" alias="hashtagVo"/>
  </typeAliases>	
 	
   <mappers>
@@ -19,5 +21,7 @@
   	<mapper resource="kr/co/tripweaver/config/db/follow.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/board.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/message.xml"/>
+  	<mapper resource="kr/co/tripweaver/config/db/postcard.xml"/>
+  	<mapper resource="kr/co/tripweaver/config/db/hashtag.xml"/>
   </mappers>
 </configuration>
