@@ -88,7 +88,7 @@ public class BoardController {
 		
 	}
 
-	@RequestMapping(value="/boardDelete", method=RequestMethod.POST)
+	@RequestMapping(value="/boardDelete", method=RequestMethod.GET)
 	public String boardDelete(HttpSession session, @RequestParam("board_id")String board_id, HttpServletRequest request) {
 		
 		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
