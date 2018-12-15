@@ -39,6 +39,15 @@ public class DailyPlanVO {
 		
 	}
 	
+	
+	public DailyPlanVO(String dailyplan_id, String dailyplan_cnt, String dailyplan_traffic, String dailyplan_room) {
+		this.dailyplan_id = dailyplan_id;
+		this.dailyplan_cnt = dailyplan_cnt;
+		this.dailyplan_traffic = dailyplan_traffic;
+		this.dailyplan_room = dailyplan_room;
+	}
+
+
 	public DailyPlanVO(Integer dailyplan_order, String dailyplan_area, String dailyplan_cnt,
 			Date dailyplan_day, String dailyplan_traffic, String dailyplan_room, String tripplan_id) {
 		this.dailyplan_order = dailyplan_order;

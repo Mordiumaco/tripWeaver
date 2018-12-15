@@ -19,7 +19,9 @@
 		$('.mapMarkers').val('${positionInfo}');
 		
 	} );
-	
+	function goMypage(){
+		location.href = '/main/mypage'
+	}
 	
 	var jsonInfo = JSON.parse('${positionInfo}');
 	console.log(jsonInfo.positions);
@@ -325,7 +327,7 @@
 				<input class="btn_bd col_03 " type="submit" value="완료">
 			</li>
 			<li class="essay_filterLi">
-				<input class="btn_bd col_02 " type="button" onclick="button_event();" value="취소">	 					
+				<input class="btn_bd col_02 " type="button" onclick="goMypage();" value="취소">	 					
 			</li>
 		</ul>
 	</div> 

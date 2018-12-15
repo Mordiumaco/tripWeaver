@@ -8,7 +8,9 @@
 
 <script type="text/javascript">
 
-//캘린더
+function goMypage(){
+	location.href = '/main/mypage'
+}
 
 </script>
 
@@ -45,7 +47,7 @@
 				<input class="btn_bd col_03 " type="submit" value="다음" >
 			</li>
 			<li class="essay_filterLi">
-				<input class="btn_bd col_02 " type="button" onclick="button_event();" value="취소">	 					
+				<input class="btn_bd col_02 " type="button" onclick="goMypage();" value="취소">	 					
 			</li>
 		</ul>
 	</div> 

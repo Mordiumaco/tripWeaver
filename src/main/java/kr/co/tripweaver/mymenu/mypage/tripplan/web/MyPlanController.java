@@ -299,13 +299,105 @@ public class MyPlanController {
 	}
 	
 	@RequestMapping("/mytravel_update")
-	public String mytravel_updateView() {
-		return "mypage/travelmanagement/mytravel_update2";
+	public ModelAndView mytravel_updateView(String tripplan_id) {
+		ModelAndView mav = new ModelAndView("mypage/travelmanagement/mytravel_update");
+		//tripplan 객체 받아오기
+		TripplanVO tripplanVo =  tripPlanService.selectTripPlanByTripplanId(tripplan_id);
+		
+		List<DailyPlanVO> dailyPlanList = dailyPlanService.selectDailyPlanByTripplanId(tripplan_id);
+		
+		mav.addObject("tripplanVo", tripplanVo);
+		mav.addObject("dailyPlanList", dailyPlanList);
+		return mav;
+	}
+	
+	@RequestMapping("/mytravelFormUpdate")
+	public ModelAndView mytrableFormUpdateView(String[] dailyplan_cnt, 
+			String[] dailyplan_traffic, String[] dailyplan_room,
+			TripplanVO tripplanVo, @RequestParam(value="tripplan_image_file", required=false) MultipartFile tripplan_image_file,
+			@RequestParam(value="fileCheck", required=false) String fileCheck, HttpSession session) throws IOException{
+		
+		ModelAndView mav = new ModelAndView();
+		
+		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
+		
+		//멤버에 대한 정보가 없을경우
+		if(memberVo == null) {
+			return null;
+		}
+		
+		
+		
+		//------------------------1. File Section -----------------------------
+		//fileCheck 가  null 이면 파일이 들어가진다.
+		if(fileCheck == null){
+			//처음에 대표 이미지 파일이 있는지 먼저 확인해본다.
+			String directory = "C:/upload/tripplan/";
+			if(!tripplan_image_file.isEmpty()) {
+				//이미지 파일이 존재한다면 이부분이 실행된다.
+				byte[] bytes = tripplan_image_file.getBytes();
+				
+				String fileName = UUID.randomUUID().toString()+tripplan_image_file.getOriginalFilename();
+				
+				
+				tripplan_image_file.transferTo(new File(directory + File.separator + fileName));
+				
+				
+				
+				if(!fileName.endsWith(".jpg")&&!fileName.endsWith(".hwp")&&
+						!fileName.endsWith(".png")&&!fileName.endsWith(".pdf")&&!fileName.endsWith(".xlsx")&&!fileName.endsWith(".xls")){
+					File fileTest = new File(directory+fileName);
+					fileTest.delete();
+				}else{
+					tripplanVo.setTripplan_image("tripplan/"+fileName);
+				}
+				
+			}else {
+				//이미지 파일이 존재하지 않는다면 이부분이 실행된다.
+				tripplanVo.setTripplan_image("");
+			}
+		}else{
+			tripplanVo.setTripplan_image(fileCheck);
+		}
+		//-------------------------------------------------------------------------
+		
+		int tripplanUpdateResult = tripPlanService.updateTripplanBytripplanId(tripplanVo);
+		
+		if(tripplanUpdateResult == 0){
+			return null;
+		}
+		
+		
+		List<DailyPlanVO> dailyPlanList = dailyPlanService.selectDailyPlanByTripplanId(tripplanVo.getTripplan_id());
+		
+		for(int i=0; i < dailyPlanList.size(); i++) {
+			
+			DailyPlanVO dailyPlanVo = new DailyPlanVO(dailyPlanList.get(i).getDailyplan_id(), dailyplan_cnt[i], dailyplan_traffic[i].replace("\r\n", "<br/>"), dailyplan_room[i].replace("\r\n", "<br/>"));
+			
+			int result = dailyPlanService.updateDailyPlanByDailyId(dailyPlanVo);
+			
+			if(result == 0) {
+				logger.debug("dailyPlanService  생성 실패");
+				return null;
+			}
+			
+			
+		}
+		
+		mav.setViewName("redirect:/main/mypage");
+		
+		return mav;
 	}
 	
 	@RequestMapping("/mytravel_delete")
-	public String mytravel_deleteView() {
-		return "mypage/travelmanagement/mytravel_update2";
+	public ModelAndView mytravel_deleteView(String tripplan_id) {
+		
+		ModelAndView mav = new ModelAndView("redirect:/main/mypage");
+		
+		tripPlanService.deleteTripplanBytripplanId(tripplan_id);
+		
+		
+		return mav;
 	}
 	
 	/**

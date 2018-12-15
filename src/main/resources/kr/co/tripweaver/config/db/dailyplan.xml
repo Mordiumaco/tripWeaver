@@ -13,4 +13,10 @@
 	<select id="selectDailyPlanByTripplanId" parameterType="String" resultType="dailyPlanVo">
 		select * from dailyplan where tripplan_id = #{tripplan_id}
 	</select>
+	
+	<update id="updateDailyPlanByDailyId" parameterType="dailyPlanVo">
+		update dailyplan
+		set dailyplan_cnt = #{dailyplan_cnt}, dailyplan_traffic = #{dailyplan_traffic}, dailyplan_room = #{dailyplan_room}
+		where dailyplan_id = #{dailyplan_id}
+	</update>
 </mapper>

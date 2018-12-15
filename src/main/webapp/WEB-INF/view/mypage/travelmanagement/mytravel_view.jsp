@@ -46,7 +46,7 @@ $(document).ready(function(){
 
 <div class="sub_container">
 	<div id="container">
-		<h1 class="mypage_title">제목: ${tripplanVo.tripplan_title} <a href="">수정</a></h1>
+		<h1 class="mypage_title">제목: ${tripplanVo.tripplan_title} <a href="/myplan/mytravel_update?tripplan_id=${tripplanVo.tripplan_id}">수정</a></h1>
 		
 		<div class="essay_filter">
 			
@@ -229,10 +229,10 @@ $(document).ready(function(){
 		<div class="view_btn">
 			<ul>
 				<li class="essay_filterLi">
-					<input class="btn_bd col_03 " type="submit" value="목록">
+					<a href="/main/mypage"><input class="btn_bd col_03 " type="submit" value="목록"></a>
 				</li>
 				<li class="essay_filterLi">
-					<input class="btn_bd col_02 " type="button" onclick="button_event();" value="뒤로">	 					
+					<a href="/main/mypage"><input class="btn_bd col_02 " type="button" value="뒤로"></a>
 				</li>
 			</ul>
 		</div> 

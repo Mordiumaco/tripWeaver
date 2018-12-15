@@ -27,4 +27,17 @@
 	<select id="selectTripPlanByTripplanId" parameterType="String" resultType="tripplanVo">
 		select * from tripplan where tripplan_id = #{tripplan_id}
 	</select>
+	
+	<!-- tripplan id 로 tripplan 객체 del 'N'에서 'Y'로 바꾸기 -->
+	<update id="deleteTripplanBytripplanId" parameterType="String">
+		update tripplan set tripplan_del = 'Y' where tripplan_id = #{tripplan_id}
+	</update>
+	
+	<!-- tripplan id로   -->
+	<update id="updateTripplanBytripplanId" parameterType="tripplanVo">
+		update tripplan 
+		set tripplan_title = #{tripplan_title},tripplan_theme = #{tripplan_theme}, tripplan_season = #{tripplan_season} ,tripplan_peo_type = #{tripplan_peo_type},tripplan_peo_count = #{tripplan_peo_count},tripplan_image = #{tripplan_image}
+		where tripplan_id = #{tripplan_id}
+	</update>
+	
 </mapper>
