@@ -68,4 +68,14 @@ public interface IMessageService {
 	* Method 설명 : 채팅방을 아예 퇴장하는 메서드
 	 */
 	public int exitChatroom(ParticipantVO participantVO);
+
+	/**
+	* Method : selectMessageByMsg_id
+	* 작성자 : jin
+	* 변경이력 :
+	* @param msg_id
+	* @return
+	* Method 설명 : 메세지id로 메세지 정보를 반환하는 메서드
+	 */
+	public MessageVO selectMessageByMsg_id(String msg_id);
 }

@@ -100,4 +100,14 @@
 		VALUES (#{mem_id}, #{msg_id})
 	</insert>
 	
+	<select id="selectMessageByMsg_id" parameterType="String" resultType="messageVo">
+		SELECT mem.mem_nick, mem.mem_profile, mr.unread, msg.*
+		FROM message msg INNER JOIN member mem
+		ON (msg.mem_id = mem.mem_id) , (SELECT COUNT(*) AS unread, msg_id
+		                                FROM msgReciver
+		                                WHERE msg_id = #{msg_id}
+		                                GROUP BY msg_id) mr
+		WHERE (msg.msg_id = mr.msg_id)
+	</select>
+	
 </mapper>

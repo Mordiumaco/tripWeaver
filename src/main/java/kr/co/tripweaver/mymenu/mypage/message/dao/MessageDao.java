@@ -96,4 +96,10 @@ public class MessageDao implements IMessageDao {
 		return intCnt;
 	}
 
+	@Override
+	public MessageVO selectMessageByMsg_id(String msg_id) {
+		MessageVO messageVO = template.selectOne("messageSQL.selectMessageByMsg_id", msg_id);
+		return messageVO;
+	}
+
 }

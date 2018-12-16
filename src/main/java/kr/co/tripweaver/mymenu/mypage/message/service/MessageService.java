@@ -96,6 +96,12 @@ public class MessageService implements IMessageService {
 		//남아있다면  패스
 		return delCnt;
 	}
+
+	@Override
+	public MessageVO selectMessageByMsg_id(String msg_id) {
+		MessageVO messageVO = messageDao.selectMessageByMsg_id(msg_id);		
+		return messageVO;
+	}
 }
 
 

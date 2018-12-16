@@ -77,5 +77,13 @@ public class MessageVO {
 	public void setGroup_id(String group_id) {
 		this.group_id = group_id;
 	}
+
+	@Override
+	public String toString() {
+		return "MessageVO [unread=" + unread + ", mem_profile=" + mem_profile + ", mem_nick=" + mem_nick + ", msg_id="
+				+ msg_id + ", msg_date=" + msg_date + ", msg_cnt=" + msg_cnt + ", mem_id=" + mem_id + ", group_id="
+				+ group_id + ", chatroom_name=" + chatroom_name + "]";
+	}
+	
 	
 }

@@ -99,7 +99,7 @@ $(document).ready(function(){
 function connect() {
 	sock = new SockJS('/message');
 	sock.onopen = function() {
-		console.log('onopen');
+		console.log('onopen : ' + sock);
 	};
 	sock.onmessage = function(event) {
 		var data = event.data;
@@ -128,22 +128,25 @@ function send() {
 
 function appendMessage(msg) {
 	var html;
+	var t = getTimeStamp();
 	console.log("msg.mem_id : " + msg.mem_id + " + " + '${loginInfo.mem_id}');
-	if(msg.mem_id == '${loginInfo.mem_id}'){
-		html = '<div class="mes_con_list mes_con_listMy" >';
-		html += '<ul><li>';
-		html += '<span class="mes_date mes_dateMy">' + msg.msg_date + '</span></li>';
-		html += '<li class="mes_con_list_text mes_con_list_textMy">';
-		html +=	msg.msg_cnt + '</li><span class="unread">2</span></ul><div>';
-	} else {
-		html = '<div class="mes_con_list" >';
-		html += '<h6><img src="img/profile/profile3.jpg" ></h6>';
-// 		html += '<h6><img src="/img/${msg.mem_profile}" ></h6>';
-		html += '<ul><li>';
-		html += '<span class="mes_date">' + msg.msg_date + '</span></li>';
-		html += '<li class="mes_con_list_text">';
-		html +=	msg.msg_cnt + '</li><span class="unread">2</span></ul><div>';
+	if(msg.group_id == '${group_id}'){
+		if(msg.mem_id == '${loginInfo.mem_id}'){
+			html = '<div class="mes_con_list mes_con_listMy" >';
+			html += '<ul><li>';
+			html += '<span class="mes_date mes_dateMy">' + t + '</span></li>';
+			html += '<li class="mes_con_list_text mes_con_list_textMy">';
+			html +=	msg.msg_cnt + '</li><span class="unread">2</span></ul><div>';
+		} else {
+			html = '<div class="mes_con_list" >';
+			html += '<h6><img src="/file/read?mem_profile=' + msg.mem_profile + '"></h6>';
+			html += '<ul><li><b>' + msg.mem_nick + '</b>';
+			html += '<span class="mes_date">' + t + '</span></li>';
+			html += '<li class="mes_con_list_text">';
+			html +=	msg.msg_cnt + '</li><span class="unread">2</span></ul><div>';
+		}
 	}
+	
 	if(msg == ''){
 		return false;
 	} else {
@@ -152,8 +155,32 @@ function appendMessage(msg) {
 	}
 }
 
-</script>
+function getTimeStamp() {
+   var d = new Date();
+   var s =
+     leadingZeros(d.getFullYear(), 4) + '.' +
+     leadingZeros(d.getMonth() + 1, 2) + '.' +
+     leadingZeros(d.getDate(), 2) + ' ' +
 
+     leadingZeros(d.getHours(), 2) + ':' +
+     leadingZeros(d.getMinutes(), 2) + ':' +
+     leadingZeros(d.getSeconds(), 2);
+
+   return s;
+ }
+
+ function leadingZeros(n, digits) {
+   var zero = '';
+   n = n.toString();
+
+   if (n.length < digits) {
+     for (i = 0; i < digits - n.length; i++)
+       zero += '0';
+   }
+   return zero + n;
+ }
+
+</script>
 </head>
 <body>
 	
