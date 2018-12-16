@@ -91,4 +91,73 @@ public class TripPlanDao implements ITripPlanDao{
 		return mypageTripPlanForListVoList;
 	}
 	
+	/**
+	* Method : selectTripPlanByTripplanId
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 14.
+	* 변경이력 :
+	* @param tripplan_id
+	* @return
+	* Method 설명 : tripplan_id 로 해당 객체를 받아온다.
+	*/
+	@Override
+	public TripplanVO selectTripPlanByTripplanId(String tripplan_id) {
+		
+		TripplanVO tripplanVo =  null;
+		
+		try {
+			
+			tripplanVo = template.selectOne("tripplanSQL.selectTripPlanByTripplanId", tripplan_id);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return tripplanVo;
+		}
+		
+		return tripplanVo;
+	}
+	
+	/**
+	* Method : deleteTripplanBytripplanId
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 14.
+	* 변경이력 :
+	* @param tripplan_id
+	* @return
+	* Method 설명 : tripplan_id 로 해당 tripplan객체의 del부분을 'Y'로 변경한다
+	*/
+	public int deleteTripplanBytripplanId(String tripplan_id){
+		int result = 0;
+		try {
+			result = template.insert("tripplanSQL.deleteTripplanBytripplanId", tripplan_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return result;
+		}
+		
+		return result;
+	}
+	
+	/**
+	* Method : updateTripplanBytripplanId
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 15.
+	* 변경이력 :
+	* @param tripplanVo
+	* @return
+	* Method 설명 : tripplan_vo를 가져와 해당 tripplanVo 관련 부분을 수정한다.
+	*/
+	public int updateTripplanBytripplanId(TripplanVO tripplanVo){
+		
+		int result = 0;
+		
+		try {
+			result = template.update("tripplanSQL.updateTripplanBytripplanId", tripplanVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return result;
+		}
+		
+		return result;
+	}
 }

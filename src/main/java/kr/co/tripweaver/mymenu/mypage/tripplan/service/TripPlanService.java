@@ -44,4 +44,43 @@ public class TripPlanService implements ITripPlanService{
 		return tripPlanDao.tripplanListForMypageByMemberId(mem_id);
 	}
 	
+	/**
+	* Method : selectTripPlanByTripplanId
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 14.
+	* 변경이력 :
+	* @param tripplan_id
+	* @return
+	* Method 설명 : tripplan_id 로 해당 객체를 받아온다.
+	*/
+	@Override
+	public TripplanVO selectTripPlanByTripplanId(String tripplan_id) {
+		return tripPlanDao.selectTripPlanByTripplanId(tripplan_id);
+	}
+	
+	/**
+	* Method : deleteTripplanBytripplanId
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 14.
+	* 변경이력 :
+	* @param tripplan_id
+	* @return
+	* Method 설명 : tripplan_id 로 해당 tripplan객체의 del부분을 'Y'로 변경한다
+	*/
+	public int deleteTripplanBytripplanId(String tripplan_id){
+		return tripPlanDao.deleteTripplanBytripplanId(tripplan_id);
+	}
+	
+	/**
+	* Method : updateTripplanBytripplanId
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 15.
+	* 변경이력 :
+	* @param tripplanVo
+	* @return
+	* Method 설명 : tripplan_vo를 가져와 해당 tripplanVo 관련 부분을 수정한다.
+	*/
+	public int updateTripplanBytripplanId(TripplanVO tripplanVo){
+		return tripPlanDao.updateTripplanBytripplanId(tripplanVo);
+	}
 }

@@ -24,5 +24,17 @@ public class MapMarkerService implements IMapMarkerService {
 		return mapMarkerdao.insertMapmarker(mapMarkerVo);
 	}
 	
-	
+	/**
+	* Method : selectMapMarkerByTripAreaId
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 14.
+	* 변경이력 :
+	* @param triparea_id
+	* @return
+	* Method 설명 : triparea_id 로 mapmarekr 객체를 반환해준다.  
+	*/
+	@Override
+	public MapMarkerVO selectMapMarkerByTripAreaId(String triparea_id) {
+		return mapMarkerdao.selectMapMarkerByTripAreaId(triparea_id);
+	}
 }

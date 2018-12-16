@@ -34,4 +34,17 @@ public interface IMapMarkerDao {
 	*/
 	public int insertMapmarker(MapMarkerVO mapMarkerVo);
 		
+	
+	/**
+	* Method : selectMapMarkerByTripAreaId
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 14.
+	* 변경이력 :
+	* @param triparea_id
+	* @return
+	* Method 설명 : triparea_id 로 mapmarekr 객체를 반환해준다.  
+	*/
+	public MapMarkerVO selectMapMarkerByTripAreaId(String triparea_id);
+	
+	
 }

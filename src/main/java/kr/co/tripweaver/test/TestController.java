@@ -401,6 +401,11 @@ public class TestController {
 		
 		List<MypageTripPlanForListVO> mypageTripPlanForListVoList = tripPlanService.tripplanListForMypageByMemberId(mem_id);
 		
+		logger.debug("-----------------------------");
+		for(int i = 0; i < mypageTripPlanForListVoList.size(); i++) {
+			logger.debug("mypageTrip 내용 : {}", mypageTripPlanForListVoList.get(i));
+		}
+		
 		mav.addObject("mypageTripPlanForListVoList", mypageTripPlanForListVoList);
 		mav.setViewName("test/map/myPage");
 		

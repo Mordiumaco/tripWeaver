@@ -42,6 +42,7 @@
 		<property name="suffix" value=".jsp"/>
 	</bean>
 	
+	
 	<!-- json 처리용 view -->
 	<!-- <bean id="loginCheck" class="exam.util.error.LoginCheck"/>
 	<bean id="loginRight" class="exam.util.error.LoginRight"/>
