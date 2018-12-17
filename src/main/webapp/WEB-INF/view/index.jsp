@@ -100,12 +100,14 @@ $(document).ready(function () {
 	        disableClickZoom: true // 클러스터 마커를 클릭했을 때 지도가 확대되지 않도록 설정한다
 	    });
 
+		
 	    // 데이터를 가져오기 위해 jQuery를 사용합니다
 	    // 데이터를 가져와 마커를 생성하고 클러스터러 객체에 넘겨줍니다
+	    
 	    $(function(){
-	    	function initMain(){
+	    	
+	     	function initMain(){
 			    $.ajax({
-					
 					type: "GET",
 					url:"/main/initMain",
 					data : null,
@@ -116,118 +118,23 @@ $(document).ready(function () {
 						//2. data를 이용하여 table 태그(tr) 작성
 						//3. 기존 리스트 위치에다가 붙여 넣기
 						console.log(data);
-						var essayListUl = document.getElementById("essay_list_ul");
 				        var markers = $(data.clusterList).map(function(i, clusterInfo) {
-			        	    var essayContent ="";
-				            
-			        	    <!-- 시즌 관련 로직 -->
-			    			<c:choose>
-			    				<c:when test="${clusterInfo.tripplan_season eq 1}">
-			    					<c:set var="season" value="봄"></c:set>
-			    				</c:when>
-			    				<c:when test="${clusterInfo.tripplan_season eq 2}">
-			    					<c:set var="season" value="여름"></c:set>
-			    				</c:when>
-			    				<c:when test="${clusterInfo.tripplan_season eq 3}">
-			    					<c:set var="season" value="가을"></c:set>
-			    				</c:when>
-			    				<c:when test="${clusterInfo.tripplan_season eq 4}">
-			    					<c:set var="season" value="겨울"></c:set>
-			    				</c:when>
-			    				<c:when test="${clusterInfo.tripplan_season eq 5}">
-			    					<c:set var="season" value="무관"></c:set>
-			    				</c:when>
-			    			</c:choose>
-			    			let theme = "";
-			    			
-			    			switch(clusterInfo.tripplan_theme){
-			    			
-				    			case "1" : theme = "봄";
-				    			break;
-				    			case "2" : theme = "여름";
-				    			break;
-				    			case "3" : theme = "가을";
-				    			break;
-				    			case "4" : theme = "겨울";
-				    			break;
-				    			case "5" : theme = "무관";
-				    			break;
-			    			}
-			    			
-			    			let season = "";
-			    			
-			    			switch(clusterInfo.tripplan_season){
-			    			
-				    			case "1" : season = "먹거리";
-				    			break;
-				    			case "2" : season = "레저";
-				    			break;
-				    			case "3" : season = "쇼핑";
-				    			break;
-				    			case "4" : season = "자연";
-				    			break;
-				    			case "5" : season = "문화";
-				    			break;
-				    			case "6" : season = "축제";
-				    			break;
-		    				}
-			    			
-			    			let peo_type = "";
-			    			
-			    			switch(clusterInfo.tripplan_peo_type){
-			    			
-				    			case "1" : peo_type = "혼자";
-				    			break;
-				    			case "2" : peo_type = "커플";
-				    			break;
-				    			case "3" : peo_type = "친구";
-				    			break;
-				    			case "4" : peo_type = "가족";
-				    			break;
-				    			case "5" : peo_type = "단체";
-				    			break;
-				    			case "6" : peo_type = "여자끼리";
-				    			break;
-				    			case "7" : peo_type = "남자끼리";
-				    			break;
-	    					}
-			    			
-			    		
-				            essayContent += '<li class="essay_list">';
-				            essayContent +=	'<a href="/main/essay_view">';
-				            essayContent += '<div class="essay_img">';
-				            essayContent += '<img src="/upload/'+clusterInfo.tripplan_image+'" onerror="imgError(this)";/>';
-				            essayContent += '</div>';
-				            essayContent += '<ul class="essay_info">';
-				            essayContent += '<li>200<span>만원</span> <h6>'+clusterInfo.mem_nick+'</h6></li>';
-				            essayContent += '<li>여행지  : '+clusterInfo.mapmark_sido+ clusterInfo.mapmark_sigungu+'</li>';
-				            essayContent += '<li>'+theme+' / '+ season+ ' / '+ peo_type +'</li>';
-				            essayContent += '</ul>';
-				            essayContent += '</a>';
-				            essayContent += '</li>';
-				            
-				            console.log(essayContent);
-				            $("#essay_list_ul").append(essayContent);
 				        	
 				            return new daum.maps.Marker({
 				            	image: markerImage, // 마커이미지 설정 
 				                position : new daum.maps.LatLng(clusterInfo.mapmark_y_coor, clusterInfo.mapmark_x_coor)
 				            });
 				            
-				          
 				        });
-
 				        // 클러스터러에 마커들을 추가합니다
 				        clusterer.addMarkers(markers);
-
-					 	
 					}
-				});
+				}); 
 		    }
 		    
 		    initMain();
 		    
-		
+	    	
 		    
 	    })
 	    
@@ -269,7 +176,7 @@ $(document).ready(function () {
 
 	    daum.maps.event.addListener( clusterer, 'clustered', function( clusters ) {
 	        //console.log( clusters.length );
-	        console.log(clusters)
+	        //console.log(clusters)
 	        clusterPositions = [];
 	        
 	        for(let i = 0 ; i < clusters.length; i++){
@@ -284,9 +191,106 @@ $(document).ready(function () {
 	        totalObj.positions = clusterPositions;
 	        var jsonInfo = JSON.stringify(totalObj);
 	        console.log(jsonInfo);
-	        
-	        
+	        $("#essay_list_ul").html("");
+	        reload();	        
 	        //test = clusters[0];
+	        function reload(){
+	        	
+	        	$.ajax({
+					type: "GET",
+					url:"/main/reload",
+					data : "markers="+encodeURI(jsonInfo),
+					success : function(data){
+						if(data.clusterList == ""){
+							var essayContent ="";
+							essayContent += '<li class="essay_list">';
+				            essayContent += '<div class="essay_img">';
+				            essayContent += '</div>';
+				            essayContent += '<ul class="essay_info">';
+				            essayContent += '<li><h6><span>검색 결과 값이 존재하지 않습니다.</span></h6></li>';
+				            essayContent += '<li></li>';
+				            essayContent += '<li></li>';
+				            essayContent += '</ul>';
+				            essayContent += '</a>';
+				            essayContent += '</li>';
+							$("#essay_list_ul").append(essayContent);
+						}
+						
+				        var markers = $(data.clusterList).map(function(i, clusterInfo) {
+			        	    var essayContent ="";
+			    			let theme = "";
+			    			switch(clusterInfo.tripplan_theme){
+				    			case "1" : theme = "봄";
+				    			break;
+				    			case "2" : theme = "여름";
+				    			break;
+				    			case "3" : theme = "가을";
+				    			break;
+				    			case "4" : theme = "겨울";
+				    			break;
+				    			case "5" : theme = "무관";
+				    			break;
+			    			}
+			    			
+			    			let season = "";
+			    			switch(clusterInfo.tripplan_season){
+			    			
+				    			case "1" : season = "먹거리";
+				    			break;
+				    			case "2" : season = "레저";
+				    			break;
+				    			case "3" : season = "쇼핑";
+				    			break;
+				    			case "4" : season = "자연";
+				    			break;
+				    			case "5" : season = "문화";
+				    			break;
+				    			case "6" : season = "축제";
+				    			break;
+		    				}
+			    			
+			    			let peo_type = "";
+			    			
+			    			switch(clusterInfo.tripplan_peo_type){
+			    			
+				    			case "1" : peo_type = "혼자";
+				    			break;
+				    			case "2" : peo_type = "커플";
+				    			break;
+				    			case "3" : peo_type = "친구";
+				    			break;
+				    			case "4" : peo_type = "가족";
+				    			break;
+				    			case "5" : peo_type = "단체";
+				    			break;
+				    			case "6" : peo_type = "여자끼리";
+				    			break;
+				    			case "7" : peo_type = "남자끼리";
+				    			break;
+	    					}
+			    		
+				            essayContent += '<li class="essay_list">';
+				            essayContent +=	'<a href="/main/essay_view">';
+				            essayContent += '<div class="essay_img">';
+				            essayContent += '<img src="/upload/'+clusterInfo.tripplan_image+'" onerror="imgError(this)";/>';
+				            essayContent += '</div>';
+				            essayContent += '<ul class="essay_info">';
+				            essayContent += '<li>200<span>만원</span> <h6>'+clusterInfo.mem_nick+'</h6></li>';
+				            essayContent += '<li>여행지  : '+clusterInfo.mapmark_sido+' '+clusterInfo.mapmark_sigungu+'</li>';
+				            essayContent += '<li>'+theme+' / '+ season+ ' / '+ peo_type +'</li>';
+				            essayContent += '</ul>';
+				            essayContent += '</a>';
+				            essayContent += '</li>';
+				            
+				            $("#essay_list_ul").append(essayContent);
+				            
+				     });
+
+					 	
+					}
+				});
+	        }
+	        
 	    });
 	    
 	    
@@ -294,7 +298,7 @@ $(document).ready(function () {
 	
 	<div class="main_map main_list">
 		<ul id="essay_list_ul">
-			<li class="essay_list">
+			<!-- <li class="essay_list">
 				<a href="/main/essay_view">
 					<div class="essay_img">
 						<img src="/img/main_01.jpg"/>
@@ -305,117 +309,7 @@ $(document).ready(function () {
 						<li>먹거리  / 겨울  /  혼자 </li>
 					</ul>
 				</a>
-			</li>
-			
-			<li class="essay_list">
-				<a href="/main/essay_view">
-					<div class="essay_img">
-						<img src="/img/main_06.jpg"/>
-					</div>
-					<ul class="essay_info">
-						<li>200<span>만원</span> <h6>날아라호빵맨길길길길</h6></li>
-						<li>여행지  : 충청북도 박진집</li>
-						
-						<li>먹거리  / 겨울  /  혼자 </li>
-					</ul>
-				</a>
-			</li>
-			
-			<li class="essay_list">
-				<a href="/main/essay_view">
-					<div class="essay_img">
-						<img src="/img/main_02.jpg"/>
-					</div>
-					<ul class="essay_info">
-						<li>20 <span>만원</span> <h6>qweqweqweqweqweqweqw</h6></li>
-						<li>여행지  : 충청북도 박진집</li>
-						
-						<li>먹거리  / 겨울  /  혼자 </li>
-					</ul>
-				</a>
-			</li>
-			
-			<li class="essay_list">
-				<a href="/main/essay_view">
-					<div class="essay_img">
-						<img src="/img/main_03.jpg"/>
-					</div>
-					<ul class="essay_info">
-						<li>20 <span>만원</span> <h6>박  진</h6></li>
-						<li>여행지  : 충청북도 박진집</li>
-						
-						<li>먹거리  / 겨울  /  혼자 </li>
-					</ul>
-				</a>
-			</li>
-			
-			<li class="essay_list">
-				<a href="/main/essay_view">
-					<div class="essay_img">
-						<img src="/img/main_04.jpg"/>
-					</div>
-					<ul class="essay_info">
-						<li>20 <span>만원</span> <h6>박  진</h6></li>
-						<li>여행지  : 충청북도 박진집</li>
-						
-						<li>먹거리  / 겨울  /  혼자 </li>
-					</ul>
-				</a>
-			</li>
-			
-			<li class="essay_list">
-				<a href="/main/essay_view">
-					<div class="essay_img">
-						<img src="/img/main_05.jpg"/>
-					</div>
-					<ul class="essay_info">
-						<li>20 <span>만원</span> <h6>박  진</h6></li>
-						<li>여행지  : 충청북도 박진집</li>
-						
-						<li>먹거리  / 겨울  /  혼자 </li>
-					</ul>
-				</a>
-			</li>
-			
-			<li class="essay_list">
-				<a href="/main/essay_view">
-					<div class="essay_img">
-						<img src="/img/main_06.jpg"/>
-					</div>
-					<ul class="essay_info">
-						<li>20 <span>만원</span> <h6>박  진</h6></li>
-						<li>여행지  : 충청북도 박진집</li>
-						
-						<li>먹거리  / 겨울  /  혼자 </li>
-					</ul>
-				</a>
-			</li>
-			
-			<li class="essay_list">
-				<a href="/main/essay_view">
-					<div class="essay_img">
-						<img src="/img/main_01.jpg"/>
-					</div>
-					<ul class="essay_info">
-						<li>20 <span>만원</span> <h6>박  진</h6></li>
-						<li>여행지  : 충청북도 박진집</li>
-						<li>먹거리  / 겨울  /  혼자 </li>
-					</ul>
-				</a>
-			</li>
-			
-			<li class="essay_list">
-				<a href="/main/essay_view">
-					<div class="essay_img">
-						<img src="/img/main_01.jpg"/>
-					</div>
-					<ul class="essay_info">
-						<li>20 <span>만원</span> <h6>박  진</h6></li>
-						<li>여행지  : 충청북도 박진집</li>
-						<li>먹거리  / 겨울  /  혼자 </li>
-					</ul>
-				</a>
-			</li>
+			</li> -->
 			
 		</ul>
 		

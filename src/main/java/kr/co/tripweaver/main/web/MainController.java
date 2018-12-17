@@ -48,7 +48,18 @@ public class MainController {
 		return "jsonView";
 	}
 	
-
+	@RequestMapping("/reload")
+	public String mainMapReloadAjax(Model model, String markers) {
+		
+		logger.debug("markers : {}" ,  markers);
+		
+		List<ClusterVO> clusterList = tripPlanService.selectClusterListByXY(markers);
+		
+		model.addAttribute("clusterList", clusterList);
+		
+		return "jsonView";
+	}
+	
 	@RequestMapping("/login")
 	public String loginView() {
 		return "login/login";

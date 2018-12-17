@@ -1,6 +1,7 @@
 package kr.co.tripweaver.mymenu.mypage.tripplan.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -186,5 +187,30 @@ public class TripPlanDao implements ITripPlanDao{
 		}
 		
 		return clusterList;
+	}
+	
+	/**
+	* Method : selectClusterVoByXY
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 17.
+	* 변경이력 :
+	* @param xy
+	* @return
+	* Method 설명 : xy 값을 받으면 해당 ClusterVo 값을 반환한다. 
+	*/
+	public ClusterVO selectClusterVoByXY(Map<String, String> xy) {
+		
+		ClusterVO clusterVo =  null;
+		
+		try {
+			
+			clusterVo = template.selectOne("tripplanSQL.selectClusterVoByXY", xy);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return clusterVo;
+		}
+		
+		return clusterVo;
 	}
 }

@@ -1,9 +1,18 @@
 package kr.co.tripweaver.mymenu.mypage.tripplan.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 import kr.co.tripweaver.mymenu.mypage.tripplan.dao.ITripPlanDao;
 import kr.co.tripweaver.mymenu.mypage.tripplan.model.ClusterVO;
@@ -12,6 +21,8 @@ import kr.co.tripweaver.mymenu.mypage.tripplan.model.TripplanVO;
 
 @Service
 public class TripPlanService implements ITripPlanService{
+	
+	Logger logger = LoggerFactory.getLogger(TripPlanService.class);
 	
 	@Autowired
 	ITripPlanDao tripPlanDao;
@@ -95,5 +106,43 @@ public class TripPlanService implements ITripPlanService{
 	*/
 	public List<ClusterVO> selectAllClusterList(){
 		return tripPlanDao.selectAllClusterList();
+	}
+	
+	/**
+	* Method : selectClusterListByXY
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 17.
+	* 변경이력 :
+	* @param markers
+	* @return
+	* Method 설명 : X좌표 및 Y좌표에 대한 값을 받아와 해당 존재하는 클러스터 객체 값을 받아온다. 
+	*/
+	public List<ClusterVO> selectClusterListByXY(String markers){
+		
+		JsonParser parser = new JsonParser();
+		JsonElement element = parser.parse(markers);
+		JsonArray positions = element.getAsJsonObject().get("positions").getAsJsonArray();
+		
+		List<ClusterVO> clusterList = new ArrayList<>();
+		Map<String, String> xy = new HashMap<>();
+		
+		for(int i = 0 ; i < positions.size(); i++) {
+			logger.debug("positions X좌표: {}", positions.get(i).getAsJsonObject().get("ib").getAsString());
+			logger.debug("positions Y좌표: {}", positions.get(i).getAsJsonObject().get("jb").getAsString());
+			
+			xy.put("mapmark_x_coor", positions.get(i).getAsJsonObject().get("ib").getAsString());
+			xy.put("mapmark_y_coor", positions.get(i).getAsJsonObject().get("jb").getAsString());
+			
+			ClusterVO clusterVo = tripPlanDao.selectClusterVoByXY(xy);
+			
+			if(clusterVo != null) {
+				clusterList.add(clusterVo);
+			}
+			
+			xy.clear();
+			
+		}
+		
+		return clusterList;
 	}
 }
