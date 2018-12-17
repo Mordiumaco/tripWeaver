@@ -31,6 +31,7 @@ public class MapMarkerVO {
 	
 	
 	
+	
 	public MapMarkerVO(String triparea_id, String mapmark_sido, String mapmark_sigungu, String mapmarker_enbmyeondong,
 			String mapmark_x_coor, String mapmark_y_coor) {
 		

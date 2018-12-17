@@ -40,4 +40,30 @@
 		where tripplan_id = #{tripplan_id}
 	</update>
 	
+	<!-- clusterVo 리스트를 받아오는 쿼리 셀렉트문 -->
+	<select id="selectAllClusterList" resultType="clusterVo">
+		select mm.mapmark_sido mapmark_sido,
+		mm.mapmark_sigungu mapmark_sigungu,
+		mm.mapmarker_enbmyeondong mapmarker_enbmyeondong,
+		mm.mapmark_x_coor mapmark_x_coor,
+		mm.mapmark_y_coor mapmark_y_coor,
+ 		tp.tripplan_id tripplan_id,
+		tp.tripplan_title tripplan_title,
+		tp.tripplan_theme tripplan_theme,
+		tp.tripplan_season tripplan_season,
+		tp.tripplan_peo_type tripplan_peo_type,
+		tp.tripplan_start_day tripplan_start_day,
+		tp.tripplan_days tripplan_days,
+		tp.tripplan_peo_count tripplan_peo_count,
+		tp.mem_id mem_id,
+		tp.tripplan_image tripplan_image,
+		tp.tripplan_del tripplan_del,
+ 		m.mem_nick mem_nick
+		from mapmarker mm, triparea ta, tripplan tp, member m 
+		where mm.triparea_id = ta.triparea_id 
+		and ta.triparea_order = 1 
+		and ta.tripplan_id = tp.tripplan_id 
+		and tp.tripplan_del = 'N' 
+		and m.mem_id = tp.mem_id
+	</select>
 </mapper>

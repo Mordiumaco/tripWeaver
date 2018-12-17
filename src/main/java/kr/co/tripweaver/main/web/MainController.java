@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.tripweaver.member.model.MemberVO;
+import kr.co.tripweaver.mymenu.mypage.tripplan.model.ClusterVO;
 import kr.co.tripweaver.mymenu.mypage.tripplan.model.MypageTripPlanForListVO;
 import kr.co.tripweaver.mymenu.mypage.tripplan.service.ITripPlanService;
 
@@ -27,8 +28,26 @@ public class MainController {
 	
 	@RequestMapping("/main")
 	public String mainView() {
+		
+		
 		return "index";
 	}
+	
+	
+	@RequestMapping("/initMain")
+	public String initMainAjax(Model model) {
+		
+		List<ClusterVO> clusterList = tripPlanService.selectAllClusterList();
+		
+		
+		logger.debug("clusterList Size : {}" ,  clusterList.size());
+		
+		model.addAttribute("clusterList", clusterList);
+		
+		
+		return "jsonView";
+	}
+	
 
 	@RequestMapping("/login")
 	public String loginView() {

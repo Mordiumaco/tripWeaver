@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.tripweaver.mymenu.mypage.tripplan.dao.ITripPlanDao;
+import kr.co.tripweaver.mymenu.mypage.tripplan.model.ClusterVO;
 import kr.co.tripweaver.mymenu.mypage.tripplan.model.MypageTripPlanForListVO;
 import kr.co.tripweaver.mymenu.mypage.tripplan.model.TripplanVO;
 
@@ -82,5 +83,17 @@ public class TripPlanService implements ITripPlanService{
 	*/
 	public int updateTripplanBytripplanId(TripplanVO tripplanVo){
 		return tripPlanDao.updateTripplanBytripplanId(tripplanVo);
+	}
+	
+	/**
+	* Method : selectAllClusterList
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 17.
+	* 변경이력 :
+	* @return
+	* Method 설명 : 메인에 있는 지도애 쓰기위한 clusterVo List 를 받아온다. 
+	*/
+	public List<ClusterVO> selectAllClusterList(){
+		return tripPlanDao.selectAllClusterList();
 	}
 }

@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import kr.co.tripweaver.mymenu.mypage.tripplan.model.ClusterVO;
 import kr.co.tripweaver.mymenu.mypage.tripplan.model.MypageTripPlanForListVO;
 import kr.co.tripweaver.mymenu.mypage.tripplan.model.TripplanVO;
 
@@ -126,6 +127,7 @@ public class TripPlanDao implements ITripPlanDao{
 	* @return
 	* Method 설명 : tripplan_id 로 해당 tripplan객체의 del부분을 'Y'로 변경한다
 	*/
+	@Override
 	public int deleteTripplanBytripplanId(String tripplan_id){
 		int result = 0;
 		try {
@@ -147,6 +149,7 @@ public class TripPlanDao implements ITripPlanDao{
 	* @return
 	* Method 설명 : tripplan_vo를 가져와 해당 tripplanVo 관련 부분을 수정한다.
 	*/
+	@Override
 	public int updateTripplanBytripplanId(TripplanVO tripplanVo){
 		
 		int result = 0;
@@ -159,5 +162,29 @@ public class TripPlanDao implements ITripPlanDao{
 		}
 		
 		return result;
+	}
+	
+	/**
+	* Method : selectAllClusterList
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 17.
+	* 변경이력 :
+	* @return
+	* Method 설명 : 메인에 있는 지도애 쓰기위한 clusterVo List 를 받아온다. 
+	*/
+	public List<ClusterVO> selectAllClusterList(){
+		
+		List<ClusterVO> clusterList =  null;
+		
+		try {
+			
+			clusterList = template.selectList("tripplanSQL.selectAllClusterList");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return clusterList;
+		}
+		
+		return clusterList;
 	}
 }
