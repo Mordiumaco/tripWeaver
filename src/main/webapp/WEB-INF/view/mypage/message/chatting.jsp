@@ -86,6 +86,7 @@ ul {
 .local_sch02{}
 .local_sch01 .frm_input{height:30px;border:1px solid #dcdcdc;padding:0 5px; margin-left: 10px; width: 80%;}
 .local_sch01 .btn_submit{width:30px;height:30px;border:0;padding:0;background:url(../img/sch_btn.png) no-repeat 50% 50% #eee;border:1px solid #dcdcdc;text-indent:-999px;overflow:hidden;     vertical-align: middle }
+.local_sch01 .btn_create{width:20px;height:30px;border:0;padding:0;background:url(../img/baseline_mode_comment_black_18dp.png) no-repeat 50% 50% #eee;border:1px solid #dcdcdc;text-indent:-999px;overflow:hidden;     vertical-align: middle }
 .local_sch03{;padding:5px 15px;background:#e9ebf9;margin:10px 0}
 .local_sch div{margin:5px 0;}
 .local_sch03 strong{display:inline-block;width:70px;}
@@ -147,6 +148,9 @@ ul {
 .Chat_room a { color: #333;}
 
 </style>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+</script>
 </head>
 <body>
 	<div class="mes_menu">
@@ -164,6 +168,7 @@ ul {
 			<input type="text" name="stx" value="" id="stx" required="" class="required frm_input" placeholder="채팅방 이름, 참여자로 검색해 주세요.">
 			<input type="submit" class="btn_submit" value="검색">
 		</form>
+			<a href="/message/createChatroomView?mem_id=${loginInfo.mem_id}" class="btn_create">+</a>
 	</div>
 	
 	<div class="chatting_list">

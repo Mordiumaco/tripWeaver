@@ -3,6 +3,7 @@ package kr.co.tripweaver.mymenu.mypage.message.service;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.tripweaver.member.model.MemberVO;
 import kr.co.tripweaver.mymenu.mypage.message.model.MessageVO;
 import kr.co.tripweaver.mymenu.mypage.message.model.ParticipantVO;
 
@@ -78,4 +79,14 @@ public interface IMessageService {
 	* Method 설명 : 메세지id로 메세지 정보를 반환하는 메서드
 	 */
 	public MessageVO selectMessageByMsg_id(String msg_id);
+	
+	/**
+	* Method : insertChatroom
+	* 작성자 : jin
+	* 변경이력 :
+	* @param params
+	* @return
+	* Method 설명 : 새로운 채팅방을 생성하고 해당 채팅방 멤버리스트를 반환하는 메서드
+	 */
+	public Map<String, Object> insertChatroom(Map<String, Object> params);
 }

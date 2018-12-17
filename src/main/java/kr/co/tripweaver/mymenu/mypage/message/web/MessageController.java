@@ -46,6 +46,7 @@ public class MessageController {
 		ParticipantVO participantVO = new ParticipantVO();
 		participantVO.setGroup_id(group_id);
 		participantVO.setMem_id(messageVO.getMem_id());
+		//??
 		
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("group_id", group_id);
@@ -68,4 +69,54 @@ public class MessageController {
 		return "mypage/message/message";
 	}
 	
+	@RequestMapping("/createChatroomView")
+	public String createChatroomView(MemberVO memberVO,Model model) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("mem_id", memberVO.getMem_id());
+		params.put("stx", "");
+		Map<String, Object> resultMap = messageService.messagePageView(params);
+		model.addAllAttributes(resultMap);
+		return "mypage/message/createChatroom";
+	}
+	
+	@RequestMapping("/searchChatroomCreate")
+	public String searchChatroomCreate(MemberVO memberVO, @RequestParam("stx") String stx, Model model) {
+		System.out.println("@RequestMapping(\"/searchFollow\") : " + stx + " : " + memberVO.getMem_id());
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("mem_id", memberVO.getMem_id());
+		params.put("stx", stx);
+		Map<String, Object> resultMap = messageService.messagePageView(params);
+		model.addAllAttributes(resultMap);
+		
+		return "mypage/message/createChatroom";
+	}
+	
+	@RequestMapping("createChatroom")
+	public String createChatroom(@RequestParam("memberList") String memberList, MemberVO memberVO, Model model) {
+		//채팅방 구성원리스트
+		String[] inviteList = memberList.split(";");
+		String loginInfo = memberVO.getMem_id();
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("inviteList", inviteList);
+		params.put("loginInfo", loginInfo);
+		
+		Map<String, Object> resultMap = messageService.insertChatroom(params);
+		
+		//모델에 값 넘기기
+		model.addAllAttributes(resultMap);
+		
+		return "mypage/message/chatting_view";
+	}
+	
+	@RequestMapping("exitChatroom")
+	public String exitChatroom(ParticipantVO participantVO, Model model) {
+		//채팅방 구성원에서 삭제
+		int delCnt = messageService.exitChatroom(participantVO);
+		
+		List<MessageVO> messageVOs = messageService.selectChatroom(participantVO.getMem_id());
+		model.addAttribute("messageVOs", messageVOs);
+		
+		return "mypage/message/chatting";
+	}
 }
