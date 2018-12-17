@@ -9,6 +9,12 @@
 
 <title>TripWeaver</title>
 
+<meta property="og:url"           content="http://localhost:8081/main/main" />
+<meta property="og:type"          content="website" />
+<meta property="og:title"         content="TripWeaver" />
+<meta property="og:description"   content="TripWeaver" />
+<meta property="og:image"         content="http://localhost:8081/img/main_01.jpg" />
+
 
 <%@include file="lib/lib.jsp" %>
 </head>
@@ -47,7 +53,7 @@
 			<div class="oe_menu_wrap">
 				<ul id="oe_menu" class="oe_menu">
 					<li>
-						<a href="/postCard/postCardList">PostCard</a>
+						<a href="/postCard/postCardList?mem_id=${loginInfo.mem_id}">PostCard</a>
 						
 					</li>
 					

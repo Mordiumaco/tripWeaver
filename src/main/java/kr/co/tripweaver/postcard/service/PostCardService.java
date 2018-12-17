@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.tripweaver.common.like.service.ILikeService;
 import kr.co.tripweaver.hashtag.service.IHashTagService;
 import kr.co.tripweaver.postcard.dao.IPostCardDao;
 import kr.co.tripweaver.postcard.model.PostCardVO;
@@ -19,6 +20,9 @@ public class PostCardService implements IPostCardService{
 	
 	@Autowired
 	IHashTagService hashTagService;
+	
+	@Autowired
+	ILikeService likeService;
 	
 	/**
 	 * 
@@ -38,7 +42,12 @@ public class PostCardService implements IPostCardService{
 		for(PostCardVO postCardVO : cardVOs){
 			List<String> strings = hashTagService.hashtagPostCard(postCardVO.getPc_id());
 			postCardVO.setHashTagList(strings);
+			
+			postCardVO.setPc_like_count(likeService.likeCount(postCardVO.getPc_id()));
+			System.out.println("좋아요 테스트 "+ postCardVO.getPc_id() + " : " + likeService.likeCount(postCardVO.getPc_id()));
 		}
+		
+		
 		
 		Map<String, Object> postCardResult = new HashMap<String, Object>();
 		
