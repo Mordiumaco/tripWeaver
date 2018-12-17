@@ -49,12 +49,12 @@
 		WHERE group_id = #{group_id}
 	</select>
 	
-	<insert id="insertChatroom" parameterType="String">
+	<insert id="insertChatroom" parameterType="Map">
 		<selectKey keyProperty="group_id" resultType="String" order="BEFORE">
 			SELECT 'chat' || LPAD(CHR_SEQ.NEXTVAL, 5, 0) FROM DUAL
 		</selectKey>
 		INSERT INTO chatroom
-		VALUES (#{group_id})
+		VALUES (#{group_id}, 'N')
 	</insert>
 	
 	<delete id="deleteChatroom" parameterType="String">
@@ -108,6 +108,11 @@
 		                                WHERE msg_id = #{msg_id}
 		                                GROUP BY msg_id) mr
 		WHERE (msg.msg_id = mr.msg_id)
+	</select>
+	
+	<select id="insertParticipant" parameterType="participantVo">
+		INSERT INTO participant
+		VALUES (#{group_id}, #{mem_id}, #{chatroom_name})
 	</select>
 	
 </mapper>
