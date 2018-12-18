@@ -1261,16 +1261,24 @@ a.btn_ov02:hover,a.ov_listall:hover{background:#3f51b5}
 .postli_r a:hover {color: #000; background: #f6f6f6; font-weight: bold;}
 
 .postCard_con>li:nth-child(3) {height: 36px; line-height: 30px; padding: 5px 10px; font-size: 1em;}
-.postCard_con>li:nth-child(3) i {right: 0;  position: inherit !important; margin-right: 10px; margin-top: 5px; cursor: pointer;}
+.postCard_con>li:nth-child(3) i { position: inherit !important; margin-right: 10px; margin-top: 5px; cursor: pointer; float: left;}
 .postCard_con>li:nth-child(4) {height: 20px; padding: 0px 10px; font-size: 1.2em; text-align: left;}
 .postCard_con>li:nth-child(5) {padding: 10px 10px; font-size: 1.2em;}
 .postCard_con>li:nth-child(6) { padding: 4px 10px; }
 .postCard_con>li:nth-child(6) a { margin-right: 10px; color: #0064ff; cursor: pointer; }
 .postCard_con>li:nth-child(7) { padding: 4px 10px; color: #666;}
-.postCard_con>li:nth-child(8) { width: 97%; padding:10px 0; margin: 5px auto 0; border-top:1px solid rgba(0,0,0,.0975);}
-.postCard_con>li:nth-child(8) input[type=text] { padding-left: 10px; height: 40px; font-size: 1.2em; width: 530px; border: none;}
-.postCard_con>li:nth-child(8) button { border: 1px solid #ccc; padding: 12px; background: #fff;}
-.postCard_con>li:nth-child(8) button:hover { color: #000; font-weight: bold; background: #ccc;}
+.postCard_con>li:nth-child(8) { padding: 10px 10px; font-size: 1.2em;}
+.postCard_con>li:nth-child(8) span { display: block; padding:4px 0 ;}
+.postCard_con>li:nth-child(9) { width: 97%; padding:10px 0; margin: 5px auto 0; border-top:1px solid rgba(0,0,0,.0975);}
+.postCard_con>li:nth-child(9) input[type=text] { padding-left: 10px; height: 40px; font-size: 1.2em; width: 530px; border: none;}
+.postCard_con>li:nth-child(9) button { border: 1px solid #ccc; padding: 12px; background: #fff;}
+.postCard_con>li:nth-child(9) button:hover { color: #000; font-weight: bold; background: #ccc;}
+
+.Post_comment ul {float: right;}
+.Post_comment ul li { float: left;}
+
+.bbtn_01, .bbtn_02 {padding: 4px; border: 1px solid #ddd; border-radius: 3px; cursor: pointer; margin-right: 3px; font-size: 0.8em; background:#fff;}
+.bbtn_01:hover, .bbtn_02:hover { background: #f1f1f1; }
 
 #post_right_wrap .postli_l img { width:100%; height:auto; }
 #post_right_wrap ul { width:100%; display: inline-block;}
@@ -1290,3 +1298,24 @@ a.btn_ov02:hover,a.ov_listall:hover{background:#3f51b5}
 
 #post_right_wrap .postli_l { height: 80px; margin-top: 10px; margin-bottom: 10px; }
 #post_right_wrap .postli_l span { height: 80px; line-height: 80px;}
+
+/* 포스트 카드 글쓰기 부분 */
+
+.write_wrap { width:100%; background: #ffff; padding: 20px; margin-bottom: 20px; border: 1px solid rgba(0,0,0,.0975); display: inline-block;}
+
+.write_wrap h1 { font-size: 1.2em; color: #333; font-weight: bold;}
+.write_wrap h1 span { font-size: 0.8em; color: #666;} 
+
+.write_wrap ul { width: 100%; }
+.write_wrap ul li { float: left; width: 24%; border-left: 1px solid rgba(0,0,0,.0975); border-right: 1px solid rgba(0,0,0,.0975); border-bottom: 1px solid rgba(0,0,0,.0975);  padding: 0.5%; margin:0 0.5%;  box-sizing: border-box;}
+
+.write_wrap .writeUl1 li { height: 200px; margin-top: 20px;  overflow: hidden; border-top: 1px solid rgba(0,0,0,.0975);}
+.write_wrap .writeUl2 li { }
+.write_wrap .writeUl1 li img { width: 100%; }
+
+.write_wrap input[type=text] {width: 100%; padding: 10px; margin-top: 20px;}
+.write_wrap input[type=file] { width: 100%;}
+
+.write_wrap textarea { width: 100%; height: 200px; resize: none; margin-top: 20px; padding: 10px;}
+
+

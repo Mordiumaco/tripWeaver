@@ -44,5 +44,7 @@ public class LikeDao implements ILikeDao {
 		int likeDelCnt = template.delete("likeSQL.likeDelete", likeVo);
 		return likeDelCnt;
 	}
+	
+	
 
 }

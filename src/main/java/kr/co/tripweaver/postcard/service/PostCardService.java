@@ -44,7 +44,6 @@ public class PostCardService implements IPostCardService{
 			postCardVO.setHashTagList(strings);
 			
 			postCardVO.setPc_like_count(likeService.likeCount(postCardVO.getPc_id()));
-			System.out.println("좋아요 테스트 "+ postCardVO.getPc_id() + " : " + likeService.likeCount(postCardVO.getPc_id()));
 		}
 		
 		
@@ -55,6 +54,23 @@ public class PostCardService implements IPostCardService{
 		postCardResult.put("hashTagCount", hashTagService.hashtagColumnConunt());
 		
 		return postCardResult;
+	}
+
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 포스트 삭제
+		*
+	 */
+	@Override
+	public int deletePostcard(PostCardVO postcardVo) {
+		return postCardDao.deletePostcard(postcardVo);
 	}
 	
 }

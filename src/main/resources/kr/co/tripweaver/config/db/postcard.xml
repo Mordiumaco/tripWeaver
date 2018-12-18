@@ -15,9 +15,37 @@
 	</select>
 	
 	<!-- 포스트카드 삭제하기 -->
-	<update id="updatePostcard"  parameterType="postcardVo">
+	<update id="deletePostcard"  parameterType="postcardVo">
 		UPDATE postcard
 		set PC_DEL = 'Y'
+		where PC_ID = #{pc_id}
+		and MEM_ID = #{mem_id}
+	</update>
+	
+	<!-- 포스트 카드 글쓰기 -->
+	<insert id="insertPostcard" parameterType="postcardVo">
+		insert into postcard (
+		    pc_id
+		    , pc_cnt
+		    , pc_date
+		    , pc_like_count
+		    , pc_del
+		    , mem_id
+		)
+		values (
+		    'pc'||lpad(pc_seq.nextval, 5, 0)
+		    , #{pc_cnt}
+		    , sysdate
+		    , 0
+		    , 'N'
+		    , #{mem_id}
+		)
+	</insert>
+	
+	<!-- 포스트카드 업데이트 -->
+	<update id="updatePostcard" parameterType="postcardVo">
+		UPDATE postcard
+		set pc_cnt = #{pc_cnt}
 		where PC_ID = #{pc_id}
 		and MEM_ID = #{mem_id}
 	</update>

@@ -18,5 +18,18 @@ public interface IPostCardDao {
 	* 
 	*/
 	List<PostCardVO> selectPostCardAll();
-
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 포스트 카드 삭제 하기
+		*
+	 */
+	int deletePostcard(PostCardVO postcardVo);
 }

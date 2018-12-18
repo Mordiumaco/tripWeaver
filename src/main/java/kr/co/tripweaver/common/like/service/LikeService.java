@@ -26,12 +26,20 @@ public class LikeService implements ILikeService {
 
 	@Override
 	public int likeAdd(LikeVO likeVo) {
-		return likeDao.likeAdd(likeVo);
+		
+		int likeAddCnt = likeDao.likeAdd(likeVo);
+		int likeNum = likeDao.likeCount(likeVo.getLike_rel_art_id());
+		
+		return likeNum;
 	}
 
 	@Override
 	public int likeDelete(LikeVO likeVo) {
-		return likeDao.likeDelete(likeVo);
+		
+		int likeDeleteCnt = likeDao.likeDelete(likeVo);
+		int likeNum = likeDao.likeCount(likeVo.getLike_rel_art_id());
+		
+		return likeNum;
 	}
 	
 
