@@ -19,15 +19,16 @@ import com.google.gson.Gson;
 
 import kr.co.tripweaver.mymenu.mypage.message.dao.IMessageDao;
 import kr.co.tripweaver.mymenu.mypage.message.model.MessageVO;
+import kr.co.tripweaver.mymenu.mypage.message.model.ParticipantVO;
 import kr.co.tripweaver.mymenu.mypage.message.service.IMessageService;
 
 @Repository
-public class MessgeHandler extends TextWebSocketHandler {
+public class AlramHandler extends TextWebSocketHandler {
 	
 	@Autowired
-	private IMessageService messageService;
+	private IMessageDao messageDao;
 	private List<WebSocketSession> connectedMembers = new ArrayList<WebSocketSession>();
-	private Logger logger = LoggerFactory.getLogger(MessgeHandler.class);
+	private Logger logger = LoggerFactory.getLogger(AlramHandler.class);
 	private Map<String, WebSocketSession> members = new ConcurrentHashMap<String, WebSocketSession>();
 	
 	@Override
@@ -47,25 +48,21 @@ public class MessgeHandler extends TextWebSocketHandler {
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		
-		MessageVO messageVO = MessageVO.convertMessage(message.getPayload());
+		ParticipantVO participantVO = ParticipantVO.convertMessage(message.getPayload());
 		
 		//채팅방 id
-		String group_id = messageVO.getGroup_id();
+		String group_id = participantVO.getGroup_id();
 		
-		//입력한 메세지를 DB에 저장
-		String msg_id = messageService.sendMessage(messageVO);
-		messageVO.setMsg_id(msg_id);
-		
-		if(messageService.selectMessageByMsg_id(msg_id) != null) {
-			messageVO = messageService.selectMessageByMsg_id(msg_id);			
-		}
-		
-		logger.debug("[handleTextMessage] messageVO : {}", messageVO);
+		//해당 채팅방에 해당 아이디 메세지수신여부 삭제하고 
+		//해당 메세지 수신숫자조회 
+		int delCnt = messageDao.deleteMsgReciver(participantVO);
+		List<MessageVO> messageVOs = messageDao.selectGroupMsgCount(group_id); //메세지아이디, unread 담겨있음
 		
 		Iterator<String> sessionIds = members.keySet().iterator();
 		String sessionId = "";
 		Gson gson = new Gson();
-		String jsonMessage = gson.toJson(messageVO);
+		String jsonMessage = gson.toJson(messageVOs);
+		System.out.println("[AlramHandler] : " + jsonMessage);
 		while (sessionIds.hasNext()) {
 			sessionId = sessionIds.next();
 			members.get(sessionId).sendMessage(new TextMessage(jsonMessage));

@@ -52,6 +52,12 @@ public class MessageService implements IMessageService {
 		params.put("msg_id", msg_id);
 		//채팅방멤버아이디 모두 조회
 		List<String> mem_idList = messageDao.selectChatroomMemberList(messageVO.getGroup_id());
+		
+		System.out.println("[MessageService1] mem_idList : " + mem_idList);
+		mem_idList.remove(messageVO.getMem_id());
+		
+		System.out.println("[MessageService2] mem_idList : " + mem_idList);
+		
 		//메세지수신여부 생성
 		for(String mem_id : mem_idList) {
 			if(!mem_id.equals(messageVO.getMem_id())) {
@@ -120,6 +126,7 @@ public class MessageService implements IMessageService {
 		participantVOs.add(participantVOLogin);
 		
 		for(String mem_id : inviteList) {
+			System.out.println("insertChatroom : " + mem_id);
 			ParticipantVO participantVO = new ParticipantVO();
 			participantVO.setGroup_id(group_id);
 			participantVO.setMem_id(mem_id);
