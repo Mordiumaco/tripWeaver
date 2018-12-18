@@ -8,24 +8,27 @@
 <script type="text/javascript">
 
 /* 포스트카드 내용에 a태그 추가하기  */
-$(function() {
+function alinkSplite(thisClick) {
 
-	var content = document.getElementById('content').innerHTML; // html 안에 'content'라는 아이디를 content 라는 변수로 정의한다.
+	var content = $(thisClick[0]).siblings('.content').text();  // html 안에 'content'라는 아이디를 content 라는 변수로 정의한다.
 
 	var splitedArray = content.split(' '); // 공백을 기준으로 문자열을 자른다.
+
 	var linkedContent = '';
 	for(var word in splitedArray)
 	{
 	  word = splitedArray[word];
+	  
 	   if(word.indexOf('#') == 0) // # 문자를 찾는다.
 	   {
-	      word = '<a>'+word+'</a>'; 
+		   var word1 = word.substring(0, word.lastIndexOf('#'));
+		   var word2 = word.substring(word.lastIndexOf('#'));
+		   word = word1 + '<a>'+word2+'</a>';
 	   }
 	   linkedContent += word+' ';
 	}
-	document.getElementById('content').innerHTML = linkedContent;
-
-})
+	$(thisClick[0]).siblings('.content').html(linkedContent);
+};
 
 /* 화면 상단으로 이동 */
 $(function() {
@@ -82,8 +85,8 @@ $(document).ready(function(){
 	$('.postli5_con').hide();
 	
 	$('.postli5').on('click','.more_btn',function () {
-		
 		$(this).siblings('.postli5_con').show('100');
+		alinkSplite($(this));
 		$(this).addClass('more_btn2');
 
 	});  
@@ -268,7 +271,7 @@ function postcardDelAjax(thisVar) {
 .fb_iframe_widget span { display: contents;}
 .postcardDelete { cursor: pointer;}
 
-#content a { color: #0064ff; }
+.content a { color: #0064ff; }
 
 </style>
 	
@@ -382,7 +385,7 @@ function postcardDelAjax(thisVar) {
 							<li class="likeNumLi">좋아요 <b class="likeNum">${pcl.pc_like_count}</b>개</li>
 							<li class="postli5">
 								내용 <b class="more_btn">보기 +</b>
-								<div class="postli5_con" id="content">${pcl.pc_cnt}</div>
+								<div class="postli5_con content">${pcl.pc_cnt}</div>
 							</li>
 							<li class="hashTaglink">
 								
