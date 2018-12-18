@@ -9,6 +9,7 @@
  	<typeAlias type="kr.co.tripweaver.member.model.MemberVO" alias="memberVo"/>
  	<typeAlias type="kr.co.tripweaver.board.model.BoardVO" alias="boardVo"/>
  	<typeAlias type="kr.co.tripweaver.article.model.ArticleVO" alias="articleVo"/>
+ 	<typeAlias type="kr.co.tripweaver.common.attachment.model.AttachmentVO" alias="attachmentVo"/>
  	<typeAlias type="kr.co.tripweaver.mymenu.mypage.follow_following.model.FollowVO" alias="followVo"/>
  	<typeAlias type="kr.co.tripweaver.mymenu.mypage.message.model.MessageVO" alias="messageVo"/>
  	<typeAlias type="kr.co.tripweaver.mymenu.mypage.message.model.ParticipantVO" alias="participantVo"/>

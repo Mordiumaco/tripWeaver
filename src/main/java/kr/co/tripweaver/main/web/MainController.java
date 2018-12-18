@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.tripweaver.member.model.MemberVO;
@@ -146,7 +147,8 @@ public class MainController {
 	}
 	
 	@RequestMapping("/board")
-	public String boardView() {
+	public String boardView(@RequestParam("board_id")String board_id, Model model) {
+		model.addAttribute("board_id", board_id);
 		return "servicecenter/list";
 	}
 	
