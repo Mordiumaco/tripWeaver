@@ -327,7 +327,6 @@ public class MyPlanController {
 		}
 		
 		
-		
 		//------------------------1. File Section -----------------------------
 		//fileCheck 가  null 이면 파일이 들어가진다.
 		if(fileCheck == null){

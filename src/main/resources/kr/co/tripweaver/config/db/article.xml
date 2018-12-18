@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="articledSQL">
+<mapper namespace="articleSQL">
 
-<insert parameterType="articleVo" id="articleInsert"> insert into article (art_id, art_title, art_cnt, art_groupid, art_date, art_secret, art_del, board_id, mem_id, art_par_id) 
+<insert parameterType="articleVo" id="insertArticle"> insert into article (art_id, art_title, art_cnt, art_groupid, art_date, art_secret, art_del, board_id, mem_id, art_par_id) 
 values(art_seq.nextval, #{art_title}, #{art_cnt}, #{art_groupid}, sysdate, #{art_secret}, 'N', #{board_id}, #{mem_id}, #{art_par_id}) 
 </insert>	
 	

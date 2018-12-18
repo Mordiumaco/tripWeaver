@@ -105,9 +105,15 @@ $(document).ready(function(){
 		</select>
 	</div>
 
-	
+	<div class="write_warp">
+		<ul class="write_warpL">
+			<li><b>비밀글 &nbsp;&nbsp;: </b></li>
+			<input type="checkbox" value="" >
+		</ul>
+	</div>
 	
 	<div class="write_warp">
+		
 		<ul class="write_warpL">
 			<li><b>이름 &nbsp;&nbsp;: </b></li>
 			<li><label > ${loginInfo.mem_id} </label></li>
@@ -133,7 +139,7 @@ $(document).ready(function(){
 	
 	<div class="write_warp">
 		<ul class="file_list">
-			<li class="file_list_li1"><b>첨부 파일 :</b> &nbsp;&nbsp; <input type="file" name="fl_flie" multiple="multiple" ><div class="plus_btn">+</div> <div class="minus_btn">-</div></li>	
+			<li class="file_list_li1"><b>첨부 파일 :</b> &nbsp;&nbsp; <input type="file" name="attachment" multiple="multiple" ><div class="plus_btn">+</div> <div class="minus_btn">-</div></li>	
 		</ul>
 	</div>
 

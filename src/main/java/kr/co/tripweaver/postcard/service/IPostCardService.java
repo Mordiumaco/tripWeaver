@@ -19,4 +19,32 @@ public interface IPostCardService {
 	* 
 	*/
 	public Map<String, Object> selectPostCardAll();
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 포스트 삭제
+		*
+	 */
+	public int deletePostcard(PostCardVO postcardVo);
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 포스트 글쓰기
+		*
+	 */
+	public int insertPostcard(PostCardVO postcardVo);
 }

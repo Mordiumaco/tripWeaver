@@ -36,11 +36,30 @@ public class HashTagDao implements IHashTagDao {
 
 	@Override
 	public List<String> hashtagPostCard(String pc_id) {
-		
 		List<String> strings = template.selectList("hashtagSQL.hashtagPostCard", pc_id);
-		
 		return strings;
 	}
+	
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 해시태크 인서트
+		*
+	 */
+	@Override
+	public int insertHashtag(HashTagVO hashtagVo) {
+		int insertHashtagCnt = template.insert("hashtagSQL.insertHashtag", hashtagVo);
+		return insertHashtagCnt;
+	}
+	
+
 	
 	
 	
