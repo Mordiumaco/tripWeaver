@@ -173,6 +173,7 @@ public class TripPlanDao implements ITripPlanDao{
 	* @return
 	* Method 설명 : 메인에 있는 지도애 쓰기위한 clusterVo List 를 받아온다. 
 	*/
+	@Override
 	public List<ClusterVO> selectAllClusterList(){
 		
 		List<ClusterVO> clusterList =  null;
@@ -198,6 +199,7 @@ public class TripPlanDao implements ITripPlanDao{
 	* @return
 	* Method 설명 : xy 값을 받으면 해당 ClusterVo 값을 반환한다. 
 	*/
+	@Override
 	public ClusterVO selectClusterVoByXY(Map<String, String> xy) {
 		
 		ClusterVO clusterVo =  null;
@@ -212,5 +214,30 @@ public class TripPlanDao implements ITripPlanDao{
 		}
 		
 		return clusterVo;
+	}
+	
+	/**
+	* Method : selectClusterListBySearch
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 18.
+	* 변경이력 :
+	* @param searchMap
+	* @return
+	* Method 설명 : 검색 조건에 통해 얻어낸 조건들을 맵을 통해 보내서 해당 조건에 만족하는 클러스터 리스트를 뽑아온다.
+	*/
+	@Override
+	public List<ClusterVO> selectClusterListBySearch(Map<String, String> searchMap){
+		List<ClusterVO> clusterList =  null;
+		
+		try {
+			
+			clusterList = template.selectList("tripplanSQL.selectClusterListBySearch", searchMap);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return clusterList;
+		}
+		
+		return clusterList;
 	}
 }

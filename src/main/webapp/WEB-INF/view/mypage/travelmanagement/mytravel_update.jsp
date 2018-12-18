@@ -21,7 +21,7 @@ $( function() {
 
 	function tripplanImageDelete(){
 		confirm('기존 대표 이미지를 삭제하실껀가요?');
-		var imageBtn = '<img id="image_section"/><li>대표이미지 : <b><input id="tripplan_image_file" name="tripplan_image_file" type="file" onchange="loadFile(event)"/></b></li>';
+		var imageBtn = '<img id="image_section"/><li>대표이미지 : <input id="tripplan_image_file" name="tripplan_image_file" type="file" onchange="loadFile(event)"/></li>';
 		$(".tripplanImageList").text("");
 		$(".tripplanImageList").append(imageBtn)
 		
@@ -49,8 +49,7 @@ $( function() {
 					<li>대표이미지 : <b><input id="tripplan_image_file" name="tripplan_image_file" type="file" onchange="loadFile(event)"/></b></li>
 				</c:when>
 				<c:otherwise>
-					<li class="tripplanImageList">대표이미지: <b>${tripplanVo.tripplan_image}</b><input id="tripplanImageDeleteBtn" type="button" onclick="tripplanImageDelete()" value="삭제"/></li>
-					<input type="hidden" name="fileCheck" value="${tripplanVo.tripplan_image}" />
+					<li class="tripplanImageList">대표이미지: <b>${tripplanVo.tripplan_image}</b><input id="tripplanImageDeleteBtn" type="button" onclick="tripplanImageDelete()" value="삭제"/><input type="hidden" name="fileCheck" value="${tripplanVo.tripplan_image}" /></li>
 				</c:otherwise>
 			</c:choose>
 			<script>
