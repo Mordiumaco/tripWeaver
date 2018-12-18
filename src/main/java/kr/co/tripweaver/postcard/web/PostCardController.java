@@ -78,4 +78,13 @@ public class PostCardController {
 	public String postWriteView() {
 		return "postcard/postWrite" ;
 	}
+	
+	// 포스트카드 인서트
+	@RequestMapping(value="/insertPostcard", method=RequestMethod.POST)
+	public String insertPostcard(PostCardVO postcardVo, @RequestParam("att_file_ori_name")String att_file_ori_name) {
+		
+		int insertPostcardCnt = postCardService.insertPostcard(postcardVo);
+		
+		return "redirect:/postCard/postCardList?mem_id=" + postcardVo.getMem_id();
+	}
 }

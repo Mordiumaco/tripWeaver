@@ -24,6 +24,19 @@ public class HashTagService implements IHashTagService {
 	public List<String> hashtagPostCard(String pc_id) {
 		return hashTagDao.hashtagPostCard(pc_id);
 	}
+
+
+	@Override
+	public int insertHashtag(List<HashTagVO> hashtagList) {
+		
+		int insertHashtagCnt = 0;
+		
+		for(HashTagVO hash :hashtagList) {
+			insertHashtagCnt += hashTagDao.insertHashtag(hash);
+		}
+		return insertHashtagCnt;
+	}
+
 	
 	
 }

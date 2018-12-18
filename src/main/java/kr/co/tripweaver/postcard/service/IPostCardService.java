@@ -33,4 +33,18 @@ public interface IPostCardService {
 		*
 	 */
 	public int deletePostcard(PostCardVO postcardVo);
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 포스트 글쓰기
+		*
+	 */
+	public int insertPostcard(PostCardVO postcardVo);
 }

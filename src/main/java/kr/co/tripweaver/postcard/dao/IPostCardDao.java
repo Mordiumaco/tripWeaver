@@ -32,4 +32,18 @@ public interface IPostCardDao {
 		*
 	 */
 	int deletePostcard(PostCardVO postcardVo);
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 포스트 카드 글 쓰기
+		*
+	 */
+	String insertPostcard(PostCardVO postcardVo);
 }
