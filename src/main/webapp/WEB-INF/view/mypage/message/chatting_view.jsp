@@ -105,7 +105,11 @@ $(document).ready(function(){
 // 	});
 	
 	$("#sendMessage").on("click", function() {
-		send();
+		if($("#msg").val() == ''){
+			alert("보낼 메세지를 1자 이상 입력해주세요.");
+		} else {
+			send();
+		}
 	});
 	
     $('.mes_con').css('height', $(window).height()-180); 
@@ -113,6 +117,16 @@ $(document).ready(function(){
         $('.mes_con').css('height', $(window).height()-180); 
     }); 
 	$(".mes_con").scrollTop($(".mes_con")[0].scrollHeight); //스크롤 최하단으로이동
+	
+	$("#msg").keydown(function(e) {
+			if(e.keyCode == 13){
+				if($("#msg").val() == ''){
+					alert("보낼 메세지를 1자 이상 입력해주세요.");
+				} else {
+					send();
+				}
+			}
+	});
 });
 
 function connect() {
@@ -296,10 +310,8 @@ function updateReciveCount(obj) {
 		</c:forEach>
 	</div>
 	<div class="mes_bottom">
-		<form action="/message/send" method="post">
-			<input type="text" id="msg" name="msg">
-			<input type="button" id="sendMessage" value="전송">
-		</form>
+		<input type="text" id="msg" name="msg">
+		<input type="button" id="sendMessage" value="전송">
 	</div>
 </body>
 </html>

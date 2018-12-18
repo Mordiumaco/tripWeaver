@@ -53,10 +53,7 @@ public class MessageService implements IMessageService {
 		//채팅방멤버아이디 모두 조회
 		List<String> mem_idList = messageDao.selectChatroomMemberList(messageVO.getGroup_id());
 		
-		System.out.println("[MessageService1] mem_idList : " + mem_idList);
 		mem_idList.remove(messageVO.getMem_id());
-		
-		System.out.println("[MessageService2] mem_idList : " + mem_idList);
 		
 		//메세지수신여부 생성
 		for(String mem_id : mem_idList) {
