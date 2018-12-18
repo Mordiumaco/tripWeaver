@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../adminHead.jsp" %>
- 
 <section>
-<style>
-.cursor {cursor: pointer;}
-</style>
-
+	<style>.cursor {cursor: pointer;}</style>
 	<script type="text/javascript">
 		var author = "";
 		var sort_id = "mem_id";

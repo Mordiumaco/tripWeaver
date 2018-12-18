@@ -99,10 +99,10 @@
 						<div class="oe_menu_div1">
 							<div class="tri"></div>
 							<ul>
-								<li><a href="/main/board">공지사항</a></li>
-								<li><a href="">자유게시판</a></li>
-								<li><a href="">Q&A</a></li>
-								<li><a href="">가이드 지원</a></li>
+								<li><a href="/main/board?board_id=bd00001">공지사항</a></li>
+								<li><a href="/main/board?board_id=bd00002">자유게시판</a></li>
+								<li><a href="/main/board?board_id=bd00004">Q&A</a></li>
+								<li><a href="/main/board?board_id=bd00003">가이드 지원</a></li>
 							</ul>
 						</div>
 					</li>

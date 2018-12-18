@@ -136,4 +136,24 @@ public interface IMessageDao {
 	* Method 설명 : 메세지 수신확인용 수신자정보를 저장하는 메서드
 	 */
 	public int insertMsgReciver(Map<String, Object> params);
+	
+	/**
+	* Method : selectMessageByMsg_id
+	* 작성자 : jin
+	* 변경이력 :
+	* @param msg_id
+	* @return
+	* Method 설명 : 메세지id로 메세지 정보를 반환하는 메서드
+	 */
+	public MessageVO selectMessageByMsg_id(String msg_id);
+	
+	/**
+	* Method : insertParticipant
+	* 작성자 : jin
+	* 변경이력 :
+	* @param participantVO
+	* @return
+	* Method 설명 : 새로운 채팅방을 만들때 채팅구성원을 생성해주는 메서드
+	 */
+	public int insertParticipant(ParticipantVO participantVO);
 }

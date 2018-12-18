@@ -1,7 +1,9 @@
 package kr.co.tripweaver.mymenu.mypage.tripplan.dao;
 
 import java.util.List;
+import java.util.Map;
 
+import kr.co.tripweaver.mymenu.mypage.tripplan.model.ClusterVO;
 import kr.co.tripweaver.mymenu.mypage.tripplan.model.MypageTripPlanForListVO;
 import kr.co.tripweaver.mymenu.mypage.tripplan.model.TripplanVO;
 
@@ -81,5 +83,26 @@ public interface ITripPlanDao {
 	* Method 설명 : tripplan_vo를 가져와 해당 tripplanVo 관련 부분을 수정한다.
 	*/
 	public int updateTripplanBytripplanId(TripplanVO tripplanVo);
+	
+	/**
+	* Method : selectAllClusterList
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 17.
+	* 변경이력 :
+	* @return
+	* Method 설명 : 메인에 있는 지도애 쓰기위한 clusterVo List 를 받아온다. 
+	*/
+	public List<ClusterVO> selectAllClusterList();
+
+	/**
+	* Method : selectClusterVoByXY
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 17.
+	* 변경이력 :
+	* @param xy
+	* @return
+	* Method 설명 : xy 값을 받으면 해당 ClusterVo 값을 반환한다. 
+	*/
+	public ClusterVO selectClusterVoByXY(Map<String, String> xy);
 	
 }

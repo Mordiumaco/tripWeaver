@@ -20,6 +20,8 @@
  	<typeAlias type="kr.co.tripweaver.mymenu.mypage.tripplan.model.DailyPlanVO" alias="dailyPlanVo"/>
  	<typeAlias type="kr.co.tripweaver.mymenu.mypage.tripplan.model.MypageTripPlanForListVO" alias="mypageTripPlanForListVo"/>
  	<typeAlias type="kr.co.tripweaver.common.like.model.LikeVO" alias="likeVo"/>
+ 	<typeAlias type="kr.co.tripweaver.mymenu.mypage.tripplan.model.ClusterVO" alias="clusterVo"/>
+
  </typeAliases>	
 	
   <mappers>
