@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.tripweaver.common.like.service.ILikeService;
 import kr.co.tripweaver.hashtag.service.IHashTagService;
 import kr.co.tripweaver.postcard.dao.IPostCardDao;
 import kr.co.tripweaver.postcard.model.PostCardVO;
@@ -19,6 +20,9 @@ public class PostCardService implements IPostCardService{
 	
 	@Autowired
 	IHashTagService hashTagService;
+	
+	@Autowired
+	ILikeService likeService;
 	
 	/**
 	 * 
@@ -38,7 +42,11 @@ public class PostCardService implements IPostCardService{
 		for(PostCardVO postCardVO : cardVOs){
 			List<String> strings = hashTagService.hashtagPostCard(postCardVO.getPc_id());
 			postCardVO.setHashTagList(strings);
+			
+			postCardVO.setPc_like_count(likeService.likeCount(postCardVO.getPc_id()));
 		}
+		
+		
 		
 		Map<String, Object> postCardResult = new HashMap<String, Object>();
 		
@@ -46,6 +54,23 @@ public class PostCardService implements IPostCardService{
 		postCardResult.put("hashTagCount", hashTagService.hashtagColumnConunt());
 		
 		return postCardResult;
+	}
+
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 포스트 삭제
+		*
+	 */
+	@Override
+	public int deletePostcard(PostCardVO postcardVo) {
+		return postCardDao.deletePostcard(postcardVo);
 	}
 	
 }
