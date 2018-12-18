@@ -23,12 +23,12 @@ import kr.co.tripweaver.mymenu.mypage.message.model.ParticipantVO;
 import kr.co.tripweaver.mymenu.mypage.message.service.IMessageService;
 
 @Repository
-public class AlramHandler extends TextWebSocketHandler {
+public class chatroomHandler extends TextWebSocketHandler {
 	
 	@Autowired
-	private IMessageDao messageDao;
+	private IMessageService messageService;
 	private List<WebSocketSession> connectedMembers = new ArrayList<WebSocketSession>();
-	private Logger logger = LoggerFactory.getLogger(AlramHandler.class);
+	private Logger logger = LoggerFactory.getLogger(chatroomHandler.class);
 	private Map<String, WebSocketSession> members = new ConcurrentHashMap<String, WebSocketSession>();
 	
 	@Override
@@ -37,37 +37,20 @@ public class AlramHandler extends TextWebSocketHandler {
 		connectedMembers.add(session);
 		members.put(session.getId(), session);
 	}
-
+	
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		logger.debug("{} 연결 끊김", session.getId());
 		connectedMembers.remove(session);
 		members.remove(session.getId());
 	}
-
+	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		
-		ParticipantVO participantVO = ParticipantVO.convertMessage(message.getPayload());
-		
-		//채팅방 id
-		String group_id = participantVO.getGroup_id();
-		
-		//해당 채팅방에 해당 아이디 메세지수신여부 삭제하고 
-		//해당 메세지 수신숫자조회 
-		int delCnt = messageDao.deleteMsgReciver(participantVO);
-		System.out.println("[handleTextMessage] delCnt : " + delCnt);
-		List<MessageVO> messageVOs = messageDao.selectGroupMsgCount(group_id); //메세지아이디, unread 담겨있음
-		
-		Iterator<String> sessionIds = members.keySet().iterator();
-		String sessionId = "";
-		Gson gson = new Gson();
-		String jsonMessage = gson.toJson(messageVOs);
-		System.out.println("[AlramHandler] : " + jsonMessage);
-		while (sessionIds.hasNext()) {
-			sessionId = sessionIds.next();
-			members.get(sessionId).sendMessage(new TextMessage(jsonMessage));
-		}
+		logger.debug(message.getPayload());
+		List<MessageVO> messageVOs = messageService.selectChatroom(message.getPayload());
+//		session.sendMessage(new TextMessage(messageVOs)); 
+		//현재 수신자에게 몇개의 메세지가 와있는지 디비에서 검색함.
 	}
 
 	@Override

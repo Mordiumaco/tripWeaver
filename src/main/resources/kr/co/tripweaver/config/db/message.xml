@@ -5,17 +5,31 @@
 <mapper namespace="messageSQL">
 	
 	<select id="selectChatroom" parameterType="String" resultType="messageVo">
-		SELECT p.*, m.msg_cnt, m.msg_date
-		FROM participant p LEFT OUTER JOIN (SELECT *
-		                                FROM (SELECT group_id, msg_cnt, msg_date
-		                                    , MAX(msg_date) OVER(PARTITION BY group_id) AS max_date 
-		                                      FROM message)
-		                                WHERE msg_date = max_date) m
-		ON (p.group_id = m.group_id) , chatroom c
-		WHERE p.mem_id = #{mem_id}
-		AND (p.group_id = c.group_id)
-		AND (c.group_del = 'N')
-		ORDER BY max_date DESC
+		SELECT a.*, NVL(b.rec_cnt, 0) AS rec_cnt
+		FROM (SELECT p.*, p2.cnt, m.msg_cnt, m.msg_date
+		        FROM participant p LEFT OUTER JOIN (SELECT *
+		                                        FROM (SELECT group_id, msg_cnt, msg_date
+		                                            , MAX(msg_date) OVER(PARTITION BY group_id) AS max_date 
+		                                              FROM message)
+		                                        WHERE msg_date = max_date) m
+		                        ON (p.group_id = m.group_id) , chatroom c, (SELECT a.group_id AS group_id, 
+		                                                                    NVL(b.cnt, 0) AS cnt 
+		                                                                    FROM chatroom a LEFT OUTER JOIN (SELECT group_id, 
+		                                                                                                     COUNT(*) AS cnt
+		                                                                                                     FROM participant 
+		                                                                                                     GROUP BY group_id) b
+		                                                                                                     ON (b.group_id = a.group_id)) p2
+		        WHERE p.mem_id = #{mem_id}
+		        AND (p.group_id = c.group_id)
+		        AND (c.group_del = 'N')
+		        AND (m.group_id = p2.group_id)
+		        ORDER BY max_date DESC) a LEFT OUTER JOIN (SELECT c.group_id AS group_id, COUNT(*) AS rec_cnt
+		                                                    FROM chatroom c INNER JOIN message m
+		                                                    ON (c.group_id = m.group_id) LEFT OUTER JOIN msgreciver mr
+		                                                    ON (m.msg_id = mr.msg_id)
+		                                                    WHERE (mr.rec_id = #{mem_id})
+		                                                    GROUP BY c.group_id) b
+		ON (a.group_id = b.group_id)
 	</select>
 	
 	<select id="selectChatroomName" parameterType="participantVo" resultType="String">

@@ -155,7 +155,7 @@ function appendMessage(msg) {
 			html += '<ul><li>';
 			html += '<span class="mes_date mes_dateMy">' + t + '</span></li>';
 			html += '<li class="mes_con_list_text mes_con_list_textMy">';
-			html +=	msg.msg_cnt + '</li><span class="unread">2</span></ul><div>';
+			html +=	msg.msg_cnt + '</li><span id="' + msg.msg_id + '" class="unread">' + msg.unread + '</span></ul><div>';
 		} else {
 			html = '<div class="mes_con_list" >';
 			html += '<h6><img src="/file/read?mem_profile=' + msg.mem_profile + '"></h6>';
@@ -166,7 +166,6 @@ function appendMessage(msg) {
 		}
 	}
 	
-	read();
 	
 	if(msg == ''){
 		return false;
@@ -174,6 +173,7 @@ function appendMessage(msg) {
 		$('.mes_con').append(html);
 		$(".mes_con").scrollTop($(".mes_con")[0].scrollHeight);
 	}
+	read();
 }
 
 function getTimeStamp() {
@@ -209,10 +209,14 @@ function connect_alram() {
 	};
 	sock_alram.onmessage = function(event) {
 		var data = event.data;
-		console.log("[alram] data : " + data);
-		var obj = JSON.parse(data);
-		console.log("[alram] obj : " + obj);
-		updateReciveCount(obj);
+		if(data != '[]'){
+			console.log("[alram] data : " + data);
+			var obj = JSON.parse(data);
+			console.log("[alram] obj : " + obj);
+			updateReciveCount(obj);
+		} else {
+			updateReciveCount('0');
+		}
 	};
 	sock_alram.onclose = function() {
 		console.log('[alram] onclose');
@@ -228,14 +232,25 @@ function read() {
 }
 //메세지 읽음인원 수정
 function updateReciveCount(obj) {
-	for(var i = 0; i < obj.length; i++){
-		console.log("updateReciveCount : " + obj[i].unread + ' : ' + obj[i].msg_id);
-		//obj에서 그룹아이디 가져와서 비교
-		var iii = '' + obj[i].msg_id;
-		var id = document.getElementById(iii);
-		console.log("id : " + id);
-		document.getElementById(iii).innerText = '' + obj[i].unread;
-		console.log("id.innerText : " + document.getElementById(iii).innerText);
+	if(obj == '0'){
+// 		var className = document.getElementsByClassName('unread');
+		var abc = $('.unread').text(0);
+// 		console.log("className : " + className);
+// 		console.log("className.innerText1 : " + className.innerText);
+// 		className.innerText = '여기야여기!!';
+// 		console.log("className.innerText2 : " + className.innerText);
+	} else {
+		for(var i = 0; i < obj.length; i++){
+			console.log("updateReciveCount : " + obj[i].unread + ' : ' + obj[i].msg_id);
+			//obj에서 그룹아이디 가져와서 비교
+			var iii = '' + obj[i].msg_id;
+			var id = document.getElementById(iii);
+			console.log("id : " + id);
+			if(id.innerText != null){
+				id.innerText = '' + obj[i].unread;
+				console.log("id.innerText : " + document.getElementById(iii).innerText);
+			}
+		}
 	}
 }
 

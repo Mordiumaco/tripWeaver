@@ -15,6 +15,8 @@ public class MessageVO {
 	private String mem_id;
 	private String group_id;
 	private String chatroom_name;
+	private int cnt;				//채팅방인원수
+	private int rec_cnt;			//읽지않은 메세지 수
 	
 	public static MessageVO convertMessage(String msg) {
 		MessageVO messageVO = new MessageVO();
@@ -23,6 +25,21 @@ public class MessageVO {
 		return messageVO;
 	}
 	
+	
+	public int getRec_cnt() {
+		return rec_cnt;
+	}
+	public void setRec_cnt(int rec_cnt) {
+		this.rec_cnt = rec_cnt;
+	}
+	public int getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+
 	public int getUnread() {
 		return unread;
 	}
