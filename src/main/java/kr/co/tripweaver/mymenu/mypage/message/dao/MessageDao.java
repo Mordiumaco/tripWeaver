@@ -102,4 +102,10 @@ public class MessageDao implements IMessageDao {
 		return messageVO;
 	}
 
+	@Override
+	public int insertParticipant(ParticipantVO participantVO) {
+		int intCnt = template.insert("messageSQL.insertParticipant", participantVO);
+		return intCnt;
+	}
+
 }

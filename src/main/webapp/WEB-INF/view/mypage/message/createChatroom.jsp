@@ -46,7 +46,7 @@ ul {
 .mes_menu ul li a:hover { background: #1a6d52;}
 .mes_menu ul li a img { padding-top: 5px;}
 
-.mes_menu ul li:nth-child(1) a { background:#1a6d52; }
+.mes_menu ul li:nth-child(2) a { background:#1a6d52; }
 
 .mes_my { width: 100%;}
 .mes_my>b {height: 30px; background: #f1f1f1; display: block; line-height: 30px; padding-left: 10px; margin-bottom: 10px;}
@@ -94,6 +94,7 @@ ul {
 .local_sch02{}
 .local_sch01 .frm_input{height:30px;border:1px solid #dcdcdc;padding:0 5px; margin-left: 10px; width: 80%;}
 .local_sch01 .btn_submit{width:30px;height:30px;border:0;padding:0;background:url(../img/sch_btn.png) no-repeat 50% 50% #eee;border:1px solid #dcdcdc;text-indent:-999px;overflow:hidden;     vertical-align: middle }
+.local_sch01 .btn_create{width:20px;height:30px;border:0;padding:0;background:url(../img/baseline_mode_comment_black_18dp.png) no-repeat 50% 50% #eee;border:1px solid #dcdcdc;text-indent:-999px;overflow:hidden;     vertical-align: middle }
 .local_sch03{;padding:5px 15px;background:#e9ebf9;margin:10px 0}
 .local_sch div{margin:5px 0;}
 .local_sch03 strong{display:inline-block;width:70px;}
@@ -159,61 +160,49 @@ ul {
 		var login_id = '${loginInfo.mem_id}';
 		follow_count(login_id);
 		
-		$('.followBtn').on({
-			click : function() {
-				var follow;
-				var following_id = '${loginInfo.mem_id}';
-				var followed_id = $(this).prev().val();
-				console.log("following : " + following_id + "/ followed : " + followed_id);
-				if($(this).hasClass('following') == true){
-					$(this).val("팔로우");
-					$(this).addClass("follower");
-					$(this).removeClass("following");
-					follow = 'N';
-					unfollow(following_id, followed_id);
-				} else {
-					$(this).val("팔로잉");
-					$(this).addClass("following");
-					$(this).removeClass("follower");
-					follow = 'Y';
-					following(following_id, followed_id);
-				}	
-			},
-			mouseenter : function() {
-				$(this).css({'background-color' : '#389e7d', "color" : "white"});
-				if($(this).hasClass('following') == true){
-					$(this).val("언팔로우");
+		var inviteListNick = new Array();
+		var inviteListId = new Array();
+		$('.mem_list').on('click', function() {
+			var p = $(this).find('p');
+			var nick = $(this).find('input').val();
+			var id = p.find('input').val(); //같은 값을 가져오네
+			console.log('nick : ' + nick + " id : " + id);
+
+			if($(this).hasClass('check')){
+				for(var i = 0; i < inviteList.length; i++){
+				
+					if(inviteList[i] == nick){
+						inviteListNick.splice( i, 1); 
+						inviteListId.splice( i, 1); 
+					}
 				}
-			},
-			mouseleave : function() {
-				$(this).css({'background-color': 'transparent', "color" : "black"});
-				if($(this).hasClass('following') == true) {
-					$(this).val("팔로잉");
-				}
+				$(this).removeClass('check');
+			} else {
+				$(this).addClass('check');
+				inviteListNick.push(nick); 
+				inviteListId.push(id); 
 			}
+			
+			var list = '';
+			for(var i = 0; i < inviteListNick.length; i++){
+				list += inviteListNick[i] + ' ';
+			}
+			console.log(inviteListNick);
+			
+			$('#inviteList').html(list);
+			
+		});
+		
+		$('#createChatroom').on('click', function() {
+			var memberList = '';
+			for(var i = 0; i < inviteListId.length; i++){
+				memberList += inviteListId[i] + ';';
+			}
+			$('#memberList').val(memberList);
+			$('#frm').submit();
 		});
 	});
 	
-	function following(following_id, followed_id) {
-		$.ajax({
-			url : "/follow/following",
-			type : "post",
-			data : {"mem_id2":following_id,"mem_id":followed_id},
-			error : function() {
-				follow_count(following_id);
-			}
-		});
-	}
-	function unfollow(following_id, followed_id) {
-		$.ajax({
-			url : "/follow/unfollow",
-			type : "post",
-			data : {"mem_id2":following_id,"mem_id":followed_id},
-			error : function() {
-				follow_count(following_id);
-			}
-		});
-	}
 	function follow_count(mem_id) {
 		$.ajax({
 			url : "/follow/followCountAjax",
@@ -235,23 +224,25 @@ ul {
 		</ul>
 	</div>
 	<div class="mes_Search">
-		<form action="/message/searchFollow" id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
+		<form action="/message/searchChatroomCreate" id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
 			<label for="sfl" class="sound_only">검색대상</label>
 			<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
 			<input type="text" name="stx" value="" id="stx" class="frm_input" placeholder="친구 닉네임으로 검색 하세요.">
 			<input type="hidden" name="mem_id" value="${loginInfo.mem_id}">
 			<input type="submit" class="btn_submit" value="검색">
 		</form>
+		<form id="frm" action="/message/createChatroom">
+			<input type="hidden" name="mem_id" value="${loginInfo.mem_id}">
+			<input type="hidden" id="memberList" name="memberList">
+			<input type="button" id="createChatroom" class="btn_create">생성</a>
+		</form>
 	</div>
-	
 	<div class="mes_my">
-		<b>내프로필</b> 
+		<b>채팅방 인원</b> 
 		<div>
-			<b class="my_profile"><img src="/file/read?mem_profile=${loginInfo.mem_profile}"></b>
+			<div id="inviteList">
+			</div>
 		</div>
-		<ul>
-			<li>${loginInfo.mem_nick}</li>
-		</ul>
 	</div>
 	<div id="follow_count">
 		<!-- follow count ajax -->
@@ -261,14 +252,14 @@ ul {
 		<ul class="mes_friendUl">
 		
 			<c:forEach items="${followingVOs}" var="following">
-				<li class="mes_f_list">
+				<li class="mes_f_list mem_list">
 					<div><b class="my_profile my_profile2"><img src="/file/read?mem_profile=${following.mem_profile}"></b></div>
 					<ul>
-						<li>${following.mem_nick}</li>
+						<li>${following.mem_nick}<input type="hidden" value="${following.mem_nick}"></li>
 						<li>
-							<a href="">쪽지</a>
-							<input type="hidden" value="${following.mem_id}">
-							<input type="button" class="following followBtn" value="팔로잉">
+<!-- 							<a href="">쪽지</a> -->
+							<p><input type="hidden" value="${following.mem_id}"></p>
+<!-- 							<input type="button" class="following followBtn" value="팔로잉"> -->
 						</li>
 					</ul>
 				</li>
@@ -290,21 +281,21 @@ ul {
 						<c:set var="fol_state" value="${fol.fol_state}"/>
 					</c:if>
 				</c:forEach>
-				<li class="mes_f_list">
+				<li class="mes_f_list mem_list">
 					<div><b class="my_profile my_profile2"><img src="/file/read?mem_profile=${follower.mem_profile}"></b></div>
 					<ul>
-						<li>${follower.mem_nick}</li>
+						<li>${follower.mem_nick}<input type="hidden" value="${follower.mem_nick}"></li>
 						<li>
-							<a href="">쪽지</a>
+<!-- 							<a href="">쪽지</a> -->
 							<input type="hidden" value="${follower.mem_id}">
-							<c:choose>
-								<c:when test="${fol_state == 0}">
-									<input type="button" class="follower followBtn" value="팔로우">
-								</c:when>
-								<c:otherwise>
-									<input type="button" class="following followBtn" value="팔로잉">
-								</c:otherwise>
-							</c:choose>
+<%-- 							<c:choose> --%>
+<%-- 								<c:when test="${fol_state == 0}"> --%>
+<!-- 									<input type="button" class="follower followBtn" value="팔로우"> -->
+<%-- 								</c:when> --%>
+<%-- 								<c:otherwise> --%>
+<!-- 									<input type="button" class="following followBtn" value="팔로잉"> -->
+<%-- 								</c:otherwise> --%>
+<%-- 							</c:choose> --%>
 						</li>
 					</ul>
 				</li>

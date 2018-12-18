@@ -193,9 +193,14 @@ function getTimeStamp() {
 					<c:forEach items="memNickList" var="nick">
 						${nick}&nbsp;
 					</c:forEach>
-				</b> ${chatrrom_name}</div>
+				</b>${chatrrom_name}</div>
 			</li>
 		</ul>
+		<form action="/message/exitChatroom">
+			<input type="hidden" name="group_id" value="${group_id}">
+			<input type="hidden" name="mem_id" value="${loginInfo.mem_id}">
+			<input type="submit" id="exit_btn"  value="채팅방 나가기">
+		</form>
 	</div>
 	<div class="mes_con">
 		<c:set var="prev_mem_id" value=""/>
@@ -221,8 +226,5 @@ function getTimeStamp() {
 			<input type="button" id="sendMessage" value="전송">
 		</form>
 	</div>
-	
-	
-	
 </body>
 </html>
