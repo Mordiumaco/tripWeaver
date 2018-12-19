@@ -32,4 +32,18 @@ public interface IHashTagService {
 		*
 	 */
 	List<String> hashtagPostCard(String pc_id);
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 해시태크 인서트
+		*
+	 */
+	int insertHashtag(List<HashTagVO> hashtagList);
 }

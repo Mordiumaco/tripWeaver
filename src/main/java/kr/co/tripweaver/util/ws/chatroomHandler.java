@@ -19,15 +19,16 @@ import com.google.gson.Gson;
 
 import kr.co.tripweaver.mymenu.mypage.message.dao.IMessageDao;
 import kr.co.tripweaver.mymenu.mypage.message.model.MessageVO;
+import kr.co.tripweaver.mymenu.mypage.message.model.ParticipantVO;
 import kr.co.tripweaver.mymenu.mypage.message.service.IMessageService;
 
 @Repository
-public class MessgeHandler extends TextWebSocketHandler {
+public class chatroomHandler extends TextWebSocketHandler {
 	
 	@Autowired
 	private IMessageService messageService;
 	private List<WebSocketSession> connectedMembers = new ArrayList<WebSocketSession>();
-	private Logger logger = LoggerFactory.getLogger(MessgeHandler.class);
+	private Logger logger = LoggerFactory.getLogger(chatroomHandler.class);
 	private Map<String, WebSocketSession> members = new ConcurrentHashMap<String, WebSocketSession>();
 	
 	@Override
@@ -36,40 +37,20 @@ public class MessgeHandler extends TextWebSocketHandler {
 		connectedMembers.add(session);
 		members.put(session.getId(), session);
 	}
-
+	
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		logger.debug("{} 연결 끊김", session.getId());
 		connectedMembers.remove(session);
 		members.remove(session.getId());
 	}
-
+	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		
-		MessageVO messageVO = MessageVO.convertMessage(message.getPayload());
-		
-		//채팅방 id
-		String group_id = messageVO.getGroup_id();
-		
-		//입력한 메세지를 DB에 저장
-		String msg_id = messageService.sendMessage(messageVO);
-		messageVO.setMsg_id(msg_id);
-		
-		if(messageService.selectMessageByMsg_id(msg_id) != null) {
-			messageVO = messageService.selectMessageByMsg_id(msg_id);			
-		}
-		
-		logger.debug("[handleTextMessage] messageVO : {}", messageVO);
-		
-		Iterator<String> sessionIds = members.keySet().iterator();
-		String sessionId = "";
-		Gson gson = new Gson();
-		String jsonMessage = gson.toJson(messageVO);
-		while (sessionIds.hasNext()) {
-			sessionId = sessionIds.next();
-			members.get(sessionId).sendMessage(new TextMessage(jsonMessage));
-		}
+		logger.debug(message.getPayload());
+		List<MessageVO> messageVOs = messageService.selectChatroom(message.getPayload());
+//		session.sendMessage(new TextMessage(messageVOs)); 
+		//현재 수신자에게 몇개의 메세지가 와있는지 디비에서 검색함.
 	}
 
 	@Override

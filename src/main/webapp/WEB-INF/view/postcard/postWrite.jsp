@@ -181,47 +181,48 @@ $(document).ready(function(){
 		<div class="write_wrap">
 			<h1>포스트카드  글쓰기</h1>
 		</div>
-		
-		<div class="write_wrap">
-			<h1>사진을 선택해주세요.</h1>
+		<form method="post" action="/postCard/insertPostcard">
+			<div class="write_wrap">
+				<h1>사진을 선택해주세요.</h1>
+				
+				<ul class="writeUl1">
+					<li><img id="img1" src="/img/no_image.png" ></li>
+					<li><img id="img2" src="/img/no_image.png" ></li>
+					<li><img id="img3" src="/img/no_image.png" ></li>
+					<li><img id="img4" src="/img/no_image.png" ></li>
+				</ul>
+				<ul class="writeUl2">
+					<li>
+						<input id="input_img1" name="att_file_ori_name" type="file">
+						<button type="button" id="btn_delAttach1">&nbsp;X&nbsp;</button>
+					</li>
+					<li>
+						<input id="input_img2" name="att_file_ori_name" type="file">
+						<button type="button" id="btn_delAttach2">&nbsp;X&nbsp;</button>
+					</li>
+					<li>
+						<input id="input_img3" name="att_file_ori_name" type="file">
+						<button type="button" id="btn_delAttach3">&nbsp;X&nbsp;</button>
+					</li>
+					<li>
+						<input id="input_img4" name="att_file_ori_name" type="file">
+						<button type="button" id="btn_delAttach4">&nbsp;X&nbsp;</button>
+					</li>
+				</ul>
+				
+			</div>
 			
-			<ul class="writeUl1">
-				<li><img id="img1" src="/img/no_image.png" ></li>
-				<li><img id="img2"src="/img/no_image.png" ></li>
-				<li><img id="img3" src="/img/no_image.png" ></li>
-				<li><img id="img4" src="/img/no_image.png" ></li>
-			</ul>
-			<ul class="writeUl2">
-				<li>
-					<input id="input_img1" type="file">
-					<button type="button" id="btn_delAttach1">&nbsp;X&nbsp;</button>
-				</li>
-				<li>
-					<input id="input_img2" type="file">
-					<button type="button" id="btn_delAttach2">&nbsp;X&nbsp;</button>
-				</li>
-				<li>
-					<input id="input_img3" type="file">
-					<button type="button" id="btn_delAttach3">&nbsp;X&nbsp;</button>
-				</li>
-				<li>
-					<input id="input_img4" type="file">
-					<button type="button" id="btn_delAttach4">&nbsp;X&nbsp;</button>
-				</li>
-			</ul>
+			<div class="write_wrap">
+				<h1>내용을 적어주세요. <span>해쉬태그는 #으로 구분을 합니다.</span></h1>
+				<textarea placeholder="내용을 적어주세요. #해시태그 #이렇게사용" name="pc_cnt"></textarea>
+				<input type="hidden" name="mem_id" value="${loginInfo.mem_id}"> 
+			</div>
 			
-		</div>
-		
-		<div class="write_wrap">
-			<h1>내용을 적어주세요. <span>해쉬태그는 #으로 구분을 합니다.</span></h1>
-			<textarea placeholder="내용을 적어주세요. #해시태그 #이렇게사용"></textarea>
-		</div>
-		
-		<div class="write_wrap">
-			<input type="submit" class="btn_bd col_01" id="savebutton"  value="작성 완료" />
-			<input type="button" class="btn_bd col_02" onclick="javascript:history.back()" value="취소" />
-		</div>
-	
+			<div class="write_wrap">
+				<input type="submit" class="btn_bd col_01" id="savebutton"  value="작성 완료" />
+				<input type="button" class="btn_bd col_02" onclick="javascript:history.back()" value="취소" />
+			</div>
+		</form>
 	</div>
 	
 	

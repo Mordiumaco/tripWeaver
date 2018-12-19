@@ -150,6 +150,28 @@ ul {
 </style>
 <script src="/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
+	var sock;
+	$(document).ready(function () {
+		connect();
+	});
+	
+	function connect() {
+		sock = new SockJS('/chr');
+		sock.onopen = function() {
+			console.log('onopen : ' + sock);
+			sock.send('${loginInfo.mem_id}');
+		};
+		sock.onmessage = function(event) {
+			var data = event.data;
+			console.log(data);
+			var obj = JSON.parse(data);
+			console.log(obj);
+			appendMessage(obj);
+		};
+		sock.onclose = function() {
+			console.log('onclose');
+		};
+	};
 </script>
 </head>
 <body>
@@ -179,7 +201,7 @@ ul {
 					<a href="/message/chatRoomDetailView?group_id=${chatroom.group_id}&mem_id=${chatroom.mem_id}">
 						<div><img src="/img/icon/message01_icon.png"></div>
 						<ul>
-							<li> <b>${chatroom.chatroom_name}</b> <span><fmt:formatDate value="${chatroom.msg_date}" pattern="yyyy.MM.dd"/></span></li>
+							<li> <b>${chatroom.chatroom_name}&nbsp;인원수 : ${chatroom.cnt} // ${chatroom.rec_cnt}</b> <span><fmt:formatDate value="${chatroom.msg_date}" pattern="yyyy.MM.dd"/></span></li>
 							<li class="chat_con">
 								${chatroom.msg_cnt}
 							</li>

@@ -83,10 +83,33 @@ ul {
 
 <script language="JavaScript" type="text/javascript">
 var sock;
-connect();
+var sock_alram;
+
+
 $(document).ready(function(){ 
+	connect();
+	connect_alram();
+	
+// 	var getRead = function () {
+// 		var deferred = $.Deferred();
+// 		try {
+// 			deferred.resolve();
+// 		} catch (e) {
+// 			deferred.reject(e);
+// 		}
+// 		return deferred.promise();
+// 	}
+// 	getRead().done(function(msg) {
+// 		console.log("msg : " + msg);
+// 		read();	
+// 	});
+	
 	$("#sendMessage").on("click", function() {
-		send();
+		if($("#msg").val() == ''){
+			alert("보낼 메세지를 1자 이상 입력해주세요.");
+		} else {
+			send();
+		}
 	});
 	
     $('.mes_con').css('height', $(window).height()-180); 
@@ -94,6 +117,16 @@ $(document).ready(function(){
         $('.mes_con').css('height', $(window).height()-180); 
     }); 
 	$(".mes_con").scrollTop($(".mes_con")[0].scrollHeight); //스크롤 최하단으로이동
+	
+	$("#msg").keydown(function(e) {
+			if(e.keyCode == 13){
+				if($("#msg").val() == ''){
+					alert("보낼 메세지를 1자 이상 입력해주세요.");
+				} else {
+					send();
+				}
+			}
+	});
 });
 
 function connect() {
@@ -136,16 +169,17 @@ function appendMessage(msg) {
 			html += '<ul><li>';
 			html += '<span class="mes_date mes_dateMy">' + t + '</span></li>';
 			html += '<li class="mes_con_list_text mes_con_list_textMy">';
-			html +=	msg.msg_cnt + '</li><span class="unread">2</span></ul><div>';
+			html +=	msg.msg_cnt + '</li><span id="' + msg.msg_id + '" class="unread">' + msg.unread + '</span></ul><div>';
 		} else {
 			html = '<div class="mes_con_list" >';
 			html += '<h6><img src="/file/read?mem_profile=' + msg.mem_profile + '"></h6>';
 			html += '<ul><li><b>' + msg.mem_nick + '</b>';
 			html += '<span class="mes_date">' + t + '</span></li>';
 			html += '<li class="mes_con_list_text">';
-			html +=	msg.msg_cnt + '</li><span class="unread">2</span></ul><div>';
+			html +=	msg.msg_cnt + '</li><span id="' + msg.msg_id + '" class="unread">' + msg.unread + '</span></ul><div>';
 		}
 	}
+	
 	
 	if(msg == ''){
 		return false;
@@ -153,6 +187,7 @@ function appendMessage(msg) {
 		$('.mes_con').append(html);
 		$(".mes_con").scrollTop($(".mes_con")[0].scrollHeight);
 	}
+	read();
 }
 
 function getTimeStamp() {
@@ -179,6 +214,60 @@ function getTimeStamp() {
    }
    return zero + n;
  }
+
+function connect_alram() {
+	sock_alram = new SockJS('/alram');
+	sock_alram.onopen = function() {
+		console.log('[alram] onopen : ' + sock);
+		read();
+	};
+	sock_alram.onmessage = function(event) {
+		var data = event.data;
+		if(data != '[]'){
+			console.log("[alram] data : " + data);
+			var obj = JSON.parse(data);
+			console.log("[alram] obj : " + obj);
+			updateReciveCount(obj);
+		} else {
+			updateReciveCount('0');
+		}
+	};
+	sock_alram.onclose = function() {
+		console.log('[alram] onclose');
+	}
+}
+//읽음 (채팅방 입장했을경우, 메세지 수신받았을 경우)
+function read() {
+	//채팅방 아이디, 로그인멤버 아이디
+	var participant = new Object();
+	participant.mem_id = '${loginInfo.mem_id}';
+	participant.group_id = '${group_id}';
+	sock_alram.send(JSON.stringify(participant));
+}
+//메세지 읽음인원 수정
+function updateReciveCount(obj) {
+	if(obj == '0'){
+// 		var className = document.getElementsByClassName('unread');
+		var abc = $('.unread').text(0);
+// 		console.log("className : " + className);
+// 		console.log("className.innerText1 : " + className.innerText);
+// 		className.innerText = '여기야여기!!';
+// 		console.log("className.innerText2 : " + className.innerText);
+	} else {
+		for(var i = 0; i < obj.length; i++){
+			console.log("updateReciveCount : " + obj[i].unread + ' : ' + obj[i].msg_id);
+			//obj에서 그룹아이디 가져와서 비교
+			var iii = '' + obj[i].msg_id;
+			var id = document.getElementById(iii);
+			console.log("id : " + id);
+			if(id.innerText != null){
+				id.innerText = '' + obj[i].unread;
+				console.log("id.innerText : " + document.getElementById(iii).innerText);
+			}
+		}
+	}
+}
+
 
 </script>
 </head>
@@ -215,16 +304,14 @@ function getTimeStamp() {
 					<li><c:if test="${msg.mem_id ne loginInfo.mem_id}"><b>${msg.mem_nick}</b></c:if> <span class="mes_date ${msg.mem_id eq loginInfo.mem_id ? 'mes_dateMy' : ''}"><fmt:formatDate value="${msg.msg_date}" pattern="yyyy.MM.dd hh:mm"/></span></li>
 					<li class="mes_con_list_text ${msg.mem_id eq loginInfo.mem_id ? 'mes_con_list_textMy' : ''}">
 						${msg.msg_cnt}
-					</li><span class="unread">${msg.unread}</span> 
+					</li><span id="${msg.msg_id}" class="unread">${msg.unread}</span> 
 				</ul>
 			</div>
 		</c:forEach>
 	</div>
 	<div class="mes_bottom">
-		<form action="/message/send" method="post">
-			<input type="text" id="msg" name="msg">
-			<input type="button" id="sendMessage" value="전송">
-		</form>
+		<input type="text" id="msg" name="msg">
+		<input type="button" id="sendMessage" value="전송">
 	</div>
 </body>
 </html>

@@ -188,6 +188,7 @@ ul {
 				list += inviteListNick[i] + ' ';
 			}
 			console.log(inviteListNick);
+			console.log(inviteListId);
 			
 			$('#inviteList').html(list);
 			
@@ -198,6 +199,7 @@ ul {
 			for(var i = 0; i < inviteListId.length; i++){
 				memberList += inviteListId[i] + ';';
 			}
+			console.log('memberList : ' + memberList);
 			$('#memberList').val(memberList);
 			$('#frm').submit();
 		});

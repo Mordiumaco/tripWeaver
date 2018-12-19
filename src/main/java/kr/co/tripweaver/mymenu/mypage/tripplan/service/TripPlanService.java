@@ -145,4 +145,18 @@ public class TripPlanService implements ITripPlanService{
 		
 		return clusterList;
 	}
+	
+	/**
+	* Method : selectClusterListBySearch
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 18.
+	* 변경이력 :
+	* @param searchMap
+	* @return
+	* Method 설명 : 검색 조건에 통해 얻어낸 조건들을 맵을 통해 보내서 해당 조건에 만족하는 클러스터 리스트를 뽑아온다.
+	*/
+	public List<ClusterVO> selectClusterListBySearch(Map<String, String> searchMap){
+		return tripPlanDao.selectClusterListBySearch(searchMap);
+	}
+	
 }

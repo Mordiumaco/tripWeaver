@@ -26,8 +26,12 @@
 	
 	<!-- websocket -->
 	<bean id="messageHandler" class="kr.co.tripweaver.util.ws.MessgeHandler"/>
+	<bean id="alramHandler" class="kr.co.tripweaver.util.ws.AlramHandler"/>
+	<bean id="chatroomHandler" class="kr.co.tripweaver.util.ws.chatroomHandler"/>
 	<websocket:handlers>
 		<websocket:mapping handler="messageHandler" path="/message"/>
+		<websocket:mapping handler="alramHandler" path="/alram"/>
+		<websocket:mapping handler="chatroomHandler" path="/chr"/>
 		<websocket:sockjs/>
 	</websocket:handlers>
 	

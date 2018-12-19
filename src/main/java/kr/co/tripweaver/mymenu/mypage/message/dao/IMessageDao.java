@@ -156,4 +156,24 @@ public interface IMessageDao {
 	* Method 설명 : 새로운 채팅방을 만들때 채팅구성원을 생성해주는 메서드
 	 */
 	public int insertParticipant(ParticipantVO participantVO);
+	
+	/**
+	* Method : selectGroupMsgCount
+	* 작성자 : jin
+	* 변경이력 :
+	* @param group_id
+	* @return
+	* Method 설명 : 해당 채팅방의 메세지들의 현재 unread수를 반환하는 메서드
+	 */
+	public List<MessageVO> selectGroupMsgCount(String group_id);
+	
+	/**
+	* Method : deleteMsgReciver
+	* 작성자 : jin
+	* 변경이력 :
+	* @param participantVO
+	* @return
+	* Method 설명 : 채팅방 입장시 메세지 수신여부 삭제하는 메서드
+	 */
+	public int deleteMsgReciver(ParticipantVO participantVO);
 }

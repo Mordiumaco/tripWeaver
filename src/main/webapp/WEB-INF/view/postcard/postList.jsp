@@ -7,6 +7,30 @@
 
 <script type="text/javascript">
 
+/* 포스트카드 내용에 a태그 추가하기  */
+function alinkSplite(thisClick) {
+
+	var content = $(thisClick[0]).siblings('.content').text();  // html 안에 'content'라는 아이디를 content 라는 변수로 정의한다.
+
+	var splitedArray = content.split(' '); // 공백을 기준으로 문자열을 자른다.
+
+	var linkedContent = '';
+	for(var word in splitedArray)
+	{
+	  word = splitedArray[word];
+	  
+	   if(word.indexOf('#') == 0) // # 문자를 찾는다.
+	   {
+		   var word1 = word.substring(0, word.lastIndexOf('#'));
+		   var word2 = word.substring(word.lastIndexOf('#'));
+		   word = word1 + '<a>'+word2+'</a>';
+	   }
+	   linkedContent += word+' ';
+	}
+	$(thisClick[0]).siblings('.content').html(linkedContent);
+};
+
+/* 화면 상단으로 이동 */
 $(function() {
     $("#top_btn").on("click", function() {
         $("html, body").animate({scrollTop:0}, '500');
@@ -14,7 +38,7 @@ $(function() {
     });
 });
 
-
+/* 이미지 슬라이드 */
 $(document).ready(function(){
 	  $('.flexslider2').flexslider({
 	    animation: "slide",
@@ -23,6 +47,7 @@ $(document).ready(function(){
 	  });
 	});
 
+/* 스크롤바 길이 잡아오기  */
 $(window).scroll(function () {
 	var height = $(document).scrollTop();
 
@@ -39,6 +64,7 @@ $(window).scroll(function () {
 	
 });
 
+/* 해시태그 클릭시 검색기에 값 넣어주고 검색 실행 */
 $(function() {
 	$('.hashTaglink').on('click','a',function (){
 		var link = $(this).text();
@@ -54,12 +80,13 @@ $(function() {
 			
 });
 
+/* 내용 댓글 더보기 기능  */
 $(document).ready(function(){
 	$('.postli5_con').hide();
 	
 	$('.postli5').on('click','.more_btn',function () {
-		
 		$(this).siblings('.postli5_con').show('100');
+		alinkSplite($(this));
 		$(this).addClass('more_btn2');
 
 	});  
@@ -80,6 +107,7 @@ $(document).ready(function(){
 	
 }); 
 
+/* 페이스북 링크 공유  */
 (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
@@ -145,7 +173,7 @@ $(function() {
 	
 });
 
-
+// 좋아요 추가 아작스
 function likeAddAjax(thisVar){
 	var like_heart = "";
 	var comment = "";
@@ -171,6 +199,7 @@ function likeAddAjax(thisVar){
 	});	
 };
 
+// 좋아요 삭제 아작스
 function likeDelAjax(thisVar){
 	var like_heart = "";
 	var comment = "";
@@ -197,6 +226,7 @@ function likeDelAjax(thisVar){
 	});	
 };
 
+// 포스트 카드 삭제 아작스
 function postcardDelAjax(thisVar) {
 	$.ajax({
 	  	url : "/postCard/postcardDelete",
@@ -241,9 +271,9 @@ function postcardDelAjax(thisVar) {
 .fb_iframe_widget span { display: contents;}
 .postcardDelete { cursor: pointer;}
 
+.content a { color: #0064ff; }
+
 </style>
-
-
 	
 	<div class="postSearch" id="postSearch">
 		<div class="pbgfb Di7vw " role="button" tabindex="0">
@@ -256,7 +286,12 @@ function postcardDelAjax(thisVar) {
 				</form>
 			</div>
 			<div class="eyXLr wUAXj ">
-				<a href="/postCard/postWrite">글쓰기</a>
+				<c:choose>
+					<c:when test="${loginInfo.mem_id != null}">
+						<a href="/postCard/postWrite">글쓰기</a>
+					</c:when>
+				</c:choose>
+				
 			</div>
 		</div>
 	</div>
@@ -350,9 +385,7 @@ function postcardDelAjax(thisVar) {
 							<li class="likeNumLi">좋아요 <b class="likeNum">${pcl.pc_like_count}</b>개</li>
 							<li class="postli5">
 								내용 <b class="more_btn">보기 +</b>
-								<div class="postli5_con">
-									${pcl.pc_cnt}
-								</div>
+								<div class="postli5_con content">${pcl.pc_cnt}</div>
 							</li>
 							<li class="hashTaglink">
 								

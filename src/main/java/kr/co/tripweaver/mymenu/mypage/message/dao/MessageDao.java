@@ -104,8 +104,21 @@ public class MessageDao implements IMessageDao {
 
 	@Override
 	public int insertParticipant(ParticipantVO participantVO) {
+		System.out.println("insertParticipant : " + participantVO);
 		int intCnt = template.insert("messageSQL.insertParticipant", participantVO);
 		return intCnt;
+	}
+
+	@Override
+	public List<MessageVO> selectGroupMsgCount(String group_id) {
+		List<MessageVO> messageVOs = template.selectList("messageSQL.selectGroupMsgCount", group_id);
+		return messageVOs;
+	}
+
+	@Override
+	public int deleteMsgReciver(ParticipantVO participantVO) {
+		int delCnt = template.delete("messageSQL.deleteMsgReciver", participantVO);
+		return delCnt;
 	}
 
 }
