@@ -50,9 +50,15 @@
 		UPDATE postcard
 		set pc_cnt = #{pc_cnt}
 		where PC_ID = #{pc_id}
-		and MEM_ID = #{mem_id}
 	</update>
 	
+	<!-- 포스트카드 해당 게시글 내용 잡아오기 -->
+	<select id="selectPostcard" parameterType="String" resultType="postcardVo">
+		SELECT
+		    *
+		FROM postcard
+		where PC_ID = #{pc_id}
+	</select>
 	
 	
 </mapper>

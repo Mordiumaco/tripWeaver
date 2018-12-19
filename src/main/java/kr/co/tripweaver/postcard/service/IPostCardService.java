@@ -47,4 +47,32 @@ public interface IPostCardService {
 		*
 	 */
 	public int insertPostcard(PostCardVO postcardVo);
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 포스트 업데이트
+		*
+	 */
+	public int updatePostcard(PostCardVO postcardVo);
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 해당 게시글 가져오기
+		*
+	 */
+	public PostCardVO selectPostcard(String pc_id);
 }

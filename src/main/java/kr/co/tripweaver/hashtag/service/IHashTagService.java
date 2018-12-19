@@ -46,4 +46,18 @@ public interface IHashTagService {
 		*
 	 */
 	int insertHashtag(List<HashTagVO> hashtagList);
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 해시태크 삭제
+		*
+	 */
+	int deleteHasgtag(String pc_id);
 }

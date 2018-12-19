@@ -22,6 +22,7 @@
  	<typeAlias type="kr.co.tripweaver.mymenu.mypage.tripplan.model.MypageTripPlanForListVO" alias="mypageTripPlanForListVo"/>
  	<typeAlias type="kr.co.tripweaver.common.like.model.LikeVO" alias="likeVo"/>
  	<typeAlias type="kr.co.tripweaver.mymenu.mypage.tripplan.model.ClusterVO" alias="clusterVo"/>
+ 	<typeAlias type="kr.co.tripweaver.common.comment.model.CommentVO" alias="commentVo"/>
 
  </typeAliases>	
 	
@@ -39,5 +40,6 @@
   	<mapper resource="kr/co/tripweaver/config/db/postcard.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/hashtag.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/like.xml"/>
+  	<mapper resource="kr/co/tripweaver/config/db/comment.xml"/>
   </mappers>
 </configuration>

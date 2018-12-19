@@ -35,4 +35,11 @@
 		)
 	</insert>
 	
+	<!-- 해시태그 삭제 -->
+	<delete id="deleteHasgtag" parameterType="String">
+		DELETE 
+		FROM HASHTAG
+		where pc_id = #{pc_id}
+	</delete>
+	
 </mapper>

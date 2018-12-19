@@ -21,9 +21,9 @@ function alinkSplite(thisClick) {
 	  
 	   if(word.indexOf('#') == 0) // # 문자를 찾는다.
 	   {
-		   var word1 = word.substring(0, word.lastIndexOf('#'));
-		   var word2 = word.substring(word.lastIndexOf('#'));
-		   word = word1 + '<a>'+word2+'</a>';
+		   var word1 = word.substring(1, word.lastIndexOf('#'));
+		   var word2 = word.substring(word.lastIndexOf('#')+1);
+		   word = word1 + '<span>#<a>'+word2+'</a></span>';
 	   }
 	   linkedContent += word+' ';
 	}
@@ -72,11 +72,18 @@ $(function() {
 		$("#frm").submit();	
 	});
 	
-	$('.hashTagList').on('click','a',function (){
+ 	$('.hashTagList').on('click','a',function (){
+		var link = $(this).text();
+		$('#hashTagSearch').val(link);
+		$("#frm").submit();	
+	}); 
+	
+	$('.content').on('click','a',function (){
 		var link = $(this).text();
 		$('#hashTagSearch').val(link);
 		$("#frm").submit();	
 	});
+	
 			
 });
 
@@ -169,9 +176,67 @@ $(function() {
 			return;
 		}
 		
-	})
+	});
 	
-});
+	// 포스트 카드 삭제 수정 처리 부분
+	$('.postli_r').on('click','.postcardUdate', function() {
+		var pc_id = $(this).siblings('#pc_id').val();
+		$('#postcardUpdateFrm').children('#pc_id').val(pc_id);	
+		$('#postcardUpdateFrm').submit();
+	});
+	
+	// 댓글쓰기
+	
+	$('.postCard_con').on('click','#com_btn', function() {
+		if(${loginInfo.mem_id != null}){
+			var comt_cnt = $(this).siblings('#comt_cnt').val();
+			var comt_rel_art_id = $(this).siblings('#comt_rel_art_id').val();
+			var mem_nick = $(this).parents('.postCard_con').find('#mem_nick').val();
+			$('#commentInsertFrm').children('#comt_cnt').val(comt_cnt);
+			$('#commentInsertFrm').children('#comt_rel_art_id').val(comt_rel_art_id);
+			$('#commentInsertFrm').children('#mem_nick').val(mem_nick);
+			
+			var thisVar = $(this);
+			commentInsertAjax(thisVar);
+			$(this).siblings('#comt_cnt').val('');
+		}else{   
+			alert('로그인을 해주세요.');
+		} 
+		
+	});
+	
+	// 댓글 삭제
+	$('.postCard_con').on('click','.commentDel', function() {
+		var comt_id = $(this).siblings('#comt_id').val();
+		$('#commentDeleteFrm').children('#comt_id').val(comt_id);
+		
+		var thisVar = $(this);
+		commentDeleteAjax(thisVar);
+	});
+	
+	// 댓글 수정
+	$('.postCard_con').on('click','.commentUpdate', function() {
+		var comt_id = $(this).siblings('#comt_id').val();
+		var comt_cntup = $(this).closest('.comment_mam').find('span').text();
+
+		$(this).closest('.postCard_con').find('#comt_cnt').val(comt_cntup);   
+		$(this).closest('.postCard_con').find('#com_btn').addClass('com_btnup');
+		$(this).closest('.postCard_con').find('.com_btnup').attr('id', 'newID');
+		
+		var thisVar = $(this);
+		
+		$('.postCard_con').on('click','.com_btnup', function() {
+			var comt_cnt = $(this).siblings('#comt_cnt').val();
+			
+			$('#commentUpdateFrm').children('#comt_id').val(comt_id);
+			$('#commentUpdateFrm').children('#comt_cnt').val(comt_cnt);
+			
+			commentUpdateAjax(thisVar);
+			
+		});
+	});
+	    
+}); 
 
 // 좋아요 추가 아작스
 function likeAddAjax(thisVar){
@@ -195,7 +260,7 @@ function likeAddAjax(thisVar){
 	    	thisVar.parents('.postli_l2').append(comment);
 			thisVar.parents('.postli_l2').children('.likeAdd').remove();
 
-	    }
+	    } 
 	});	
 };
 
@@ -238,6 +303,68 @@ function postcardDelAjax(thisVar) {
 	});
 }
 
+// 댓글 추가 아작스
+function commentInsertAjax(thisVar) {
+	$.ajax({
+	  	url : "/postCard/insertComment",
+	    type: "POST",
+	    data: $('#commentInsertFrm').serialize(),
+	    dataType :"json",
+	    success : function(data){
+	    	console.log(typeof data);
+	    	console.log(data.comt_cnt);
+	    	
+	    	var div = '';
+	    	div += "<div class='comment_mam'>";
+	    	div += "<b>"+ data.mem_nick +"</b> : " + data.comt_cnt ;
+    		div += "<ul>";
+   			div += "<li>";
+			div += "<a class='bbtn_01'>수정</a>";
+  			div += "</li>";
+ 			div += "<li><a class='bbtn_02'>삭제</a></li>";
+  			div += "</ul>";
+ 			div += "</div>";
+ 			div += "<br/>";
+ 			
+ 			var text = $(thisVar).parents('.postCard_con').find('.Post_comment');
+ 			
+ 			$(div).appendTo(text);
+	    }
+	});
+}	
+
+// 댓글 삭제 아작스
+function commentDeleteAjax(thisVar) {
+	$.ajax({
+	  	url : "/postCard/deleteComment",
+	    type: "POST",
+	    data: $('#commentDeleteFrm').serialize(),
+	    success : function(data){
+	    	console.log(typeof data);
+	    	console.log(data.comt_cnt);
+	    
+	    	$(thisVar).parents('.comment_mam').remove();
+	    }
+	});
+}
+
+//댓글 수정 아작스
+function commentUpdateAjax(thisVar) {
+	$.ajax({
+	  	url : "/postCard/updateComment",
+	    type: "POST",
+	    data: $('#commentUpdateFrm').serialize(),
+	    success : function(data){
+	    	console.log(data.comt_cnt);
+	    	$(thisVar).closest('.comment_mam').find('span').text(data.comt_cnt);
+	    	
+	    	$(thisVar).closest('.postCard_con').find('#comt_cnt').val('');
+	    	$(thisVar).closest('.postCard_con').find('#newID').removeClass('com_btnup');
+			$(thisVar).closest('.postCard_con').find('#newID').attr('id', 'com_btn');
+
+	    }
+	});
+}
 </script>
 
 		
@@ -271,8 +398,13 @@ function postcardDelAjax(thisVar) {
 .fb_iframe_widget span { display: contents;}
 .postcardDelete { cursor: pointer;}
 
-.content a { color: #0064ff; }
+.content a { color: #0064ff; cursor: pointer; }
+.content span { color:#0064ff; }
 
+.postli_r a { cursor: pointer;}
+
+.comment_mam { padding: 6px 2px;}
+.comment_mam span { display: inline-block !important;}
 </style>
 	
 	<div class="postSearch" id="postSearch">
@@ -300,7 +432,7 @@ function postcardDelAjax(thisVar) {
 		
 		<div class="post_left_wrap" id="post_left_wrap">
 			
-			<c:forEach items="${postCardList}" var="pcl">
+			<c:forEach items="${postCardList}" var="pcl" >
 				<c:choose>
 					<c:when test="${pcl.pc_del == 'N'}">	
 						<ul class="postCard_con">
@@ -309,7 +441,7 @@ function postcardDelAjax(thisVar) {
 								<c:choose>
 									<c:when test="${loginInfo.mem_id == pcl.mem_id}">
 										<div class="postli_r">
-											<a href="">수정</a> 
+											<a class="postcardUdate" >수정</a> 
 											<a class="postcardDelete">삭제</a>
 											<input type="hidden" id="pc_id" name="pc_id" value="${pcl.pc_id}">
 										</div>
@@ -325,16 +457,16 @@ function postcardDelAjax(thisVar) {
 										<div class="flexslider2">
 										  <ul class="slides">
 										    <li>
-										      	<img src="/img/main_01.jpg">
+										      	<img src="/img/no_image.png">
 										    </li>
 										    <li>
-										      	<img src="/img/main_01.jpg">
+										      	<img src="/img/no_image.png">
 										    </li>
 										    <li>
-										      	<img src="/img/main_01.jpg">
+										      	<img src="/img/no_image.png">
 										    </li>
 										    <li>
-										      	<img src="/img/main_01.jpg">
+										      	<img src="/img/no_image.png">
 										    </li>
 										  </ul>
 										</div>
@@ -398,15 +530,46 @@ function postcardDelAjax(thisVar) {
 								댓글 <b class="more_btn">보기 +</b>
 								<div class="postli5_con">
 									<span class="Post_comment">
-										<b>회원 아이디</b> : 댓글 입니다. 1 
-										<ul>
-											<li><a class="bbtn_01">수정</a></li>
-											<li><a class="bbtn_02">삭제</a></li>
-										</ul>
+										<c:choose>
+											<c:when test="${pcl.commentList.size() != 0}">
+												<c:forEach items="${pcl.commentList}" var="com" varStatus="comNum">
+													<c:choose>
+														<c:when test="${com.comt_del == 'N' }">
+															<div class="comment_mam">
+																<b>${com.mem_nick}</b> : <span>${com.comt_cnt}</span>
+																<input type="hidden" id="mem_nick" name="mem_nick" value="${com.mem_nick}"> 
+																<c:choose>
+																	<c:when test="${loginInfo.mem_id == com.mem_id}">
+																		<ul>
+																			<li>
+																				<a class="bbtn_01 commentUpdate">수정</a>
+																				<input type="hidden" id="comt_id" name="comt_id" value="${com.comt_id}">
+																			</li>
+																			<li>
+																				<a class="bbtn_02 commentDel">삭제</a>
+																				<input type="hidden" id="comt_id" name="comt_id" value="${com.comt_id}">
+																			</li>
+																			
+																		</ul>
+																	</c:when>
+																</c:choose>
+															</div>
+														</c:when>
+													</c:choose>
+												</c:forEach>
+											</c:when>
+											<c:otherwise>
+												<div>댓글이 없습니다.</div>
+											</c:otherwise>
+										</c:choose>
 									</span>
 								</div>
 							</li>
-							<li><input type="text" placeholder="댓글달기..."><button type="button">작성</button> <a>ㆍㆍㆍ</a></li>
+							<li>
+								<input id="comt_cnt" name="comt_cnt" type="text" placeholder="댓글달기...">
+								<button id="com_btn" type="button">작성</button> <a>ㆍㆍㆍ</a>
+								<input type="hidden" id="comt_rel_art_id" name="comt_rel_art_id" value="${pcl.pc_id}">
+							</li>
 						</ul>
 					</c:when>
 				</c:choose>
@@ -475,5 +638,31 @@ function postcardDelAjax(thisVar) {
 		<input type="hidden" id="pc_id" name="pc_id" value="">
 		<input type="hidden" id="mem_id" name="mem_id" value="${loginInfo.mem_id}">
 	</form>
+	
+	<%-- 포스트 카드 수정 --%>
+	<form method="post" id="postcardUpdateFrm" action="/postCard/postUpdate">
+		<input type="hidden" id="pc_id" name="pc_id" value="">
+		<input type="hidden" id="mem_id" name="mem_id" value="${loginInfo.mem_id}">
+	</form>
+	
+	<%-- 댓글 작성 --%>
+	<form method="post" id="commentInsertFrm" >
+		<input type="hidden" id="comt_cnt" name="comt_cnt" value="">
+		<input type="hidden" id="comt_rel_art_id" name="comt_rel_art_id" value="">
+		<input type="hidden" id="mem_id" name="mem_id" value="${loginInfo.mem_id}">
+		<input type="hidden" id="filter_id" name="filter_id" value="postcard">
+		<input type="hidden" id="mem_nick" name="mem_nick" value="">
+	</form>
+	
+	<%-- 댓글 수정 --%>
+	<form method="post" id="commentUpdateFrm" >
+		<input type="hidden" id="comt_id" name="comt_id" value="">
+		<input type="hidden" id="comt_cnt" name="comt_cnt" value="">
+	</form>
+	<%-- 댓글 삭제 --%>
+	<form method="post" id="commentDeleteFrm" >
+		<input type="hidden" id="comt_id" name="comt_id" value="">
+	</form>
+	
 	
 <%@include file="../tail.jsp" %>
