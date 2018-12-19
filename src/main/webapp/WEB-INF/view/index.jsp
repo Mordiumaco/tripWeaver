@@ -35,29 +35,45 @@ $(document).ready(function () {
 	<div class="filter">
 		<ul>
 			<li>
-				<select>
-					<option>테마</option>
+				<select name="theme">
+					<option value="">테마</option>
+					<c:forEach items="${themeList}" var="theme" varStatus="i">
+						<option value="${i.index+1}">${theme}</option>
+					</c:forEach>
 				</select>
 			</li>
 			<li>
-				<select>
-					<option>시즌</option>
+				<select name="season">
+					<option value="">시즌</option>
+					<c:forEach items="${seasonList}" var="season" varStatus="i">
+						<option value="${i.index+1}">${season}</option>
+					</c:forEach>
 				</select>
 			</li>
 			<li>
-				<select>
-					<option>가격</option>
+				<select name="price">
+					<option value="">가격</option>
+					<option value="10000~100000" >1~10만</option>
+					<option value="100000~300000">10~30만</option>
+					<option value="300000~500000">30~50만</option>
+					<option value="500000~700000">50~70만</option>
+					<option value="700000~1000000">70~100만</option>
+					<option value="1000000~">100만~</option>
 				</select>
 			</li>
 			<li>
-				<select>
-					<option>구성원별</option>
+				<select name="peoType">
+					<option value="">구성원별</option>
+					<c:forEach items="${peotypeList}" var="peotype" varStatus="i">
+						<option value="${i.index+1}">${peotype}</option>
+					</c:forEach>
 				</select>
 			</li>
 			<li>
-				<input type="text" placeholder="지역을 적어주세요.">
-				<input type="submit"  value="검색"> 
+				<input id="searchText" type="text" placeholder="지역을 적어주세요.">
+				<input type="submit"  value="검색" onclick="onSearching();"> 
 			</li>
+			
 			<li>
 				<a href="/main/essay_write">Essay 글쓰기</a>
 			</li>
@@ -76,6 +92,8 @@ $(document).ready(function () {
 	        return true;
 	    }
 	
+	   
+	    
 		var container = document.getElementById('map');
 		var options = {
 		   center : new daum.maps.LatLng(35.7683, 128.708), // 지도의 중심좌표
@@ -117,8 +135,12 @@ $(document).ready(function () {
 						//1. 기존 리스트를 삭제 
 						//2. data를 이용하여 table 태그(tr) 작성
 						//3. 기존 리스트 위치에다가 붙여 넣기
+						
+						var bounds = new daum.maps.LatLngBounds();
 						console.log(data);
 				        var markers = $(data.clusterList).map(function(i, clusterInfo) {
+				        	
+				        	bounds.extend(new daum.maps.LatLng(clusterInfo.mapmark_y_coor, clusterInfo.mapmark_x_coor));
 				        	
 				            return new daum.maps.Marker({
 				            	image: markerImage, // 마커이미지 설정 
@@ -128,6 +150,7 @@ $(document).ready(function () {
 				        });
 				        // 클러스터러에 마커들을 추가합니다
 				        clusterer.addMarkers(markers);
+				        map.setBounds(bounds);
 					}
 				}); 
 		    }
@@ -220,33 +243,33 @@ $(document).ready(function () {
 			        	    var essayContent ="";
 			    			let theme = "";
 			    			switch(clusterInfo.tripplan_theme){
-				    			case "1" : theme = "봄";
+				    			case "1" : theme = "먹거리";
 				    			break;
-				    			case "2" : theme = "여름";
+				    			case "2" : theme = "레저";
 				    			break;
-				    			case "3" : theme = "가을";
+				    			case "3" : theme = "쇼핑";
 				    			break;
-				    			case "4" : theme = "겨울";
+				    			case "4" : theme = "자연";
 				    			break;
-				    			case "5" : theme = "무관";
+				    			case "5" : theme = "문화";
+				    			break;
+				    			case "6" : theme = "축제";
 				    			break;
 			    			}
 			    			
 			    			let season = "";
 			    			switch(clusterInfo.tripplan_season){
-			    			
-				    			case "1" : season = "먹거리";
+				    			case "1" : season = "봄";
 				    			break;
-				    			case "2" : season = "레저";
+				    			case "2" : season = "여름";
 				    			break;
-				    			case "3" : season = "쇼핑";
+				    			case "3" : season = "가을";
 				    			break;
-				    			case "4" : season = "자연";
+				    			case "4" : season = "겨울";
 				    			break;
-				    			case "5" : season = "문화";
+				    			case "5" : season = "무관";
 				    			break;
-				    			case "6" : season = "축제";
-				    			break;
+				    			
 		    				}
 			    			
 			    			let peo_type = "";
@@ -293,6 +316,72 @@ $(document).ready(function () {
 	        
 	    });
 	    
+	    
+	    function onSearching(){
+	    	
+	    	let theme = document.getElementsByName("theme")[0];
+	    	let season = document.getElementsByName("season")[0];
+	    	let peoType = document.getElementsByName("peoType")[0];
+	    	let price = document.getElementsByName("price")[0];
+	    	
+	    	
+	    	let themeValue = encodeURI(theme.options[theme.selectedIndex].value);
+	    	let seasonValue = encodeURI(season.options[season.selectedIndex].value);
+	    	let peoTypeValue = encodeURI(peoType.options[peoType.selectedIndex].value);
+	    	let priceValue = encodeURI(price.options[price.selectedIndex].value);
+	    	let searchValue = encodeURI($("#searchText").val().replace(/\s\s+/g, ' '));
+	    	
+	    	console.log(themeValue);
+	    	console.log(seasonValue);
+	    	console.log(peoTypeValue);
+	    	console.log(priceValue);
+	    	console.log(searchValue);
+	    	
+	    	clusterer.clear();
+	    	
+	    	$.ajax({
+				type: "GET",
+				url:"/main/searchAjax",
+				data : "seasonValue="+seasonValue+"&themeValue="+themeValue+"&peoTypeValue="+peoTypeValue+"&priceValue="+priceValue+"&searchValue="+searchValue,
+				success : function(data){
+				   
+				   console.log(data);
+				   if(data.clusterList.length == 0){
+					   console.log("여기로 들어와따");
+					   $("#essay_list_ul").html("");
+					   var essayContent ="";
+						essayContent += '<li class="essay_list">';
+			            essayContent += '<div class="essay_img">';
+			            essayContent += '</div>';
+			            essayContent += '<ul class="essay_info">';
+			            essayContent += '<li><h6><span>검색 결과 값이 존재하지 않습니다.</span></h6></li>';
+			            essayContent += '<li></li>';
+			            essayContent += '<li></li>';
+			            essayContent += '</ul>';
+			            essayContent += '</a>';
+			            essayContent += '</li>';
+						$("#essay_list_ul").append(essayContent);
+					   return;
+				   }
+				   
+				   var bounds2 = new daum.maps.LatLngBounds();
+				   var markers = $(data.clusterList).map(function(i, clusterInfo) {
+			        	
+					   bounds2.extend(new daum.maps.LatLng(clusterInfo.mapmark_y_coor, clusterInfo.mapmark_x_coor));
+					   
+			            return new daum.maps.Marker({
+			            	image: markerImage, // 마커이미지 설정 
+			                position : new daum.maps.LatLng(clusterInfo.mapmark_y_coor, clusterInfo.mapmark_x_coor)
+			            });
+			            
+			            
+			        });
+			        // 클러스터러에 마커들을 추가합니다
+			        clusterer.addMarkers(markers);
+			        map.setBounds(bounds2);
+				}
+	    	})
+	    }
 	    
 	</script>
 	

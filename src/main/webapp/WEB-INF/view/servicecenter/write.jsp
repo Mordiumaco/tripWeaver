@@ -94,13 +94,13 @@ $(document).ready(function(){
 <div class="main_con" id="main_con">
 
 <div id="container">
-	<form action="/board/insertBoard" method="post" id="frm" enctype="multipart/form-data">
+	<form action="/article/insertArticle" method="post" id="frm" enctype="multipart/form-data">
 	
 
 	<div class="write_warp">
-		<select name="nt_id">
-			<c:forEach items="${menuList}" var="ml">
-				<option value="${ml.nt_id}">${ml.nt_name}</option>
+		<select name="board_id">
+			<c:forEach items="${boardList}" var="boardVo">
+				<option value="${boardVo.board_id}">${boardVo.board_title}</option>
 			</c:forEach>
 		</select>
 	</div>
@@ -108,7 +108,7 @@ $(document).ready(function(){
 	<div class="write_warp">
 		<ul class="write_warpL">
 			<li><b>비밀글 &nbsp;&nbsp;: </b></li>
-			<input type="checkbox" value="" >
+			<input type="checkbox" name="art_secret" >
 		</ul>
 	</div>
 	
@@ -125,13 +125,13 @@ $(document).ready(function(){
 	<div class="write_warp">
 		<ul class="write_warpL">
 			<li><b>제목  &nbsp;&nbsp;: </b></li>
-			<li><input id="po_subject" name="po_subject" type="text"></li>
+			<li><input id="art_title" name="art_title" type="text"></li>
 		</ul>
 	</div>
 	
 	<div class="write_warp">
 		<h3>내용</h3><br/>
-			<textarea name="smarteditor" id="smarteditor" rows="10" cols="100" style="width:100%; height:500px;"></textarea> 
+			<textarea name="art_cnt" id="smarteditor" rows="10" cols="100" style="width:100%; height:500px;"></textarea> 
 	</div>
 	
 		

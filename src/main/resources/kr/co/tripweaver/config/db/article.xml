@@ -4,8 +4,38 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="articleSQL">
 
-<insert parameterType="articleVo" id="insertArticle"> insert into article (art_id, art_title, art_cnt, art_groupid, art_date, art_secret, art_del, board_id, mem_id, art_par_id) 
-values(art_seq.nextval, #{art_title}, #{art_cnt}, #{art_groupid}, sysdate, #{art_secret}, 'N', #{board_id}, #{mem_id}, #{art_par_id}) 
+<!-- 게시글 페이지 리스트 -->
+<select resultType="articleVo" parameterType="Map" id="articlePagingList">
+select * from
+( 
+    select rownum as rnum, a.* from 
+    ( 
+        select art_id , LPAD('　▶　', (level-1)*4, '　　') || art_title as art_title 
+             , art_groupid , art_date , art_secret , art_del , mem_id , art_par_id
+        from article 
+        where board_id = #{board_id} 
+        and ${search} like '%' || #{searchWord} || '%' start with art_par_id is null connect by prior art_id = art_par_id 
+        order siblings by art_groupid desc, art_date asc
+    ) a
+) 
+where rnum between #{pageVo.page}*#{pageVo.pageSize}-(#{pageVo.pageSize}-1) and #{pageVo.page}*#{pageVo.pageSize}
+</select>
+
+<!-- 게시글 총 갯수 -->
+<select resultType="int" parameterType="map" id="getArticleCnt"> 
+	select count(*) from article 
+	where board_id=#{board_id} 
+	and ${search} like '%' || #{searchWord} || '%' 
+</select>
+
+
+<insert parameterType="articleVo" id="insertArticle"> 
+insert into article (art_id, art_title, art_cnt, art_groupid, art_date, art_secret, art_del, board_id, mem_id, art_par_id) 
+values('art'||LPAD(art_seq.nextval, 5,'0'), #{art_title}, #{art_cnt}, art_seq.currval, sysdate, #{art_secret}, 'N', #{board_id}, #{mem_id}, null)
+<selectKey resultType="String" keyProperty="art_id" order="AFTER">
+        SELECT ('art'||LPAD(art_seq.currval, 5,'0')) from dual
+</selectKey>         
 </insert>	
+
 	
 </mapper>

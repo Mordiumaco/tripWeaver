@@ -1,6 +1,9 @@
 package kr.co.tripweaver.main.web;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -28,8 +31,31 @@ public class MainController {
 	ITripPlanService tripPlanService;
 	
 	@RequestMapping("/main")
-	public String mainView() {
+	public String mainView(Model model) {
 		
+		List<String> seasonList = new ArrayList<String>();
+		String[] season = {"봄", "여름", "가을", "겨울", "무관"};
+		
+		for(String str : season) {
+			seasonList.add(str);
+		}
+		
+		List<String> themeList = new ArrayList<String>();
+		String[] theme = {"먹거리","레저","쇼핑","자연","문화","축제"};
+		for(String str : theme) {
+			themeList.add(str);
+		}
+		
+		List<String> peotypeList = new ArrayList<String>();
+		String[] peotype = {"혼자","커플","친구","가족","단체","여자끼리","남자끼리"};
+		for(String str : peotype) {
+			peotypeList.add(str);
+		}
+		
+		
+		model.addAttribute("seasonList", seasonList);
+		model.addAttribute("themeList", themeList);
+		model.addAttribute("peotypeList",peotypeList);
 		
 		return "index";
 	}
@@ -55,6 +81,82 @@ public class MainController {
 		logger.debug("markers : {}" ,  markers);
 		
 		List<ClusterVO> clusterList = tripPlanService.selectClusterListByXY(markers);
+		
+		model.addAttribute("clusterList", clusterList);
+		
+		return "jsonView";
+	}
+	
+	@RequestMapping("/searchAjax")
+	public String mainSearchAjax(String themeValue, String seasonValue, String peoTypeValue, String priceValue, String searchValue, Model model) {
+		
+		logger.debug("themeValue : {}" ,  themeValue);
+		logger.debug("seasonValue : {}" ,  seasonValue);
+		logger.debug("peoTypeValue : {}" ,  peoTypeValue);
+		logger.debug("priceValue : {}" ,  priceValue);
+		logger.debug("searchValue : {}" ,  searchValue);
+		
+		Map<String, String> searchMap = new HashMap<>();
+		
+		String priceMin = null;
+		String priceMax = null;
+		
+		String sido = null;
+		String sigungu = null;
+		String enbmyeondong = null;
+		
+		if(!priceValue.isEmpty()) {
+			
+			String[] priceArray = priceValue.split("~");
+			
+			for(String str: priceArray) {
+				logger.debug("price: {}", str);
+			}
+			
+			for(int i = 0; i < priceArray.length; i++) {
+				
+				if(i == 0) {
+					priceMin = priceArray[i];
+				}else if(i == 1){
+					priceMax = priceArray[i];
+				}
+			}
+			
+		}
+		
+		if(!searchValue.isEmpty()) {
+			
+			String[] searchArray = searchValue.trim().split(" ");
+			
+			for(String str: searchArray) {
+				logger.debug("search: {}", str);
+			}
+			
+			for(int i = 0; i < searchArray.length; i++) {
+				
+				if(i == 0) {
+					sido = searchArray[i];
+				}else if(i == 1){
+					sigungu = searchArray[i];
+				}else if(i == 2) {
+					enbmyeondong = searchArray[i];
+				}
+			}
+		}
+		
+		
+		searchMap.put("tripplan_theme", themeValue);
+		searchMap.put("tripplan_season", seasonValue);
+		searchMap.put("tripplan_peo_type", peoTypeValue);
+		searchMap.put("priceMin", priceMin);
+		searchMap.put("priceMax", priceMax);
+		searchMap.put("sido", sido);
+		searchMap.put("sigungu", sigungu);
+		searchMap.put("enbmyeondong", enbmyeondong);
+		
+		List<ClusterVO> clusterList = tripPlanService.selectClusterListBySearch(searchMap);
+		
+		logger.debug("clusterList.size() : {}", clusterList.size());
 		
 		model.addAttribute("clusterList", clusterList);
 		

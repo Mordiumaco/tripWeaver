@@ -97,7 +97,7 @@ function fboardlist_submit(f) {
 
 
 <%-- 뷰페이지에 게시글 아이디 넘기기 --%>
-<form action="/board/detailBoard" method="get" id="frm" >
+<form action="/article/detailBoard" method="get" id="frm" >
 	<input type="hidden" id="postsId" name="postsId"/>
 </form>
 
@@ -118,7 +118,7 @@ function fboardlist_submit(f) {
 			<li>&nbsp;&nbsp;<b>${pageCnt}</b> &nbsp;페이지</li>
 		</ul>
 		<ul class="bt_right">
-			<li><button class="btn_bd col_01" type="submit" onclick="location.href='/main/boardWrite?board_id=${board_id}'"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp; 글쓰기</button></li>
+			<li><button class="btn_bd col_01" type="submit" onclick="location.href='/article/articleView?board_id=${board_id}'"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp; 글쓰기</button></li>
 		</ul>
 	</div>
 	
@@ -187,8 +187,8 @@ function fboardlist_submit(f) {
 			</ul>
 		</form>
 		<ul class="bt_right">
-			<li><button class="btn_bd col_03" type="submit" onclick="location.href='/board/boardList?pageId=${nt_id}&page=1&pageSize=10&search_key=po_subject&search_value='">목록</button></li>
-			<li><button class="btn_bd col_01" type="submit" onclick="location.href='/main/boardWrite?board_id=${board_id}'"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp; 글쓰기</button></li>
+			<li><button class="btn_bd col_03" type="submit" onclick="location.href='/board/boardList?pageId=${art_id}&page=1&pageSize=10&search_key=po_subject&search_value='">목록</button></li>
+			<li><button class="btn_bd col_01" type="submit" onclick="location.href='/article/articleView?board_id=${board_id}'"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp; 글쓰기</button></li>
 		</ul>
 		
 	</div>
