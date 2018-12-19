@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="attachmentSQL">
+
+<insert parameterType="Map" id="insertAttachment"> insert into attachment (att_id, att_path, att_file_name, att_file_ori_name, att_rel_art_id, filter_id) 
+values (att_seq.nextval, #{att_path}, #{att_file_name}, #{att_file_ori_name}, #{att_rel_art_id}, #{filter_id}) 
+</insert>	
+	
+</mapper>
