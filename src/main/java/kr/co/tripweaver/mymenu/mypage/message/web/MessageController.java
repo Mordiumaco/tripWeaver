@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.tripweaver.member.model.MemberVO;
 import kr.co.tripweaver.mymenu.mypage.message.model.MessageVO;
@@ -38,6 +39,14 @@ public class MessageController {
 		List<MessageVO> messageVOs = messageService.selectChatroom(memberVO.getMem_id());
 		model.addAttribute("messageVOs", messageVOs);
 		return "mypage/message/chatting";
+	}
+	
+	@RequestMapping("/chatRoomListViewRenew")
+	public String chatRoomListViewRenew(MemberVO memberVO, Model model) {
+		System.out.println("memberVO.getMem_id() : " + memberVO.getMem_id());
+		List<MessageVO> messageVOs = messageService.selectChatroom(memberVO.getMem_id());
+		model.addAttribute("messageVOs", messageVOs);
+		return "mypage/message/chattingAjax";
 	}
 	
 	@RequestMapping("/chatRoomDetailView")

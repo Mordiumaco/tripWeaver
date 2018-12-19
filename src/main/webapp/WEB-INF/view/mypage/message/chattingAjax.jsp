@@ -2,12 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>TripWeaver 메신저</title>
-<link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico" />
 
 <style type="text/css">
 
@@ -148,48 +142,20 @@ ul {
 .Chat_room a { color: #333;}
 
 </style>
-<script src="/js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript">
-	
-	(function poll() {
-		$.ajax({
-			url : '/message/chatRoomListViewRenew',
-			type : 'get',
-			data : "mem_id=" + '${loginInfo.mem_id}',
-			success : function(data) {
-				console.log('data : ' + data);
-				$('#chatting_list').html(data);
-			},
-			timeout : 3000,
-			complete : setTimeout(function() { poll(); }, 4000)
-		})
-	})();
-	
-</script>
-</head>
-<body>
-	<div class="mes_menu">
 		<ul>
-			<li><a href="/message/mainView?mem_id=${loginInfo.mem_id}"><img src="/img/icon/friend.png" height="20px;"/> &nbsp; 친구</a></li>
-			<li><a href="/message/chatRoomListView?mem_id=${loginInfo.mem_id}"><img src="/img/icon/message01_icon.png" height="20px;" /> &nbsp; 채팅</a></li>
+		
+			<c:forEach items="${messageVOs}" var="chatroom">
+				<li class="Chat_room">
+					<a href="/message/chatRoomDetailView?group_id=${chatroom.group_id}&mem_id=${chatroom.mem_id}">
+						<div><img src="/img/icon/message01_icon.png"></div>
+						<ul>
+							<li> <b>${chatroom.chatroom_name}&nbsp;인원수 : ${chatroom.cnt} // ${chatroom.rec_cnt}</b> <span><fmt:formatDate value="${chatroom.msg_date}" pattern="yyyy.MM.dd"/></span></li>
+							<li class="chat_con">
+								${chatroom.msg_cnt}
+							</li>
+						</ul>
+					</a>
+				</li>
+			</c:forEach>
+			
 		</ul>
-	</div>
-	
-	<div class="mes_Search">
-		<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
-			<label for="sfl" class="sound_only">검색대상</label>
-		
-			<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
-			<input type="text" name="stx" value="" id="stx" required="" class="required frm_input" placeholder="채팅방 이름, 참여자로 검색해 주세요.">
-			<input type="submit" class="btn_submit" value="검색">
-		</form>
-			<a href="/message/createChatroomView?mem_id=${loginInfo.mem_id}" class="btn_create">+</a>
-	</div>
-	
-	<div class="chatting_list" id="chatting_list">
-		
-	</div>
-	
-	
-</body>
-</html>
