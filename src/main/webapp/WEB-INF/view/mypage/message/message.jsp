@@ -266,17 +266,13 @@ ul {
 					<ul>
 						<li>${following.mem_nick}</li>
 						<li>
-							<a href="">쪽지</a>
+							<a href="/message/selectMessage11?login_id=${loginInfo.mem_id}&mem_id=${following.mem_id}">쪽지</a>
 							<input type="hidden" value="${following.mem_id}">
 							<input type="button" class="following followBtn" value="팔로잉">
 						</li>
 					</ul>
 				</li>
 			</c:forEach>
-			
-
-			
-			
 		</ul>
 	</div>
 	
@@ -295,7 +291,7 @@ ul {
 					<ul>
 						<li>${follower.mem_nick}</li>
 						<li>
-							<a href="">쪽지</a>
+							<a href="/message/selectMessage11?login_id=${loginInfo.mem_id}&mem_id=${follower.mem_id}">쪽지</a>
 							<input type="hidden" value="${follower.mem_id}">
 							<c:choose>
 								<c:when test="${fol_state == 0}">

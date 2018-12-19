@@ -195,13 +195,21 @@ ul {
 		});
 		
 		$('#createChatroom').on('click', function() {
-			var memberList = '';
-			for(var i = 0; i < inviteListId.length; i++){
-				memberList += inviteListId[i] + ';';
+			if($('#chatroom_name').val() == ''){
+				alert('채팅방 이름을 입력해주세요');				
+			} else {
+				var memberList = '';
+				for(var i = 0; i < inviteListId.length; i++){
+					memberList += inviteListId[i] + ';';
+				}
+				console.log('memberList : ' + memberList);
+				if(memberList.length > 0){
+					$('#memberList').val(memberList);
+					$('#frm').submit();
+				} else {
+					alert('채팅방 구성원을 선택해주세요');				
+				}
 			}
-			console.log('memberList : ' + memberList);
-			$('#memberList').val(memberList);
-			$('#frm').submit();
 		});
 	});
 	
@@ -236,7 +244,10 @@ ul {
 		<form id="frm" action="/message/createChatroom">
 			<input type="hidden" name="mem_id" value="${loginInfo.mem_id}">
 			<input type="hidden" id="memberList" name="memberList">
-			<input type="button" id="createChatroom" class="btn_create">생성</a>
+			<div>
+				<input type="text" name="chatroom_name" required="required" id="chatroom_name" placeholder="채팅방 이름을 입력해주세요">
+				<input type="button" id="createChatroom" class="btn_create">생성</a>
+			</div>
 		</form>
 	</div>
 	<div class="mes_my">
@@ -259,9 +270,7 @@ ul {
 					<ul>
 						<li>${following.mem_nick}<input type="hidden" value="${following.mem_nick}"></li>
 						<li>
-<!-- 							<a href="">쪽지</a> -->
 							<p><input type="hidden" value="${following.mem_id}"></p>
-<!-- 							<input type="button" class="following followBtn" value="팔로잉"> -->
 						</li>
 					</ul>
 				</li>
@@ -288,16 +297,7 @@ ul {
 					<ul>
 						<li>${follower.mem_nick}<input type="hidden" value="${follower.mem_nick}"></li>
 						<li>
-<!-- 							<a href="">쪽지</a> -->
 							<input type="hidden" value="${follower.mem_id}">
-<%-- 							<c:choose> --%>
-<%-- 								<c:when test="${fol_state == 0}"> --%>
-<!-- 									<input type="button" class="follower followBtn" value="팔로우"> -->
-<%-- 								</c:when> --%>
-<%-- 								<c:otherwise> --%>
-<!-- 									<input type="button" class="following followBtn" value="팔로잉"> -->
-<%-- 								</c:otherwise> --%>
-<%-- 							</c:choose> --%>
 						</li>
 					</ul>
 				</li>

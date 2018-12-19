@@ -150,4 +150,13 @@
 		WHERE rec_id = #{mem_id}
 	</select>
 	
+	<select id="selectMessage11" resultType="participantVo">
+		SELECT p.*
+		FROM participant p INNER JOIN (SELECT group_id , COUNT(*)
+		                               FROM participant
+		                               GROUP BY group_id
+		                               HAVING COUNT(*) = 2) p2
+		ON (p2.group_id = p.group_id)
+	</select>
+	
 </mapper>
