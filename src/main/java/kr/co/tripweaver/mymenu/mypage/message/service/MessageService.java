@@ -144,6 +144,12 @@ public class MessageService implements IMessageService {
 		resultMap.put("memNickList", memNickList);
 		return resultMap;
 	}
+
+	@Override
+	public int messageAlram(String mem_id) {
+		int cnt = messageDao.messageAlram(mem_id);
+		return cnt;
+	}
 }
 
 

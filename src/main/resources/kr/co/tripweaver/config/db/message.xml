@@ -144,5 +144,10 @@
 					 ON (m.msg_id = mr.msg_id AND rec_id = #{mem_id}))
 	</delete>
 	
+	<select id="messageAlram" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM msgreciver
+		WHERE rec_id = #{mem_id}
+	</select>
 	
 </mapper>

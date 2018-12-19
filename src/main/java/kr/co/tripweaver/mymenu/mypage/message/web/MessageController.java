@@ -128,4 +128,11 @@ public class MessageController {
 		
 		return "mypage/message/chatting";
 	}
+	
+	@RequestMapping("alram")
+	@ResponseBody
+	public int alram(MemberVO memberVO, Model model) {
+		int cnt = messageService.messageAlram(memberVO.getMem_id());
+		return cnt;
+	}
 }
