@@ -127,4 +127,10 @@ public class MessageDao implements IMessageDao {
 		return cnt;
 	}
 
+	@Override
+	public List<ParticipantVO> selectMessage11() {
+		List<ParticipantVO> participantVOs = template.selectList("messageSQL.selectMessage11");
+		return participantVOs;
+	}
+
 }
