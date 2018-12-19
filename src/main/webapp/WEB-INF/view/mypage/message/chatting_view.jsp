@@ -127,6 +127,20 @@ $(document).ready(function(){
 				}
 			}
 	});
+	
+	$('#exit_btn').on('click', function() {
+		var mem_nick = '${loginInfo.mem_nick}';
+		if(msg != ""){
+			message = {};
+			message.msg_cnt = '"' + mem_nick + '"님이 퇴장하셨습니다.';
+			message.msg_date = new Date();
+			message.mem_id = 'admin';
+			message.group_id = '${group_id}';
+		}
+		sock.send(JSON.stringify(message));
+		
+		$('#exit_frm').submit();
+	});
 });
 
 function connect() {
@@ -170,6 +184,8 @@ function appendMessage(msg) {
 			html += '<span class="mes_date mes_dateMy">' + t + '</span></li>';
 			html += '<li class="mes_con_list_text mes_con_list_textMy">';
 			html +=	msg.msg_cnt + '</li><span id="' + msg.msg_id + '" class="unread">' + msg.unread + '</span></ul><div>';
+		} else if(msg.mem_id == 'admin') {
+			html = '<div><h6>' + msg.msg_cnt + '</h6></div>';
 		} else {
 			html = '<div class="mes_con_list" >';
 			html += '<h6><img src="/file/read?mem_profile=' + msg.mem_profile + '"></h6>';
@@ -285,10 +301,10 @@ function updateReciveCount(obj) {
 				</b>${chatrrom_name}</div>
 			</li>
 		</ul>
-		<form action="/message/exitChatroom">
+		<form id="exit_frm" action="/message/exitChatroom">
 			<input type="hidden" name="group_id" value="${group_id}">
 			<input type="hidden" name="mem_id" value="${loginInfo.mem_id}">
-			<input type="submit" id="exit_btn"  value="채팅방 나가기">
+			<input type="button" id="exit_btn"  value="채팅방 나가기">
 		</form>
 	</div>
 	<div class="mes_con">
@@ -296,17 +312,24 @@ function updateReciveCount(obj) {
 				<c:set var="prev_mem_id" value=""/>
 		
 		<c:forEach items="${messageVOs}" var="msg">
-			<div class="mes_con_list ${msg.mem_id eq loginInfo.mem_id ? 'mes_con_listMy' : ''}" >
-				<c:if test="${msg.mem_id ne loginInfo.mem_id}">
-					<h6><img src="/file/read?mem_profile=${msg.mem_profile}" ></h6>
-				</c:if>
-				<ul>
-					<li><c:if test="${msg.mem_id ne loginInfo.mem_id}"><b>${msg.mem_nick}</b></c:if> <span class="mes_date ${msg.mem_id eq loginInfo.mem_id ? 'mes_dateMy' : ''}"><fmt:formatDate value="${msg.msg_date}" pattern="yyyy.MM.dd hh:mm"/></span></li>
-					<li class="mes_con_list_text ${msg.mem_id eq loginInfo.mem_id ? 'mes_con_list_textMy' : ''}">
-						${msg.msg_cnt}
-					</li><span id="${msg.msg_id}" class="unread">${msg.unread}</span> 
-				</ul>
-			</div>
+			<c:choose>
+				<c:when test="${msg.mem_id eq 'admin'}">
+					<div><h6>${msg.msg_cnt}</h6></div>				
+				</c:when>
+				<c:otherwise>
+					<div class="mes_con_list ${msg.mem_id eq loginInfo.mem_id ? 'mes_con_listMy' : ''}" >
+						<c:if test="${msg.mem_id ne loginInfo.mem_id}">
+							<h6><img src="/file/read?mem_profile=${msg.mem_profile}" ></h6>
+						</c:if>
+						<ul>
+							<li><c:if test="${msg.mem_id ne loginInfo.mem_id}"><b>${msg.mem_nick}</b></c:if> <span class="mes_date ${msg.mem_id eq loginInfo.mem_id ? 'mes_dateMy' : ''}"><fmt:formatDate value="${msg.msg_date}" pattern="yyyy.MM.dd hh:mm"/></span></li>
+							<li class="mes_con_list_text ${msg.mem_id eq loginInfo.mem_id ? 'mes_con_list_textMy' : ''}">
+								${msg.msg_cnt}
+							</li><span id="${msg.msg_id}" class="unread">${msg.unread}</span> 
+						</ul>
+					</div>
+				</c:otherwise>
+			</c:choose>
 		</c:forEach>
 	</div>
 	<div class="mes_bottom">
