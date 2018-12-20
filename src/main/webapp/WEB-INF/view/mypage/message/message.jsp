@@ -166,11 +166,34 @@ ul {
 				var followed_id = $(this).prev().val();
 				console.log("following : " + following_id + "/ followed : " + followed_id);
 				if($(this).hasClass('following') == true){
-					$(this).val("팔로우");
-					$(this).addClass("follower");
-					$(this).removeClass("following");
+					var selectMembers = $('.'+followed_id);
+					
+					$.each(selectMembers, function(idx, obj){ //obj = $(selectMembers[idx])
+						var btn = $(obj).find('.followBtn');
+						//버튼 이름변경
+						btn.val("팔로우");
+						//버튼 클래스 추가
+						btn.addClass("follower");
+						//버튼 클래스 제거
+						btn.removeClass("following");
+					});
+// 					for(var i in selectMembers){
+// 						var btn = $(selectMembers[i]).children[1].children[1].children[2];
+// 						//버튼 이름변경
+// 						btn.val("팔로우");
+// 						//버튼 클래스 추가
+// 						btn.addClass("follower");
+// 						//버튼 클래스 제거
+// 						btm.removeClass("following");
+// 					}
+					
+// 					$(this).val("팔로우");
+// 					$(this).addClass("follower");
+// 					$(this).removeClass("following");
 					follow = 'N';
 					unfollow(following_id, followed_id);
+				
+				
 				} else {
 					$(this).val("팔로잉");
 					$(this).addClass("following");
@@ -261,22 +284,18 @@ ul {
 		<ul class="mes_friendUl">
 		
 			<c:forEach items="${followingVOs}" var="following">
-				<li class="mes_f_list">
+				<li class="mes_f_list ${following.mem_id}">
 					<div><b class="my_profile my_profile2"><img src="/file/read?mem_profile=${following.mem_profile}"></b></div>
 					<ul>
 						<li>${following.mem_nick}</li>
 						<li>
-							<a href="">쪽지</a>
+							<a href="/message/selectMessage11?login_id=${loginInfo.mem_id}&mem_id=${following.mem_id}">쪽지</a>
 							<input type="hidden" value="${following.mem_id}">
 							<input type="button" class="following followBtn" value="팔로잉">
 						</li>
 					</ul>
 				</li>
 			</c:forEach>
-			
-
-			
-			
 		</ul>
 	</div>
 	
@@ -290,12 +309,12 @@ ul {
 						<c:set var="fol_state" value="${fol.fol_state}"/>
 					</c:if>
 				</c:forEach>
-				<li class="mes_f_list">
+				<li class="mes_f_list ${follower.mem_id}">
 					<div><b class="my_profile my_profile2"><img src="/file/read?mem_profile=${follower.mem_profile}"></b></div>
 					<ul>
 						<li>${follower.mem_nick}</li>
 						<li>
-							<a href="">쪽지</a>
+							<a href="/message/selectMessage11?login_id=${loginInfo.mem_id}&mem_id=${follower.mem_id}">쪽지</a>
 							<input type="hidden" value="${follower.mem_id}">
 							<c:choose>
 								<c:when test="${fol_state == 0}">

@@ -176,13 +176,13 @@ ul {
 	</div>
 	
 	<div class="mes_Search">
-		<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
-			<label for="sfl" class="sound_only">검색대상</label>
+<!-- 		<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get"> -->
+<!-- 			<label for="sfl" class="sound_only">검색대상</label> -->
 		
-			<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
-			<input type="text" name="stx" value="" id="stx" required="" class="required frm_input" placeholder="채팅방 이름, 참여자로 검색해 주세요.">
-			<input type="submit" class="btn_submit" value="검색">
-		</form>
+<!-- 			<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label> -->
+<!-- 			<input type="text" name="stx" value="" id="stx" required="" class="required frm_input" placeholder="채팅방 이름, 참여자로 검색해 주세요."> -->
+<!-- 			<input type="submit" class="btn_submit" value="검색"> -->
+<!-- 		</form> -->
 			<a href="/message/createChatroomView?mem_id=${loginInfo.mem_id}" class="btn_create">+</a>
 	</div>
 	

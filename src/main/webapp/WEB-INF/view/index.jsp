@@ -75,7 +75,7 @@ $(document).ready(function () {
 			</li>
 			
 			<li>
-				<a href="/main/essay_write">Essay 글쓰기</a>
+				<a href="/essay/write">Essay 글쓰기</a>
 			</li>
 		</ul>
 	</div>

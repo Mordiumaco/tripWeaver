@@ -5,10 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.co.tripweaver.member.model.MemberVO;
 import kr.co.tripweaver.mymenu.mypage.follow_following.service.IFollowService;
 import kr.co.tripweaver.mymenu.mypage.message.dao.IMessageDao;
 import kr.co.tripweaver.mymenu.mypage.message.model.MessageVO;
@@ -22,6 +23,8 @@ public class MessageService implements IMessageService {
 
 	@Autowired
 	private IFollowService followService;
+	
+	private Logger logger = LoggerFactory.getLogger(MessageService.class);
 	
 	@Override
 	public Map<String, Object> messagePageView(Map<String, Object> params) {
@@ -108,9 +111,9 @@ public class MessageService implements IMessageService {
 	@Override
 	public Map<String, Object> insertChatroom(Map<String, Object> params) {
 		//채팅방 생성, 채팅방 아이디 조회
-		Map<String, Object> resultMap = new HashMap<String, Object>();
+		Map<String, Object> resultMap = new HashMap<String, Object>(); //리턴 채팅방아이디를 받아오기위한용일뿐
 		String group_id = messageDao.insertChatroom(resultMap);
-		String chatroom_name = "New Chatroom";
+		String chatroom_name = (String) params.get("chatroom_name");
 		
 		//채팅구성원 생성
 		String[] inviteList = (String[]) params.get("inviteList");
@@ -149,6 +152,47 @@ public class MessageService implements IMessageService {
 	public int messageAlram(String mem_id) {
 		int cnt = messageDao.messageAlram(mem_id);
 		return cnt;
+	}
+
+	@Override
+	public Map<String, Object> selectMessage11(String login_id, String mem_id) {
+		//구성원이 2명인 채팅방 구성원리스트
+		List<ParticipantVO> participantVOs = messageDao.selectMessage11();
+		
+		boolean[] result = new boolean[4];
+		//구성원 비교 2개
+		for(int i = 0; i < participantVOs.size(); i++) {
+			if((i + 1) % 2 == 1) {
+				result[0] = participantVOs.get(i).getMem_id().equals(login_id);
+				result[2] = participantVOs.get(i).getMem_id().equals(mem_id);
+			} else { 
+				result[1] = participantVOs.get(i).getMem_id().equals(login_id);
+				result[3] = participantVOs.get(i).getMem_id().equals(mem_id);
+				
+				logger.debug("결과 {}",(result[0] || result[1]) && (result[2] || result[3]));
+				if((result[0] || result[1]) && (result[2] || result[3])) {
+					//여기 들어온다면 기존 1:1 채팅방이 존재한다는 것
+					//이미 존재하는 그 채팅방 입장
+					String group_id = participantVOs.get(i).getGroup_id();
+					ParticipantVO participantVO = new ParticipantVO();
+					participantVO.setGroup_id(group_id);
+					participantVO.setMem_id(login_id);
+					
+					Map<String, Object> params = new HashMap<String, Object>();
+					params.put("group_id", group_id);
+					params.put("participantVO", participantVO);
+					
+					return enterChatroom(params);
+				} 
+			}
+		}
+		//새로운 1:1채팅방 생성 후 그 채팅방 입장
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("inviteList", new String[] {mem_id});
+		params.put("loginInfo", login_id);
+		params.put("chatroom_name", "[1:1]" + login_id + "," + mem_id);
+		return insertChatroom(params);
 	}
 }
 
