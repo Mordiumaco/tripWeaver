@@ -21,8 +21,7 @@ function alinkSplite(thisClick) {
 	  
 	   if(word.indexOf('#') == 0) // # 문자를 찾는다.
 	   {
-		   console.log(12321);
-		   var word1 = word.substring(1, word.lastIndexOf('#'));
+		   var word1 = word.substring(0, word.lastIndexOf('#'));
 		   var word2 = word.substring(word.lastIndexOf('#')+1);
 		   word = word1 + '<span>#<a>'+word2+'</a></span>';
 	   }
