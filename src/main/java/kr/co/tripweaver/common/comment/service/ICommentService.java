@@ -32,7 +32,7 @@ public interface ICommentService {
 		* Method 설명 : 댓글 쓰기
 		*
 	 */
-	public int insertComment(CommentVO commentVo);
+	public String insertComment(CommentVO commentVo);
 	
 	/**
 	 * 

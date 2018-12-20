@@ -132,7 +132,10 @@ ul {
 	color: #666;
 }
 
-.Chat_room li span { float: right;}
+/* .Chat_room li span { float: right;} */
+.Chat_room .date { float: right;}
+.Chat_room .chatroom.cnt { color: #D5D5D5;}
+.Chat_room .chatroom.rec_cnt { color: red;}
 
 .Chat_room ul li:nth-child(1) { padding-top: 3px;}
 
@@ -149,7 +152,7 @@ ul {
 					<a href="/message/chatRoomDetailView?group_id=${chatroom.group_id}&mem_id=${chatroom.mem_id}">
 						<div><img src="/img/icon/message01_icon.png"></div>
 						<ul>
-							<li> <b>${chatroom.chatroom_name}&nbsp;인원수 : ${chatroom.cnt} // ${chatroom.rec_cnt}</b> <span><fmt:formatDate value="${chatroom.msg_date}" pattern="yyyy.MM.dd"/></span></li>
+							<li> <b>${chatroom.chatroom_name}&nbsp;</b> <span class="chatroom.cnt">${chatroom.cnt}</span> <span class="date"><span class="chatroom.rec_cnt">${chatroom.rec_cnt}</span><fmt:formatDate value="${chatroom.msg_date}" pattern="yyyy.MM.dd"/></span></li>
 							<li class="chat_con">
 								${chatroom.msg_cnt}
 							</li>

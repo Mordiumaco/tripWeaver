@@ -4,14 +4,31 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="postcardSQL">
 	
-	<select id="selectPostCardAll" parameterType="String" resultType="postcardVo">
+	<select id="selectPostCardAll" parameterType="Map" resultType="postcardVo">
+		SELECT * FROM
+		(SELECT rownum rnum, list2.* FROM (
 		select 
 		p. *
 		, m.mem_nick
 		, m.mem_profile
 		from POSTCARD p INNER JOIN member m
-		on (p.mem_id = m.mem_id)
+		on (p.mem_id = m.mem_id) 
+		
+		<if test="tag_search != '' ">
+		inner join 
+		(
+		SELECT
+		    distinct PC_ID
+		FROM HASHTAG 
+		WHERE TAG_WORD like '%' ||  #{tag_search} || '%'
+		) has
+		on (has.PC_ID = p.PC_ID )
+		</if>
+		
 		ORDER by p.pc_date desc
+		)list2)
+		where rnum between #{pageVo.page} * #{pageVo.pageSize} -(#{pageVo.pageSize}-1) and #{pageVo.page}* #{pageVo.pageSize}
+	
 	</select>
 	
 	<!-- 포스트카드 삭제하기 -->

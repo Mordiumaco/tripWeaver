@@ -46,9 +46,9 @@ public class CommentDao implements ICommentDao {
 		*
 	 */
 	@Override
-	public int insertComment(CommentVO commentVo) {
+	public String insertComment(CommentVO commentVo) {
 		int insertCommentCnt = template.insert("commentSQL.insertComment", commentVo);
-		return insertCommentCnt;
+		return commentVo.getComt_id();
 	}
 	
 	/**

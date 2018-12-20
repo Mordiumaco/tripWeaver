@@ -31,7 +31,7 @@ public interface ICommentDao {
 		* Method 설명 : 댓글 쓰기
 		*
 	 */
-	int insertComment(CommentVO commentVo);
+	String insertComment(CommentVO commentVo);
 	
 	/**
 	 * 
