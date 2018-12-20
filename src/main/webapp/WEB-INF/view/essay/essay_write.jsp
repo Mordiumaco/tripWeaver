@@ -7,13 +7,35 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a5f2e82aa9bad5f393255b6d8c3200cb"></script>
 <script src="/SE2/js/HuskyEZCreator.js"></script>
 <script type="text/javascript">
-	var oEditors = []; // 개발되어 있는 소스에 맞추느라, 전역변수로 사용하였지만, 지역변수로 사용해도 전혀 무관 함.
-	
+	 // 개발되어 있는 소스에 맞추느라, 전역변수로 사용하였지만, 지역변수로 사용해도 전혀 무관 함.
+	var oEditors = [];
+	var oEditors2 = [];
+	var boardCount = 0;
 	$(document).ready(function() {
-		// Editor Setting
-		nhn.husky.EZCreator.createInIFrame({
-			oAppRef : oEditors, // 전역변수 명과 동일해야 함.
-			elPlaceHolder : "smarteditor", // 에디터가 그려질 textarea ID 값과 동일 해야 함.
+		
+		function createBoard(){
+			nhn.husky.EZCreator.createInIFrame({
+				oAppRef : oEditors, // 전역변수 명과 동일해야 함.
+				elPlaceHolder : "smarteditor", // 에디터가 그려질 textarea ID 값과 동일 해야 함.
+				sSkinURI : "/SE2/SmartEditor2Skin.html", // Editor HTML
+				fCreator : "createSEditor2", // SE2BasicCreator.js 메소드명이니 변경 금지 X
+				htParams : {
+					// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+					bUseToolbar : true,
+					// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+					bUseVerticalResizer : true,
+					// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+					bUseModeChanger : true, 
+				}
+			});
+			
+		
+		}
+	
+		createBoard();
+		/* nhn.husky.EZCreator.createInIFrame({
+			oAppRef : oEditors2, 
+			elPlaceHolder : "smarteditor2", // 에디터가 그려질 textarea ID 값과 동일 해야 함.
 			sSkinURI : "/SE2/SmartEditor2Skin.html", // Editor HTML
 			fCreator : "createSEditor2", // SE2BasicCreator.js 메소드명이니 변경 금지 X
 			htParams : {
@@ -23,21 +45,34 @@
 				bUseVerticalResizer : true,
 				// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
 				bUseModeChanger : true, 
+			},
+			fOnAppLoad : function(){
+				oEditors2.getById["smarteditor2"].exec("PASTE_HTML", ["ㅎㅇ"]);
 			}
-		});
+			
+		}); */
+		
 	
 		// 전송버튼 클릭이벤트
 		$("#savebutton").click(function(){
 			if(confirm("저장하시겠습니까?")) {
 				// id가 smarteditor인 textarea에 에디터에서 대입
 				oEditors.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
-	
 				// 이부분에 에디터 validation 검증
-				if(validation()) {
-					$(this).parents("#frm").submit();
-				}
+				$(this).parents("#frm").submit();
 			}
-		})
+		});
+		
+		// 전송버튼 클릭이벤트
+		$("#savebutton2").click(function(){
+			if(confirm("저장하시겠습니까?")) {
+				// id가 smarteditor인 textarea에 에디터에서 대입
+				oEditors2.getById["smarteditor2"].exec("UPDATE_CONTENTS_FIELD", []);
+				// 이부분에 에디터 validation 검증
+				$(this).parents("#frm").submit();
+			}
+		});
+		
 	});
 	
 	// 필수값 Check
@@ -46,6 +81,17 @@
 		if(contents === '<p>&nbsp;</p>' || contents === ''){ // 기본적으로 아무것도 입력하지 않아도 <p>&nbsp;</p> 값이 입력되어 있음. 
 			alert("내용을 입력하세요.");
 			oEditors.getById['smarteditor'].exec('FOCUS');
+			return false;
+		}
+	
+		return true;
+	}
+	
+	function validation2(){
+		var contents = $.trim(oEditors2[0].getContents());
+		if(contents === '<p>&nbsp;</p>' || contents === ''){ // 기본적으로 아무것도 입력하지 않아도 <p>&nbsp;</p> 값이 입력되어 있음. 
+			alert("내용을 입력하세요.");
+			oEditors2.getById['smarteditor2'].exec('FOCUS');
 			return false;
 		}
 	
@@ -87,6 +133,26 @@ $(function(){
 		//클릭한 a태그에 select 클래스 적용
 		$('.content li').hide();//모든 내용을 안보이게 해줌
 		$($(this).attr('href')).slideDown();
+		
+		if(boardCount == 0){
+			nhn.husky.EZCreator.createInIFrame({
+				oAppRef : oEditors2, 
+				elPlaceHolder : "smarteditor2", // 에디터가 그려질 textarea ID 값과 동일 해야 함.
+				sSkinURI : "/SE2/SmartEditor2Skin.html", // Editor HTML
+				fCreator : "createSEditor2", // SE2BasicCreator.js 메소드명이니 변경 금지 X
+				htParams : {
+					// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+					bUseToolbar : true,
+					// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+					bUseVerticalResizer : true,
+					// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+					bUseModeChanger : true, 
+				}			
+			});
+			boardCount++;
+		}
+		
+		//$(".view_con2 iframe").height("649px").focus();
 	});
 });
 
@@ -168,7 +234,8 @@ $(document).ready(function(){
 	$(".plus_btn").on("click",function(){
 		if( j < 5){
 			j++;
-			$(".essay_calendar3 table tbody").append("<tr class='dateTr"+ j +"'> <td><input id='datepicker"+ j +"' class='datepicker' type='text'  name='start' placeholder='출발일' style='width: 70%' readonly='readonly'></td> <td><input id='datepicker"+ j+j +"' class='datepicker' type='text'  name='end' placeholder='종료일' style='width: 70%' readonly='readonly'></td><td><input type='number' placeholder='숫자로 표기하세요.'></td><td></td><td></td></tr>");
+			
+			$(".essay_calendar3 table tbody").append("<tr class='dateTr"+ j +"'> <td><input name='guideplan_start_day' id='datepicker"+ j +"' class='datepicker' type='text'  name='start' placeholder='출발일' style='width: 70%' readonly='readonly'></td> <td><input name='guideplan_end_day' id='datepicker"+ j+j +"' class='datepicker' type='text'  name='end' placeholder='종료일' style='width: 70%' readonly='readonly'></td><td><input name='guideplan_peo_count' type='number' placeholder='인원 정원을 적어주세요.'></td><td></td><td></td></tr>");
 			
 		} else {
 			alert(" 최대 4개 까지 입니다.");
@@ -336,10 +403,9 @@ function call()
 					$(".peo_type").text(peo_type); 
 					$(".days").text((data.tripplanVo.tripplan_days-1)+"박 "+data.tripplanVo.tripplan_days+"일"); 
 	    			$("#tripplan_days").val(data.tripplanVo.tripplan_days);
-					
+					$("#tripplan_id").val(data.tripplanVo.tripplan_id);
+					$("#tripplan_id2").val(data.tripplanVo.tripplan_id);
 	    			call();
-					data.tripplanVo.tripplan_id
-					data.tripplanVo.tripplan_title
 					
 					
 					$(data.dailyPlanList).map(function(i, dailyPlanVo) {
@@ -472,7 +538,7 @@ function call()
 								<!-- 히든으로 처리할값 처리 -->
 								<input type="hidden" id="tripplan_days"/>
 								<input type="hidden" id="tripplan_id" name="tripplan_id"/>
-								<input type="hidden" id="essay_filter" name="essay_filter" value="G"/> 
+								<input type="hidden" id="essay_filter" name="essay_filter" value="N"/> 
 								<li class="essay_filterLi">식비 : <b><input type="number" name="essay_meal_exp" id="sell1" onkeyup="call()"> 원</b></li>
 								<li class="essay_filterLi">숙박비 : <b><input type="number" name="essay_room_exp" id="sell2" onkeyup="call()"> 원</b></li>
 								<li class="essay_filterLi">교통비 : <b><input type="number" name="essay_traffic_exp" id="sell3" onkeyup="call()"> 원</b></li>
@@ -580,7 +646,7 @@ function call()
 					</li>
 					</form>
 					
-					
+					<form action="/essay/insertEssayFormForGuide" method="post" id="frm">
 					<li id="web2">
 						<h1 class="mypage_title">Essay 글 작성</h1>
 				
@@ -602,7 +668,8 @@ function call()
 							
 							<ul>
 								<input type="hidden" id="tripplan_days">
-								<input type="hidden" id="tripplan_id" name="tripplan_id">
+								<input type="hidden" id="tripplan_id2" name="tripplan_id">
+								<input type="hidden" id="essay_filter" name="essay_filter" value="G"/> 
 								<li class="essay_filterLi">식비 : <b><input type="number" name="essay_meal_exp" id="gsell1" onkeyup="call()"> 원</b></li>
 								<li class="essay_filterLi">숙박비 : <b><input type="number" name="essay_room_exp" id="gsell2" onkeyup="call()"> 원</b></li>
 								<li class="essay_filterLi">교통비 : <b><input type="number" name="essay_traffic_exp" id="gsell3" onkeyup="call()"> 원</b></li>
@@ -688,12 +755,10 @@ function call()
 						
 						<%-- 나의 일정을 클릭하면 나오는 정보 끝 --%>
 						
-						<form action="">
-							<h2 class="view_title">제목: <input type="text" placeholder="제목을 적어주세요."></h2>
+							<h2 class="view_title">제목: <input type="text" name="essay_title" placeholder="제목을 적어주세요."></h2>
 							
-							<p class="view_con">
-								 
-								어 스마트 에디터 적용해
+							<p class="view_con2">
+								<textarea name="essay_cnt" id="smarteditor2" rows="10" cols="100" style="width: 100%; height: 600px;">가이드 섹션 확인중</textarea>
 							</p>
 							
 							<h2 class="view_title">가이드 일정 선택하기</h2>
@@ -714,9 +779,9 @@ function call()
 										<th>일정삭제</th>
 									</tr>
 									<tr class="dateTr">
-										<td><input id="datepicker" class="datepicker" type="text"  name="start" placeholder="출발일" style="width: 70%" readonly="readonly"></td>
-										<td><input id="datepicker1" class="datepicker"  type="text"  name="end" placeholder="종료일" style="width: 70%" readonly="readonly"></td>
-										<td><input type="number" placeholder="숫자로 표기하세요."></td>
+										<td><input name="guideplan_start_day" id="datepicker" class="datepicker" type="text"  name="start" placeholder="출발일" style="width: 70%" readonly="readonly"></td>
+										<td><input name="guideplan_end_day" id="datepicker1" class="datepicker"  type="text"  name="end" placeholder="종료일" style="width: 70%" readonly="readonly"></td>
+										<td><input name="guideplan_peo_count" type="number" placeholder="인원 정원을 적어주세요." ></td>
 										<td><div class="plus_btn">+</div></td>
 										<td><div class="minus_btn">-</div></td>
 									</tr>
@@ -728,15 +793,15 @@ function call()
 							<div class="view_btn">
 								<ul>
 									<li class="essay_filterLi">
-										<input class="btn_bd col_03 " type="submit" value="작성">
+										<input class="btn_bd col_03 " type="button"  id="savebutton2" value="작성">
 									</li>
 									<li class="essay_filterLi">
-										<input class="btn_bd col_02 " type="button" onclick="button_event();" value="취소">	 					
+										<a href="/main/main"><input class="btn_bd col_02 " type="button" value="취소"></a>					
 									</li>
 								</ul>
 							</div>
-						</form>
-					</li>
+						</li>
+					</form>
 			
 			
 				</ul>
@@ -761,34 +826,6 @@ function call()
     <div id="layer_1" class="pop_layer">
        <div class="layer_con">
              <ul class="layer_con_sub">
-              	<li class="layer_con_subLi">
-              		<a >
-						<ul class="mypage_list">
-							<li>
-								<img src="/img/main_01.jpg">
-								<div class="mypage_list01">
-									<span>2018. 11. 30</span> 3박 4일 <br>
-									<b>대전광역시</b>
-								</div>
-							</li>
-							<li>
-								<div>친구와 함께</div>
-								<ul>
-									<li> 123</li>
-								</ul>
-							</li>
-							<li>
-								<div>
-									월평동<br>
-									<b>이혜진</b>
-								</div>
-								<div>
-									<input type="radio" name="calendarSelection" id="calendarSelection0">
-								</div>
-							</li>
-						</ul>
-					</a>
-              	</li>
               	<c:forEach items="${mypageTripPlanForListVoList}" var="mypageTripPlanForListVo">
               	<li class="layer_con_subLi">
               		<a >

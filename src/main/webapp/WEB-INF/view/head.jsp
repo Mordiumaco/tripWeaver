@@ -26,7 +26,7 @@
 			type : 'get',
 			data : "mem_id=" + '${loginInfo.mem_id}',
 			success : function(data) {
-				console.log('data : ' + data);
+				//console.log('data : ' + data);
 				if(data > 0){
 					$('#alram').text(data);
 				} else {

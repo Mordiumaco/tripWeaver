@@ -1,5 +1,6 @@
 package kr.co.tripweaver.essay.web;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.tripweaver.essay.model.EssayVO;
+import kr.co.tripweaver.essay.service.EssayService;
+import kr.co.tripweaver.essay.service.IEssayService;
 import kr.co.tripweaver.member.model.MemberVO;
+import kr.co.tripweaver.mymenu.guideplan.model.GuidePlanVO;
+import kr.co.tripweaver.mymenu.guideplan.service.IGuidePlanService;
 import kr.co.tripweaver.mymenu.mypage.tripplan.model.DailyPlanVO;
 import kr.co.tripweaver.mymenu.mypage.tripplan.model.MapMarkerVO;
 import kr.co.tripweaver.mymenu.mypage.tripplan.model.MypageTripPlanForListVO;
@@ -42,6 +47,12 @@ public class EssayController {
 	
 	@Autowired
 	IDailyPlanService dailyPlanService;
+	
+	@Autowired
+	IEssayService essayService; 
+	
+	@Autowired
+	IGuidePlanService guidePlanService;
 	
 	@RequestMapping("/write")
 	public ModelAndView essayWriteView(HttpSession session) {
@@ -104,15 +115,84 @@ public class EssayController {
 	}
 	
 	@RequestMapping("/insertEssayForm")
-	public String insertEssayFormView(EssayVO essayVo, Model model) {
+	public String insertEssayFormView(HttpSession session, EssayVO essayVo, Model model) {
 		
-		logger.debug("---------------------------");
+		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
+		
+		if(memberVo == null) {
+			return "LoginCheckError";
+		}
+		
 		logger.debug("---------------------------");
 		logger.debug("essayVo : {}", essayVo);
 		logger.debug("---------------------------");
+		
+		essayVo.setMem_id(memberVo.getMem_id());
+		
+		String essay_id = essayService.essayInsert(essayVo);
+		
+		if(essay_id == null) {
+			return "dbError";
+		}
+		
+		return "redirect: /main/main";
+	}
+	
+	@RequestMapping("/insertEssayFormForGuide")
+	public String insertEssayFormForGuideView(HttpSession session, EssayVO essayVo, Model model, String[] guideplan_start_day,
+			String[] guideplan_end_day, String[] guideplan_peo_count) {
+		
+		//일정 부분을 제대로 채워넣지 않았을때..
+		if(guideplan_start_day.length != guideplan_end_day.length || guideplan_end_day.length != guideplan_peo_count.length) {
+			return "emptyError";
+		}
+		
+		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
+		
+		if(memberVo == null) {
+			return "LoginCheckError";
+		}
+		
+		essayVo.setMem_id(memberVo.getMem_id());
+		
+		logger.debug("---------------------------");
+		logger.debug("essayVo : {}", essayVo);
 		logger.debug("---------------------------");
 		
-		return null;
+		
+		
+		String essay_id = essayService.essayInsert(essayVo);
+		
+		if(essay_id == null) {
+			return "dbError";
+		}
+		
+		GuidePlanVO guidePlanVo = new GuidePlanVO();
+		guidePlanVo.setEssay_id(essay_id);
+		
+		if(guideplan_start_day.length != 0) {
+			for(int i = 0; i < guideplan_start_day.length; i++) {
+				
+				logger.debug("guideplan_strat_day : {}", guideplan_start_day[i]);
+				logger.debug("guideplan_end_day : {} ", guideplan_end_day[i]);
+				logger.debug("guideplan_peo_count : {} ", guideplan_peo_count[i]);
+				
+				guidePlanVo.setGuideplan_start_day(Date.valueOf(guideplan_start_day[i]));
+				guidePlanVo.setGuideplan_end_day(Date.valueOf(guideplan_end_day[i]));
+				guidePlanVo.setGuideplan_peo_count(Integer.parseInt(guideplan_peo_count[i]));
+				
+				int guidePlanResultCnt = guidePlanService.insertGuidePlan(guidePlanVo);
+				
+				if(guidePlanResultCnt == 0) {
+					return "dbError";
+				}
+				
+			}
+		}
+		
+		return "redirect: /main/main";
 	}
+	
+	
 	
 }

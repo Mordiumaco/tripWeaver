@@ -512,8 +512,6 @@ function call()
 							<h2 class="view_title">제목: <input type="text" placeholder="제목을 적어주세요."></h2>
 							
 							<p class="view_con">
-								 
-								어 스마트 에디터 적용해
 							</p>
 							
 							<h2 class="view_title">가이드 일정 선택하기</h2>

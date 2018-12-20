@@ -132,14 +132,9 @@ public class EssayVO {
 				+ essay_like_count + ", essay_view_count=" + essay_view_count + ", essay_del=" + essay_del
 				+ ", essay_meal_exp=" + essay_meal_exp + ", essay_traffic_exp=" + essay_traffic_exp
 				+ ", essay_room_exp=" + essay_room_exp + ", essay_other_exp=" + essay_other_exp + ", mem_id=" + mem_id
-				+ ", tripplan_id=" + tripplan_id + ", getEssay_id()=" + getEssay_id() + ", getEssay_title()="
-				+ getEssay_title() + ", getEssay_cnt()=" + getEssay_cnt() + ", getEssay_date()=" + getEssay_date()
-				+ ", getEssay_filter()=" + getEssay_filter() + ", getEssay_like_count()=" + getEssay_like_count()
-				+ ", getEssay_view_count()=" + getEssay_view_count() + ", getEssay_del()=" + getEssay_del()
-				+ ", getEssay_meal_exp()=" + getEssay_meal_exp() + ", getEssay_traffic_exp()=" + getEssay_traffic_exp()
-				+ ", getEssay_room_exp()=" + getEssay_room_exp() + ", getEssay_other_exp()=" + getEssay_other_exp()
-				+ ", getMem_id()=" + getMem_id() + ", getTripplan_id()=" + getTripplan_id() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+				+ ", tripplan_id=" + tripplan_id + "]";
 	}
+	
+
 	
 }
