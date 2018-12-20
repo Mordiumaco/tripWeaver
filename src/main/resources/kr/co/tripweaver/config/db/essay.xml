@@ -14,4 +14,8 @@
 		</selectKey>
 	</insert>
 	
+	<select id="selectEssayByEssayId" resultType="essayVo" parameterType="String">
+		select * from essay where essay_id = #{essay_id}
+	</select>
+	
 </mapper>

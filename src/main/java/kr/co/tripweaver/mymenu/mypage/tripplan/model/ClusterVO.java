@@ -41,8 +41,44 @@ public class ClusterVO {
 	private String mem_id; //작성자 아이디
 	private String tripplan_image; //대표 이미지
 	private String mem_nick;
+	private String essay_id;
+	private Integer essay_meal_exp;
+    private Integer essay_traffic_exp;
+    private Integer essay_room_exp;
+    private Integer essay_other_exp;
 	
+    
 	
+	public Integer getEssay_meal_exp() {
+		return essay_meal_exp;
+	}
+	public void setEssay_meal_exp(Integer essay_meal_exp) {
+		this.essay_meal_exp = essay_meal_exp;
+	}
+	public Integer getEssay_traffic_exp() {
+		return essay_traffic_exp;
+	}
+	public void setEssay_traffic_exp(Integer essay_traffic_exp) {
+		this.essay_traffic_exp = essay_traffic_exp;
+	}
+	public Integer getEssay_room_exp() {
+		return essay_room_exp;
+	}
+	public void setEssay_room_exp(Integer essay_room_exp) {
+		this.essay_room_exp = essay_room_exp;
+	}
+	public Integer getEssay_other_exp() {
+		return essay_other_exp;
+	}
+	public void setEssay_other_exp(Integer essay_other_exp) {
+		this.essay_other_exp = essay_other_exp;
+	}
+	public String getEssay_id() {
+		return essay_id;
+	}
+	public void setEssay_id(String essay_id) {
+		this.essay_id = essay_id;
+	}
 	public String getTriparea_id() {
 		return triparea_id;
 	}

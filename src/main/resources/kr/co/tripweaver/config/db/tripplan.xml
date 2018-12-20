@@ -58,13 +58,20 @@
 		tp.mem_id mem_id,
 		tp.tripplan_image tripplan_image,
 		tp.tripplan_del tripplan_del,
- 		m.mem_nick mem_nick
-		from mapmarker mm, triparea ta, tripplan tp, member m 
+ 		m.mem_nick mem_nick,
+ 		e.essay_id essay_id,
+ 		e.essay_meal_exp essay_meal_exp,
+        e.essay_traffic_exp essay_traffic_exp,
+        e.essay_room_exp essay_room_exp,
+        e.essay_other_exp essay_other_exp
+		from mapmarker mm, triparea ta, tripplan tp, member m, essay e 
 		where mm.triparea_id = ta.triparea_id 
 		and ta.triparea_order = 1 
 		and ta.tripplan_id = tp.tripplan_id 
 		and tp.tripplan_del = 'N' 
 		and m.mem_id = tp.mem_id
+		and e.essay_del = 'N'
+		and e.tripplan_id = tp.tripplan_id
 	</select>
 	
 	<select id="selectClusterVoByXY" parameterType="Map" resultType="clusterVo">
@@ -84,13 +91,20 @@
 		tp.mem_id mem_id,
 		tp.tripplan_image tripplan_image,
 		tp.tripplan_del tripplan_del,
- 		m.mem_nick mem_nick
-		from mapmarker mm, triparea ta, tripplan tp, member m 
+ 		m.mem_nick mem_nick,
+ 		e.essay_id essay_id,
+ 		e.essay_meal_exp essay_meal_exp,
+        e.essay_traffic_exp essay_traffic_exp,
+        e.essay_room_exp essay_room_exp,
+        e.essay_other_exp essay_other_exp
+		from mapmarker mm, triparea ta, tripplan tp, member m, essay e
 		where mm.triparea_id = ta.triparea_id 
 		and ta.triparea_order = 1 
 		and ta.tripplan_id = tp.tripplan_id 
 		and tp.tripplan_del = 'N' 
 		and m.mem_id = tp.mem_id
+		and e.essay_del = 'N'
+		and e.tripplan_id = tp.tripplan_id
 		and mm.mapmark_x_coor = #{mapmark_x_coor}
 		and mm.mapmark_y_coor = #{mapmark_y_coor}
 	</select>
@@ -112,13 +126,20 @@
 		tp.mem_id mem_id,
 		tp.tripplan_image tripplan_image,
 		tp.tripplan_del tripplan_del,
- 		m.mem_nick mem_nick
-		from mapmarker mm, triparea ta, tripplan tp, member m 
+ 		m.mem_nick mem_nick,
+ 		e.essay_id essay_id,
+ 		e.essay_meal_exp essay_meal_exp,
+        e.essay_traffic_exp essay_traffic_exp,
+        e.essay_room_exp essay_room_exp,
+        e.essay_other_exp essay_other_exp
+		from mapmarker mm, triparea ta, tripplan tp, member m, essay e
 		where mm.triparea_id = ta.triparea_id 
 		and ta.triparea_order = 1 
 		and ta.tripplan_id = tp.tripplan_id 
 		and tp.tripplan_del = 'N' 
 		and m.mem_id = tp.mem_id
+		and e.essay_del = 'N'
+		and e.tripplan_id = tp.tripplan_id
 		<if test="tripplan_theme !='' ">
 			and tp.tripplan_theme = #{tripplan_theme}
 		</if>
