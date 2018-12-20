@@ -8,7 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.co.tripweaver.common.comment.model.CommentVO;
+import kr.co.tripweaver.common.attachment.service.IAttachmentService;
 import kr.co.tripweaver.common.comment.service.ICommentService;
 import kr.co.tripweaver.common.like.service.ILikeService;
 import kr.co.tripweaver.hashtag.model.HashTagVO;
@@ -31,6 +31,9 @@ public class PostCardService implements IPostCardService{
 	
 	@Autowired
 	ICommentService commentService;
+	
+	@Autowired
+	IAttachmentService attachmentService;
 	
 	/**
 	 * 
@@ -100,7 +103,10 @@ public class PostCardService implements IPostCardService{
 		*
 	 */
 	@Override
-	public int insertPostcard(PostCardVO postcardVo) {
+	public int insertPostcard(Map<String, Object> resultMap) {
+		
+		PostCardVO postcardVo = (PostCardVO)resultMap.get("postcardVo");
+		
 		String pc_id = postCardDao.insertPostcard(postcardVo);
 		
 		// 해시태그 내용을 변수에 담기
@@ -122,6 +128,17 @@ public class PostCardService implements IPostCardService{
 		// 해시태그 서비스에 인서트
 		hashTagService.insertHashtag(hashList);
 		
+		
+		//파일 첨부 작업
+		
+		String art_rel_art_id = pc_id;
+		
+		int insertAttachment = 0;
+	/*	
+		for(FileVo fileCnt : fileVo) {
+			fileCnt.setPo_id(po_id_PostsFile);
+			insertPostsFile += attachmentService.insertFile(fileCnt);
+		}*/
 		
 		return 0;
 	}

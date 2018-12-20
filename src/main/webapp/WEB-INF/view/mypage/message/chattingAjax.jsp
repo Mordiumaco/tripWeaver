@@ -133,17 +133,24 @@ ul {
 }
 
 /* .Chat_room li span { float: right;} */
-.Chat_room .date { float: right;}
+.Chat_room .date { float: right; margin-right: 5px;}
 .Chat_room .chatroom.cnt { color: #D5D5D5;}
 .Chat_room .chatroom.rec_cnt { color: red;}
 
 .Chat_room ul li:nth-child(1) { padding-top: 3px;}
 
-.Chat_room b { font-size: 0.9em;}
+.Chat_room b { font-size: 0.9em; }
 .chat_con { font-size: 0.8em;}
 
 .Chat_room a { color: #333;}
 
+.chatroom_cnt222 { float: left !important;}
+
+.chatroom_cnt { font-size: 1em; font-weight: bold; color: #333; float: left !important;}
+.chatroom_cnt b { font-weight: normal; color: #666; }
+
+.chatroom_rec_cnt {font-size: 1em; font-weight: bold; color: #333; background: #ffcd41; border-radius: 50px; padding: 8px; margin-right: 5px; margin-top: 3px;}
+.chatroom_rec_cnt b { font-weight: normal; color: #666; }
 </style>
 		<ul>
 		
@@ -152,10 +159,13 @@ ul {
 					<a href="/message/chatRoomDetailView?group_id=${chatroom.group_id}&mem_id=${chatroom.mem_id}">
 						<div><img src="/img/icon/message01_icon.png"></div>
 						<ul>
-							<li> <b>${chatroom.chatroom_name}&nbsp;</b> <span class="chatroom.cnt">${chatroom.cnt}</span> <span class="date"><span class="chatroom.rec_cnt">${chatroom.rec_cnt}</span><fmt:formatDate value="${chatroom.msg_date}" pattern="yyyy.MM.dd"/></span></li>
+							<li> <span class="chatroom_cnt222"><b>${chatroom.chatroom_name}&nbsp;</b></span> <span class="chatroom_cnt">${chatroom.cnt}<b>명 </b></span>    <span class="date"><fmt:formatDate value="${chatroom.msg_date}" pattern="yyyy.MM.dd"/> </span> </li>
 							<li class="chat_con">
 								${chatroom.msg_cnt}
+								<span class="chatroom_rec_cnt">${chatroom.rec_cnt}<b>건 </b></span>
 							</li>
+							
+							
 						</ul>
 					</a>
 				</li>

@@ -1,8 +1,14 @@
 package kr.co.tripweaver.postcard.web;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,8 +16,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.tripweaver.common.attachment.model.AttachmentVO;
 import kr.co.tripweaver.common.comment.model.CommentVO;
 import kr.co.tripweaver.common.comment.service.ICommentService;
 import kr.co.tripweaver.common.like.model.LikeVO;
@@ -112,9 +121,31 @@ public class PostCardController {
 	
 	// 포스트카드 인서트
 	@RequestMapping(value="/insertPostcard", method=RequestMethod.POST)
-	public String insertPostcard(PostCardVO postcardVo, @RequestParam("att_file_ori_name")String att_file_ori_name) {
+	public String insertPostcard(PostCardVO postcardVo, @RequestPart("att_file_ori_name")MultipartFile[] part, HttpServletRequest request) {
 		
-		int insertPostcardCnt = postCardService.insertPostcard(postcardVo);
+		// 파일 첨부 
+		List<AttachmentVO> listFileVo = new ArrayList<AttachmentVO>();
+		
+		for(MultipartFile mufi : part) {
+			try {
+				if(mufi.getSize() > 0) {
+					AttachmentVO attachmentVo = new AttachmentVO();
+					String att_path = "/postcard";
+					String att_file_name = UUID.randomUUID().toString() + mufi.getOriginalFilename();
+					attachmentVo.setAtt_file_ori_name(mufi.getOriginalFilename());
+					mufi.transferTo(new File("C:\\upload"+ att_path + File.separator + att_file_name));
+					listFileVo.add(attachmentVo);
+				}
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("attachmentVo", listFileVo);
+		resultMap.put("postcardVo", postcardVo);
+		
+		int insertPostcardCnt = postCardService.insertPostcard(resultMap);
 		
 		return "redirect:/postCard/postCardList?mem_id=" + postcardVo.getMem_id() + "&tag_search=";
 	}

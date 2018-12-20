@@ -32,12 +32,12 @@ ul {
 
 .mes_head { width:100%; height:80px; background:#a9bdce; border-bottom: 1px solid #a4b7c7; }
 .mes_head ul { width:100%; height: 80px;}
-.mes_head ul li:nth-child(1) { width: 15%; float: left;}
+.mes_head ul li:nth-child(1) { width: 10%; float: left;}
 .mes_head ul li:nth-child(2) { width: 85%; float: left;}
 .mes_title { width: 100%;}
 .mes_title div { float: left; line-height: 80px; height: 80px;}
-.mes_title div:nth-child(1) { width: 20%;}
-.mes_title div:nth-child(1) img { height: 64px; margin-top: 8px;}
+.mes_title div:nth-child(1) { width: 20%; margin-top: 5px;}
+.mes_title div:nth-child(1) img {  width:100%; }
 .mes_title div:nth-child(2) { width: 80%; padding-left: 10px;}
 
 .mes_con { width: 100%; background: #b0c4d6; overflow-y: scroll; padding: 10px;   }
@@ -51,11 +51,11 @@ ul {
 
 .mes_con_list { width: 100%; min-height:72px; margin-bottom: 15px; display: table;}
 .mes_con_list h6 { width: 20%; float: left;  margin: 0;}
-.mes_con_list h6 img { height: 64px;}
+.mes_con_list h6 img { width: 100%;}
 .mes_con_list ul { width: 80%; float: left; padding-top: 10px;}
 .mes_con_list ul li { padding-left:10px;}
 
-.mes_date { float: right; font-size: 0.75em;}
+.mes_date { font-size: 0.75em; color: #666; position: absolute; top: 15px; right: -100px;}
 .mes_dateMy { float: none;}
 
 .mes_con_list_text { margin-top:5px; background:#fff; padding: 5px; border-radius: 4px; box-shadow: 1px 1px 3px #999; line-height: 160%;
@@ -64,21 +64,59 @@ ul {
 	word-wrap: break-word; 
 	-webkit-line-clamp: 6; 
 	-webkit-box-orient: vertical;
+	margin-left: 5px;
+	
+	position: relative;
 	
 }
 
-.mes_con_listMy {}
+.mes_con_listMy { position: relative;}
 .mes_con_listMy ul { width: 100%;}
 .mes_con_listMy ul li { float: right;}
-.mes_con_list_textMy { background:#ffeb33 !important; }
+.mes_con_list_textMy { background:#ffeb33 !important;  }
 
 .back { text-decoration: none; font-size: 1.7em; color: #4a461f; display: block; line-height: 80px; padding-left: 10px;}
 .back:hover { color:#ffeb33 ; }
 
 .unread {
-	font-size: 10px;
+	font-size: 0.7em;
 	color: #FFE400;
+	margin-left: 5px;
+	padding-top: 5px;
+	position: absolute;
+	top:-6px;
+	right: -15px;
 }
+
+/* 이미지  수정 동그라미*/
+.my_profile { 
+	width:70px !important; 
+	height:70px !important; 
+	line-height:70px !important; 
+	border-radius: 50%; 
+	display: inline-block; 
+	vertical-align: bottom; 
+	overflow: hidden;
+}
+
+.my_profile2 {
+	width: 60px !important;
+	height: 60px !important;
+}
+
+.my_profile2 img {
+	min-height: 60px;
+	
+}
+
+.mes_con_listMy .unread { position: absolute; left: -20px; width: 10px; }
+
+#exit_btn { position: absolute; top: 0; right: 0; background: #ffeb33;  border: 1px solid #a79816; padding: 5px; border-radius: 0 0 5px 5px; font-size: 0.8em;}
+#exit_btn:hover { background:#797016; color: #fff;}
+
+#sendMessage { background:#ffeb33; border: 1px solid #e8d73f; padding: 5px 10px; border-radius: 3px;}
+#sendMessage:hover { background: #bfb021;}
+.mes_dateMy { position: absolute; left: -100px; width: 100px;}
 </style>
 
  <!-- Web socket CDN -->
@@ -184,18 +222,18 @@ function appendMessage(msg) {
 		if(msg.mem_id == '${loginInfo.mem_id}'){
 			html = '<div class="mes_con_list mes_con_listMy" >';
 			html += '<ul><li>';
-			html += '<span class="mes_date mes_dateMy">' + t + '</span></li>';
+			html += '</li>';
 			html += '<li class="mes_con_list_text mes_con_list_textMy">';
-			html +=	msg.msg_cnt + '</li><span id="' + msg.msg_id + '" class="unread">' + msg.unread + '</span></ul><div>';
+			html +=	msg.msg_cnt + '<span id="' + msg.msg_id + '" class="unread">' + msg.unread + '</span><span class="mes_date mes_dateMy">' + t + '</span></li></ul><div>';
 		} else if(msg.mem_id == 'admin') {
 			html = '<div><h6>' + msg.msg_cnt + '</h6></div>';
 		} else {
 			html = '<div class="mes_con_list" >';
-			html += '<h6><img src="/file/read?mem_profile=' + msg.mem_profile + '"></h6>';
+			html += '<h6 class="my_profile my_profile2" ><img src="/file/read?mem_profile=' + msg.mem_profile + '"></h6>';
 			html += '<ul><li><b>' + msg.mem_nick + '</b>';
-			html += '<span class="mes_date">' + t + '</span></li>';
+			html += '</li>';
 			html += '<li class="mes_con_list_text">';
-			html +=	msg.msg_cnt + '</li><span id="' + msg.msg_id + '" class="unread">' + msg.unread + '</span></ul><div>';
+			html +=	msg.msg_cnt + '<span id="' + msg.msg_id + '" class="unread">' + msg.unread + '</span><span class="mes_date">' + t + '</span></li></ul><div>';
 		}
 	}
 	
@@ -296,7 +334,7 @@ function updateReciveCount(obj) {
 		<ul>
 			<li><a class="back" href="/message/chatRoomListView?mem_id=${loginInfo.mem_id}">&#9664; </a></li>
 			<li class="mes_title">
-				<div><img src="/file/read?mem_profile=${loginInfo.mem_profile}" ></div>
+				<div class="my_profile"><img src="/file/read?mem_profile=${loginInfo.mem_profile}" ></div>
 				<div><b>
 					<c:forEach items="memNickList" var="nick">
 						${nick}&nbsp;
@@ -322,13 +360,15 @@ function updateReciveCount(obj) {
 				<c:otherwise>
 					<div class="mes_con_list ${msg.mem_id eq loginInfo.mem_id ? 'mes_con_listMy' : ''}" >
 						<c:if test="${msg.mem_id ne loginInfo.mem_id}">
-							<h6><img src="/file/read?mem_profile=${msg.mem_profile}" ></h6>
+							<h6 class="my_profile my_profile2"><img src="/file/read?mem_profile=${msg.mem_profile}" ></h6>
 						</c:if>
 						<ul>
-							<li><c:if test="${msg.mem_id ne loginInfo.mem_id}"><b>${msg.mem_nick}</b></c:if> <span class="mes_date ${msg.mem_id eq loginInfo.mem_id ? 'mes_dateMy' : ''}"><fmt:formatDate value="${msg.msg_date}" pattern="yyyy.MM.dd hh:mm"/></span></li>
+							<li><c:if test="${msg.mem_id ne loginInfo.mem_id}"><b>${msg.mem_nick}</b></c:if></li>
 							<li class="mes_con_list_text ${msg.mem_id eq loginInfo.mem_id ? 'mes_con_list_textMy' : ''}">
 								${msg.msg_cnt}
-							</li><span id="${msg.msg_id}" class="unread">${msg.unread}</span> 
+								<span id="${msg.msg_id}" class="unread">${msg.unread}</span> 
+								<span class="mes_date ${msg.mem_id eq loginInfo.mem_id ? 'mes_dateMy' : ''}"><fmt:formatDate value="${msg.msg_date}" pattern="yyyy.MM.dd hh:mm"/></span>
+							</li>					
 						</ul>
 					</div>
 				</c:otherwise>

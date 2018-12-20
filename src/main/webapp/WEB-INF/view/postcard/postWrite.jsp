@@ -181,7 +181,7 @@ $(document).ready(function(){
 		<div class="write_wrap">
 			<h1>포스트카드  글쓰기</h1>
 		</div>
-		<form method="post" action="/postCard/insertPostcard">
+		<form method="post" action="/postCard/insertPostcard" enctype="multipart/form-data">
 			<div class="write_wrap">
 				<h1>사진을 선택해주세요.</h1>
 				

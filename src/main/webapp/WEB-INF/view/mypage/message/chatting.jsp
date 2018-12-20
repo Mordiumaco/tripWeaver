@@ -97,7 +97,10 @@ ul {
 .local_sch03 .btn_submit{height:30px;padding:0 5px;border:0;;color:#fff;}
 .local_sch03 .frm_input{height:30px;border:1px solid #dcdcdc;padding:0 5px;}
 
-.mes_Search {height: 40px;}
+.mes_Search { width:100%; height: 30px; background: #f1f1f1; padding:5px 5px; }
+.mes_Search span { float: right; line-height: 30px; margin-right: 10px; font-size: 0.9em; color: #333; font-weight: bold;}
+.mes_Search a { background: #fff; border-radius: 5px; height: 28px; width: 26px; display: block; float: right;}
+
 /* 페이지 내 실행 */
 .local_cmd {min-width:960px}
 
@@ -184,7 +187,7 @@ ul {
 <!-- 			<input type="text" name="stx" value="" id="stx" required="" class="required frm_input" placeholder="채팅방 이름, 참여자로 검색해 주세요."> -->
 <!-- 			<input type="submit" class="btn_submit" value="검색"> -->
 <!-- 		</form> -->
-			<a href="/message/createChatroomView?mem_id=${loginInfo.mem_id}" ><i class="fas fa-plus-square"></i></a>
+			<a href="/message/createChatroomView?mem_id=${loginInfo.mem_id}" ><i class="fas fa-plus-square"></i></a><span>채팅방 생성하기</span>
 	</div>
 	
 	<div class="chatting_list" id="chatting_list">

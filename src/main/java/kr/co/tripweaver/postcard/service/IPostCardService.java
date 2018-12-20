@@ -46,7 +46,7 @@ public interface IPostCardService {
 		* Method 설명 : 포스트 글쓰기
 		*
 	 */
-	public int insertPostcard(PostCardVO postcardVo);
+	public int insertPostcard(Map<String, Object> resultMap);
 	
 	/**
 	 * 

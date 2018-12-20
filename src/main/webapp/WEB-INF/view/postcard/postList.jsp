@@ -207,9 +207,9 @@ $(function() {
 
 // 새로고침 감지해서 탑0 으로 보내기
 window.onbeforeunload = (e) => { 
-	window.scrollBy(0,50)
+	window.scrollTop(0);
 
-}; 
+};  
 
 
 /* 해시태그 클릭시 검색기에 값 넣어주고 검색 실행 */
