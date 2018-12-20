@@ -164,40 +164,23 @@ ul {
 				var follow;
 				var following_id = '${loginInfo.mem_id}';
 				var followed_id = $(this).prev().val();
-				console.log("following : " + following_id + "/ followed : " + followed_id);
+				var selectMembers = $('.'+followed_id);
 				if($(this).hasClass('following') == true){
-					var selectMembers = $('.'+followed_id);
-					
 					$.each(selectMembers, function(idx, obj){ //obj = $(selectMembers[idx])
 						var btn = $(obj).find('.followBtn');
-						//버튼 이름변경
 						btn.val("팔로우");
-						//버튼 클래스 추가
 						btn.addClass("follower");
-						//버튼 클래스 제거
 						btn.removeClass("following");
 					});
-// 					for(var i in selectMembers){
-// 						var btn = $(selectMembers[i]).children[1].children[1].children[2];
-// 						//버튼 이름변경
-// 						btn.val("팔로우");
-// 						//버튼 클래스 추가
-// 						btn.addClass("follower");
-// 						//버튼 클래스 제거
-// 						btm.removeClass("following");
-// 					}
-					
-// 					$(this).val("팔로우");
-// 					$(this).addClass("follower");
-// 					$(this).removeClass("following");
 					follow = 'N';
 					unfollow(following_id, followed_id);
-				
-				
 				} else {
-					$(this).val("팔로잉");
-					$(this).addClass("following");
-					$(this).removeClass("follower");
+					$.each(selectMembers, function(idx, obj){ //obj = $(selectMembers[idx])
+						var btn = $(obj).find('.followBtn');
+						btn.val("팔로잉");
+						btn.addClass("following");
+						btn.removeClass("follower");
+					});
 					follow = 'Y';
 					following(following_id, followed_id);
 				}	
