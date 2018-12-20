@@ -8,6 +8,8 @@
 <meta charset="UTF-8">
 <title>TripWeaver 메신저</title>
 <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico" />
+<link rel="stylesheet" href="/js/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
 <style type="text/css">
 
@@ -86,7 +88,7 @@ ul {
 .local_sch02{}
 .local_sch01 .frm_input{height:30px;border:1px solid #dcdcdc;padding:0 5px; margin-left: 10px; width: 80%;}
 .local_sch01 .btn_submit{width:30px;height:30px;border:0;padding:0;background:url(../img/sch_btn.png) no-repeat 50% 50% #eee;border:1px solid #dcdcdc;text-indent:-999px;overflow:hidden;     vertical-align: middle }
-.local_sch01 .btn_create{width:20px;height:30px;border:0;padding:0;background:url(../img/baseline_mode_comment_black_18dp.png) no-repeat 50% 50% #eee;border:1px solid #dcdcdc;text-indent:-999px;overflow:hidden;     vertical-align: middle }
+.fa-plus-square{font-size: 30px; color: #ffcd41;}
 .local_sch03{;padding:5px 15px;background:#e9ebf9;margin:10px 0}
 .local_sch div{margin:5px 0;}
 .local_sch03 strong{display:inline-block;width:70px;}
@@ -157,7 +159,6 @@ ul {
 			type : 'get',
 			data : "mem_id=" + '${loginInfo.mem_id}',
 			success : function(data) {
-				console.log('data : ' + data);
 				$('#chatting_list').html(data);
 			},
 			timeout : 3000,
@@ -183,7 +184,7 @@ ul {
 <!-- 			<input type="text" name="stx" value="" id="stx" required="" class="required frm_input" placeholder="채팅방 이름, 참여자로 검색해 주세요."> -->
 <!-- 			<input type="submit" class="btn_submit" value="검색"> -->
 <!-- 		</form> -->
-			<a href="/message/createChatroomView?mem_id=${loginInfo.mem_id}" class="btn_create">+</a>
+			<a href="/message/createChatroomView?mem_id=${loginInfo.mem_id}" ><i class="fas fa-plus-square"></i></a>
 	</div>
 	
 	<div class="chatting_list" id="chatting_list">
