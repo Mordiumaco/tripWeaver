@@ -43,9 +43,9 @@ public class PostCardService implements IPostCardService{
 	* Method 설명 : postcard 리스트 가져오기
 	* 
 	*/
-	public Map<String, Object> selectPostCardAll(){
-		
-		List<PostCardVO> cardVOs = postCardDao.selectPostCardAll();
+	public Map<String, Object> selectPostCardAll(Map<String, Object> params){
+
+		List<PostCardVO> cardVOs = postCardDao.selectPostCardAll(params);
 		
 		for(PostCardVO postCardVO : cardVOs){
 			List<String> strings = hashTagService.hashtagPostCard(postCardVO.getPc_id());

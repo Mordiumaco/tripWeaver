@@ -1,12 +1,12 @@
 package kr.co.tripweaver.postcard.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +18,7 @@ import kr.co.tripweaver.common.like.model.LikeVO;
 import kr.co.tripweaver.common.like.service.ILikeService;
 import kr.co.tripweaver.postcard.model.PostCardVO;
 import kr.co.tripweaver.postcard.service.IPostCardService;
+import kr.co.tripweaver.util.model.PageVO;
 
 @RequestMapping("/postCard")
 @Controller
@@ -31,12 +32,18 @@ public class PostCardController {
 	
 	@Autowired
 	ICommentService commentService;
-
-	// 포스트 카드로 이동
+	
+	// 최초 메뉴 포스트 카드로 이동
 	@RequestMapping("/postCardList")
-	public String postCardListView(Model model, @RequestParam("mem_id")String mem_id) {
+	public String postCardListView(Model model, @RequestParam("mem_id")String mem_id, @RequestParam("tag_search")String tag_search) {
 		
-		Map<String, Object> postCardPage =  postCardService.selectPostCardAll();
+		PageVO pageVo = new PageVO(1, 1);
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("tag_search", tag_search);
+		params.put("pageVo", pageVo);
+		
+		Map<String, Object> postCardPage =  postCardService.selectPostCardAll(params);
 		model.addAllAttributes(postCardPage);
 		
 		if(!(mem_id.equals(""))) {
@@ -45,6 +52,25 @@ public class PostCardController {
 		}
 		
 		return "postcard/postList";
+	}
+	
+	// 포스트 카드로 이동
+	@RequestMapping("/postCardListAjax")
+	public String postCardListViewAjax(Model model, @RequestParam("mem_id")String mem_id, @RequestParam("tag_search")String tag_search, PageVO pageVo) {
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("tag_search", tag_search);
+		params.put("pageVo", pageVo);
+		
+		Map<String, Object> postCardPage =  postCardService.selectPostCardAll(params);
+		model.addAllAttributes(postCardPage);
+		
+		if(!(mem_id.equals(""))) {
+			List<LikeVO> likeVo = likeService.likeAll(mem_id);
+			model.addAttribute("likeVo",likeVo);
+		}
+		
+		return "postcard/postListAjax";
 	}
 	
 	
@@ -90,7 +116,7 @@ public class PostCardController {
 		
 		int insertPostcardCnt = postCardService.insertPostcard(postcardVo);
 		
-		return "redirect:/postCard/postCardList?mem_id=" + postcardVo.getMem_id();
+		return "redirect:/postCard/postCardList?mem_id=" + postcardVo.getMem_id() + "&tag_search=";
 	}
 	
 	// 포스트카드 수정 페이지 이동
@@ -112,14 +138,15 @@ public class PostCardController {
 		
 		int updatePostcardCnt = postCardService.updatePostcard(postcardVo);
 		
-		return "redirect:/postCard/postCardList?mem_id=" + postcardVo.getMem_id();
+		return "redirect:/postCard/postCardList?mem_id=" + postcardVo.getMem_id() + "&tag_search=";
 	}
 	
 	// 댓글 쓰기
 	@RequestMapping(value="/insertComment", method=RequestMethod.POST)
 	@ResponseBody
 	public CommentVO insertComment(PostCardVO postcardVo, CommentVO commentVo){
-		   commentService.insertComment(commentVo);
+		   String comt_id = commentService.insertComment(commentVo);
+		   commentVo.setComt_id(comt_id);
 		return commentVo;
 	};
 	

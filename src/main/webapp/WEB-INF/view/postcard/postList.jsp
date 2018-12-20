@@ -5,8 +5,7 @@
 <link rel="stylesheet" href="/css/flexslider2.css" type="text/css" media="screen" />
 
 
-<script type="text/javascript">
-
+<%--   
 /* 포스트카드 내용에 a태그 추가하기  */
 function alinkSplite(thisClick) {
 
@@ -46,47 +45,6 @@ $(document).ready(function(){
 	    
 	  });
 	});
-
-/* 스크롤바 길이 잡아오기  */
-$(window).scroll(function () {
-	var height = $(document).scrollTop();
-
-	if(height>200) { 
-		$('#postSearch').attr('class','head_menu1')
-		$('#post_right_wrap').attr('class','post_right_wrap1')
-		$('#post_right_wrap').css('marginTop',height)
-		
-	} else {
-		$('#postSearch').attr('class','postSearch')
-		$('#post_right_wrap').attr('class','post_right_wrap')
-		$('#post_right_wrap').css('marginTop', '0')
-	}
-	
-});
-
-/* 해시태그 클릭시 검색기에 값 넣어주고 검색 실행 */
-$(function() {
-	$('.hashTaglink').on('click','a',function (){
-		var link = $(this).text();
-		$('#hashTagSearch').val(link);
-		$("#frm").submit();	
-	});
-	
- 	$('.hashTagList').on('click','a',function (){
-		var link = $(this).text();
-		$('#hashTagSearch').val(link);
-		$("#frm").submit();	
-	}); 
-	
-	$('.content').on('click','a',function (){
-		var link = $(this).text();
-		$('#hashTagSearch').val(link);
-		$("#frm").submit();	
-	});
-	
-			
-});
-
 /* 내용 댓글 더보기 기능  */
 $(document).ready(function(){
 	$('.postli5_con').hide();
@@ -123,18 +81,23 @@ $(document).ready(function(){
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
 
+/* 스크롤바 길이 잡아오기  */
+$(window).scroll(function () {
+	var height = $(document).scrollTop();
 
-
-// 스크롤 페이징 
-var page = 1;
-
-$(window).scroll(function() {
-    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-      console.log(++page);
-      $("#post_left_wrap").append("");
- 
-    }
+	if(height>200) { 
+		$('#postSearch').attr('class','head_menu1')
+		$('#post_right_wrap').attr('class','post_right_wrap1')
+		$('#post_right_wrap').css('marginTop',height)
+		
+	} else {
+		$('#postSearch').attr('class','postSearch')
+		$('#post_right_wrap').attr('class','post_right_wrap')
+		$('#post_right_wrap').css('marginTop', '0')
+	}
+	
 });
+
 
 // 좋아요 클릭 부분 처리
 
@@ -191,17 +154,17 @@ $(function() {
 		if(${loginInfo.mem_id != null}){
 			var comt_cnt = $(this).siblings('#comt_cnt').val();
 			var comt_rel_art_id = $(this).siblings('#comt_rel_art_id').val();
-			var mem_nick = $(this).parents('.postCard_con').find('#mem_nick').val();
+			//var mem_nick = $(this).parents('.postCard_con').find('#mem_nick').val();
 			$('#commentInsertFrm').children('#comt_cnt').val(comt_cnt);
 			$('#commentInsertFrm').children('#comt_rel_art_id').val(comt_rel_art_id);
-			$('#commentInsertFrm').children('#mem_nick').val(mem_nick);
+			//$('#commentInsertFrm').children('#mem_nick').val(mem_nick);
 			
 			var thisVar = $(this);
 			commentInsertAjax(thisVar);
 			$(this).siblings('#comt_cnt').val('');
-		}else{   
+		}else{      
 			alert('로그인을 해주세요.');
-		} 
+		}  
 		
 	});
 	
@@ -227,7 +190,6 @@ $(function() {
 		
 		$('.postCard_con').on('click','.com_btnup', function() {
 			var comt_cnt = $(this).siblings('#comt_cnt').val();
-			
 			$('#commentUpdateFrm').children('#comt_id').val(comt_id);
 			$('#commentUpdateFrm').children('#comt_cnt').val(comt_cnt);
 			
@@ -237,6 +199,77 @@ $(function() {
 	});
 	    
 }); 
+--%>
+
+<script type="text/javascript">
+
+
+
+// 새로고침 감지해서 탑0 으로 보내기
+window.onbeforeunload = (e) => { 
+	window.scrollBy(0,50)
+
+}; 
+
+
+/* 해시태그 클릭시 검색기에 값 넣어주고 검색 실행 */
+$(function() {
+	$('.hashTaglink').on('click','a',function (){
+		var link = $(this).text();
+		$('#hashTagSearch').val(link);
+		$("#frm").submit();
+
+	});
+	
+ 	$('.hashTagList').on('click','a',function (){
+		var link = $(this).text();
+		$('#hashTagSearch').val(link);
+		$("#frm").submit();	
+
+	}); 
+	
+	$('.content').on('click','a',function (){
+		var link = $(this).text();
+		$('#hashTagSearch').val(link);
+		$("#frm").submit();	
+
+	});
+	
+			
+});
+
+
+
+
+// 스크롤 페이징 
+ var page = 1;  //페이징과 같은 방식이라고 생각하면 된다. 
+ 
+$(function(){  //페이지가 로드되면 데이터를 가져오고 page를 증가시킨다.
+	postcardListAjax(page);
+    page++;
+});  
+
+$(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
+     if($(window).scrollTop() >= $(document).height() - $(window).height()){
+    	 postcardListAjax(page);
+    	 console.log(page);
+         page++;   
+        
+     } 
+     var height = $(document).scrollTop();
+
+   	if(height>200) { 
+   		$('#postSearch').attr('class','head_menu1')
+   		$('#post_right_wrap').attr('class','post_right_wrap1')
+   		$('#post_right_wrap').css('top',height)
+   	} else {
+   		$('#postSearch').attr('class','postSearch')
+   		$('#post_right_wrap').attr('class','post_right_wrap')
+   		$('#post_right_wrap').css('marginTop', '0')
+   	}
+   
+});
+
 
 // 좋아요 추가 아작스
 function likeAddAjax(thisVar){
@@ -291,6 +324,31 @@ function likeDelAjax(thisVar){
 	});	
 };
 
+// 리스트 출력 아작스
+
+function postcardListAjax(page) {
+	var tag_search = '${param.tag_search}';
+	var mem_id = '${loginInfo.mem_id}';
+	var pageSize = 1;
+	$.ajax({
+	  	url : "/postCard/postCardListAjax",
+	    type: "GET",
+	    data: "mem_id="+mem_id+"&page="+page +"&pageSize="+pageSize+"&tag_search="+tag_search,
+	    success : function(data){
+	    	
+	    	$('.loading').append('<img src="/img/loading.gif">');
+	    	
+	    	setTimeout(function(e) {
+	    		$(data).appendTo('#post_left_wrap');
+	    		$('.loading img').remove();
+			}, 1500);
+	    	
+	    	
+	    }
+	}); 
+};  
+
+
 // 포스트 카드 삭제 아작스
 function postcardDelAjax(thisVar) {
 	$.ajax({
@@ -311,17 +369,15 @@ function commentInsertAjax(thisVar) {
 	    data: $('#commentInsertFrm').serialize(),
 	    dataType :"json",
 	    success : function(data){
-	    	console.log(typeof data);
-	    	console.log(data.comt_cnt);
 	    	
 	    	var div = '';
 	    	div += "<div class='comment_mam'>";
-	    	div += "<b>"+ data.mem_nick +"</b> : " + data.comt_cnt ;
+	    	div += "<b>"+ data.mem_nick +"</b> : <span>" + data.comt_cnt+"</span>" ;
     		div += "<ul>";
    			div += "<li>";
-			div += "<a class='bbtn_01'>수정</a>";
+			div += "<a class='bbtn_01 commentUpdate'>수정</a><input type='hidden' id='comt_id' name='comt_id' value="+data.comt_id+">";
   			div += "</li>";
- 			div += "<li><a class='bbtn_02'>삭제</a></li>";
+ 			div += "<li><a class='bbtn_02 commentDel'>삭제</a><input type='hidden' id='comt_id' name='comt_id' value="+data.comt_id+"></li>";
   			div += "</ul>";
  			div += "</div>";
  			div += "<br/>";
@@ -385,6 +441,8 @@ function commentUpdateAjax(thisVar) {
 .post_right_wrap1 {
 	float: right;
     width: 450px;
+    position: absolute;
+    right: 20px;
 }
 
 #bo_v_sns img {
@@ -405,6 +463,10 @@ function commentUpdateAjax(thisVar) {
 
 .comment_mam { padding: 6px 2px;}
 .comment_mam span { display: inline-block !important;}
+
+.loading { width: 100%; float: left; text-align: center;}
+.loading img { float: none; width: 200px; margin-bottom: 20px;}
+
 </style>
 	
 	<div class="postSearch" id="postSearch">
@@ -413,8 +475,9 @@ function commentUpdateAjax(thisVar) {
 				<img src="/img/postCardLogo.png" width="6%;"> <span></span> PostCard
 			</div>
 			<div class="eyXLr wUAXj ">
-				<form action="" id="frm">
-					<input type="text" id="hashTagSearch" placeholder="#검색"><button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+				<form method="get" action="/postCard/postCardList" id="frm">
+					<input type="text" id="hashTagSearch" name="tag_search" placeholder="#검색" value="${param.tag_search}"><button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+					<input type="hidden" name="mem_id" value="${loginInfo.mem_id}"> 
 				</form>
 			</div>
 			<div class="eyXLr wUAXj ">
@@ -432,148 +495,7 @@ function commentUpdateAjax(thisVar) {
 		
 		<div class="post_left_wrap" id="post_left_wrap">
 			
-			<c:forEach items="${postCardList}" var="pcl" >
-				<c:choose>
-					<c:when test="${pcl.pc_del == 'N'}">	
-						<ul class="postCard_con">
-							<li>
-								<div class="postli_l"><b><img src="/file/read?mem_profile=${pcl.mem_profile}"></b><span>${pcl.mem_nick}</span></div> 
-								<c:choose>
-									<c:when test="${loginInfo.mem_id == pcl.mem_id}">
-										<div class="postli_r">
-											<a class="postcardUdate" >수정</a> 
-											<a class="postcardDelete">삭제</a>
-											<input type="hidden" id="pc_id" name="pc_id" value="${pcl.pc_id}">
-										</div>
-									</c:when>
-								</c:choose>
-							</li>
-							<li>
-								<c:choose>
-									<c:when test="">
-										<img src="/img/main_01.jpg">
-									</c:when>
-									<c:otherwise>
-										<div class="flexslider2">
-										  <ul class="slides">
-										    <li>
-										      	<img src="/img/no_image.png">
-										    </li>
-										    <li>
-										      	<img src="/img/no_image.png">
-										    </li>
-										    <li>
-										      	<img src="/img/no_image.png">
-										    </li>
-										    <li>
-										      	<img src="/img/no_image.png">
-										    </li>
-										  </ul>
-										</div>
-									</c:otherwise>
-								</c:choose>
-								
-							</li>
-							<li>
-								<div class="postli_l postli_l2">
-									<c:choose>
-										<c:when test="${loginInfo.mem_id == null}">
-											<i class="far fa-heart likeNull"></i>
-										</c:when>
-										
-										<c:otherwise>
-											<c:set var="heart_loop" value="true"></c:set>
-											<input type="hidden" id="like_rel_art_id" name="like_rel_art_id" value="${pcl.pc_id}">
-											<c:forEach varStatus="like" begin="0" end="${likeVo.size()}">
-												<c:if test="${heart_loop}">
-													<c:choose>
-														<c:when test="${pcl.pc_id == likeVo[like.index].like_rel_art_id}">
-															<i class="fas fa-heart likeDel" style="color:#ff0000;"></i>
-															<c:set var="heart_loop" value="false"></c:set>
-														</c:when>
-														
-														<c:when test="${ likeVo.size() == like.index }">
-															<i class="far fa-heart likeAdd"></i>
-														</c:when>
-													</c:choose>
-												</c:if>
-											</c:forEach>
-										</c:otherwise>
-										
-									</c:choose>
-									
-									<i class="far fa-comment"></i>
-									
-								</div>
-								<div class="postli_r"><i class="fa fa-share-alt fa-share-alt2 btn_share" aria-hidden="true"></i>
-									<ul id="bo_v_sns" class="show_kakao" style="display: none;">
-									    <li>
-									    	<div class="fb-share-button" data-href="http://192.168.203.53:8081/postCard/postCardList?u=${pcl.pc_id}&t=${pcl.pc_cnt}" data-layout="button_count"></div>
-									    </li>
-			    					</ul>
-		
-			    				</div>
-							</li>
-							<li class="likeNumLi">좋아요 <b class="likeNum">${pcl.pc_like_count}</b>개</li>
-							<li class="postli5">
-								내용 <b class="more_btn">보기 +</b>
-								<div class="postli5_con content">${pcl.pc_cnt}</div>
-							</li>
-							<li class="hashTaglink">
-								
-								<c:forEach items="${pcl.hashTagList}" var="htl">
-									#<a>${htl}</a>
-								</c:forEach>
-							</li>
-							<li><fmt:formatDate value="${pcl.pc_date}" pattern="yyyy. MM. dd"/></li>
-							<li class="postli5">
-								댓글 <b class="more_btn">보기 +</b>
-								<div class="postli5_con">
-									<span class="Post_comment">
-										<c:choose>
-											<c:when test="${pcl.commentList.size() != 0}">
-												<c:forEach items="${pcl.commentList}" var="com" varStatus="comNum">
-													<c:choose>
-														<c:when test="${com.comt_del == 'N' }">
-															<div class="comment_mam">
-																<b>${com.mem_nick}</b> : <span>${com.comt_cnt}</span>
-																<input type="hidden" id="mem_nick" name="mem_nick" value="${com.mem_nick}"> 
-																<c:choose>
-																	<c:when test="${loginInfo.mem_id == com.mem_id}">
-																		<ul>
-																			<li>
-																				<a class="bbtn_01 commentUpdate">수정</a>
-																				<input type="hidden" id="comt_id" name="comt_id" value="${com.comt_id}">
-																			</li>
-																			<li>
-																				<a class="bbtn_02 commentDel">삭제</a>
-																				<input type="hidden" id="comt_id" name="comt_id" value="${com.comt_id}">
-																			</li>
-																			
-																		</ul>
-																	</c:when>
-																</c:choose>
-															</div>
-														</c:when>
-													</c:choose>
-												</c:forEach>
-											</c:when>
-											<c:otherwise>
-												<div>댓글이 없습니다.</div>
-											</c:otherwise>
-										</c:choose>
-									</span>
-								</div>
-							</li>
-							<li>
-								<input id="comt_cnt" name="comt_cnt" type="text" placeholder="댓글달기...">
-								<button id="com_btn" type="button">작성</button> <a>ㆍㆍㆍ</a>
-								<input type="hidden" id="comt_rel_art_id" name="comt_rel_art_id" value="${pcl.pc_id}">
-							</li>
-						</ul>
-					</c:when>
-				</c:choose>
-			</c:forEach>
+			
 			
 		</div>
 		
@@ -618,6 +540,9 @@ function commentUpdateAjax(thisVar) {
 	
 	</div>
 	
+	<%-- 스크롤 페이징시 로딩 애니메이션 --%>
+	<div class="loading" ></div>
+	
 	<button type="button" id="top_btn"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
 	
 	<%-- 좋아요. 삭제  폼 --%>
@@ -651,7 +576,7 @@ function commentUpdateAjax(thisVar) {
 		<input type="hidden" id="comt_rel_art_id" name="comt_rel_art_id" value="">
 		<input type="hidden" id="mem_id" name="mem_id" value="${loginInfo.mem_id}">
 		<input type="hidden" id="filter_id" name="filter_id" value="postcard">
-		<input type="hidden" id="mem_nick" name="mem_nick" value="">
+		<input type="hidden" id="mem_nick" name="mem_nick" value="${loginInfo.mem_nick}">
 	</form>
 	
 	<%-- 댓글 수정 --%>

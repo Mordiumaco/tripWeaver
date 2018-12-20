@@ -1,0 +1,365 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<script type="text/javascript">
+
+
+/* 포스트카드 내용에 a태그 추가하기  */
+function alinkSplite(thisClick) {
+
+	var content = $(thisClick[0]).siblings('.content').text();  // html 안에 'content'라는 아이디를 content 라는 변수로 정의한다.
+
+	var splitedArray = content.split(' '); // 공백을 기준으로 문자열을 자른다.
+
+	var linkedContent = '';
+	for(var word in splitedArray)
+	{
+	  word = splitedArray[word];
+	  
+	   if(word.indexOf('#') == 0) // # 문자를 찾는다.
+	   {
+		   console.log(12321);
+		   var word1 = word.substring(1, word.lastIndexOf('#'));
+		   var word2 = word.substring(word.lastIndexOf('#')+1);
+		   word = word1 + '<span>#<a>'+word2+'</a></span>';
+	   }
+	   linkedContent += word+' ';
+	}
+	$(thisClick[0]).siblings('.content').html(linkedContent);
+};
+
+/* 화면 상단으로 이동 */
+$(function() {
+    $("#top_btn").on("click", function() {
+        $("html, body").animate({scrollTop:0}, '500');
+        return false;
+    });
+}); 
+
+/* 이미지 슬라이드 */
+$(document).ready(function(){
+	  $('.flexslider2').flexslider({
+	    animation: "slide",
+	    slideshowSpeed : 10000
+	    
+	  });
+	});
+
+
+
+/* 해시태그 클릭시 검색기에 값 넣어주고 검색 실행 */
+$(function() {
+	$('.hashTaglink').on('click','a',function (){
+		var link = $(this).text();
+		$('#hashTagSearch').val(link);
+		$("#frm").submit();
+
+	});
+	
+ 	$('.hashTagList').on('click','a',function (){
+		var link = $(this).text();
+		$('#hashTagSearch').val(link);
+		$("#frm").submit();	
+
+	}); 
+	
+	$('.content').on('click','a',function (){
+		var link = $(this).text();
+		$('#hashTagSearch').val(link);
+		$("#frm").submit();	
+
+	});
+	
+			
+});
+
+/* 내용 댓글 더보기 기능  */
+$(document).ready(function(){
+	$('.postli5_con').hide();
+	
+	$('.postli5').on('click','.more_btn',function () {
+		$(this).siblings('.postli5_con').show('100');
+		alinkSplite($(this));
+		$(this).addClass('more_btn2');
+
+	});  
+	
+	$('.postli5').on('click','.more_btn2',function () {
+		$(this).siblings('.postli5_con').hide('100');
+		$(this).removeClass('more_btn2');
+	});
+	
+	
+	
+	//sns공유
+    $(".btn_share").click(function(){
+        $(this).siblings("#bo_v_sns").fadeToggle();
+   
+    });
+	
+	
+}); 
+
+/* 페이스북 링크 공유  */
+(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = 580782545709565;
+    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+
+
+
+
+// 좋아요 클릭 부분 처리
+
+$(function() {
+	
+	$('.postli_l2').on('click','.likeNull', function () {
+		alert('비회원은 사용이 불가능 합니다.');		
+	});
+	
+	$('.postli_l2').on('click','.likeAdd', function () {
+		var like_rel_art_id = $(this).siblings('#like_rel_art_id').val();
+		$('#likeAddFrm').children('#like_rel_art_id').val(like_rel_art_id);
+		
+		var thisVar = $(this);
+		
+		likeAddAjax(thisVar);			
+	});
+	
+	$('.postli_l2').on('click','.likeDel', function () {
+		var like_rel_art_id = $(this).siblings('#like_rel_art_id').val();
+		$('#likeDeleteFrm').children('#like_rel_art_id').val(like_rel_art_id);
+		
+		var thisVar = $(this);
+		
+		likeDelAjax(thisVar);
+	});
+	
+	// 포스트 카드 삭제 클릭 처리 부분
+	$('.postli_r').on('click','.postcardDelete', function() {
+		
+		if (confirm("정말 삭제하시겠습니까??")){    //확인
+			var pc_id = $(this).siblings('#pc_id').val();
+			$('#postcardDeleteFrm').children('#pc_id').val(pc_id);	
+			var thisVar = $(this);
+			
+			postcardDelAjax(thisVar);
+		}else{   //취소
+			alert("삭제취소"); //취소시 이벤트 처리
+			return;
+		}
+		
+	});
+	
+	// 포스트 카드 삭제 수정 처리 부분
+	$('.postli_r').on('click','.postcardUdate', function() {
+		var pc_id = $(this).siblings('#pc_id').val();
+		$('#postcardUpdateFrm').children('#pc_id').val(pc_id);	
+		$('#postcardUpdateFrm').submit();
+	});
+	
+	// 댓글쓰기
+	
+	$('.postCard_con').on('click','#com_btn', function() {
+		if(${loginInfo.mem_id != null}){
+			var comt_cnt = $(this).siblings('#comt_cnt').val();
+			var comt_rel_art_id = $(this).siblings('#comt_rel_art_id').val();
+			//var mem_nick = $(this).parents('.postCard_con').find('#mem_nick').val();
+			$('#commentInsertFrm').children('#comt_cnt').val(comt_cnt);
+			$('#commentInsertFrm').children('#comt_rel_art_id').val(comt_rel_art_id);
+			//$('#commentInsertFrm').children('#mem_nick').val(mem_nick);
+			
+			var thisVar = $(this);
+			commentInsertAjax(thisVar);
+			$(this).siblings('#comt_cnt').val('');
+		}else{      
+			alert('로그인을 해주세요.');
+		}  
+		
+	});
+	
+	// 댓글 삭제
+	$('.postCard_con').on('click','.commentDel', function() {
+		var comt_id = $(this).siblings('#comt_id').val();
+		$('#commentDeleteFrm').children('#comt_id').val(comt_id);
+		
+		var thisVar = $(this);
+		commentDeleteAjax(thisVar);
+	});
+	
+	// 댓글 수정
+	$('.postCard_con').on('click','.commentUpdate', function() {
+		var comt_id = $(this).siblings('#comt_id').val();
+		var comt_cntup = $(this).closest('.comment_mam').find('span').text();
+
+		$(this).closest('.postCard_con').find('#comt_cnt').val(comt_cntup);   
+		$(this).closest('.postCard_con').find('#com_btn').addClass('com_btnup');
+		$(this).closest('.postCard_con').find('.com_btnup').attr('id', 'newID');
+		
+		var thisVar = $(this);
+		
+		$('.postCard_con').on('click','.com_btnup', function() {
+			var comt_cnt = $(this).siblings('#comt_cnt').val();
+			$('#commentUpdateFrm').children('#comt_id').val(comt_id);
+			$('#commentUpdateFrm').children('#comt_cnt').val(comt_cnt);
+			
+			commentUpdateAjax(thisVar);
+			
+		});
+	});
+	    
+}); 
+</script>
+
+
+<c:forEach items="${postCardList}" var="pcl" >
+	<c:choose>
+		<c:when test="${pcl.pc_del == 'N'}">	
+			<ul class="postCard_con">
+				<li>
+					<div class="postli_l"><b><img src="/file/read?mem_profile=${pcl.mem_profile}"></b><span>${pcl.mem_nick}</span></div> 
+					<c:choose>
+						<c:when test="${loginInfo.mem_id == pcl.mem_id}">
+							<div class="postli_r">
+								<a class="postcardUdate" >수정</a> 
+								<a class="postcardDelete">삭제</a>
+								<input type="hidden" id="pc_id" name="pc_id" value="${pcl.pc_id}">
+							</div>
+						</c:when>
+					</c:choose>
+				</li>
+				<li>
+					<c:choose>
+						<c:when test="">
+							<img src="/img/main_01.jpg">
+						</c:when>
+						<c:otherwise>
+							<div class="flexslider2">
+							  <ul class="slides">
+							    <li>
+							      	<img src="/img/no_image.png">
+							    </li>
+							    <li>
+							      	<img src="/img/no_image.png">
+							    </li>
+							    <li>
+							      	<img src="/img/no_image.png">
+							    </li>
+							    <li>
+							      	<img src="/img/no_image.png">
+							    </li>
+							  </ul>
+							</div>
+						</c:otherwise>
+					</c:choose>
+					
+				</li>
+				<li>
+					<div class="postli_l postli_l2">
+						<c:choose>
+							<c:when test="${loginInfo.mem_id == null}">
+								<i class="far fa-heart likeNull"></i>
+							</c:when>
+							
+							<c:otherwise>
+								<c:set var="heart_loop" value="true"></c:set>
+								<input type="hidden" id="like_rel_art_id" name="like_rel_art_id" value="${pcl.pc_id}">
+								<c:forEach varStatus="like" begin="0" end="${likeVo.size()}">
+									<c:if test="${heart_loop}">
+										<c:choose>
+											<c:when test="${pcl.pc_id == likeVo[like.index].like_rel_art_id}">
+												<i class="fas fa-heart likeDel" style="color:#ff0000;"></i>
+												<c:set var="heart_loop" value="false"></c:set>
+											</c:when>
+											
+											<c:when test="${ likeVo.size() == like.index }">
+												<i class="far fa-heart likeAdd"></i>
+											</c:when>
+										</c:choose>
+									</c:if>
+								</c:forEach>
+							</c:otherwise>
+							
+						</c:choose>
+						
+						<i class="far fa-comment"></i>
+						
+					</div>
+					<div class="postli_r"><i class="fa fa-share-alt fa-share-alt2 btn_share" aria-hidden="true"></i>
+						<ul id="bo_v_sns" class="show_kakao" style="display: none;">
+						    <li>
+						    	<div class="fb-share-button" data-href="http://192.168.203.53:8081/postCard/postCardList?u=${pcl.pc_id}&t=${pcl.pc_cnt}" data-layout="button_count"></div>
+						    </li>
+    					</ul>
+
+    				</div>
+				</li>
+				<li class="likeNumLi">좋아요 <b class="likeNum">${pcl.pc_like_count}</b>개</li>
+				<li class="postli5">
+					내용 <b class="more_btn">보기 +</b>
+					<div class="postli5_con content">${pcl.pc_cnt}</div>
+				</li>
+				<li class="hashTaglink">
+					
+					<c:forEach items="${pcl.hashTagList}" var="htl">
+						#<a>${htl}</a>
+					</c:forEach>
+				</li>
+				<li><fmt:formatDate value="${pcl.pc_date}" pattern="yyyy. MM. dd"/></li>
+				<li class="postli5">
+					댓글 <b class="more_btn">보기 +</b>
+					<div class="postli5_con">
+						<span class="Post_comment">
+							<c:choose>
+								<c:when test="${pcl.commentList.size() != 0}">
+									<c:forEach items="${pcl.commentList}" var="com" varStatus="comNum">
+										<c:choose>
+											<c:when test="${com.comt_del == 'N' }">
+												<div class="comment_mam">
+													<b>${com.mem_nick}</b> : <span>${com.comt_cnt}</span>
+													<input type="hidden" id="mem_nick" name="mem_nick" value="${com.mem_nick}"> 
+													<c:choose>
+														<c:when test="${loginInfo.mem_id == com.mem_id}">
+															<ul>
+																<li>
+																	<a class="bbtn_01 commentUpdate">수정</a>
+																	<input type="hidden" id="comt_id" name="comt_id" value="${com.comt_id}">
+																</li>
+																<li>
+																	<a class="bbtn_02 commentDel">삭제</a>
+																	<input type="hidden" id="comt_id" name="comt_id" value="${com.comt_id}">
+																</li>
+																
+															</ul>
+														</c:when>
+													</c:choose>
+												</div>
+											</c:when>
+										</c:choose>
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<div>댓글이 없습니다.</div>
+								</c:otherwise>
+							</c:choose>
+						</span>
+					</div>
+				</li>
+				<li>
+					<input id="comt_cnt" name="comt_cnt" type="text" placeholder="댓글달기...">
+					<button id="com_btn" type="button">작성</button> <a>ㆍㆍㆍ</a>
+					<input type="hidden" id="comt_rel_art_id" name="comt_rel_art_id" value="${pcl.pc_id}">
+				</li>
+			</ul>
+		</c:when>
+	</c:choose>
+</c:forEach>
+	
+	

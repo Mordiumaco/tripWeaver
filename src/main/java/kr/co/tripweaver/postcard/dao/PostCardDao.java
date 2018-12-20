@@ -1,6 +1,7 @@
 package kr.co.tripweaver.postcard.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -27,9 +28,9 @@ public class PostCardDao implements IPostCardDao{
 	* 
 	*/
 	@Override
-	public List<PostCardVO> selectPostCardAll(){
-		
-		List<PostCardVO> postcardVo = template.selectList("postcardSQL.selectPostCardAll");
+	public List<PostCardVO> selectPostCardAll(Map<String, Object> params){
+		System.out.println(params);
+		List<PostCardVO> postcardVo = template.selectList("postcardSQL.selectPostCardAll", params);
 		
 		return postcardVo;
 	}

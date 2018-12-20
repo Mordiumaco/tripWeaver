@@ -1,6 +1,7 @@
 package kr.co.tripweaver.postcard.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.tripweaver.postcard.model.PostCardVO;
 
@@ -17,7 +18,7 @@ public interface IPostCardDao {
 	* Method 설명 : postcard 리스트 가져오기
 	* 
 	*/
-	List<PostCardVO> selectPostCardAll();
+	List<PostCardVO> selectPostCardAll(Map<String, Object> params);
 	
 	/**
 	 * 

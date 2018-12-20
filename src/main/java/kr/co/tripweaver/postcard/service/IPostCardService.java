@@ -18,7 +18,7 @@ public interface IPostCardService {
 	* Method 설명 : postcard 리스트 가져오기
 	* 
 	*/
-	public Map<String, Object> selectPostCardAll();
+	public Map<String, Object> selectPostCardAll(Map<String, Object> params);
 	
 	/**
 	 * 

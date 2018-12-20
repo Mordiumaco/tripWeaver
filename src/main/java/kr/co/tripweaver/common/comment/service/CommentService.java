@@ -45,9 +45,9 @@ public class CommentService implements ICommentService {
 		*
 	 */
 	@Override
-	public int insertComment(CommentVO commentVo) {
-		 int insertCommentCnt = commentDao.insertComment(commentVo);
-		return insertCommentCnt;
+	public String insertComment(CommentVO commentVo) {
+		 String comt_id = commentDao.insertComment(commentVo);
+		return comt_id;
 	}
 	
 	/**

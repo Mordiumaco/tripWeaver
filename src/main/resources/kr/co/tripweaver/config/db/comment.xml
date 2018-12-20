@@ -17,6 +17,9 @@
 	
 	<!-- 댓글 인서트 -->
 	<insert id="insertComment" parameterType="commentVo">
+		<selectKey resultType="String" keyProperty="comt_id" order="BEFORE" >
+  			SELECT	'com'||lpad(com_seq.nextval, 5, 0) from dual
+  		</selectKey>
 		INSERT into COMMENTS(
 		    COMT_ID
 		    , COMT_CNT
@@ -27,7 +30,7 @@
 		    , mem_id
 		    , FILTER_ID
 		)values(
-		    'com'||lpad(com_seq.nextval, 5, 0)
+		     #{comt_id}
 		    , #{comt_cnt}
 		    , sysdate
 		    , 'N'
