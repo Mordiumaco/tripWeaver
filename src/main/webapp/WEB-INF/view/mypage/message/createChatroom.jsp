@@ -54,11 +54,11 @@ ul {
 .mes_my { width: 100%; height: 90px;}
 .mes_my>b {height: 30px; background: #f1f1f1; display: block; line-height: 30px; padding-left: 10px; margin-bottom: 10px;}
 
-.mes_my div { width: 100%; float: left; max-height: 80px;}
+.mes_my div { width: 100%; float: left; max-height: 80px; padding: 4px 10px;}
 .mes_my ul { width: 80%; float: left; height: 80px; }
 .mes_my ul li { padding-left: 20px; line-height: 80px;}
-.mes_my img { width: 100%;}
-.mes_my #inviteList {width: 100%; overflow: auto;}
+.mes_my img { width: 100%; }
+.mes_my #inviteList {width: 100%; overflow: auto; min-height: 40px;}
 
 .mes_friendUl .mes_f_list:nth-child(even) { background: #f1f1f1;}
 
@@ -158,7 +158,17 @@ ul {
 	
 }
 
+#inviteList span { padding: 4px 8px; background: #ffeb33; border:1px solid #e8d73f; border-radius: 5px; display: inline-block; margin-bottom: 6px;}
 
+.btn_create{
+	background: #ffeb33;
+    border: 1px solid #e8d73f;
+    padding: 5px 10px;
+    border-radius: 3px;
+    vertical-align: bottom;
+}
+
+.btn_create:hover { background: #bfb021;}
 </style>
 <script src="/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
@@ -192,13 +202,13 @@ ul {
 			
 			var list = '';
 			for(var j =0; j < inviteListNick.length; j++){
-				list += inviteListNick[j] + ' ';
+				list += "<span>"+inviteListNick[j]+"</span>" + ' ';
 			}
 			
 			console.log(inviteListNick);
 			console.log(inviteListId);
 			
-			$('#inviteList').text(list);
+			$('#inviteList').html(list);
 			
 		});
 		
