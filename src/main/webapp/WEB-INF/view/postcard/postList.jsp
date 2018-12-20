@@ -341,7 +341,7 @@ function postcardListAjax(page) {
 	    	setTimeout(function(e) {
 	    		$(data).appendTo('#post_left_wrap');
 	    		$('.loading img').remove();
-			}, 1500);
+			}, 1000);
 	    	
 	    	
 	    }
