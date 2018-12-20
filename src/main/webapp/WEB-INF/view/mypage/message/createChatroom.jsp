@@ -167,30 +167,32 @@ ul {
 			var nick = $(this).find('input').val();
 			var id = p.find('input').val(); //같은 값을 가져오네
 			console.log('nick : ' + nick + " id : " + id);
-
-			if($(this).hasClass('check')){
-				for(var i = 0; i < inviteList.length; i++){
-				
-					if(inviteList[i] == nick){
-						inviteListNick.splice( i, 1); 
-						inviteListId.splice( i, 1); 
-					}
+			var search = false;
+			var index;
+			for(var i in inviteListId){
+				if(inviteListId[i] == id){
+					search = true;					
+					index = i;
+					break;
 				}
-				$(this).removeClass('check');
+			}
+			if(search){
+				inviteListNick.splice( index, 1);
+				inviteListId.splice( index, 1);
 			} else {
-				$(this).addClass('check');
-				inviteListNick.push(nick); 
-				inviteListId.push(id); 
+				inviteListNick.push(nick);
+				inviteListId.push(id);
 			}
 			
 			var list = '';
-			for(var i = 0; i < inviteListNick.length; i++){
-				list += inviteListNick[i] + ' ';
+			for(var j =0; j < inviteListNick.length; j++){
+				list += inviteListNick[j] + ' ';
 			}
+			
 			console.log(inviteListNick);
 			console.log(inviteListId);
 			
-			$('#inviteList').html(list);
+			$('#inviteList').text(list);
 			
 		});
 		
@@ -297,7 +299,7 @@ ul {
 					<ul>
 						<li>${follower.mem_nick}<input type="hidden" value="${follower.mem_nick}"></li>
 						<li>
-							<input type="hidden" value="${follower.mem_id}">
+							<p><input type="hidden" value="${follower.mem_id}"></p>
 						</li>
 					</ul>
 				</li>
