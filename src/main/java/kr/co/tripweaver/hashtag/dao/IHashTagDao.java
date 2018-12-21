@@ -48,4 +48,18 @@ public interface IHashTagDao {
 		*
 	 */
 	int insertHashtag(HashTagVO hashtagVo);
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 해시태그 삭제
+		*
+	 */
+	int deleteHasgtag(String pc_id);
 }

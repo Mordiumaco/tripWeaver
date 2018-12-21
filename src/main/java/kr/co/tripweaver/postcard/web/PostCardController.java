@@ -1,7 +1,14 @@
 package kr.co.tripweaver.postcard.web;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,12 +16,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.tripweaver.common.attachment.model.AttachmentVO;
+import kr.co.tripweaver.common.comment.model.CommentVO;
+import kr.co.tripweaver.common.comment.service.ICommentService;
 import kr.co.tripweaver.common.like.model.LikeVO;
 import kr.co.tripweaver.common.like.service.ILikeService;
 import kr.co.tripweaver.postcard.model.PostCardVO;
 import kr.co.tripweaver.postcard.service.IPostCardService;
+import kr.co.tripweaver.util.model.PageVO;
 
 @RequestMapping("/postCard")
 @Controller
@@ -26,11 +39,20 @@ public class PostCardController {
 	@Autowired
 	ILikeService likeService;
 	
-	// 포스트 카드로 이동
+	@Autowired
+	ICommentService commentService;
+	
+	// 최초 메뉴 포스트 카드로 이동
 	@RequestMapping("/postCardList")
-	public String postCardListView(Model model, @RequestParam("mem_id")String mem_id) {
+	public String postCardListView(Model model, @RequestParam("mem_id")String mem_id, @RequestParam("tag_search")String tag_search) {
 		
-		Map<String, Object> postCardPage =  postCardService.selectPostCardAll();
+		PageVO pageVo = new PageVO(1, 1);
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("tag_search", tag_search);
+		params.put("pageVo", pageVo);
+		
+		Map<String, Object> postCardPage =  postCardService.selectPostCardAll(params);
 		model.addAllAttributes(postCardPage);
 		
 		if(!(mem_id.equals(""))) {
@@ -38,8 +60,26 @@ public class PostCardController {
 			model.addAttribute("likeVo",likeVo);
 		}
 		
-		
 		return "postcard/postList";
+	}
+	
+	// 포스트 카드로 이동
+	@RequestMapping("/postCardListAjax")
+	public String postCardListViewAjax(Model model, @RequestParam("mem_id")String mem_id, @RequestParam("tag_search")String tag_search, PageVO pageVo) {
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("tag_search", tag_search);
+		params.put("pageVo", pageVo);
+		
+		Map<String, Object> postCardPage =  postCardService.selectPostCardAll(params);
+		model.addAllAttributes(postCardPage);
+		
+		if(!(mem_id.equals(""))) {
+			List<LikeVO> likeVo = likeService.likeAll(mem_id);
+			model.addAttribute("likeVo",likeVo);
+		}
+		
+		return "postcard/postListAjax";
 	}
 	
 	
@@ -81,10 +121,80 @@ public class PostCardController {
 	
 	// 포스트카드 인서트
 	@RequestMapping(value="/insertPostcard", method=RequestMethod.POST)
-	public String insertPostcard(PostCardVO postcardVo, @RequestParam("att_file_ori_name")String att_file_ori_name) {
+	public String insertPostcard(PostCardVO postcardVo, @RequestPart("att_file_ori_name")MultipartFile[] part, HttpServletRequest request) {
 		
-		int insertPostcardCnt = postCardService.insertPostcard(postcardVo);
+		// 파일 첨부 
+		List<AttachmentVO> listFileVo = new ArrayList<AttachmentVO>();
 		
-		return "redirect:/postCard/postCardList?mem_id=" + postcardVo.getMem_id();
+		for(MultipartFile mufi : part) {
+			try {
+				if(mufi.getSize() > 0) {
+					AttachmentVO attachmentVo = new AttachmentVO();
+					String att_path = "/postcard";
+					String att_file_name = UUID.randomUUID().toString() + mufi.getOriginalFilename();
+					attachmentVo.setAtt_file_ori_name(mufi.getOriginalFilename());
+					mufi.transferTo(new File("C:\\upload"+ att_path + File.separator + att_file_name));
+					listFileVo.add(attachmentVo);
+				}
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("attachmentVo", listFileVo);
+		resultMap.put("postcardVo", postcardVo);
+		
+		int insertPostcardCnt = postCardService.insertPostcard(resultMap);
+		
+		return "redirect:/postCard/postCardList?mem_id=" + postcardVo.getMem_id() + "&tag_search=";
 	}
+	
+	// 포스트카드 수정 페이지 이동
+	@RequestMapping(value="/postUpdate", method=RequestMethod.POST)
+	public String postUpdateView(Model model, PostCardVO postCardVo) {
+		
+		PostCardVO selectpostcardVo = postCardService.selectPostcard(postCardVo.getPc_id());
+		
+		model.addAttribute("pc_cnt", selectpostcardVo.getPc_cnt());
+		model.addAttribute("mem_id", postCardVo.getMem_id());
+		model.addAttribute("pc_id", postCardVo.getPc_id());
+		
+		return "postcard/postUpdate";
+	}
+	
+	// 포스트카드 업데이트
+	@RequestMapping(value="/updatePostcard", method=RequestMethod.POST)
+	public String updatePostcard(Model model, PostCardVO postcardVo, @RequestParam("att_file_ori_name")String att_file_ori_name) {
+		
+		int updatePostcardCnt = postCardService.updatePostcard(postcardVo);
+		
+		return "redirect:/postCard/postCardList?mem_id=" + postcardVo.getMem_id() + "&tag_search=";
+	}
+	
+	// 댓글 쓰기
+	@RequestMapping(value="/insertComment", method=RequestMethod.POST)
+	@ResponseBody
+	public CommentVO insertComment(PostCardVO postcardVo, CommentVO commentVo){
+		   String comt_id = commentService.insertComment(commentVo);
+		   commentVo.setComt_id(comt_id);
+		return commentVo;
+	};
+	
+	// 댓글 삭제
+	@RequestMapping(value="/deleteComment", method=RequestMethod.POST)
+	@ResponseBody
+	public String deleteComment(@RequestParam("comt_id")String comt_id) {
+			int deleteCommentCnt = commentService.deleteComment(comt_id);
+		return "test";
+	}
+	
+	// 댓글 수정
+	@RequestMapping(value="/updateComment", method=RequestMethod.POST)
+	@ResponseBody
+	public CommentVO updateComment(CommentVO commentVo) {
+			commentService.updateComment(commentVo);
+		return commentVo;
+	}
+	
 }

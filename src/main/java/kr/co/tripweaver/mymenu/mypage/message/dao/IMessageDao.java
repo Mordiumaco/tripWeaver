@@ -176,4 +176,23 @@ public interface IMessageDao {
 	* Method 설명 : 채팅방 입장시 메세지 수신여부 삭제하는 메서드
 	 */
 	public int deleteMsgReciver(ParticipantVO participantVO);
+	
+	/**
+	* Method : messageAlram
+	* 작성자 : jin
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 메인화면에서 메세지알림을 받기위한 읽지않은 메세지수 반환하는 메서드
+	 */
+	public int messageAlram(String mem_id);
+	
+	/**
+	* Method : selectMessage11
+	* 작성자 : jin
+	* 변경이력 :
+	* @return
+	* Method 설명 : 1:1 쪽지 이벤트로 채팅방구성원이 2명인 구성원 정보 리스트를 반환하는 메서드(2개씩 세트임; 1/2, 3/4, 5/6 .....)
+	 */
+	public List<ParticipantVO> selectMessage11();
 }

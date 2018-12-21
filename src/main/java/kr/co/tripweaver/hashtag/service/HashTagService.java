@@ -37,6 +37,13 @@ public class HashTagService implements IHashTagService {
 		return insertHashtagCnt;
 	}
 
+
+	@Override
+	public int deleteHasgtag(String pc_id) {
+		int deleteHasgtagCnt = hashTagDao.deleteHasgtag(pc_id);
+		return deleteHasgtagCnt;
+	}
+
 	
 	
 }

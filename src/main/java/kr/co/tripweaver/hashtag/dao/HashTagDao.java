@@ -59,7 +59,25 @@ public class HashTagDao implements IHashTagDao {
 		return insertHashtagCnt;
 	}
 	
-
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 해시태크 삭제
+		*
+	 */
+	@Override
+	public int deleteHasgtag(String pc_id) {
+		int deleteHasgtagCnt = template.delete("hashtagSQL.deleteHasgtag", pc_id);
+		return deleteHasgtagCnt;
+	}
+	
+	
 	
 	
 	

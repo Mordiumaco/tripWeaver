@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="essaySQL">
+
+
+	<!-- tripplan insert tp 아이디 반환 -->
+	<insert id="essayInsert" parameterType="essayVo">
+		insert into essay(essay_id,essay_title,essay_cnt,essay_date,essay_filter,essay_like_count,essay_view_count,essay_del,essay_meal_exp,essay_traffic_exp,essay_room_exp,essay_other_exp,mem_id,tripplan_id)
+		values(ess_seq.nextval,#{essay_title},#{essay_cnt},sysdate,#{essay_filter},0,0,'N',#{essay_meal_exp},#{essay_traffic_exp},#{essay_room_exp},#{essay_other_exp},#{mem_id},#{tripplan_id})
+		<selectKey order="AFTER" keyProperty="essay_id" resultType="String">
+			select ess_seq.currval from dual
+		</selectKey>
+	</insert>
+	
+	<select id="selectEssayByEssayId" resultType="essayVo" parameterType="String">
+		select * from essay where essay_id = #{essay_id}
+	</select>
+	
+</mapper>

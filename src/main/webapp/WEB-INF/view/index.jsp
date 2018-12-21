@@ -75,7 +75,7 @@ $(document).ready(function () {
 			</li>
 			
 			<li>
-				<a href="/main/essay_write">Essay 글쓰기</a>
+				<a href="/essay/write">Essay 글쓰기</a>
 			</li>
 		</ul>
 	</div>
@@ -130,17 +130,8 @@ $(document).ready(function () {
 					url:"/main/initMain",
 					data : null,
 					success : function(data){
-						//data(사용자 json 데이터)를 바탕으로 
-						//사용자 리스트를 갱신
-						//1. 기존 리스트를 삭제 
-						//2. data를 이용하여 table 태그(tr) 작성
-						//3. 기존 리스트 위치에다가 붙여 넣기
-						
-						var bounds = new daum.maps.LatLngBounds();
 						console.log(data);
 				        var markers = $(data.clusterList).map(function(i, clusterInfo) {
-				        	
-				        	bounds.extend(new daum.maps.LatLng(clusterInfo.mapmark_y_coor, clusterInfo.mapmark_x_coor));
 				        	
 				            return new daum.maps.Marker({
 				            	image: markerImage, // 마커이미지 설정 
@@ -150,31 +141,15 @@ $(document).ready(function () {
 				        });
 				        // 클러스터러에 마커들을 추가합니다
 				        clusterer.addMarkers(markers);
-				        map.setBounds(bounds);
 					}
 				}); 
 		    }
 		    
 		    initMain();
 		    
-	    	
 		    
-	    })
+	    });
 	    
-	   /*  $.get("/main/initMain", function(data) {
-	        // 데이터에서 좌표 값을 가지고 마커를 표시합니다
-	        // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다
-	        var markers = $(data).map(function(i, position) {
-	            return new daum.maps.Marker({
-	            	image: markerImage, // 마커이미지 설정 
-	                position : new daum.maps.LatLng(position.mapmark_y_coor, position.mapmark_x_coor)
-	            });
-	        });
-
-	        // 클러스터러에 마커들을 추가합니다
-	        clusterer.addMarkers(markers);
-	    }); */
-		
 	    
 	    var clusterPositions = [];
 	    
@@ -186,11 +161,11 @@ $(document).ready(function () {
 
 	        // 현재 지도 레벨에서 1레벨 확대한 레벨
 	        var level = map.getLevel()-1;
-	        console.log( cluster.getMarkers());
-	        console.log( cluster.getClusterMarker() );
+	       	//console.log( cluster.getMarkers());
+	        //console.log( cluster.getClusterMarker() );
 	        // 지도를 클릭된 클러스터의 마커의 위치를 기준으로 확대합니다
 	        map.setLevel(level, {anchor: cluster.getCenter()});
-	        console.log( cluster );
+	        //console.log( cluster );
 	     
 	    });
 	    
@@ -199,24 +174,22 @@ $(document).ready(function () {
 
 	    daum.maps.event.addListener( clusterer, 'clustered', function( clusters ) {
 	        //console.log( clusters.length );
-	        //console.log(clusters)
+	        console.log(clusters);
 	        clusterPositions = [];
 	        
 	        for(let i = 0 ; i < clusters.length; i++){
 	        	for(let j = 0 ; j < clusters[i].getMarkers().length; j++){
-	        		
 	        		clusterPositions.push(clusters[i].getMarkers()[j].getPosition());
-	        		
 	        	}
 	        }
 	        
 	        var totalObj = new Object();
 	        totalObj.positions = clusterPositions;
 	        var jsonInfo = JSON.stringify(totalObj);
-	        console.log(jsonInfo);
+	        //console.log(jsonInfo);
 	        $("#essay_list_ul").html("");
-	        reload();	        
-	        //test = clusters[0];
+	        reload();
+	        
 	        function reload(){
 	        	
 	        	$.ajax({
@@ -241,64 +214,42 @@ $(document).ready(function () {
 						
 				        var markers = $(data.clusterList).map(function(i, clusterInfo) {
 			        	    var essayContent ="";
-			    			let theme = "";
+			    			let theme = ""; //테마
+			    			let season = ""; //계절
+			    			let peo_type = ""; //인원타입
 			    			switch(clusterInfo.tripplan_theme){
-				    			case "1" : theme = "먹거리";
-				    			break;
-				    			case "2" : theme = "레저";
-				    			break;
-				    			case "3" : theme = "쇼핑";
-				    			break;
-				    			case "4" : theme = "자연";
-				    			break;
-				    			case "5" : theme = "문화";
-				    			break;
-				    			case "6" : theme = "축제";
-				    			break;
+				    			case "1" : theme = "먹거리";	break;
+				    			case "2" : theme = "레저";	break;
+				    			case "3" : theme = "쇼핑";	break;
+				    			case "4" : theme = "자연";	break;
+				    			case "5" : theme = "문화";	break;
+				    			case "6" : theme = "축제";	break;
 			    			}
-			    			
-			    			let season = "";
 			    			switch(clusterInfo.tripplan_season){
-				    			case "1" : season = "봄";
-				    			break;
-				    			case "2" : season = "여름";
-				    			break;
-				    			case "3" : season = "가을";
-				    			break;
-				    			case "4" : season = "겨울";
-				    			break;
-				    			case "5" : season = "무관";
-				    			break;
-				    			
+				    			case "1" : season = "봄";	break;
+				    			case "2" : season = "여름";	break;
+				    			case "3" : season = "가을";	break;
+				    			case "4" : season = "겨울";	break;
+				    			case "5" : season = "무관";	break;
 		    				}
-			    			
-			    			let peo_type = "";
-			    			
 			    			switch(clusterInfo.tripplan_peo_type){
 			    			
-				    			case "1" : peo_type = "혼자";
-				    			break;
-				    			case "2" : peo_type = "커플";
-				    			break;
-				    			case "3" : peo_type = "친구";
-				    			break;
-				    			case "4" : peo_type = "가족";
-				    			break;
-				    			case "5" : peo_type = "단체";
-				    			break;
-				    			case "6" : peo_type = "여자끼리";
-				    			break;
-				    			case "7" : peo_type = "남자끼리";
-				    			break;
+				    			case "1" : peo_type = "혼자";	break;
+				    			case "2" : peo_type = "커플";	break;
+				    			case "3" : peo_type = "친구";	break;
+				    			case "4" : peo_type = "가족";	break;
+				    			case "5" : peo_type = "단체";	break;
+				    			case "6" : peo_type = "여자끼리";	break;
+				    			case "7" : peo_type = "남자끼리";	break;
 	    					}
 			    		
 				            essayContent += '<li class="essay_list">';
-				            essayContent +=	'<a href="/main/essay_view">';
+				            essayContent +=	'<a href="/essay/essayView?essay_id='+clusterInfo.essay_id+'">';
 				            essayContent += '<div class="essay_img">';
 				            essayContent += '<img src="/upload/'+clusterInfo.tripplan_image+'" onerror="imgError(this)";/>';
 				            essayContent += '</div>';
 				            essayContent += '<ul class="essay_info">';
-				            essayContent += '<li>200<span>만원</span> <h6>'+clusterInfo.mem_nick+'</h6></li>';
+				            essayContent += '<li>'+(parseInt((clusterInfo.essay_meal_exp+clusterInfo.essay_room_exp+clusterInfo.essay_traffic_exp+clusterInfo.essay_other_exp)/10000))+'<span>만원</span> <h6>'+clusterInfo.mem_nick+'</h6></li>';
 				            essayContent += '<li>여행지  : '+clusterInfo.mapmark_sido+' '+clusterInfo.mapmark_sigungu+'</li>';
 				            essayContent += '<li>'+theme+' / '+ season+ ' / '+ peo_type +'</li>';
 				            essayContent += '</ul>';
@@ -331,11 +282,11 @@ $(document).ready(function () {
 	    	let priceValue = encodeURI(price.options[price.selectedIndex].value);
 	    	let searchValue = encodeURI($("#searchText").val().replace(/\s\s+/g, ' '));
 	    	
-	    	console.log(themeValue);
-	    	console.log(seasonValue);
-	    	console.log(peoTypeValue);
-	    	console.log(priceValue);
-	    	console.log(searchValue);
+	    	//console.log(themeValue);
+	    	//console.log(seasonValue);
+	    	//console.log(peoTypeValue);
+	    	//console.log(priceValue);
+	    	//console.log(searchValue);
 	    	
 	    	clusterer.clear();
 	    	
@@ -344,11 +295,10 @@ $(document).ready(function () {
 				url:"/main/searchAjax",
 				data : "seasonValue="+seasonValue+"&themeValue="+themeValue+"&peoTypeValue="+peoTypeValue+"&priceValue="+priceValue+"&searchValue="+searchValue,
 				success : function(data){
-				   
+					$("#essay_list_ul").html("");
 				   console.log(data);
 				   if(data.clusterList.length == 0){
 					   console.log("여기로 들어와따");
-					   $("#essay_list_ul").html("");
 					   var essayContent ="";
 						essayContent += '<li class="essay_list">';
 			            essayContent += '<div class="essay_img">';

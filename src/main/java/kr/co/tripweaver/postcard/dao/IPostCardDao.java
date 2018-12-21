@@ -1,6 +1,7 @@
 package kr.co.tripweaver.postcard.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.tripweaver.postcard.model.PostCardVO;
 
@@ -17,7 +18,7 @@ public interface IPostCardDao {
 	* Method 설명 : postcard 리스트 가져오기
 	* 
 	*/
-	List<PostCardVO> selectPostCardAll();
+	List<PostCardVO> selectPostCardAll(Map<String, Object> params);
 	
 	/**
 	 * 
@@ -46,4 +47,34 @@ public interface IPostCardDao {
 		*
 	 */
 	String insertPostcard(PostCardVO postcardVo);
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 포스카드 업데이트
+		*
+	 */
+	int updatePostcard(PostCardVO postcardVo);
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 해당 포스트카드 게시물 가져오기
+		*
+	 */
+	PostCardVO selectPostcard(String pc_id);
+
+
 }

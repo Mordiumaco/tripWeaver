@@ -89,4 +89,24 @@ public interface IMessageService {
 	* Method 설명 : 새로운 채팅방을 생성하고 해당 채팅방 멤버리스트를 반환하는 메서드
 	 */
 	public Map<String, Object> insertChatroom(Map<String, Object> params);
+	
+	/**
+	* Method : messageAlram
+	* 작성자 : jin
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 메인화면에서 메세지알림을 받기위한 읽지않은 메세지수 반환하는 메서드
+	 */
+	public int messageAlram(String mem_id);
+	
+	/**
+	* Method : selectMessage11
+	* 작성자 : jin
+	* 변경이력 :
+	* @return
+	* Method 설명 : 반환 받은 1:1 쪽지 이벤트로 채팅방구성원이 2명인 구성원 정보 리스트 비교아여 기존채팅방 존재 확인 후 
+	* 있으면 그 채팅방으로 없으면 새로운채팅방 생성하는 메서드(2개씩 세트임; 1/2, 3/4, 5/6 .....)
+	 */
+	public Map<String, Object> selectMessage11(String login_id, String mem_i);
 }

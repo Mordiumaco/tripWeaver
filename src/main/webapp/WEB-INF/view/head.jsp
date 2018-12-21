@@ -19,7 +19,24 @@
 <%@include file="lib/lib.jsp" %>
 </head>
 <body>
-
+<script type="text/javascript">
+	(function poll() {
+		$.ajax({
+			url : '/message/alram',
+			type : 'get',
+			data : "mem_id=" + '${loginInfo.mem_id}',
+			success : function(data) {
+				if(data > 0){
+					$('#alram').text(data);
+				} else {
+					$('#alram').text('');
+				}
+			},
+			timeout : 3000,
+			complete : setTimeout(function() { poll(); }, 4000)
+		})
+	})();
+</script>
 <div class="head_rap">
 	<div class="head_sub_rap">
 		<div class="head_con head_left">
@@ -36,7 +53,7 @@
 					
 					<c:otherwise>
 						<li><a href="/main/mypage" >마이 페이지</a></li>
-						<li><a class="pointer" onclick="window.open('/message/mainView?mem_id=${loginInfo.mem_id}','window_name','width=417,height=500,location=no,status=no,scrollbars=yes');" target="blank">메세지 &nbsp;<img src="/img/icon/message_icon.png" width="20px"></a></li>
+						<li><a class="pointer" onclick="window.open('/message/mainView?mem_id=${loginInfo.mem_id}','window_name','width=417,height=500,location=no,status=no,scrollbars=yes');" target="blank">메세지 &nbsp;<img src="/img/icon/message_icon.png" width="20px"><span id="alram"></span></a></li>
 					</c:otherwise>
 				</c:choose>
 
@@ -53,8 +70,7 @@
 			<div class="oe_menu_wrap">
 				<ul id="oe_menu" class="oe_menu">
 					<li>
-						<a href="/postCard/postCardList?mem_id=${loginInfo.mem_id}">PostCard</a>
-						
+						<a href="/postCard/postCardList?mem_id=${loginInfo.mem_id}&tag_search=">PostCard</a>
 					</li>
 					
 					<li>

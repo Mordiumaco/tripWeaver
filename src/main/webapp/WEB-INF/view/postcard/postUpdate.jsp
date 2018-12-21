@@ -179,9 +179,9 @@ $(document).ready(function(){
 	<div class="sub_container postWrap">
 		
 		<div class="write_wrap">
-			<h1>포스트카드  글쓰기</h1>
+			<h1>포스트카드  수정하기</h1>
 		</div>
-		<form method="post" action="/postCard/insertPostcard" enctype="multipart/form-data">
+		<form method="post" action="/postCard/updatePostcard">
 			<div class="write_wrap">
 				<h1>사진을 선택해주세요.</h1>
 				
@@ -211,15 +211,16 @@ $(document).ready(function(){
 				</ul>
 				
 			</div>
-			
+		
 			<div class="write_wrap">
 				<h1>내용을 적어주세요. <span>해쉬태그는 #으로 구분을 합니다.</span></h1>
-				<textarea placeholder="내용을 적어주세요. #해시태그 #이렇게사용" name="pc_cnt"></textarea>
-				<input type="hidden" name="mem_id" value="${loginInfo.mem_id}"> 
+				<textarea placeholder="내용을 적어주세요. #해시태그 #이렇게사용" name="pc_cnt">${pc_cnt}</textarea>
+				<input type="hidden" name="mem_id" value="${mem_id}"> 
+				<input type="hidden" name="pc_id" value="${pc_id}"> 
 			</div>
 			
 			<div class="write_wrap">
-				<input type="submit" class="btn_bd col_01" id="savebutton"  value="작성 완료" />
+				<input type="submit" class="btn_bd col_01" id="savebutton"  value="수정 완료" />
 				<input type="button" class="btn_bd col_02" onclick="javascript:history.back()" value="취소" />
 			</div>
 		</form>

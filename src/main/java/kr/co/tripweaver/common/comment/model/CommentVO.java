@@ -12,7 +12,15 @@ public class CommentVO {
 	private String comt_rel_art_id; // 관련글ID
 	private String mem_id; // 멤버ID
 	private String filter_id; // 분류ID
+	private String mem_nick;
 	
+	
+	public String getMem_nick() {
+		return mem_nick;
+	}
+	public void setMem_nick(String mem_nick) {
+		this.mem_nick = mem_nick;
+	}
 	
 	public String getComt_id() {
 		return comt_id;
@@ -67,7 +75,7 @@ public class CommentVO {
 	public String toString() {
 		return "CommentVO [comt_id=" + comt_id + ", comt_cnt=" + comt_cnt + ", comt_date=" + comt_date
 				+ ", comt_secret=" + comt_secret + ", comt_del=" + comt_del + ", comt_rel_art_id=" + comt_rel_art_id
-				+ ", mem_id=" + mem_id + ", filter_id=" + filter_id + "]";
+				+ ", mem_id=" + mem_id + ", filter_id=" + filter_id + "mem_nick"+mem_nick+"]";
 	}
 	
 	

@@ -121,4 +121,16 @@ public class MessageDao implements IMessageDao {
 		return delCnt;
 	}
 
+	@Override
+	public int messageAlram(String mem_id) {
+		int cnt = template.selectOne("messageSQL.messageAlram", mem_id);
+		return cnt;
+	}
+
+	@Override
+	public List<ParticipantVO> selectMessage11() {
+		List<ParticipantVO> participantVOs = template.selectList("messageSQL.selectMessage11");
+		return participantVOs;
+	}
+
 }

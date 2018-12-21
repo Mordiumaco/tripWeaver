@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.tripweaver.mymenu.mypage.follow_following.model.FollowVO;
 import kr.co.tripweaver.mymenu.mypage.follow_following.service.IFollowService;
@@ -24,12 +25,14 @@ public class FollowController {
 	private Logger logger = LoggerFactory.getLogger(FollowController.class);
 	
 	@RequestMapping(value="/following", method= RequestMethod.POST)
+	@ResponseBody
 	public void following(FollowVO followVO) {
 		logger.debug("following followVO : {}", followVO);
 		int cnt = followService.insertFollowing(followVO);
 	}
 	
 	@RequestMapping(value="/unfollow", method= RequestMethod.POST)
+	@ResponseBody
 	public void unfollow(FollowVO followVO) {
 		logger.debug("unfollow followVO : {}", followVO);
 		int cnt = followService.deleteFollowing(followVO);

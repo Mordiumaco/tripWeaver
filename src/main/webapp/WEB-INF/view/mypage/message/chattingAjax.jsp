@@ -2,14 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>TripWeaver 메신저</title>
-<link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico" />
-<link rel="stylesheet" href="/js/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
 <style type="text/css">
 
@@ -88,7 +80,7 @@ ul {
 .local_sch02{}
 .local_sch01 .frm_input{height:30px;border:1px solid #dcdcdc;padding:0 5px; margin-left: 10px; width: 80%;}
 .local_sch01 .btn_submit{width:30px;height:30px;border:0;padding:0;background:url(../img/sch_btn.png) no-repeat 50% 50% #eee;border:1px solid #dcdcdc;text-indent:-999px;overflow:hidden;     vertical-align: middle }
-.fa-plus-square{font-size: 30px; color: #ffcd41;}
+.local_sch01 .btn_create{width:20px;height:30px;border:0;padding:0;background:url(../img/baseline_mode_comment_black_18dp.png) no-repeat 50% 50% #eee;border:1px solid #dcdcdc;text-indent:-999px;overflow:hidden;     vertical-align: middle }
 .local_sch03{;padding:5px 15px;background:#e9ebf9;margin:10px 0}
 .local_sch div{margin:5px 0;}
 .local_sch03 strong{display:inline-block;width:70px;}
@@ -97,10 +89,7 @@ ul {
 .local_sch03 .btn_submit{height:30px;padding:0 5px;border:0;;color:#fff;}
 .local_sch03 .frm_input{height:30px;border:1px solid #dcdcdc;padding:0 5px;}
 
-.mes_Search { width:100%; height: 30px; background: #f1f1f1; padding:5px 5px; }
-.mes_Search span { float: right; line-height: 30px; margin-right: 10px; font-size: 0.9em; color: #333; font-weight: bold;}
-.mes_Search a { background: #fff; border-radius: 5px; height: 28px; width: 26px; display: block; float: right;}
-
+.mes_Search {height: 40px;}
 /* 페이지 내 실행 */
 .local_cmd {min-width:960px}
 
@@ -143,57 +132,43 @@ ul {
 	color: #666;
 }
 
-.Chat_room li span { float: right;}
+/* .Chat_room li span { float: right;} */
+.Chat_room .date { float: right; margin-right: 5px;}
+.Chat_room .chatroom.cnt { color: #D5D5D5;}
+.Chat_room .chatroom.rec_cnt { color: red;}
 
 .Chat_room ul li:nth-child(1) { padding-top: 3px;}
 
-.Chat_room b { font-size: 0.9em;}
+.Chat_room b { font-size: 0.9em; }
 .chat_con { font-size: 0.8em;}
 
 .Chat_room a { color: #333;}
 
+.chatroom_cnt222 { float: left !important;}
+
+.chatroom_cnt { font-size: 1em; font-weight: bold; color: #333; float: left !important;}
+.chatroom_cnt b { font-weight: normal; color: #666; }
+
+.chatroom_rec_cnt {font-size: 1em; font-weight: bold; color: #333; background: #ffcd41; border-radius: 50px; padding: 8px; margin-right: 5px; margin-top: 3px;}
+.chatroom_rec_cnt b { font-weight: normal; color: #666; }
 </style>
-<script src="/js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript">
-	
-	(function poll() {
-		$.ajax({
-			url : '/message/chatRoomListViewRenew',
-			type : 'get',
-			data : "mem_id=" + '${loginInfo.mem_id}',
-			success : function(data) {
-				$('#chatting_list').html(data);
-			},
-			timeout : 3000,
-			complete : setTimeout(function() { poll(); }, 4000)
-		})
-	})();
-	
-</script>
-</head>
-<body>
-	<div class="mes_menu">
 		<ul>
-			<li><a href="/message/mainView?mem_id=${loginInfo.mem_id}"><img src="/img/icon/friend.png" height="20px;"/> &nbsp; 친구</a></li>
-			<li><a href="/message/chatRoomListView?mem_id=${loginInfo.mem_id}"><img src="/img/icon/message01_icon.png" height="20px;" /> &nbsp; 채팅</a></li>
+		
+			<c:forEach items="${messageVOs}" var="chatroom">
+				<li class="Chat_room">
+					<a href="/message/chatRoomDetailView?group_id=${chatroom.group_id}&mem_id=${chatroom.mem_id}">
+						<div><img src="/img/icon/message01_icon.png"></div>
+						<ul>
+							<li> <span class="chatroom_cnt222"><b>${chatroom.chatroom_name}&nbsp;</b></span> <span class="chatroom_cnt">${chatroom.cnt}<b>명 </b></span>    <span class="date"><fmt:formatDate value="${chatroom.msg_date}" pattern="yyyy.MM.dd"/> </span> </li>
+							<li class="chat_con">
+								${chatroom.msg_cnt}
+								<span class="chatroom_rec_cnt">${chatroom.rec_cnt}<b>건 </b></span>
+							</li>
+							
+							
+						</ul>
+					</a>
+				</li>
+			</c:forEach>
+			
 		</ul>
-	</div>
-	
-	<div class="mes_Search">
-<!-- 		<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get"> -->
-<!-- 			<label for="sfl" class="sound_only">검색대상</label> -->
-		
-<!-- 			<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label> -->
-<!-- 			<input type="text" name="stx" value="" id="stx" required="" class="required frm_input" placeholder="채팅방 이름, 참여자로 검색해 주세요."> -->
-<!-- 			<input type="submit" class="btn_submit" value="검색"> -->
-<!-- 		</form> -->
-			<a href="/message/createChatroomView?mem_id=${loginInfo.mem_id}" ><i class="fas fa-plus-square"></i></a><span>채팅방 생성하기</span>
-	</div>
-	
-	<div class="chatting_list" id="chatting_list">
-		
-	</div>
-	
-	
-</body>
-</html>

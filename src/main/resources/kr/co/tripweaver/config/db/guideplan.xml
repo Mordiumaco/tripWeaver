@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="guidePlanSQL">
+
+
+	<!-- tripplan insert tp 아이디 반환 -->
+	<insert id="insertGuidePlan" parameterType="guidePlanVo">
+		insert into guideplan
+		(guideplan_id,guideplan_start_day,guideplan_end_day,guideplan_peo_count,essay_id)
+		values(gp_seq.nextval,#{guideplan_start_day},#{guideplan_end_day},#{guideplan_peo_count},#{essay_id})
+	</insert>
+	
+</mapper>
