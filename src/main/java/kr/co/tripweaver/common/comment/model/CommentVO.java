@@ -3,15 +3,15 @@ package kr.co.tripweaver.common.comment.model;
 import java.util.Date;
 
 public class CommentVO {
-	
-	private String comt_id;
-	private String comt_cnt;
-	private Date comt_date;
-	private String comt_secret;
-	private String comt_del;
-	private String comt_rel_art_id;
-	private String mem_id;
-	private String filter_id;
+
+	private String comt_id; // 댓글ID
+	private String comt_cnt; // 내용
+	private Date comt_date; // 작성일
+	private String comt_secret; // 비밀글여부
+	private String comt_del; // 삭제여부
+	private String comt_rel_art_id; // 관련글ID
+	private String mem_id; // 멤버ID
+	private String filter_id; // 분류ID
 	private String mem_nick;
 	
 	
@@ -21,6 +21,7 @@ public class CommentVO {
 	public void setMem_nick(String mem_nick) {
 		this.mem_nick = mem_nick;
 	}
+	
 	public String getComt_id() {
 		return comt_id;
 	}
@@ -68,6 +69,13 @@ public class CommentVO {
 	}
 	public void setFilter_id(String filter_id) {
 		this.filter_id = filter_id;
+	}
+	
+	@Override
+	public String toString() {
+		return "CommentVO [comt_id=" + comt_id + ", comt_cnt=" + comt_cnt + ", comt_date=" + comt_date
+				+ ", comt_secret=" + comt_secret + ", comt_del=" + comt_del + ", comt_rel_art_id=" + comt_rel_art_id
+				+ ", mem_id=" + mem_id + ", filter_id=" + filter_id + "mem_nick"+mem_nick+"]";
 	}
 	
 	

@@ -18,6 +18,7 @@ import kr.co.tripweaver.essay.model.EssayVO;
 import kr.co.tripweaver.essay.service.EssayService;
 import kr.co.tripweaver.essay.service.IEssayService;
 import kr.co.tripweaver.member.model.MemberVO;
+import kr.co.tripweaver.member.service.IMemberService;
 import kr.co.tripweaver.mymenu.guideplan.model.GuidePlanVO;
 import kr.co.tripweaver.mymenu.guideplan.service.IGuidePlanService;
 import kr.co.tripweaver.mymenu.mypage.tripplan.model.DailyPlanVO;
@@ -54,6 +55,9 @@ public class EssayController {
 	@Autowired
 	IGuidePlanService guidePlanService;
 	
+	@Autowired
+	IMemberService memberService;
+	
 	@RequestMapping("/write")
 	public ModelAndView essayWriteView(HttpSession session) {
 		
@@ -62,7 +66,7 @@ public class EssayController {
 		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
 		
 		if(memberVo == null) {
-			mav.setViewName("LoginCheckError");
+			mav.setViewName("loginCheckError");
 			return mav;
 		}
 		
@@ -120,7 +124,7 @@ public class EssayController {
 		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
 		
 		if(memberVo == null) {
-			return "LoginCheckError";
+			return "loginCheckError";
 		}
 		
 		logger.debug("---------------------------");
@@ -150,7 +154,7 @@ public class EssayController {
 		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
 		
 		if(memberVo == null) {
-			return "LoginCheckError";
+			return "loginCheckError";
 		}
 		
 		essayVo.setMem_id(memberVo.getMem_id());
@@ -193,6 +197,68 @@ public class EssayController {
 		return "redirect: /main/main";
 	}
 	
-	
+	/**
+	* Method : essayView
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 20.
+	* 변경이력 :
+	* @param model
+	* @return
+	* Method 설명 :essay 상세보기를 위한 컨트롤러 뷰 
+	*/
+	@RequestMapping("/essayView")
+	public String essayView(Model model, String essay_id) {
+		
+		
+		logger.debug("-------------------------");
+		logger.debug("essay_id : {} ", essay_id);
+		logger.debug("-------------------------");
+		
+		EssayVO essayVo = essayService.selectEssayByEssayId(essay_id);
+		
+		//글쓴이 받아오기 
+		MemberVO memberVo = memberService.selectMemberById(essayVo.getMem_id());
+		
+		String tripplan_id = essayVo.getTripplan_id();
+		
+		//해당 글이 Guide글일경우 예약일자를 가진 Guideplan을 불러온다. 
+		if(essayVo.getEssay_filter().equals("G")) {
+			
+			List<GuidePlanVO> guidePlanList = guidePlanService.selectGuidePlanByEssayId(essay_id);
+			
+			model.addAttribute("guidePlanList", guidePlanList);
+		}
+		
+		
+		logger.debug("-------------------------");
+		logger.debug("tripplan_id : {} ", tripplan_id);
+		logger.debug("-------------------------");
+		
+		//tripplan 객체 받아오기
+		TripplanVO tripplanVo =  tripPlanService.selectTripPlanByTripplanId(tripplan_id);
+		
+		//tripplan id로 triparea 리스트 받아오기 
+		List<TripareaVO> tripAreaList = tripAreaService.selectTripAreaByTripplanId(tripplan_id);
+		
+		List<MapMarkerVO> mapMarkerList = new ArrayList<>();
+		//triparea로 mapmarker정보 받아오기 
+		for(int i = 0 ; i < tripAreaList.size(); i++) {
+			
+			String triparea_id = tripAreaList.get(i).getTriparea_id();
+			MapMarkerVO mapMarkerVo =  mapMarkerService.selectMapMarkerByTripAreaId(triparea_id);
+			mapMarkerList.add(mapMarkerVo);
+			
+		}
+		
+		List<DailyPlanVO> dailyPlanList = dailyPlanService.selectDailyPlanByTripplanId(tripplan_id);
+		
+		model.addAttribute("writerVo", memberVo);
+		model.addAttribute("essayVo", essayVo);
+		model.addAttribute("tripplanVo", tripplanVo);
+		model.addAttribute("mapMarkerList", mapMarkerList);
+		model.addAttribute("dailyPlanList", dailyPlanList);
+
+		return "/essay/essay_view";
+	}
 	
 }

@@ -15,7 +15,7 @@ select * from
         from article 
         where board_id = #{board_id} 
         and ${search} like '%' || #{searchWord} || '%' start with art_par_id is null connect by prior art_id = art_par_id 
-        order siblings by art_groupid desc, art_date asc
+        order siblings by to_number(art_groupid) desc, art_date asc
     ) a
 ) 
 where rnum between #{pageVo.page}*#{pageVo.pageSize}-(#{pageVo.pageSize}-1) and #{pageVo.page}*#{pageVo.pageSize}
@@ -37,5 +37,10 @@ values('art'||LPAD(art_seq.nextval, 5,'0'), #{art_title}, #{art_cnt}, art_seq.cu
 </selectKey>         
 </insert>	
 
+
+<select resultType="articleVo" parameterType="String" id="getArticleDetail"> 
+	select * from article 
+	where art_id = #{art_id} 
+</select>
 	
 </mapper>

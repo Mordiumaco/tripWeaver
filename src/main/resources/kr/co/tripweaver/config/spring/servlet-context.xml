@@ -55,7 +55,6 @@
 	<bean id="joinCheckError" class="kr.co.tripweaver.error.JoinCheckError"/>
 	<bean id="joinCheckSuccess" class="kr.co.tripweaver.error.JoinCheckSuccess"/>
 	<bean id="emptyError" class="kr.co.tripweaver.error.EmptyError"/>
-	
 	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
 	<!-- <bean id="timesTablesView" class="kr.or.ddit.mvc.view.TimesTablesView"/> -->
 	

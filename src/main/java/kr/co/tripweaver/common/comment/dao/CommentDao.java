@@ -1,6 +1,7 @@
 package kr.co.tripweaver.common.comment.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -12,9 +13,19 @@ import kr.co.tripweaver.common.comment.model.CommentVO;
 @Repository
 public class CommentDao implements ICommentDao {
 	
-	@Resource(name = "sqlSessionTemplate")
-	SqlSessionTemplate template;
-	
+	@Resource(name="sqlSessionTemplate")
+	private SqlSessionTemplate template;
+
+	@Override
+	public List<CommentVO> articleCommentList(String art_id) {
+		return template.selectList("commentsSQL.articleComment", art_id);
+	}
+
+	@Override
+	public int commentInsert(Map<String, Object> param) {
+		return template.insert("commentsSQL.commentInsert", param);
+	}
+
 	/**
 	 * 
 		* 
@@ -86,5 +97,4 @@ public class CommentDao implements ICommentDao {
 			int updateCommentCnt = template.update("commentSQL.updateComment", commentVo);
 		return updateCommentCnt;
 	}
-
 }

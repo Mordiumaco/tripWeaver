@@ -12,4 +12,9 @@
 		values(gp_seq.nextval,#{guideplan_start_day},#{guideplan_end_day},#{guideplan_peo_count},#{essay_id})
 	</insert>
 	
+	<!-- 해당 에세이가 에세이일 경우 가이드 일정 -->
+	<select id="selectGuidePlanByEssayId" resultType="guidePlanVo" parameterType="String">
+		select * from guideplan where essay_id = #{essay_id}
+	</select>
+	
 </mapper>

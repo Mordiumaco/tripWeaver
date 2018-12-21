@@ -36,4 +36,15 @@ public interface IEssayService {
 	* 
 	*/
 	public String essayInsert(EssayVO essayVo);
+	
+	/**
+	* Method : selectEssayByEssayId
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 20.
+	* 변경이력 :
+	* @param essay_id
+	* @return
+	* Method 설명 :
+	*/
+	public EssayVO selectEssayByEssayId(String essay_id);
 }

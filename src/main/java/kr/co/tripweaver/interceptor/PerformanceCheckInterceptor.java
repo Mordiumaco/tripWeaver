@@ -12,12 +12,12 @@ public class PerformanceCheckInterceptor extends HandlerInterceptorAdapter{
 	
 	Logger logger = LoggerFactory.getLogger(PerformanceCheckInterceptor.class);
 	//전처리(사전처리)
-	
+	/*
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
-		/*request.setAttribute("start_time", System.currentTimeMillis());*/
+		request.setAttribute("start_time", System.currentTimeMillis());
 		
 		//다음 인터셉터로 연결
 		return true;
@@ -28,4 +28,5 @@ public class PerformanceCheckInterceptor extends HandlerInterceptorAdapter{
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,ModelAndView modelAndView) throws Exception {
 		
 	}
+	*/
 }
