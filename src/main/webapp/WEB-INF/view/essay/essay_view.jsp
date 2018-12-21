@@ -275,42 +275,40 @@ $(document).ready(function(){
 
 		    	
 		    	<button type="button" class="cmt_btn"><i class="fa fa-commenting-o" aria-hidden="true"></i> 댓글목록</button>
-				
+				<div id="commentBar">
 				<c:choose>
-					<c:when test="${comList.size() != 0}">
-						<c:forEach items="${comList}" var="co">
+					<c:when test="${commentList.size() != 0}">
+						<c:forEach items="${commentList}" var="co">
 							<article id="c_489">
 						        <header style="z-index:3">
-						            <h3>${co.userid} 님의  댓글</h3>
+						            <h3>${co.mem_nick} 님의  댓글</h3>
 						            <br/>
 						            <span class="sv_wrap">
 						            <span class="bo_vc_hdinfo">
 						            	<i class="fa fa-clock-o" aria-hidden="true"></i>
-				            			<fmt:formatDate value="${co.co_date}" pattern="yyyy-MM-dd"/>
+				            			<fmt:formatDate value="${co.comt_date}" pattern="yyyy-MM-dd"/>
 						            </span>
 						        </header>
 					        	<!-- 댓글 출력 -->
 						        <div class="cmt_contents">
 							        <c:choose>
-					            		<c:when test="${co.co_delete != 'Y'}">
-					            			<p>${co.co_contents}</p>
+					            		<c:when test="${co.comt_del != 'Y'}">
+					            			<p>${co.comt_cnt}</p>
 					            		</c:when>
 					            		<c:otherwise>
 					            			<p>삭제된 게시글 입니다.</p>
 					            		</c:otherwise>
 						            </c:choose>
 						        </div>
-						        <c:if test="${co.userid == S_USER.userId }">
+						        <c:if test="${co.mem_id == loginInfo.mem_id }">
 							        <ul class="bo_vc_act">
 			                			<li>
-			                				<form action="/board/deleteComment" method="post">
-			                					<input type="hidden" name="po_id" value="${co.po_id}">
-			                					<input type="hidden" name="co_id" value="${co.co_id}">
-			                					<input type="hidden" name="co_delete" value="Y">
-			                					<c:if test="${co.co_delete != 'Y'}">
-			                						<input class="btn_b03" type="submit" value="삭제">
-			                					</c:if>
-			                				</form>
+		                					<input type="hidden" name="comt_id" value="${co.comt_id}">
+		                					<input type="hidden" name="essay_id" value="${essayVo.essay_id}">
+		                					<input type="hidden" name="co_delete" value="Y">
+		                					<c:if test="${co.comt_del != 'Y'}">
+		                						<input class="btn_b03" type="submit" onclick="commentDelete(this);" value="삭제">
+		                					</c:if>
 			                			</li>            
 			                		</ul>
 		                		</c:if>
@@ -323,28 +321,101 @@ $(document).ready(function(){
 						            <h3>댓글이 없습니다.</h3>
 						        </header>
 						</article>
-						
 					</c:otherwise>
 				</c:choose>
-				
+				</div>
 				<div class="commentWrite">
-					<form action="/board/insertComment" method="post">
-						<ul>
-							<li>
-								<input type="text" name="co_contents" placeholder="내용을 적어주세요." required="required">
-								<input type="hidden" name="po_id" value="${param.postsId}"> 
-								<input type="hidden" name="userId" value="${S_USER.userId}">
-							</li>
-							<li><input class="btn_bd col_01" type="submit" value="댓글 작성"></li>
-						</ul>
-					</form>
+					<ul>
+						<li>
+							<input type="text" name="comt_cnt" id="comt_cnt" placeholder="내용을 적어주세요." required="required">
+						</li>
+						<li><input class="btn_bd col_01" type="submit" value="댓글 작성" onclick="commentInsert();"></li>
+					</ul>
 				</div>
 				
 			</div>
 		</div>
 
 	</div>
-	
+	<script>
+		function commentInsert(){
+			let comt_cnt = $("#comt_cnt").val();
+			let essay_id = "${essayVo.essay_id}";
+			
+			 $.ajax({
+					type: "POST",
+					url:"/essay/essayCommentInsertAjax",
+					data : {"comt_cnt" : comt_cnt, "essay_id":essay_id},
+					success : function(data){
+						$("#commentBar").html("");
+						$("#comt_cnt").val("");
+						$(data.commentList).map(function(i, commentVo){
+							commentContent = "";
+							commentContent += '<article id="c_489">';	
+							commentContent += '<header style="z-index:3">';	
+							commentContent += '<h3>'+commentVo.mem_nick+' 님의  댓글</h3>';	
+							commentContent += '<br/>';
+							commentContent += '<span class="sv_wrap">';
+							commentContent += '<span class="bo_vc_hdinfo">';
+							commentContent += '<i class="fa fa-clock-o" aria-hidden="true"></i>';
+							let commentVoDate = new Date(commentVo.comt_date);
+							commentContent += commentVoDate.getFullYear()+"-"+(commentVoDate.getMonth()+1)+"-"+commentVoDate.getDate();
+							commentContent += '</span>';
+							commentContent += '</header>';
+							commentContent += '<div class="cmt_contents">';
+							
+							if(commentVo.comt_del != 'Y'){
+								commentContent += '<p>'+commentVo.comt_cnt+'</p>';
+							}else{
+								commentContent += '<p>삭제된 게시글 입니다.</p>';
+							}
+							commentContent += '</div>';
+							
+							if(commentVo.mem_id == "${loginInfo.mem_id}"){
+								commentContent += '<ul class="bo_vc_act">';
+								commentContent += '<li>';
+								commentContent += '<input type="hidden" name="comt_id" value="'+commentVo.comt_id+'">';
+								commentContent += '<input type="hidden" name="essay_id" value="${essayVo.essay_id}">';
+								if(commentVo.comt_del != 'Y'){
+									commentContent += '<input class="btn_b03" type="submit" onclick="commentDelete(this);" value="삭제">';
+								}
+								commentContent += '</li>';
+								commentContent += '</ul>';
+							}
+							
+							commentContent += '</article>';
+							
+							$("#commentBar").append(commentContent);
+							
+						});
+					}
+			}); 
+		}
+		
+		function commentDelete(buttonValue){
+			
+			 let comt_id = $(buttonValue).siblings("input").eq(0).val();
+			 
+			 $.ajax({
+					type: "POST",
+					url:"/essay/essayCommentDeleteAjax",
+					data : {"comt_id" : comt_id},
+					success : function(data){
+						
+						if(data.resultCnt == 0){
+							alert('DB 오류로 삭제가 이루어 지지 않았습니다');				
+							return;
+						}
+						
+						$(buttonValue).parents("article").find(".cmt_contents").html('<p>삭제된 게시글 입니다</p>');
+						
+					}
+			 });
+			
+			
+		}
+	</script>
 </div>
+
 
 <%@include file="../tail.jsp" %> 
