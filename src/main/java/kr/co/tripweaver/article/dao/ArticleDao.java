@@ -18,7 +18,7 @@ public class ArticleDao implements IArticleDao {
 	
 	@Override
 	public List<ArticleVO> articlePagingList(Map<String, Object> param) {
-		return null;
+		return template.selectList("articleSQL.articlePagingList", param);
 	}
 
 	@Override
@@ -31,6 +31,11 @@ public class ArticleDao implements IArticleDao {
 		int result = template.insert("articleSQL.insertArticle", articleVo);
 		String art_id = articleVo.getArt_id();
 		return art_id;
+	}
+
+	@Override
+	public ArticleVO getArticleDetail(String art_id) {
+		return template.selectOne("articleSQL.getArticleDetail", art_id);
 	}
 
 
