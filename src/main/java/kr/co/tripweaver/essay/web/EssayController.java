@@ -221,6 +221,15 @@ public class EssayController {
 		
 		String tripplan_id = essayVo.getTripplan_id();
 		
+		//해당 글이 Guide글일경우 예약일자를 가진 Guideplan을 불러온다. 
+		if(essayVo.getEssay_filter().equals("G")) {
+			
+			List<GuidePlanVO> guidePlanList = guidePlanService.selectGuidePlanByEssayId(essay_id);
+			
+			model.addAttribute("guidePlanList", guidePlanList);
+		}
+		
+		
 		logger.debug("-------------------------");
 		logger.debug("tripplan_id : {} ", tripplan_id);
 		logger.debug("-------------------------");
