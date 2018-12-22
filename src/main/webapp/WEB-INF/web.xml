@@ -9,65 +9,58 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
-   <filter>
-  		<filter-name>encodingFilter</filter-name>
-  		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-  		<init-param>
-  			<param-name>encoding</param-name>
-  			<param-value>utf-8</param-value>
-  		</init-param>
-  		<init-param>
-  			<param-name>forceEncoding</param-name>
-  			<param-value>true</param-value>
-  		</init-param>
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>utf-8</param-value>
+    </init-param>
+    <init-param>
+      <param-name>forceEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
   </filter>
-  
   <filter-mapping>
-  		<filter-name>encodingFilter</filter-name>
-  		<url-pattern>/*</url-pattern>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
   </filter-mapping>
   
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
   
-  <!-- root context : service, dao -->
-  <!-- spring 설정파일 위치를 적어준다. 
-  		설정파일이 복수개일 경우, 혹은 줄바꿈을 통해 기술할 수 있다. 
-  		초기화 파라미터 명은 정해져 있으므로 임의로 수정 불가 
-   -->
-   	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
-   
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:kr/co/tripweaver/config/spring/root-context.xml
+  <!-- 접속자 정보 수집하는 리스너 -->
+  <listener>
+  	<listener-class>kr.co.tripweaver.listener.AccessLogListener</listener-class>
+  </listener>
+  
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:kr/co/tripweaver/config/spring/root-context.xml
 					classpath:kr/co/tripweaver/config/spring/aop-context.xml
 				  	classpath:kr/co/tripweaver/config/spring/datasource-context.xml
 				    classpath:kr/co/tripweaver/config/spring/transaction-context.xml
 		</param-value>
-	</context-param>
-
-   
-  	<servlet>
-   		<servlet-name>springDispatcherServlet</servlet-name>
-   		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-   		<init-param>
-   			<param-name>contextConfigLocation</param-name>
-   			<param-value>classpath:kr/co/tripweaver/config/spring/servlet-context.xml
+  </context-param>
+  <servlet>
+    <servlet-name>springDispatcherServlet</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:kr/co/tripweaver/config/spring/servlet-context.xml
    						 classpath:kr/co/tripweaver/config/spring/interceptor-context.xml
    			</param-value>
-   		</init-param>
-   		<load-on-startup>1</load-on-startup>
-   		<async-supported>true</async-supported>
-   	</servlet>
-  	
-  	<servlet-mapping> 
-  		<servlet-name>springDispatcherServlet</servlet-name>
-  		<url-pattern>/</url-pattern>
-  	</servlet-mapping>
-  	
-  	 <error-page>
-	    <error-code>404</error-code>
-	    <location>/error/404/404.html</location>
-	  </error-page>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+    <async-supported>true</async-supported>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>springDispatcherServlet</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/error/404/404.html</location>
+  </error-page>
 </web-app>
