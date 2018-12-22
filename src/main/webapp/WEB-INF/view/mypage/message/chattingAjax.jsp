@@ -162,7 +162,11 @@ ul {
 							<li> <span class="chatroom_cnt222"><b>${chatroom.chatroom_name}&nbsp;</b></span> <span class="chatroom_cnt">${chatroom.cnt}<b>명 </b></span>    <span class="date"><fmt:formatDate value="${chatroom.msg_date}" pattern="yyyy.MM.dd"/> </span> </li>
 							<li class="chat_con">
 								${chatroom.msg_cnt}
-								<span class="chatroom_rec_cnt">${chatroom.rec_cnt}<b>건 </b></span>
+								<c:if test="${chatroom.rec_cnt ne 0}">
+									<span class="chatroom_rec_cnt">
+											${chatroom.rec_cnt}<b>건 </b>
+									</span>
+								</c:if>
 							</li>
 							
 							
