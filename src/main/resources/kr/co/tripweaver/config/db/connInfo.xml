@@ -17,7 +17,14 @@
 	
 	<select id="selectConnInfo" parameterType="Map" resultType="connStatVo">
 		SELECT * 
-		FROM conninformation
-		ORDER BY conn_time
+		FROM (SELECT ROWNUM AS rnum, c.*
+		      FROM (SELECT *
+		            FROM conninformation
+		            ORDER BY conn_time DESC, mem_id) c)
+		WHERE rnum BETWEEN (${pageVO.page}*${pageVO.pageSize})-(${pageVO.pageSize}-1) AND ${pageVO.page}*${pageVO.pageSize}
+	</select>
+	
+	<select id="getTotalPageCount" resultType="int">
+		SELECT CEIL(COUNT(*) / 10) FROM conninformation
 	</select>
 </mapper>

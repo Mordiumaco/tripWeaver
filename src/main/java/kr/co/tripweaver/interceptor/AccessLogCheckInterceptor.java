@@ -44,7 +44,6 @@ public class AccessLogCheckInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		// 세션에서 맵 추출
 		ConnStatVO connInfo = (ConnStatVO) session.getAttribute("connInfo");
-		System.out.println("리스너를 지나 세션이 생성되는지 확인하기 위해서 : " + session.getAttribute("count"));
 
 		connInfo = new ConnStatVO();
 		// 로그인 멤버 추출
@@ -58,7 +57,6 @@ public class AccessLogCheckInterceptor extends HandlerInterceptorAdapter {
 			String os = "";
 			String divice = "";
 	
-			System.out.println("agent 하하 : " + agent);
 			logger.debug("접속자 agnet : {}", agent);
 	
 			if (agent != null) {
@@ -113,8 +111,7 @@ public class AccessLogCheckInterceptor extends HandlerInterceptorAdapter {
 					browser = "Chrome";
 				} else if (agent.indexOf("Opera") > -1) {
 					browser = "Opera";
-					divice = "PC";
-				} else if (agent.indexOf("FireFox") > -1) {
+				} else if (agent.indexOf("Firefox") > -1) {
 					browser = "FireFox";
 				} else {
 					browser = "Other";

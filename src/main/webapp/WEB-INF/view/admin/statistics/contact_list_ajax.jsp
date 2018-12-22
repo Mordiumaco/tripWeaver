@@ -217,13 +217,13 @@
 	<span class="pg">
 	
 		<strong class="pg_current">1</strong>
-<%-- 		<c:if test="${pageCnt}"> --%>
-<%-- 			<c:set var="" value=""/> --%>
-<%-- 			<c:set var="" value=""/> --%>
-<%-- 		</c:if> --%>
-<%-- 		<c:forEach varStatus="i" begin="${pageCnt}" end=""> --%>
-<!-- 			<a href="/connStat/connStatList?page=1&pageSize=10" class="pg_page">2<span class="sound_only">페이지</span></a> -->
-<%-- 		</c:forEach> --%>
+		<c:if test="${pageCnt}">
+			<c:set var="" value=""/>
+			<c:set var="" value=""/>
+		</c:if>
+		<c:forEach varStatus="i" begin="${pageCnt}" end="${pageCnt}">
+			<a href="/connStat/connStatList?page=1&pageSize=10" class="pg_page">2<span class="sound_only">페이지</span></a>
+		</c:forEach>
 		
 		<a href="" class="pg_page pg_end">맨끝</a>
 	</span>

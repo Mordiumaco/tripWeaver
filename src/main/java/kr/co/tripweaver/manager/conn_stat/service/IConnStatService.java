@@ -25,6 +25,6 @@ public interface IConnStatService {
 	* @return
 	* Method 설명 : 데이터베이스에서 접속자정보리스트를 맵리스트로 반환하는 메서드
 	 */
-	public List<ConnStatVO> selectConnInfo(Map<String, Object> params);
+	public Map<String, Object> selectConnInfo(Map<String, Object> params);
 	
 }

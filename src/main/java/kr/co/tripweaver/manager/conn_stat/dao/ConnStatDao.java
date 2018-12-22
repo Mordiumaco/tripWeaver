@@ -28,4 +28,10 @@ public class ConnStatDao implements IConnStatDao {
 		return connStatVOs;
 	}
 
+	@Override
+	public int getTotalPageCount() {
+		int pageCnt = template.selectOne("connInfoSQL.getTotalPageCount");
+		return pageCnt;
+	}
+
 }

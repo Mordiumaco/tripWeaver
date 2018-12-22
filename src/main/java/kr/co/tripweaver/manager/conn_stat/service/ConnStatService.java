@@ -1,5 +1,6 @@
 package kr.co.tripweaver.manager.conn_stat.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,8 +23,14 @@ public class ConnStatService implements IConnStatService {
 	}
 
 	@Override
-	public List<ConnStatVO> selectConnInfo(Map<String, Object> params) {
+	public Map<String, Object> selectConnInfo(Map<String, Object> params) {
 		List<ConnStatVO> connStatVOs = connStatDao.selectConnInfo(params);
-		return connStatVOs;
+		int pageCnt = connStatDao.getTotalPageCount();
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("connStatVOs", connStatVOs);
+		resultMap.put("pageCnt", pageCnt);
+		
+		return resultMap;
 	}
 }

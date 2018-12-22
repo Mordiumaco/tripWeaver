@@ -27,4 +27,13 @@ public interface IConnStatDao {
 	 */
 	public List<ConnStatVO> selectConnInfo(Map<String, Object> params);
 	
+	/**
+	* Method : getTotalPageCount
+	* 작성자 : jin
+	* 변경이력 :
+	* @return
+	* Method 설명 : 접속자 정보리스트 마지막페이지 반환하는 메서드
+	 */
+	public int getTotalPageCount();
+	
 }
