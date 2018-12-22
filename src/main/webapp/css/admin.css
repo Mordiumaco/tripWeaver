@@ -1234,8 +1234,22 @@ input[type="text"]{max-width:200px}
 	background:#3f51b5 !important;
 }
 
+.subBtn5 {
+	width: 90%;
+    border: 1px solid #7384a2;
+    font-weight: bold;
+    color: #fff !important;
+    cursor: pointer;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    background: #6d99b9 !important ;
+}
+
+.subBtn5:hover {background:#4b708c !important; }
+
 .create_borad li input[type=submit]:hover {
-	background: #b77244;
+	background: #5d6f90;
 }
 
 .create_borad li select {

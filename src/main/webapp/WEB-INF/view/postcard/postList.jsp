@@ -4,212 +4,15 @@
 <%@include file="../head.jsp" %>
 <link rel="stylesheet" href="/css/flexslider2.css" type="text/css" media="screen" />
 
-
-<%--   
-/* 포스트카드 내용에 a태그 추가하기  */
-function alinkSplite(thisClick) {
-
-	var content = $(thisClick[0]).siblings('.content').text();  // html 안에 'content'라는 아이디를 content 라는 변수로 정의한다.
-
-	var splitedArray = content.split(' '); // 공백을 기준으로 문자열을 자른다.
-
-	var linkedContent = '';
-	for(var word in splitedArray)
-	{
-	  word = splitedArray[word];
-	  
-	   if(word.indexOf('#') == 0) // # 문자를 찾는다.
-	   {
-		   var word1 = word.substring(1, word.lastIndexOf('#'));
-		   var word2 = word.substring(word.lastIndexOf('#')+1);
-		   word = word1 + '<span>#<a>'+word2+'</a></span>';
-	   }
-	   linkedContent += word+' ';
-	}
-	$(thisClick[0]).siblings('.content').html(linkedContent);
-};
-
-/* 화면 상단으로 이동 */
-$(function() {
-    $("#top_btn").on("click", function() {
-        $("html, body").animate({scrollTop:0}, '500');
-        return false;
-    });
-});
-
-/* 이미지 슬라이드 */
-$(document).ready(function(){
-	  $('.flexslider2').flexslider({
-	    animation: "slide",
-	    slideshowSpeed : 10000
-	    
-	  });
-	});
-/* 내용 댓글 더보기 기능  */
-$(document).ready(function(){
-	$('.postli5_con').hide();
-	
-	$('.postli5').on('click','.more_btn',function () {
-		$(this).siblings('.postli5_con').show('100');
-		alinkSplite($(this));
-		$(this).addClass('more_btn2');
-
-	});  
-	
-	$('.postli5').on('click','.more_btn2',function () {
-		$(this).siblings('.postli5_con').hide('100');
-		$(this).removeClass('more_btn2');
-	});
-	
-	
-	
-	//sns공유
-    $(".btn_share").click(function(){
-        $(this).siblings("#bo_v_sns").fadeToggle();
-   
-    });
-	
-	
-}); 
-
-/* 페이스북 링크 공유  */
-(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = 580782545709565;
-    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-
-/* 스크롤바 길이 잡아오기  */
-$(window).scroll(function () {
-	var height = $(document).scrollTop();
-
-	if(height>200) { 
-		$('#postSearch').attr('class','head_menu1')
-		$('#post_right_wrap').attr('class','post_right_wrap1')
-		$('#post_right_wrap').css('marginTop',height)
-		
-	} else {
-		$('#postSearch').attr('class','postSearch')
-		$('#post_right_wrap').attr('class','post_right_wrap')
-		$('#post_right_wrap').css('marginTop', '0')
-	}
-	
-});
-
-
-// 좋아요 클릭 부분 처리
-
-$(function() {
-	
-	$('.postli_l2').on('click','.likeNull', function () {
-		alert('비회원은 사용이 불가능 합니다.');		
-	});
-	
-	$('.postli_l2').on('click','.likeAdd', function () {
-		var like_rel_art_id = $(this).siblings('#like_rel_art_id').val();
-		$('#likeAddFrm').children('#like_rel_art_id').val(like_rel_art_id);
-		
-		var thisVar = $(this);
-		
-		likeAddAjax(thisVar);			
-	});
-	
-	$('.postli_l2').on('click','.likeDel', function () {
-		var like_rel_art_id = $(this).siblings('#like_rel_art_id').val();
-		$('#likeDeleteFrm').children('#like_rel_art_id').val(like_rel_art_id);
-		
-		var thisVar = $(this);
-		
-		likeDelAjax(thisVar);
-	});
-	
-	// 포스트 카드 삭제 클릭 처리 부분
-	$('.postli_r').on('click','.postcardDelete', function() {
-		
-		if (confirm("정말 삭제하시겠습니까??")){    //확인
-			var pc_id = $(this).siblings('#pc_id').val();
-			$('#postcardDeleteFrm').children('#pc_id').val(pc_id);	
-			var thisVar = $(this);
-			
-			postcardDelAjax(thisVar);
-		}else{   //취소
-			alert("삭제취소"); //취소시 이벤트 처리
-			return;
-		}
-		
-	});
-	
-	// 포스트 카드 삭제 수정 처리 부분
-	$('.postli_r').on('click','.postcardUdate', function() {
-		var pc_id = $(this).siblings('#pc_id').val();
-		$('#postcardUpdateFrm').children('#pc_id').val(pc_id);	
-		$('#postcardUpdateFrm').submit();
-	});
-	
-	// 댓글쓰기
-	
-	$('.postCard_con').on('click','#com_btn', function() {
-		if(${loginInfo.mem_id != null}){
-			var comt_cnt = $(this).siblings('#comt_cnt').val();
-			var comt_rel_art_id = $(this).siblings('#comt_rel_art_id').val();
-			//var mem_nick = $(this).parents('.postCard_con').find('#mem_nick').val();
-			$('#commentInsertFrm').children('#comt_cnt').val(comt_cnt);
-			$('#commentInsertFrm').children('#comt_rel_art_id').val(comt_rel_art_id);
-			//$('#commentInsertFrm').children('#mem_nick').val(mem_nick);
-			
-			var thisVar = $(this);
-			commentInsertAjax(thisVar);
-			$(this).siblings('#comt_cnt').val('');
-		}else{      
-			alert('로그인을 해주세요.');
-		}  
-		
-	});
-	
-	// 댓글 삭제
-	$('.postCard_con').on('click','.commentDel', function() {
-		var comt_id = $(this).siblings('#comt_id').val();
-		$('#commentDeleteFrm').children('#comt_id').val(comt_id);
-		
-		var thisVar = $(this);
-		commentDeleteAjax(thisVar);
-	});
-	
-	// 댓글 수정
-	$('.postCard_con').on('click','.commentUpdate', function() {
-		var comt_id = $(this).siblings('#comt_id').val();
-		var comt_cntup = $(this).closest('.comment_mam').find('span').text();
-
-		$(this).closest('.postCard_con').find('#comt_cnt').val(comt_cntup);   
-		$(this).closest('.postCard_con').find('#com_btn').addClass('com_btnup');
-		$(this).closest('.postCard_con').find('.com_btnup').attr('id', 'newID');
-		
-		var thisVar = $(this);
-		
-		$('.postCard_con').on('click','.com_btnup', function() {
-			var comt_cnt = $(this).siblings('#comt_cnt').val();
-			$('#commentUpdateFrm').children('#comt_id').val(comt_id);
-			$('#commentUpdateFrm').children('#comt_cnt').val(comt_cnt);
-			
-			commentUpdateAjax(thisVar);
-			
-		});
-	});
-	    
-}); 
---%>
-
 <script type="text/javascript">
 
+//새로고침 감지해서 탑0 으로 보내기
 
+window.onbeforeunload = function() {
+	$('html, body').animate({scrollTop : -10000});
 
-// 새로고침 감지해서 탑0 으로 보내기
-window.onbeforeunload = (e) => { 
-	window.scrollTop(0);
+}
 
-};  
 
 
 /* 해시태그 클릭시 검색기에 값 넣어주고 검색 실행 */
@@ -243,17 +46,23 @@ $(function() {
 
 // 스크롤 페이징 
  var page = 1;  //페이징과 같은 방식이라고 생각하면 된다. 
+ var sendAvaFalg = true;
  
 $(function(){  //페이지가 로드되면 데이터를 가져오고 page를 증가시킨다.
 	postcardListAjax(page);
     page++;
+    console.log(page);
 });  
+ 
 
 $(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
      if($(window).scrollTop() >= $(document).height() - $(window).height()){
-    	 postcardListAjax(page);
-    	 console.log(page);
-         page++;   
+
+    	//if(sendAvaFalg == true){
+    		postcardListAjax(page);
+    	 	page++;
+    	 	console.log(page);
+    	//}
         
      } 
      var height = $(document).scrollTop();
@@ -270,6 +79,140 @@ $(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리�
    
 });
 
+/* 내용 댓글 더보기 기능  */
+$(document).ready(function(){
+	
+	$('#post_left_wrap').on('click','.postli5 .more_btn',function () {
+		$(this).siblings('.postli5_con').show('100');
+		alinkSplite($(this));
+		$(this).addClass('more_btn2');
+
+	});  
+	
+	$('#post_left_wrap').on('click','.postli5 .more_btn2',function () {
+		$(this).siblings('.postli5_con').hide('100');
+		$(this).removeClass('more_btn2');
+	});
+	
+	//sns공유
+	$('#post_left_wrap').on('click','.postCard_con .btn_share',function(){
+	    //$(this).siblings("#bo_v_sns").fadeToggle();
+	    
+	    $(this).siblings(".bo_v_sns").fadeToggle();
+		
+
+	});
+	
+	
+}); 
+
+
+
+
+//좋아요 클릭 부분 처리
+
+$(function() {
+	
+	$('#post_left_wrap').on('click','.postli_l2 .likeNull', function () {
+		alert('비회원은 사용이 불가능 합니다.');		
+	});
+	
+	$('#post_left_wrap').on('click','.postli_l2 .likeAdd', function () {
+		var like_rel_art_id = $(this).siblings('#like_rel_art_id').val();
+		$('#likeAddFrm').children('#like_rel_art_id').val(like_rel_art_id);
+		
+		var thisVar = $(this);
+		
+		likeAddAjax(thisVar);			
+	});
+	
+	$('#post_left_wrap').on('click','.postli_l2 .likeDel', function () {
+		var like_rel_art_id = $(this).siblings('#like_rel_art_id').val();
+		$('#likeDeleteFrm').children('#like_rel_art_id').val(like_rel_art_id);
+		
+		var thisVar = $(this);
+		
+		likeDelAjax(thisVar);
+	});
+	
+	// 포스트 카드 삭제 클릭 처리 부분
+	$('#post_left_wrap').on('click','.postli_r .postcardDelete', function() {
+		
+		if (confirm("정말 삭제하시겠습니까??")){    //확인
+			var pc_id = $(this).siblings('#pc_id').val();
+			$('#postcardDeleteFrm').children('#pc_id').val(pc_id);	
+			var thisVar = $(this);
+			
+			postcardDelAjax(thisVar);
+		}else{   //취소
+			alert("삭제취소"); //취소시 이벤트 처리
+			return;
+		}
+		
+	});
+	
+	// 포스트 카드 삭제 수정 처리 부분
+	$('#post_left_wrap').on('click','.postli_r .postcardUdate', function() {
+		var pc_id = $(this).siblings('#pc_id').val();
+		$('#postcardUpdateFrm').children('#pc_id').val(pc_id);	
+		$('#postcardUpdateFrm').submit();
+	});
+	
+	// 댓글쓰기
+	
+	$('#post_left_wrap').on('click','.postCard_con #com_btn', function() {
+		if(${loginInfo.mem_id != null}){
+			var comt_cnt = $(this).siblings('#comt_cnt').val();
+			var comt_rel_art_id = $(this).siblings('#comt_rel_art_id').val();
+			//var mem_nick = $(this).parents('.postCard_con').find('#mem_nick').val();
+			$('#commentInsertFrm').children('#comt_cnt').val(comt_cnt);
+			$('#commentInsertFrm').children('#comt_rel_art_id').val(comt_rel_art_id);
+			//$('#commentInsertFrm').children('#mem_nick').val(mem_nick);
+			
+			var thisVar = $(this);
+			commentInsertAjax(thisVar);
+			$(this).siblings('#comt_cnt').val('');
+		}else{       
+			alert('로그인을 해주세요.');
+		}  
+		
+	});
+	
+	// 댓글 삭제
+	$('#post_left_wrap').on('click','.postCard_con .commentDel', function() {
+		var comt_id = $(this).siblings('#comt_id').val();
+		$('#commentDeleteFrm').children('#comt_id').val(comt_id);
+		
+		var ulNum = $(this).parents('#post_left_wrap').find('.postCard_con').index();
+		console.log(ulNum);
+		
+		var thisVar = $(this);
+		commentDeleteAjax(thisVar, ulNum);
+	});
+	
+	// 댓글 수정
+	$('#post_left_wrap').on('click','.postCard_con .commentUpdate', function() {
+		var comt_id = $(this).siblings('#comt_id').val();
+		var comt_cntup = $(this).closest('.comment_mam').find('span').text();
+
+		$(this).closest('.postCard_con').find('#comt_cnt').val(comt_cntup);   
+		$(this).closest('.postCard_con').find('#com_btn').addClass('com_btnup');
+		$(this).closest('.postCard_con').find('.com_btnup').attr('id', 'newID');
+		
+		var thisVar = $(this);
+		
+		$('.postCard_con').on('click','.com_btnup', function() {
+			var comt_cnt = $(this).siblings('#comt_cnt').val();
+			$('#commentUpdateFrm').children('#comt_id').val(comt_id);
+			$('#commentUpdateFrm').children('#comt_cnt').val(comt_cnt);
+			
+			commentUpdateAjax(thisVar);
+			
+		});
+	});
+	     
+});   
+
 
 // 좋아요 추가 아작스
 function likeAddAjax(thisVar){
@@ -280,7 +223,7 @@ function likeAddAjax(thisVar){
 	    type: "POST",
 	    data: $('#likeAddFrm').serialize(),
 	    success : function(data){
-	    	
+	    	    	
 	    	var thisVar2 = thisVar.parents('.postCard_con');
 			thisVar2.find('.likeNum').text(data);
 	    	
@@ -307,6 +250,7 @@ function likeDelAjax(thisVar){
 	    data: $('#likeDeleteFrm').serialize(),
 	    success : function(data){
 	    	
+	    	
 	    	var thisVar2 = thisVar.parents('.postCard_con');
 			thisVar2.find('.likeNum').text(data);
 	    	
@@ -330,22 +274,25 @@ function postcardListAjax(page) {
 	var tag_search = '${param.tag_search}';
 	var mem_id = '${loginInfo.mem_id}';
 	var pageSize = 1;
-	$.ajax({
-	  	url : "/postCard/postCardListAjax",
-	    type: "GET",
-	    data: "mem_id="+mem_id+"&page="+page +"&pageSize="+pageSize+"&tag_search="+tag_search,
-	    success : function(data){
-	    	
-	    	$('.loading').append('<img src="/img/loading.gif">');
-	    	
-	    	setTimeout(function(e) {
-	    		$(data).appendTo('#post_left_wrap');
-	    		$('.loading img').remove();
-			}, 1000);
-	    	
-	    	
-	    }
-	}); 
+	if(sendAvaFalg == true){
+		sendAvaFalg =false;
+		$.ajax({
+		  	url : "/postCard/postCardListAjax",
+		    type: "GET",
+		    data: "mem_id="+mem_id+"&page="+page +"&tag_search="+tag_search,
+		    success : function(data){	
+		    	$('.loading').append('<img src="/img/loading.gif">');
+		    			    	
+		    	setTimeout(function(e) {
+		    		$(data).appendTo('#post_left_wrap');
+		    		$('.loading img').remove();
+				}, 500);
+		    },
+		    complete : function(){
+		    	sendAvaFalg = true;
+		    }
+		});
+	}
 };  
 
 
@@ -380,7 +327,8 @@ function commentInsertAjax(thisVar) {
  			div += "<li><a class='bbtn_02 commentDel'>삭제</a><input type='hidden' id='comt_id' name='comt_id' value="+data.comt_id+"></li>";
   			div += "</ul>";
  			div += "</div>";
- 			div += "<br/>";
+ 			
+ 			$(thisVar).parents('.postCard_con').find('.nocomment').remove();
  			
  			var text = $(thisVar).parents('.postCard_con').find('.Post_comment');
  			
@@ -390,7 +338,7 @@ function commentInsertAjax(thisVar) {
 }	
 
 // 댓글 삭제 아작스
-function commentDeleteAjax(thisVar) {
+function commentDeleteAjax(thisVar, ulNum) {
 	$.ajax({
 	  	url : "/postCard/deleteComment",
 	    type: "POST",
@@ -398,8 +346,14 @@ function commentDeleteAjax(thisVar) {
 	    success : function(data){
 	    	console.log(typeof data);
 	    	console.log(data.comt_cnt);
-	    
+	
 	    	$(thisVar).parents('.comment_mam').remove();
+	    	if(($('.postCard_con').eq(ulNum).find('.comment_mam').length) == 0){
+	    		var nocomment = "<div class='nocomment'>댓글이 없습니다.</div>";
+	    		var Post_commentEq = $('.postCard_con').eq(ulNum).find('.Post_comment');
+	    	 	$(nocomment).appendTo(Post_commentEq);
+	    	}
+	    	
 	    }
 	});
 }
@@ -450,6 +404,8 @@ function commentUpdateAjax(thisVar) {
  height: 30px;
 }
 
+#bo_v_sns {  display: inline-block; margin-left: -40px; margin-top: 30px;}
+
 .more_btn, .sns_f  { cursor: pointer;}
 
 .fb-share-button { content: ""; display: block;}
@@ -464,7 +420,7 @@ function commentUpdateAjax(thisVar) {
 .comment_mam { padding: 6px 2px;}
 .comment_mam span { display: inline-block !important;}
 
-.loading { width: 100%; float: left; text-align: center;}
+.loading { width: 100%; float: left; text-align: center; position: absolute; bottom: 500px;}
 .loading img { float: none; width: 200px; margin-bottom: 20px;}
 
 </style>

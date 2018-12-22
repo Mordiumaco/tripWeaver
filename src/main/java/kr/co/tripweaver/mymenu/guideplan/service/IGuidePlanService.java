@@ -1,5 +1,7 @@
 package kr.co.tripweaver.mymenu.guideplan.service;
 
+import java.util.List;
+
 import kr.co.tripweaver.mymenu.guideplan.model.GuidePlanVO;
 
 /**
@@ -34,4 +36,15 @@ public interface IGuidePlanService {
 	*/
 	public int insertGuidePlan(GuidePlanVO guidePlanVo);
 	
+	
+	/**
+	* Method : selectGuidePlanByEssayId
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 21.
+	* 변경이력 :
+	* @param essay_id
+	* @return
+	* Method 설명 : essay_id로 GuidePlanVO를 받아온다. 
+	*/
+	public List<GuidePlanVO> selectGuidePlanByEssayId(String essay_id);
 }

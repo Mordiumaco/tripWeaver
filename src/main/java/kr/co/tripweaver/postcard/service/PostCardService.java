@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.tripweaver.common.attachment.model.AttachmentVO;
 import kr.co.tripweaver.common.attachment.service.IAttachmentService;
 import kr.co.tripweaver.common.comment.service.ICommentService;
 import kr.co.tripweaver.common.like.service.ILikeService;
@@ -133,14 +134,29 @@ public class PostCardService implements IPostCardService{
 		
 		String art_rel_art_id = pc_id;
 		
-		int insertAttachment = 0;
-	/*	
-		for(FileVo fileCnt : fileVo) {
-			fileCnt.setPo_id(po_id_PostsFile);
-			insertPostsFile += attachmentService.insertFile(fileCnt);
-		}*/
+		int attachmentInsertCnt = 0;
 		
-		return 0;
+		List<AttachmentVO> attachmentVoList = (List<AttachmentVO>)resultMap.get("attachmentVo");
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		
+		for(AttachmentVO attachment: attachmentVoList) {
+			param.put("att_path", attachment.getAtt_path());
+			param.put("att_file_name", attachment.getAtt_file_name());
+			param.put("att_file_ori_name", attachment.getAtt_file_ori_name());
+			param.put("att_rel_art_id", art_rel_art_id);
+			param.put("filter_id", attachment.getFilter_id());
+			
+			System.out.println("attachment.getAtt_path()"+attachment.getAtt_path());
+			System.out.println("attachment.getAtt_file_name()"+attachment.getAtt_file_name());
+			System.out.println("attachment.getAtt_file_ori_name()"+attachment.getAtt_file_ori_name());
+			System.out.println("art_rel_art_id"+art_rel_art_id);
+			System.out.println("attachment.getFilter_id()"+attachment.getFilter_id());
+			
+			attachmentInsertCnt = attachmentService.attachmentInsert(param);
+		}
+		
+		return attachmentInsertCnt;
 	}
 	
 	

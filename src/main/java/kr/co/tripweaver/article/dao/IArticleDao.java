@@ -37,4 +37,14 @@ public interface IArticleDao {
 	*/
 	public String insertArticle(ArticleVO articleVo);
 	
+	/**
+	* Method : getArticleDetail
+	* 작성자 : pc23
+	* 변경이력 :
+	* @param art_id
+	* @return
+	* Method 설명 : 게시글 상세보기
+	*/
+	public ArticleVO getArticleDetail(String art_id);
+	
 }

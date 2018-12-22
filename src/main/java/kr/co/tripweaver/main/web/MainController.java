@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -16,16 +17,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.tripweaver.article.model.ArticleVO;
+import kr.co.tripweaver.article.service.IArticleService;
 import kr.co.tripweaver.member.model.MemberVO;
 import kr.co.tripweaver.mymenu.mypage.tripplan.model.ClusterVO;
 import kr.co.tripweaver.mymenu.mypage.tripplan.model.MypageTripPlanForListVO;
 import kr.co.tripweaver.mymenu.mypage.tripplan.service.ITripPlanService;
+import kr.co.tripweaver.util.model.PageVO;
 
 @RequestMapping("/main")
 @Controller
 public class MainController {
 
 	Logger logger = LoggerFactory.getLogger(MainController.class);
+	
+	@Resource(name = "articleService")
+	private IArticleService articleService;
 	
 	@Autowired
 	ITripPlanService tripPlanService;
@@ -279,8 +286,50 @@ public class MainController {
 	}
 	
 	@RequestMapping("/board")
-	public String boardView(@RequestParam("board_id")String board_id, Model model) {
+	public String boardView(@RequestParam(value = "pageVo", required=false)PageVO pageVo, 
+			@RequestParam("board_id")String board_id, Model model,
+			@RequestParam(value = "search", required=false, defaultValue="art_title") String search, 
+			@RequestParam(value = "searchWord", required=false, defaultValue="") String searchWord,
+			@RequestParam(value = "pageSize", required=false) String pageSize,
+			@RequestParam(value = "page", required=false) String page) {
+		
+		if(pageVo == null) {
+			logger.debug("pageVo[loginInfo] : {} ", pageVo);
+			logger.debug("page[loginInfo] : {} ", page);
+			logger.debug("pageSize[loginInfo] : {} ", pageSize);
+			pageVo = new PageVO(1, 10);
+			
+			if(page != null) {
+				pageVo.setPage(Integer.parseInt(page));
+			}
+			
+			if(pageSize != null) {
+				pageVo.setPageSize(Integer.parseInt(pageSize));
+			}
+		}
+		
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("pageSize", pageSize);
+		param.put("page", page);
+		param.put("pageVo", pageVo);
+		param.put("board_id", board_id);
+		param.put("search", search);
+		param.put("searchWord", searchWord);
+		
+		List<ArticleVO> articleList = articleService.articlePagingList(param);
+
+//		int pageCnt = (int) articleList.get("pageCnt");
+
+		int totalArticleCnt = articleService.getArticleCnt(param);
+		int pageCnt = (int) Math.ceil(totalArticleCnt/pageVo.getPageSize())+1; 
+		
+		model.addAttribute("articleList", articleList);
+		logger.debug("articleList[loginInfo] : {} ", articleList);
+		model.addAttribute("totalArticleCnt", totalArticleCnt);
 		model.addAttribute("board_id", board_id);
+		model.addAttribute("pageCnt", pageCnt);
+		
 		return "servicecenter/list";
 	}
 	

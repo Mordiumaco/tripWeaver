@@ -132,7 +132,11 @@ public class PostCardController {
 					AttachmentVO attachmentVo = new AttachmentVO();
 					String att_path = "/postcard";
 					String att_file_name = UUID.randomUUID().toString() + mufi.getOriginalFilename();
+					attachmentVo.setAtt_path(att_path);
+					attachmentVo.setAtt_file_name(att_file_name);
 					attachmentVo.setAtt_file_ori_name(mufi.getOriginalFilename());
+					attachmentVo.setFilter_id("postcard");
+					
 					mufi.transferTo(new File("C:\\upload"+ att_path + File.separator + att_file_name));
 					listFileVo.add(attachmentVo);
 				}

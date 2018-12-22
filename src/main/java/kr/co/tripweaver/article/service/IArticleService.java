@@ -1,5 +1,6 @@
 package kr.co.tripweaver.article.service;
 
+import java.util.List;
 import java.util.Map;
 
 import kr.co.tripweaver.article.model.ArticleVO;
@@ -14,7 +15,7 @@ public interface IArticleService {
 	* @return
 	* Method 설명 : 게시글 페이징 리스트
 	*/
-	public Map<String, Object> articlePagingList(Map<String, Object> param);
+	public List<ArticleVO> articlePagingList(Map<String, Object> param);
 	
 	/**
 	* Method : getArticleCnt
@@ -35,5 +36,15 @@ public interface IArticleService {
 	* Method 설명 : 게시글 작성
 	*/
 	public String insertArticle(ArticleVO articleVo);
+	
+	/**
+	* Method : getArticleDetail
+	* 작성자 : pc23
+	* 변경이력 :
+	* @param art_id
+	* @return
+	* Method 설명 : 게시글 상세보기
+	*/
+	public ArticleVO getArticleDetail(String art_id);
 	
 }

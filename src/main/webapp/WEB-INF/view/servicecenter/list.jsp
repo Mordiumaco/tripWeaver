@@ -25,7 +25,8 @@ var getParam = function(key){
 $(document).ready(function(){
 	$(".board_listF").on("click", ".postsClick", function(){
 		var postsId = $(this).children()[0].innerHTML;
-		$("#postsId").val(postsId);
+// 		$("#postsId").val(postsId);
+		$("#art_id").val(postsId);
 		$("#frm").submit();
 	});
 	
@@ -97,8 +98,12 @@ function fboardlist_submit(f) {
 
 
 <%-- 뷰페이지에 게시글 아이디 넘기기 --%>
-<form action="/article/detailBoard" method="get" id="frm" >
-	<input type="hidden" id="postsId" name="postsId"/>
+<form action="/article/articlePageList" method="get" id="frm" >
+	<input type="text" id="art_id" name="art_id"/>
+	
+	
+	
+<!-- 	<input type="text" id="postsId" name="postsId"/> -->
 </form>
 
 <div class="main_con" id="main_con">
@@ -106,7 +111,7 @@ function fboardlist_submit(f) {
 <div id="container">
 	<c:forEach items="${menuList}" var="nt">
 		<c:choose>
-			<c:when test="${nt.nt_id == param.pageId}">
+			<c:when test="${nt.board_id == param.pageId}">
 				<h2 class="board_top">${nt.nt_name}</h2>
 			</c:when>
 		</c:choose>
@@ -114,7 +119,7 @@ function fboardlist_submit(f) {
 	
 	<div class="board_top_sub">
 		<ul class="bt_left">
-			<li>Total&nbsp;&nbsp;<b>${totalPostsCnt}</b>&nbsp; 건 </li>
+			<li>Total&nbsp;&nbsp;<b>${totalArticleCnt}</b>&nbsp; 건 </li>
 			<li>&nbsp;&nbsp;<b>${pageCnt}</b> &nbsp;페이지</li>
 		</ul>
 		<ul class="bt_right">
@@ -141,22 +146,22 @@ function fboardlist_submit(f) {
 		</thead>
 		
 		<tbody class="board_listF">
-			<c:forEach items="${postsList}" var="pv" varStatus="status"  >
+			<c:forEach items="${articleList}" var="pv" varStatus="status"  >
 				<c:choose >
-					<c:when test="${pv.po_delete != 'Y'}">
-						<tr class="postsClick">
-							<td>${pv.po_id}</td>
-							<td>${pv.lp_subject}</td>
-							<td>${pv.userid}</td>
-							<td><fmt:formatDate value="${pv.po_date}" pattern="yyyy-MM-dd"/></td>
+					<c:when test="${pv.art_del != 'Y'}">
+						<tr class="postsClick" style="cursor:pointer;" alt="${pv.art_title}">
+							<td>${pv.rnum}</td>
+							<td>${pv.art_title}</td>
+							<td>${pv.mem_id}</td>
+							<td><fmt:formatDate value="${pv.art_date}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 					</c:when>
 					<c:otherwise>
 						<tr>
-							<td>${pv.po_id}</td>
+							<td>${pv.art_id}</td>
 							<td><span class="list_decoration">삭제된 글 입니다.</span></td>
 							<td>${pv.userid}</td>
-							<td><fmt:formatDate value="${pv.po_date}" pattern="yyyy-MM-dd"/></td>
+							<td><fmt:formatDate value="${pv.art_date}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 					</c:otherwise>
 				</c:choose>
@@ -173,7 +178,7 @@ function fboardlist_submit(f) {
 			<ul class="bt_left">
 				<li>
 					<select name="search_key" id="search_key">
-						<option value="po_subject">제목</option>
+						<option value="art_title">제목</option>
 						<option value="po_contents">내용</option>
 						<option value="userid">회원아이디</option>
 					</select>
@@ -187,7 +192,7 @@ function fboardlist_submit(f) {
 			</ul>
 		</form>
 		<ul class="bt_right">
-			<li><button class="btn_bd col_03" type="submit" onclick="location.href='/board/boardList?pageId=${art_id}&page=1&pageSize=10&search_key=po_subject&search_value='">목록</button></li>
+			<li><button class="btn_bd col_03" type="submit" onclick="location.href='/main/board?board_id=${board_id}&page=1&pageSize=10&search_key=art_title&search_value='">목록</button></li>
 			<li><button class="btn_bd col_01" type="submit" onclick="location.href='/article/articleView?board_id=${board_id}'"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp; 글쓰기</button></li>
 		</ul>
 		
@@ -195,30 +200,30 @@ function fboardlist_submit(f) {
 
 	<nav class="pg_wrap">
 		<span class="pg">
-			<%-- 
+		
 			<c:set var="pageSize" value="10"/>
 			
 			
 			<c:if test="${param.page != 1}">
-				<a class="pg_page pg_start" href="/board/boardList?pageId=${nt_id}&page=1&pageSize=${pageSize}"></a>
-				<a class="pg_page pg_prev" href="/board/boardList?pageId=${nt_id}&page=${param.page - 1}&pageSize=${pageSize}"></a>			
+				<a class="pg_page pg_start" href="/main/board?board_id=${board_id}&page=1&pageSize=${pageSize}"></a>
+				<a class="pg_page pg_prev" href="/main/board?board_id=${board_id}&page=${param.page - 1}&pageSize=${pageSize}"></a>			
 			</c:if>
 			
 			<c:forEach var="pageWrap"  varStatus="status" begin="1" end="${pageCnt}">
 
 				<c:choose>
-					<c:when test="${status.index == param.page}"><a class="pg_current" href="/board/boardList?pageId=${nt_id}&page=${status.index}&pageSize=${pageSize}">${status.index}</a></c:when>
-					<c:otherwise><a class="pg_page" href="/board/boardList?pageId=${nt_id}&page=${status.index}&pageSize=${pageSize}">${status.index}</a></c:otherwise>
+					<c:when test="${status.index == param.page}"><a class="pg_current" href="/main/board?board_id=${board_id}&page=${status.index}&pageSize=${pageSize}">${status.index}</a></c:when>
+					<c:otherwise><a class="pg_page" href="/main/board?board_id=${board_id}&page=${status.index}&pageSize=${pageSize}">${status.index}</a></c:otherwise>
 				</c:choose>
 
 			</c:forEach>
 			
 			<c:if test="${pageCnt > param.page}">
-				<a class="pg_page pg_next" href="/board/boardList?pageId=${nt_id}&page=${param.page + 1}&pageSize=${pageSize}"></a>
-				<a class="pg_page pg_end" href="/board/boardList?pageId=${nt_id}&page=${pageCnt}&pageSize=${pageSize}"></a>
+				<a class="pg_page pg_next" href="/main/board?board_id=${board_id}&page=${param.page + 1}&pageSize=${pageSize}"></a>
+				<a class="pg_page pg_end" href="/main/board?board_id=${board_id}&page=${pageCnt}&pageSize=${pageSize}"></a>
 			</c:if>
 			
-			--%>
+		
 			
 			
 		</span>
@@ -227,8 +232,8 @@ function fboardlist_submit(f) {
 	
 	
 	<% /* tr 클릭시 페이지 이동  */ %>
-	<form action="/userDetail" method="get" id="frm" >
-		<input type="hidden" id="userId" name="userId"/>
+	<form action="/articleDetail" method="get" id="frm2" >
+		<input type="hidden" id="art_id" name="art_id"/>
 	</form>
 
 </div>

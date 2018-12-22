@@ -55,7 +55,7 @@
 							<input class="sm_${status.index} subBtn" type="submit" value="수정">
 						</li>
 						<li>  
-							<a href="/board/boardDelete?board_id=${cr.board_id}"  class="subBtn subBtn2">삭제</a>
+							<a href="/board/boardDelete?board_id=${cr.board_id}"  class="subBtn subBtn2 subBtn5">삭제</a>
 						</li>
 					</ul>
 				</form>

@@ -12,7 +12,7 @@
 		, m.mem_nick
 		, m.mem_profile
 		from POSTCARD p INNER JOIN member m
-		on (p.mem_id = m.mem_id) 
+		on (p.mem_id = m.mem_id and p.PC_DEL = 'N') 
 		
 		<if test="tag_search != '' ">
 		inner join 
@@ -27,7 +27,8 @@
 		
 		ORDER by p.pc_date desc
 		)list2)
-		where rnum between #{pageVo.page} * #{pageVo.pageSize} -(#{pageVo.pageSize}-1) and #{pageVo.page}* #{pageVo.pageSize}
+		where rnum = ${pageVo.page}
+		and pc_del = 'N'
 	
 	</select>
 	

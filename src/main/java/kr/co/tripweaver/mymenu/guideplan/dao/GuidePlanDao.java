@@ -1,5 +1,7 @@
 package kr.co.tripweaver.mymenu.guideplan.dao;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -7,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import kr.co.tripweaver.essay.dao.EssayDao;
 import kr.co.tripweaver.mymenu.guideplan.model.GuidePlanVO;
 
 /**
@@ -62,5 +63,33 @@ public class GuidePlanDao implements IGuidePlanDao {
 		}
 		
 		return result;
+	}
+	
+	/**
+	* Method : selectGuidePlanByEssayId
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 21.
+	* 변경이력 :
+	* @param essay_id
+	* @return
+	* Method 설명 : essay_id로 GuidePlanVO를 받아온다. 
+	*/
+	@Override
+	public List<GuidePlanVO> selectGuidePlanByEssayId(String essay_id){
+		
+		List<GuidePlanVO> guidePlanList = null;
+		
+		try {
+			
+			guidePlanList = template.selectList("guidePlanSQL.selectGuidePlanByEssayId", essay_id);
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			return guidePlanList;
+			
+		}
+		
+		return guidePlanList;
 	}
 }

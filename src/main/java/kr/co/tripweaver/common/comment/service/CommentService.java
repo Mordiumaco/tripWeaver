@@ -1,6 +1,7 @@
 package kr.co.tripweaver.common.comment.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,16 @@ public class CommentService implements ICommentService {
 	
 	@Autowired
 	ICommentDao commentDao;
+
+	@Override
+	public List<CommentVO> articleCommentList(String art_id) {
+		return commentDao.articleCommentList(art_id);
+	}
+
+	@Override
+	public int commentInsert(Map<String, Object> param) {
+		return commentDao.commentInsert(param);
+	}
 	
 	/**
 	 * 
@@ -84,6 +95,19 @@ public class CommentService implements ICommentService {
 	public int updateComment(CommentVO commentVo) {
 			int updateCommentCnt = commentDao.updateComment(commentVo);
 		return updateCommentCnt;
+	}
+	
+	/**
+	* Method : selectEssayCommentByArtIdAndFilterId
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 21.
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : map으로 해당 댓글 아이디와 필터아이디를 줘서 댓글 리스트를 받는다.
+	*/
+	public List<CommentVO>selectEssayCommentByArtIdAndFilterId(Map<String, String> param){
+		return commentDao.selectEssayCommentByArtIdAndFilterId(param);
 	}
 	
 }
