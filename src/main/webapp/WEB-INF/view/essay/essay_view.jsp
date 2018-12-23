@@ -341,7 +341,6 @@ $(document).ready(function(){
 		function commentInsert(){
 			let comt_cnt = $("#comt_cnt").val();
 			let essay_id = "${essayVo.essay_id}";
-			
 			 $.ajax({
 					type: "POST",
 					url:"/essay/essayCommentInsertAjax",
