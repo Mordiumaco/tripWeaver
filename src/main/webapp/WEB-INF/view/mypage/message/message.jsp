@@ -253,7 +253,8 @@ ul {
 	<div class="mes_my">
 		<b>내프로필</b> 
 		<div>
-			<b class="my_profile"><img src="/file/read?mem_profile=${loginInfo.mem_profile}"></b>
+<%-- 			<b class="my_profile"><img src="/file/read?mem_profile=${loginInfo.mem_profile}"></b> --%>
+			<b class="my_profile"><img src="/img/${loginInfo.mem_profile}"></b>
 		</div>
 		<ul>
 			<li>${loginInfo.mem_nick}</li>

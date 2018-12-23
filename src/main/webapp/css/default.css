@@ -1319,6 +1319,6 @@ a.btn_ov02:hover,a.ov_listall:hover{background:#3f51b5}
 .write_wrap textarea { width: 100%; height: 200px; resize: none; margin-top: 20px; padding: 10px;}
 
 /* 추가 알람 css*/
-#alram { background: #ffec42;  width:20px; height:20px; border-radius: 50px; display: block; position: absolute; top: 30px; left:55px; line-height: 20px; text-align: center;}
+.alram { background: #ffec42;  width:20px; height:20px; border-radius: 50px; display: block; position: absolute; top: 30px; left:55px; line-height: 20px; text-align: center;}
 .pointer { position: relative;}
 

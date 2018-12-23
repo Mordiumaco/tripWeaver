@@ -40,6 +40,4 @@ public class ArticleDao implements IArticleDao {
 
 
 
-
-
 }
