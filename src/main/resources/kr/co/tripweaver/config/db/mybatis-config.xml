@@ -23,7 +23,6 @@
  	<typeAlias type="kr.co.tripweaver.mymenu.mypage.tripplan.model.MypageTripPlanForListVO" alias="mypageTripPlanForListVo"/>
  	<typeAlias type="kr.co.tripweaver.common.like.model.LikeVO" alias="likeVo"/>
  	<typeAlias type="kr.co.tripweaver.mymenu.mypage.tripplan.model.ClusterVO" alias="clusterVo"/>
- 	<typeAlias type="kr.co.tripweaver.common.comment.model.CommentVO" alias="commentVo"/>
 	<typeAlias type="kr.co.tripweaver.essay.model.EssayVO" alias="essayVo"/>
 	<typeAlias type="kr.co.tripweaver.mymenu.guideplan.model.GuidePlanVO" alias="guidePlanVo"/>
  </typeAliases>	
@@ -33,7 +32,6 @@
   	<mapper resource="kr/co/tripweaver/config/db/member.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/follow.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/attachment.xml"/>
-  	<mapper resource="kr/co/tripweaver/config/db/comments.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/board.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/article.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/message.xml"/>

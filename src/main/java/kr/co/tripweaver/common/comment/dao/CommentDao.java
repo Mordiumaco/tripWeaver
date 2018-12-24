@@ -16,14 +16,30 @@ public class CommentDao implements ICommentDao {
 	@Resource(name="sqlSessionTemplate")
 	private SqlSessionTemplate template;
 
+	/**
+	* Method : articleCommentList
+	* 작성자 : pc23
+	* 변경이력 :
+	* @param art_id
+	* @return
+	* Method 설명 : 게시글 댓글 리스트 
+	*/
 	@Override
 	public List<CommentVO> articleCommentList(String art_id) {
-		return template.selectList("commentsSQL.articleComment", art_id);
+		return template.selectList("commentSQL.articleComment", art_id);
 	}
 
+	/**
+	* Method : commentInsert
+	* 작성자 : pc23
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 댓글 insert
+	*/
 	@Override
 	public int commentInsert(Map<String, Object> param) {
-		return template.insert("commentsSQL.commentInsert", param);
+		return template.insert("commentSQL.commentInsert", param);
 	}
 
 	/**

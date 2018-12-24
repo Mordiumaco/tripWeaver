@@ -206,20 +206,21 @@ public class ArticleController {
 				logger.debug("att_file_name{}", att_file_name[i]);
 				logger.debug("filter_id{}", "article");
 				logger.debug("att_rel_art_id{}", art_id);
-//				param2.put("att_file_ori_name", att_file_ori_name[i]);
-//				param2.put("att_path", path);
-//				param2.put("att_file_name", att_file_name[i]);
-//				param2.put("filter_id", "article");
-//				param2.put("att_rel_art_id", art_id);
+				
+				param2.put("att_file_ori_name", att_file_ori_name[i]);
+				param2.put("att_path", path);
+				param2.put("att_file_name", att_file_name[i]);
+				param2.put("filter_id", "article");
+				param2.put("att_rel_art_id", art_id);
 
-//				int atInsert = attachmentService.attachmentInsert(param2);
+				int atInsert = attachmentService.attachmentInsert(param2);
 
-//				if (atInsert != 0) {
-//
-//				} else {
-//					System.out.println("**게시글 첨부파일 오류**");
-//					return "dbError";
-//				}
+				if (atInsert != 0) {
+
+				} else {
+					System.out.println("**게시글 첨부파일 오류**");
+					return "dbError";
+				}
 			}
 			return "redirect: /main/board?board_id="+board_id;
 		} else {
@@ -240,7 +241,8 @@ public class ArticleController {
 	public String articleDetail(@RequestParam("art_id") String art_id, Model model) {
 
 		ArticleVO articleVo = articleService.getArticleDetail(art_id);
-
+		logger.debug("art_id동주[] : {} ", art_id);
+		logger.debug("articleVo[] : {} ", articleVo);
 		List<AttachmentVO> attachmentList = attachmentService.getAttachmemt(art_id);
 
 		List<CommentVO> ctList = commentService.articleCommentList(art_id);
@@ -251,9 +253,21 @@ public class ArticleController {
 		
 		logger.debug("attachmentList[loginInfo] : {} ", attachmentList);
 
-		return "article/articleDetail";
+		return "servicecenter/view";
 	}
 	
+	/**
+	* Method : commentInsert
+	* 작성자 : pc23
+	* 변경이력 :
+	* @param request
+	* @param comt_cnt
+	* @param ct_content
+	* @param comt_secret
+	* @param session
+	* @return
+	* Method 설명 : 댓글 insert
+	*/
 	@RequestMapping(value= {"/commentInsert"})
 	public String commentInsert(HttpServletRequest request, @RequestParam("comt_cnt")String comt_cnt, 
 			@RequestParam("ct_content")String ct_content, @RequestParam(value="comt_secret", required=false) String comt_secret,
@@ -276,6 +290,8 @@ public class ArticleController {
 			return "";
 		}
 	}
+	
+	
 	
 	
 }
