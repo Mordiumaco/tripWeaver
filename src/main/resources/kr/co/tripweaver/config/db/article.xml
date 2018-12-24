@@ -37,6 +37,18 @@ values('art'||LPAD(art_seq.nextval, 5,'0'), #{art_title}, #{art_cnt}, art_seq.cu
 </selectKey>         
 </insert>	
 
+<update parameterType="Map" id="articleUpdate"> 
+	update article 
+	set art_title = #{art_title}, art_cnt = #{art_cnt} 
+	where art_id = #{art_id} 
+</update>
+
+<update parameterType="Map" id="articleDelete"> 
+update article 
+set art_title = '삭제된 게시글입니다.' 
+where art_id = #{art_id} 
+</update>
+
 
 <select resultType="articleVo" parameterType="String" id="getArticleDetail"> 
 	select * from article 

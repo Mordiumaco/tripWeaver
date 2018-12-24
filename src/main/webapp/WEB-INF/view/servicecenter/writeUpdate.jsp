@@ -93,12 +93,12 @@ $(document).ready(function(){
 <div class="main_con" id="main_con">
 
 <div id="container">
-	<form action="/board/updateBoard" method="post" id="frm" enctype="multipart/form-data">
+	<form action="/article/updateArticle" method="post" id="frm" enctype="multipart/form-data">
 	
 
 	<div class="write_warp">
-		<input type="hidden" readonly="readonly" name="nt_id" value="${postsVo.nt_id}">
-		<input type="hidden" readonly="readonly" name="po_id" value="${postsVo.po_id}">
+		<input type="hidden" readonly="readonly" name="board_id" value="${articleVo.board_id}">
+		<input type="hidden" readonly="readonly" name="art_id" value="${articleVo.art_id}">
 	</div>
 
 	
@@ -106,8 +106,8 @@ $(document).ready(function(){
 	<div class="write_warp">
 		<ul class="write_warpL">
 			<li><b>이름 &nbsp;&nbsp;: </b></li>
-			<li><label > ${S_USER.userId} </label></li>
-			<input type="hidden" id="userId" name="${S_USER.userId}">
+			<li><label > ${loginInfo.mem_id} </label></li>
+			<input type="hidden" id="userId" name="${loginInfo.mem_id}">
 		</ul>
 				
 	</div>

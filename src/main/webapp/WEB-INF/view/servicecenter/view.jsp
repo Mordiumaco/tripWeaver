@@ -17,16 +17,17 @@ function button_event(){
 	}
 }
 
+
 </script>
 
 <div class="main_con" id="main_con">
 	<div id="container">
 		<div class="view_btn">
 			<ul>
-				<c:if test="${postsVo.userid == S_USER.userId}">
-					<li>
-						<form action="/board/updateBoardView" method="get">
-							<input type="hidden"  name="art_id" value="${postsVo.po_id}">
+				<c:if test="${articleVo.mem_id eq loginInfo.mem_id}">
+					<li>zr
+						<form action="/article/updateArticleView" method="get">
+							<input type="hidden"  name="art_id" value="${articleVo.art_id}">
 							<input class="btn_bd col_03" type="submit" value="수정">
 						</form>
 					</li>
@@ -42,21 +43,21 @@ function button_event(){
 			
 				<li>
 					<form action="/board/insertReplyView" method="get">
-						<input type="hidden" name="po_id" value="${postsVo.po_id}">
+						<input type="hidden" name="art_id" value="${articleVo.art_id}">
 						<input class="btn_bd col_01" type="submit" value="답글">
 					</form>
 				</li>
 				
 			</ul>
 		</div>
-		<h2 class="view_title">${postsVo.po_subject}</h2>
+		<h2 class="view_title">${articleVo.art_title}</h2>
 		<ul class="view_header">
-			<li><span class="profile_img"><img src="/img/no_profile.gif" alt="no_profile" width="20" height="20" title=""></span><b>&nbsp;&nbsp;${postsVo.userid}</b> 님에 글 입니다.</li>
-			<li><i class="fa fa-clock-o" aria-hidden="true"></i> &nbsp;<fmt:formatDate value="${postsVo.po_date}" pattern="yyyy-MM-dd"/></li>
+			<li><span class="profile_img"><img src="/img/no_profile.png" alt="no_profile" width="20" height="20" title=""></span><b>&nbsp;&nbsp;${articleVo.mem_id}</b> 님에 글 입니다.</li>
+			<li><i class="fa fa-clock-o" aria-hidden="true"></i> &nbsp;<fmt:formatDate value="${articleVo.art_date}" pattern="yyyy-MM-dd"/></li>
 		</ul>
 		
 		<p class="view_con">
-			 ${postsVo.po_contents}
+			 ${articleVo.art_cnt}
 		</p>
 		
 		
@@ -66,12 +67,13 @@ function button_event(){
         	<h2>첨부파일 </h2>
         	<ul>
        			<c:choose>
-        			<c:when test="${fileVo.size() != 0}">
-        				<c:forEach items="${fileVo}" var="fv">
+        			<c:when test="${attachmentVo.size() != 0}">
+        				<c:forEach items="${attachmentList}" var="fv">
 			              	<li>
 				                <i class="fa fa-download" aria-hidden="true"></i>
-				                <a href="/download?path=${path}&fileName=${fv.fl_file}" class="view_file_download">
-				                    <strong>${fv.fl_oname}</strong>
+				                <img src="/upload//attachment/${fv.att_file_name}">
+				                <a href="/upload/attachment/${fv.att_file_name}" class="view_file_download">
+				                    <strong>${fv.att_file_ori_name}</strong>
 				                </a>
 
 			            	</li>

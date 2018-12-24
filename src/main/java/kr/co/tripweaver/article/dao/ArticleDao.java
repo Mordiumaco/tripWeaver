@@ -32,11 +32,25 @@ public class ArticleDao implements IArticleDao {
 		String art_id = articleVo.getArt_id();
 		return art_id;
 	}
+	
+	@Override
+	public int updateArticle(Map<String, Object> param) {
+		return template.update("articleSQL.articleUpdate", param);
+	}
 
+	@Override
+	public int deleteArticle(Map<String, Object> param) {
+		return template.delete("articleSQL.articleDelete", param);
+	}
+	
 	@Override
 	public ArticleVO getArticleDetail(String art_id) {
 		return template.selectOne("articleSQL.getArticleDetail", art_id);
 	}
+
+	
+
+	
 
 
 

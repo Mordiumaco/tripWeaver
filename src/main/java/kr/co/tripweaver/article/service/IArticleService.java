@@ -38,6 +38,26 @@ public interface IArticleService {
 	public String insertArticle(ArticleVO articleVo);
 	
 	/**
+	* Method : updateArticle
+	* 작성자 : pc23
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 게시글 수정
+	*/
+	public int updateArticle(Map<String, Object> param);
+	
+	/**
+	* Method : deleteArticle
+	* 작성자 : pc23
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 게시글 삭제
+	*/
+	public int deleteArticle(Map<String, Object> param);
+	
+	/**
 	* Method : getArticleDetail
 	* 작성자 : pc23
 	* 변경이력 :
