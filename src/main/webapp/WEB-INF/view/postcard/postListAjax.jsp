@@ -4,8 +4,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
 <script type="text/javascript">
 
+/* 페이스북 링크 공유  */
+(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    //js = d.createElement(s); js.id = 580782545709565;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+$('.postli5_con').hide();
 
 /* 포스트카드 내용에 a태그 추가하기  */
 function alinkSplite(thisClick) {
@@ -75,146 +87,11 @@ $(function() {
 			
 });
 
-/* 내용 댓글 더보기 기능  */
-$(document).ready(function(){
-	$('.postli5_con').hide();
-	
-	$('.postli5').on('click','.more_btn',function () {
-		$(this).siblings('.postli5_con').show('100');
-		alinkSplite($(this));
-		$(this).addClass('more_btn2');
-
-	});  
-	
-	$('.postli5').on('click','.more_btn2',function () {
-		$(this).siblings('.postli5_con').hide('100');
-		$(this).removeClass('more_btn2');
-	});
-	
-	
-	
-	//sns공유
-    $(".btn_share").click(function(){
-        $(this).siblings("#bo_v_sns").fadeToggle();
-   
-    });
-	
-	
-}); 
-
-/* 페이스북 링크 공유  */
-(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = 580782545709565;
-    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
 
 
 
 
 
-// 좋아요 클릭 부분 처리
-
-$(function() {
-	
-	$('.postli_l2').on('click','.likeNull', function () {
-		alert('비회원은 사용이 불가능 합니다.');		
-	});
-	
-	$('.postli_l2').on('click','.likeAdd', function () {
-		var like_rel_art_id = $(this).siblings('#like_rel_art_id').val();
-		$('#likeAddFrm').children('#like_rel_art_id').val(like_rel_art_id);
-		
-		var thisVar = $(this);
-		
-		likeAddAjax(thisVar);			
-	});
-	
-	$('.postli_l2').on('click','.likeDel', function () {
-		var like_rel_art_id = $(this).siblings('#like_rel_art_id').val();
-		$('#likeDeleteFrm').children('#like_rel_art_id').val(like_rel_art_id);
-		
-		var thisVar = $(this);
-		
-		likeDelAjax(thisVar);
-	});
-	
-	// 포스트 카드 삭제 클릭 처리 부분
-	$('.postli_r').on('click','.postcardDelete', function() {
-		
-		if (confirm("정말 삭제하시겠습니까??")){    //확인
-			var pc_id = $(this).siblings('#pc_id').val();
-			$('#postcardDeleteFrm').children('#pc_id').val(pc_id);	
-			var thisVar = $(this);
-			
-			postcardDelAjax(thisVar);
-		}else{   //취소
-			alert("삭제취소"); //취소시 이벤트 처리
-			return;
-		}
-		
-	});
-	
-	// 포스트 카드 삭제 수정 처리 부분
-	$('.postli_r').on('click','.postcardUdate', function() {
-		var pc_id = $(this).siblings('#pc_id').val();
-		$('#postcardUpdateFrm').children('#pc_id').val(pc_id);	
-		$('#postcardUpdateFrm').submit();
-	});
-	
-	// 댓글쓰기
-	
-	$('.postCard_con').on('click','#com_btn', function() {
-		if(${loginInfo.mem_id != null}){
-			var comt_cnt = $(this).siblings('#comt_cnt').val();
-			var comt_rel_art_id = $(this).siblings('#comt_rel_art_id').val();
-			//var mem_nick = $(this).parents('.postCard_con').find('#mem_nick').val();
-			$('#commentInsertFrm').children('#comt_cnt').val(comt_cnt);
-			$('#commentInsertFrm').children('#comt_rel_art_id').val(comt_rel_art_id);
-			//$('#commentInsertFrm').children('#mem_nick').val(mem_nick);
-			
-			var thisVar = $(this);
-			commentInsertAjax(thisVar);
-			$(this).siblings('#comt_cnt').val('');
-		}else{      
-			alert('로그인을 해주세요.');
-		}  
-		
-	});
-	
-	// 댓글 삭제
-	$('.postCard_con').on('click','.commentDel', function() {
-		var comt_id = $(this).siblings('#comt_id').val();
-		$('#commentDeleteFrm').children('#comt_id').val(comt_id);
-		
-		var thisVar = $(this);
-		commentDeleteAjax(thisVar);
-	});
-	
-	// 댓글 수정
-	$('.postCard_con').on('click','.commentUpdate', function() {
-		var comt_id = $(this).siblings('#comt_id').val();
-		var comt_cntup = $(this).closest('.comment_mam').find('span').text();
-
-		$(this).closest('.postCard_con').find('#comt_cnt').val(comt_cntup);   
-		$(this).closest('.postCard_con').find('#com_btn').addClass('com_btnup');
-		$(this).closest('.postCard_con').find('.com_btnup').attr('id', 'newID');
-		
-		var thisVar = $(this);
-		
-		$('.postCard_con').on('click','.com_btnup', function() {
-			var comt_cnt = $(this).siblings('#comt_cnt').val();
-			$('#commentUpdateFrm').children('#comt_id').val(comt_id);
-			$('#commentUpdateFrm').children('#comt_cnt').val(comt_cnt);
-			
-			commentUpdateAjax(thisVar);
-			
-		});
-	});
-	    
-}); 
 </script>
 
 
@@ -292,9 +169,10 @@ $(function() {
 						
 					</div>
 					<div class="postli_r"><i class="fa fa-share-alt fa-share-alt2 btn_share" aria-hidden="true"></i>
-						<ul id="bo_v_sns" class="show_kakao" style="display: none;">
+						<ul class="show_kakao" style="display: none;">
 						    <li>
 						    	<div class="fb-share-button" data-href="http://192.168.203.53:8081/postCard/postCardList?u=${pcl.pc_id}&t=${pcl.pc_cnt}" data-layout="button_count"></div>
+						    	
 						    </li>
     					</ul>
 
@@ -345,7 +223,7 @@ $(function() {
 									</c:forEach>
 								</c:when>
 								<c:otherwise>
-									<div>댓글이 없습니다.</div>
+									<div class='nocomment'>댓글이 없습니다.</div>
 								</c:otherwise>
 							</c:choose>
 						</span>

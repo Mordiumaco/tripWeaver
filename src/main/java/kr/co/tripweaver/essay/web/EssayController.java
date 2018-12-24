@@ -2,7 +2,9 @@ package kr.co.tripweaver.essay.web;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,8 +16,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sun.org.apache.regexp.internal.recompile;
+
+import kr.co.tripweaver.common.comment.model.CommentVO;
+import kr.co.tripweaver.common.comment.service.ICommentService;
 import kr.co.tripweaver.essay.model.EssayVO;
-import kr.co.tripweaver.essay.service.EssayService;
 import kr.co.tripweaver.essay.service.IEssayService;
 import kr.co.tripweaver.member.model.MemberVO;
 import kr.co.tripweaver.member.service.IMemberService;
@@ -57,6 +62,9 @@ public class EssayController {
 	
 	@Autowired
 	IMemberService memberService;
+	
+	@Autowired
+	ICommentService commentService;
 	
 	@RequestMapping("/write")
 	public ModelAndView essayWriteView(HttpSession session) {
@@ -221,6 +229,30 @@ public class EssayController {
 		
 		String tripplan_id = essayVo.getTripplan_id();
 		
+		//해당 글이 Guide글일경우 예약일자를 가진 Guideplan을 불러온다. 
+		if(essayVo.getEssay_filter().equals("G")) {
+			
+			List<GuidePlanVO> guidePlanList = guidePlanService.selectGuidePlanByEssayId(essay_id);
+			
+			model.addAttribute("guidePlanList", guidePlanList);
+		}
+		
+		//댓글 리스트를 받아온다.
+		//------------------------------------
+			
+			//필요로 하는건 essay id 와 comment fileter 값이다
+			//맵으로 넣어준다.
+			Map<String, String> param = new HashMap<>();
+			
+			param.put("comt_rel_art_id", essay_id);
+			param.put("filter_id", "essay");
+		
+			List<CommentVO> commentList = commentService.selectEssayCommentByArtIdAndFilterId(param);
+			
+			model.addAttribute("commentList", commentList);
+			
+		//------------------------------------
+		
 		logger.debug("-------------------------");
 		logger.debug("tripplan_id : {} ", tripplan_id);
 		logger.debug("-------------------------");
@@ -252,4 +284,90 @@ public class EssayController {
 		return "/essay/essay_view";
 	}
 	
+	/**
+	* Method : essayCommentInsertAjax
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 21.
+	* 변경이력 :
+	* @return
+	* Method 설명 : 현재 존재하는 댓글을 insert 해주고 해당 게시글에 맞는 댓글들을 다시 업데이트하여 불러온다
+	*/
+	@RequestMapping("essayCommentInsertAjax")
+	public String essayCommentInsertAjax(HttpSession session, String essay_id, String comt_cnt, Model model) {
+		
+		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
+		
+		if(memberVo == null) {
+			return "loginCheckError";
+		}
+		
+		//댓글을 삽입한다. 
+		CommentVO commentVo = new CommentVO();
+		
+		commentVo.setFilter_id("essay");
+		commentVo.setComt_rel_art_id(essay_id);
+		commentVo.setComt_cnt(comt_cnt);
+		commentVo.setMem_id(memberVo.getMem_id());
+		
+		logger.debug("-------------------------------------------------------------------------");
+		logger.debug("-------------------------------------------------------------------------");
+		logger.debug("-------------------------------------------------------------------------");
+		
+		String comt_id = commentService.insertComment(commentVo);
+		
+		//댓글이 제대로 달리지 않으면 ....db 에러 페이지로
+		if(comt_id == null) {
+			return "dbError";
+		}
+		
+		
+		logger.debug("에세이 Ajax INSERT 부분 essay_id : {}", essay_id);
+		
+		
+		Map<String, String> param = new HashMap<>();
+		param.put("comt_rel_art_id", essay_id);
+		param.put("filter_id", "essay");
+		
+		logger.debug("-------------------------------------------------------------------------");
+		
+		List<CommentVO> commentList = commentService.selectEssayCommentByArtIdAndFilterId(param);
+		
+		model.addAttribute("commentList", commentList);
+		logger.debug("commentList Size : {}", commentList.size());
+		for(int i = 0; i < commentList.size(); i++) {
+			
+			logger.debug("comment comt_rel_art_id : {}", commentList.get(i).getComt_rel_art_id());
+		}
+		
+		logger.debug("-------------------------------------------------------------------------");
+		
+		return "jsonView";
+	}
+	
+	/**
+	* Method : essayCommentDeleteAjax
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 21.
+	* 변경이력 :
+	* @param session
+	* @param comt_id
+	* @return
+	* Method 설명 : 삭제 관련 Ajax
+	*/
+	@RequestMapping("essayCommentDeleteAjax")
+	public String essayCommentDeleteAjax(HttpSession session, String comt_id, Model model) {
+		
+		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
+		
+		if(memberVo == null) {
+			return "loginCheckError";
+		}
+		
+		int resultCnt = commentService.deleteComment(comt_id);
+		
+		model.addAttribute("resultCnt", resultCnt);
+		
+		return "jsonView";
+	}
+		
 }

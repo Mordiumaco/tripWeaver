@@ -255,8 +255,7 @@ function getTimeStamp() {
      leadingZeros(d.getDate(), 2) + ' ' +
 
      leadingZeros(d.getHours(), 2) + ':' +
-     leadingZeros(d.getMinutes(), 2) + ':' +
-     leadingZeros(d.getSeconds(), 2);
+     leadingZeros(d.getMinutes(), 2);
 
    return s;
  }
@@ -329,7 +328,6 @@ function updateReciveCount(obj) {
 </script>
 </head>
 <body>
-	
 	<div class="mes_head">
 		<ul>
 			<li><a class="back" href="/message/chatRoomListView?mem_id=${loginInfo.mem_id}">&#9664; </a></li>

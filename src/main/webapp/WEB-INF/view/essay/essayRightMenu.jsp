@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib  prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
 <script>
 $(document).ready(function(){
 	$('.fold_wrap').on('click','.fold_btn',function () {
@@ -17,7 +17,12 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
-	$('.reservation_list1').on('click', function() {
+	/* $('.reservation_list').on('click', function(){
+		
+		
+	}) */
+	
+	 $('.reservation_list1').on('click', function() {
 		if($("input:radio[id='re1']").is(":checked") == false){
 			$("input:radio[id='re1']").prop("checked", true); /* by ID */
 		}else{
@@ -44,6 +49,27 @@ $(document).ready(function(){
 		}else{
 			$("input:radio[id='re4']").prop("checked", false);
 		}
+	}); 
+	
+	$('.table').on('click', function() {
+		if($("input:radio[id='re4']").is(":checked") == false){
+			$("input:radio[id='re4']").prop("checked", true); /* by ID */
+		}else{
+			$("input:radio[id='re4']").prop("checked", false);
+		}
+	}); 
+	
+	
+	//해당 예약일자가 현 날짜를 지났을 경우 input pox를 삭제한다
+	$(".reservation_list").each(function(){
+		let startDay = new Date($(this).find(".start_day").text());
+		let nowDay = new Date();
+		
+		if(startDay < nowDay){
+			$(this).css({"opacity":"0.2"});
+			$(this).find(":radio").attr("disabled", "disabled");
+			$(this).find(":radio").remove();
+		}
 	});
 });
 
@@ -57,17 +83,82 @@ $(document).ready(function(){
 	<div class="mypage_left mypage_right2">
 		<ul>
 			<li>
-				<img src="/img/p_01.png"> 
+				<c:choose>
+					<c:when test="${writerVo.mem_profile == null}">
+						<img src="/img/no_profile.png"> 
+					</c:when>
+					<c:otherwise>
+						<img src="/upload/${writerVo.mem_profile}" onerror="src='/img/no_profile.png';"> 
+					</c:otherwise>
+				</c:choose>
 			</li>
-			<li>닉네임입니다. <span>가이드</span></li>
+			<c:choose>
+				<c:when test="${writerVo.mem_author eq 1}">
+					<c:set var="author" value="일반"></c:set>
+				</c:when>
+				<c:when test="${writerVo.mem_author eq 2}">
+					<c:set var="author" value="가이드"></c:set>
+				</c:when>
+				<c:when test="${writerVo.mem_author eq 3}">
+					<c:set var="author" value="관리자"></c:set>
+				</c:when>
+			</c:choose>
+			<li>${writerVo.mem_nick}<span>${author}</span></li>
 		</ul>
 		<ul class="mypage_leftUl2">
-			<li> <span>20대</span> <a href="/main/memModified">쪽지 보내기</a></li>
-			<li class="mypage_leftUl2_li2"><a href=""><b>1234</b> 팔로잉</a> <a href=""><b>1231</b> 팔로워</a></li>
+			<c:choose>
+				<c:when test="${writerVo.mem_age eq '10-19'}">
+					<c:set var="generation" value="10대"></c:set>
+				</c:when>
+				<c:when test="${writerVo.mem_age eq '20-29'}">
+					<c:set var="generation" value="20대"></c:set>
+				</c:when>
+				<c:when test="${writerVo.mem_age eq '30-39'}">
+					<c:set var="generation" value="30대"></c:set>
+				</c:when>
+				<c:when test="${writerVo.mem_age eq '40-49'}">
+					<c:set var="generation" value="40대"></c:set>
+				</c:when>
+				<c:when test="${writerVo.mem_age eq '50-59'}">
+					<c:set var="generation" value="50대"></c:set>
+				</c:when>
+				<c:when test="${writerVo.mem_age eq '60-'}">
+					<c:set var="generation" value="60대"></c:set>
+				</c:when>
+			</c:choose>
+			<li> <span>${generation}</span> <a href="/main/memModified">쪽지 보내기</a></li>
+			<li class="mypage_leftUl2_li2"><a href=""><b>${writerVo.mem_following_count}</b> 팔로잉</a> <a href=""><b>${writerVo.mem_follower_count}</b> 팔로워</a></li>
 		</ul>
 		
-		<h6 class="leftUl2_title">예약 가능한 날짜</h6>
-		<table class="reservation_list reservation_list1">
+		<c:if test="${guidePlanList != null}">
+			<h6 class="leftUl2_title">예약 가능한 날짜</h6>
+			<form action="/essay/insertReservationForm" method="post">
+			<c:forEach items="${guidePlanList}" var="guidePlanVo" varStatus="loop">
+				<table class="reservation_list reservation_list${loop.index+1}">
+					<tr>
+						<th>출발 일자</th>
+						<td class="start_day"><fmt:formatDate value="${guidePlanVo.guideplan_start_day}" pattern="yyyy .MM .dd"/></td>
+					</tr>
+					<tr>
+						<th>도착 일자</th>
+						<td><fmt:formatDate value="${guidePlanVo.guideplan_end_day}" pattern="yyyy .MM .dd"/></td>
+					</tr>
+					<tr>
+						<th>선택</th>
+						<td><input type="radio" id="re${loop.index+1}" name="guideplan_id" value="${guidePlanVo.guideplan_id}" required="required"></td>
+					</tr>
+					<tr>
+						<th>예약 가능인원</th>
+						<td>${guidePlanVo.guideplan_peo_count}</td>
+					</tr>
+	
+				</table>						
+			</c:forEach>
+			<div class="reservation_num"> 동행 인원 : <input type="number" placeholder="숫자만 입력하세요." required="required"> 명</div>
+			<input class="reservation_btn classname" type="submit" value="예약하기">
+			</form>
+		</c:if>
+		<!-- <table class="reservation_list reservation_list1">
 			<tr>
 				<th>날짜</th>
 				<td>2018. 01. 10</td>
@@ -135,11 +226,9 @@ $(document).ready(function(){
 				<td>8</td>
 			</tr>
 	
-		</table>
+		</table> -->
 		
-		<div class="reservation_num"> 동행 인원 : <input type="number" placeholder="숫자만 입력하세요."> 명</div>
-		<input class="reservation_btn classname" type="submit" value="예약하기">
-	
+		
 	</div>
 
 </div>

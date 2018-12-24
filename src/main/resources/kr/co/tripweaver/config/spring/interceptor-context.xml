@@ -7,8 +7,8 @@
 	
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/**"/>
-			<bean class="kr.co.tripweaver.interceptor.PerformanceCheckInterceptor"></bean>
+			<mvc:mapping path="/login/memberLoginCheck**"/>
+			<bean class="kr.co.tripweaver.interceptor.AccessLogCheckInterceptor"></bean>
 		</mvc:interceptor>
 		
 		<mvc:interceptor>

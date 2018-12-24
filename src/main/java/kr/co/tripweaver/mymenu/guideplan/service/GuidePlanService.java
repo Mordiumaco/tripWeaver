@@ -1,5 +1,7 @@
 package kr.co.tripweaver.mymenu.guideplan.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,19 @@ public class GuidePlanService implements IGuidePlanService {
 	@Override
 	public int insertGuidePlan(GuidePlanVO guidePlanVo) {
 		return guidePlanDao.insertGuidePlan(guidePlanVo);
+	}
+
+	/**
+	* Method : selectGuidePlanByEssayId
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 21.
+	* 변경이력 :
+	* @param essay_id
+	* @return
+	* Method 설명 : essay_id로 GuidePlanVO를 받아온다. 
+	*/
+	public List<GuidePlanVO> selectGuidePlanByEssayId(String essay_id){
+		return guidePlanDao.selectGuidePlanByEssayId(essay_id);
 	}
 	
 }

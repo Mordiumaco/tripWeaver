@@ -82,4 +82,15 @@ public interface ICommentService {
 		*
 	 */
 	public int updateComment(CommentVO commentVo);
+	
+	/**
+	* Method : selectEssayCommentByArtIdAndFilterId
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 21.
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : map으로 해당 댓글 아이디와 필터아이디를 줘서 댓글 리스트를 받는다.
+	*/
+	public List<CommentVO>selectEssayCommentByArtIdAndFilterId(Map<String, String> param);
 }

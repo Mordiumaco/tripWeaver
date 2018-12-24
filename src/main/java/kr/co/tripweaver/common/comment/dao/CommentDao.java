@@ -113,4 +113,30 @@ public class CommentDao implements ICommentDao {
 			int updateCommentCnt = template.update("commentSQL.updateComment", commentVo);
 		return updateCommentCnt;
 	}
+	
+	/**
+	* Method : selectEssayCommentByArtIdAndFilterId
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 21.
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : map으로 해당 댓글 아이디와 필터아이디를 줘서 댓글 리스트를 받는다.
+	*/
+	@Override
+	public List<CommentVO>selectEssayCommentByArtIdAndFilterId(Map<String, String> param){
+		
+		List<CommentVO> commentList = null;
+		
+		try {
+			
+			commentList = template.selectList("commentSQL.selectEssayCommentByArtIdAndFilterId", param);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return commentList;
+		}
+		
+		return commentList;
+	}
 }

@@ -25,6 +25,8 @@
  	<typeAlias type="kr.co.tripweaver.mymenu.mypage.tripplan.model.ClusterVO" alias="clusterVo"/>
 	<typeAlias type="kr.co.tripweaver.essay.model.EssayVO" alias="essayVo"/>
 	<typeAlias type="kr.co.tripweaver.mymenu.guideplan.model.GuidePlanVO" alias="guidePlanVo"/>
+	<typeAlias type="kr.co.tripweaver.mymenu.reservation.model.ReservationVO" alias="reservationVo"/>
+	<typeAlias type="kr.co.tripweaver.manager.conn_stat.model.ConnStatVO" alias="connStatVO"/>
  </typeAliases>	
 	
   <mappers>
@@ -45,6 +47,8 @@
   	<mapper resource="kr/co/tripweaver/config/db/comment.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/essay.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/guideplan.xml"/>
+  	<mapper resource="kr/co/tripweaver/config/db/reservation.xml"/>
+  	<mapper resource="kr/co/tripweaver/config/db/connInfo.xml"/>
   </mappers>
   
 </configuration>
