@@ -8,9 +8,9 @@
 	<!-- tripplan insert tp 아이디 반환 -->
 	<insert id="essayInsert" parameterType="essayVo">
 		insert into essay(essay_id,essay_title,essay_cnt,essay_date,essay_filter,essay_like_count,essay_view_count,essay_del,essay_meal_exp,essay_traffic_exp,essay_room_exp,essay_other_exp,mem_id,tripplan_id)
-		values(ess_seq.nextval,#{essay_title},#{essay_cnt},sysdate,#{essay_filter},0,0,'N',#{essay_meal_exp},#{essay_traffic_exp},#{essay_room_exp},#{essay_other_exp},#{mem_id},#{tripplan_id})
+		values('ess'||lpad(ess_seq.nextval, 5, 0),#{essay_title},#{essay_cnt},sysdate,#{essay_filter},0,0,'N',#{essay_meal_exp},#{essay_traffic_exp},#{essay_room_exp},#{essay_other_exp},#{mem_id},#{tripplan_id})
 		<selectKey order="AFTER" keyProperty="essay_id" resultType="String">
-			select ess_seq.currval from dual
+			select 'ess'||lpad(ess_seq.currval, 5, 0) from dual
 		</selectKey>
 	</insert>
 	
