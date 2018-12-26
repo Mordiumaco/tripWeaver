@@ -63,8 +63,8 @@ public class ArticleService implements IArticleService {
 	* Method 설명 : 게시글 수정
 	*/
 	@Override
-	public int updateArticle(Map<String, Object> param) {
-		return articleDao.updateArticle(param);
+	public int updateArticle(ArticleVO articleVo) {
+		return articleDao.updateArticle(articleVo);
 	}
 
 	/**

@@ -34,8 +34,8 @@ public class ArticleDao implements IArticleDao {
 	}
 	
 	@Override
-	public int updateArticle(Map<String, Object> param) {
-		return template.update("articleSQL.articleUpdate", param);
+	public int updateArticle(ArticleVO articleVo) {
+		return template.update("articleSQL.articleUpdate", articleVo);
 	}
 
 	@Override
