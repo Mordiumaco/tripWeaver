@@ -478,4 +478,21 @@ public class EssayController {
 	}
 	
 	
+	@RequestMapping("essayDelete")
+	public String essayDeleteView(HttpSession session, String essay_id) {
+		
+		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
+		
+		if(memberVo == null) {
+			return "loginCheckError";
+		}
+		
+		int resultCnt = essayService.deleteEssayByEssayId(essay_id);
+		
+		if(resultCnt == 0) {
+			return "dbError";
+		}
+		
+		return "redirect: /main/main";
+	}
 }

@@ -132,4 +132,30 @@ public class EssayDao implements IEssayDao{
 		
 		return essayList;
 	}
+	
+	/**
+	* Method : deleteEssayByEssayId
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 26.
+	* 변경이력 :
+	* @param essay_id
+	* @return
+	* Method 설명 : essay_id 에 해당하는 해당 에세이 db 내용에 삭제 쿼리를 Y 로 바꿔 처리한다. 
+	*/
+	@Override
+	public int deleteEssayByEssayId(String essay_id) {
+		
+		int resultCnt = 0;
+		
+		try {
+			
+			resultCnt = template.update("essaySQL.deleteEssayByEssayId", essay_id);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return resultCnt;
+		}
+		
+		return resultCnt;
+	}
 }

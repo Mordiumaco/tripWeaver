@@ -105,8 +105,8 @@
 		and m.mem_id = tp.mem_id
 		and e.essay_del = 'N'
 		and e.tripplan_id = tp.tripplan_id
-		and mm.mapmark_x_coor = #{mapmark_x_coor}
-		and mm.mapmark_y_coor = #{mapmark_y_coor}
+		and mm.mapmark_x_coor like #{mapmark_x_coor}||'%'
+		and mm.mapmark_y_coor like #{mapmark_y_coor}||'%'
 	</select>
 	
 	<select id="selectClusterListBySearch" parameterType="Map" resultType="clusterVo">

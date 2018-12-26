@@ -130,8 +130,8 @@ public class TripPlanService implements ITripPlanService{
 			logger.debug("positions X좌표: {}", positions.get(i).getAsJsonObject().get("ib").getAsString());
 			logger.debug("positions Y좌표: {}", positions.get(i).getAsJsonObject().get("jb").getAsString());
 			
-			xy.put("mapmark_x_coor", positions.get(i).getAsJsonObject().get("ib").getAsString());
-			xy.put("mapmark_y_coor", positions.get(i).getAsJsonObject().get("jb").getAsString());
+			xy.put("mapmark_x_coor", positions.get(i).getAsJsonObject().get("ib").getAsString().substring(0, 16));
+			xy.put("mapmark_y_coor", positions.get(i).getAsJsonObject().get("jb").getAsString().substring(0, 16));
 			
 			ClusterVO clusterVo = tripPlanDao.selectClusterVoByXY(xy);
 			

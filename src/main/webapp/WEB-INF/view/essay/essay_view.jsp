@@ -73,7 +73,7 @@ $(document).ready(function(){
 								</form>
 							</li>
 							<li>
-								<form action="/board/deleteBoard" method="post" name="deletePosts">
+								<form action="/essay/essayDelete" method="post" name="deletePosts">
 									<input type="hidden"  name="essay_id" value="${essayVo.essay_id}">
 									<input class="btn_bd col_02" type="button" onclick="button_event();" value="삭제">	 					
 								</form>

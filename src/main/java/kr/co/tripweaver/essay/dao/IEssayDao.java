@@ -74,4 +74,15 @@ public interface IEssayDao {
 	* Method 설명 : 최신 에세이 글을 반환한다. 반환하는 에세이 게시글 겟수는 쿼리에서 설정할 수 있다. 
 	*/
 	public List<EssayVO> recentEssayList();
+	
+	/**
+	* Method : deleteEssayByEssayId
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 26.
+	* 변경이력 :
+	* @param essay_id
+	* @return
+	* Method 설명 : essay_id 에 해당하는 해당 에세이 db 내용에 삭제 쿼리를 Y 로 바꿔 처리한다. 
+	*/
+	public int deleteEssayByEssayId(String essay_id);
 }

@@ -42,4 +42,9 @@
 		where rownum <![CDATA[<]]>=6
 	</select>
 	
+	<update id="deleteEssayByEssayId" parameterType="String">
+		update essay
+		set essay_del = 'Y'
+		where essay_id = #{essay_id}
+	</update>
 </mapper>
