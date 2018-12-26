@@ -1270,7 +1270,7 @@ a.btn_ov02:hover,a.ov_listall:hover{background:#3f51b5}
 .postCard_con>li:nth-child(8) { padding: 10px 10px; font-size: 1.2em;}
 .postCard_con>li:nth-child(8) span { display: block; padding:4px 0 ;}
 .postCard_con>li:nth-child(9) { width: 97%; padding:10px 0; margin: 5px auto 0; border-top:1px solid rgba(0,0,0,.0975);}
-.postCard_con>li:nth-child(9) input[type=text] { padding-left: 10px; height: 40px; font-size: 1.2em; width: 530px; border: none;}
+.postCard_con>li:nth-child(9) input[type=text] { padding-left: 10px; height: 40px; font-size: 1.2em; width: 550px; border: none;} 
 .postCard_con>li:nth-child(9) button { border: 1px solid #ccc; padding: 12px; background: #fff;}
 .postCard_con>li:nth-child(9) button:hover { color: #000; font-weight: bold; background: #ccc;}
 
@@ -1321,4 +1321,16 @@ a.btn_ov02:hover,a.ov_listall:hover{background:#3f51b5}
 /* 추가 알람 css*/
 .alram { background: #ffec42;  width:20px; height:20px; border-radius: 50px; display: block; position: absolute; top: 30px; left:55px; line-height: 20px; text-align: center;}
 .pointer { position: relative;}
+
+
+.declaration_btn { cursor: pointer; }
+.postcard_pop_layer { width: 400px !important; height: 250px !important; overflow: hidden; border-radius: 10px;}
+.postcard_pop_layer ul li:nth-child(1) { height: 40px;  }
+.postcard_pop_layer ul li:nth-child(1) input[type=text] { width:24%; height: 30px; margin-right: 10px;}
+.postcard_pop_layer ul li:nth-child(1) select { height: 30px; width: 72%;}
+.postcard_pop_layer ul li:nth-child(2) { height: 150px;  }
+.postcard_pop_layer ul li:nth-child(2) textarea { width: 100%; height: 140px; resize: none;}
+.postcard_pop_layer ul li:nth-child(3) { height: 30px; line-height: 30px; text-align: center;}
+.postcard_pop_layer ul li:nth-child(3) input[type=submit]{  background: #fff; border: none; border-right: 1px solid #ccc; padding: 5px 20px; font-weight:bold; cursor: pointer;}
+.postcard_pop_layer ul li:nth-child(3) a {  background: #fff;  padding: 5px 20px; cursor: pointer; color: #666;}
 

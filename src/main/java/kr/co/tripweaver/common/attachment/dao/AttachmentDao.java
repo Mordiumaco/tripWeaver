@@ -42,4 +42,29 @@ public class AttachmentDao implements IAttachmentDao {
 		return template.selectList("attachmentSQL.fileFind", art_id);
 	}
 
+	
+	
+	
+	
+	
+	/*******************************************************************/
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 박찬배
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 포스트카드 파일 찾기
+		*
+	 */
+	@Override
+	public List<AttachmentVO> selectPostcardFile(String att_rel_art_id) {
+		List<AttachmentVO> attachmentList = template.selectList("attachmentSQL.selectPostcardFile", att_rel_art_id);
+		return attachmentList;
+	}
+
 }

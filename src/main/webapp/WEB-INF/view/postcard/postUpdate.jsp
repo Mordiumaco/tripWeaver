@@ -3,7 +3,7 @@
 
 <%@include file="../head.jsp" %>
 <link rel="stylesheet" href="/css/flexslider2.css" type="text/css" media="screen" />
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 
 <script type="text/javascript">
 //실시간 이미지 섬네일 변경
@@ -172,6 +172,8 @@ $(document).ready(function(){
 	border: none;
 }
 
+.writeUl1 span { margin: 5px 0; display: block;}
+.write_wrap ul li {min-height: 35px;}
 </style>
 
 
@@ -181,32 +183,102 @@ $(document).ready(function(){
 		<div class="write_wrap">
 			<h1>포스트카드  수정하기</h1>
 		</div>
-		<form method="post" action="/postCard/updatePostcard">
+		<form method="post" action="/postCard/updatePostcard"  enctype="multipart/form-data">
 			<div class="write_wrap">
 				<h1>사진을 선택해주세요.</h1>
 				
 				<ul class="writeUl1">
-					<li><img id="img1" src="/img/no_image.png" ></li>
-					<li><img id="img2" src="/img/no_image.png" ></li>
-					<li><img id="img3" src="/img/no_image.png" ></li>
-					<li><img id="img4" src="/img/no_image.png" ></li>
+					<li>
+						<c:choose>
+							<c:when test="${attVo[0].att_file_name == null}">
+								<img id="img1" src="/img/no_image.png" >
+							</c:when>
+							<c:otherwise>
+								<img id="img1" src="/upload/postcard/${attVo[0].att_file_name}" >
+							</c:otherwise>
+						</c:choose>		
+					</li>
+					<li>
+						<c:choose>
+							<c:when test="${attVo[1].att_file_name == null}">
+								<img id="img2" src="/img/no_image.png" >
+							</c:when>
+							<c:otherwise>
+								<img id="img2" src="/upload/postcard/${attVo[1].att_file_name}" >
+							</c:otherwise>
+						</c:choose>		
+					</li>
+					<li>
+						<c:choose>
+							<c:when test="${attVo[2].att_file_name == null}">
+								<img id="img3" src="/img/no_image.png" >
+							</c:when>
+							<c:otherwise>
+								<img id="img3" src="/upload/postcard/${attVo[2].att_file_name}" >
+							</c:otherwise>
+						</c:choose>		
+					</li>
+					<li>
+						<c:choose>
+							<c:when test="${attVo[3].att_file_name == null}">
+								<img id="img4" src="/img/no_image.png" >
+							</c:when>
+							<c:otherwise>
+								<img id="img4" src="/upload/postcard/${attVo[3].att_file_name}" >
+							</c:otherwise>
+						</c:choose>		
+					</li>
 				</ul>
+				
 				<ul class="writeUl2">
 					<li>
-						<input id="input_img1" name="att_file_ori_name" type="file">
-						<button type="button" id="btn_delAttach1">&nbsp;X&nbsp;</button>
+						<c:choose>
+							<c:when test="${attVo[0].att_file_ori_name ==null}">
+								<input id="input_img1" name="att_file_ori_name" type="file">
+								<button type="button" id="btn_delAttach1">&nbsp;X&nbsp;</button>
+							</c:when>
+							<c:otherwise>
+								기존 파일 : ${attVo[0].att_file_ori_name} 
+							</c:otherwise>
+						</c:choose>
+						
+					</li>
+					
+					<li>
+						<c:choose>
+							<c:when test="${attVo[1].att_file_ori_name ==null}">
+								<input id="input_img2" name="att_file_ori_name" type="file">
+								<button type="button" id="btn_delAttach2">&nbsp;X&nbsp;</button>
+							</c:when>
+							<c:otherwise>
+								기존 파일 : ${attVo[1].att_file_ori_name} 
+							</c:otherwise>
+						</c:choose>
+						
 					</li>
 					<li>
-						<input id="input_img2" name="att_file_ori_name" type="file">
-						<button type="button" id="btn_delAttach2">&nbsp;X&nbsp;</button>
+						<c:choose>
+							<c:when test="${attVo[2].att_file_ori_name ==null}">
+								<input id="input_img3" name="att_file_ori_name" type="file">
+								<button type="button" id="btn_delAttach3">&nbsp;X&nbsp;</button>
+							</c:when>
+							<c:otherwise>
+								기존 파일 : ${attVo[2].att_file_ori_name} 
+							</c:otherwise>
+						</c:choose>
+						
 					</li>
 					<li>
-						<input id="input_img3" name="att_file_ori_name" type="file">
-						<button type="button" id="btn_delAttach3">&nbsp;X&nbsp;</button>
-					</li>
-					<li>
-						<input id="input_img4" name="att_file_ori_name" type="file">
-						<button type="button" id="btn_delAttach4">&nbsp;X&nbsp;</button>
+						<c:choose>
+							<c:when test="${attVo[3].att_file_ori_name ==null}">
+								<input id="input_img4" name="att_file_ori_name" type="file">
+								<button type="button" id="btn_delAttach4">&nbsp;X&nbsp;</button> 
+							</c:when>
+							<c:otherwise>
+								기존 파일 : ${attVo[3].att_file_ori_name} 
+							</c:otherwise>
+						</c:choose>
+						
 					</li>
 				</ul>
 				

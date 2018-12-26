@@ -60,7 +60,7 @@ public interface IPostCardService {
 		* Method 설명 : 포스트 업데이트
 		*
 	 */
-	public int updatePostcard(PostCardVO postcardVo);
+	public int updatePostcard(Map<String, Object> resultMap);
 	
 	/**
 	 * 

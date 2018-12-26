@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reportSQL">
+
+	<select id="selectReportreason" parameterType="String" resultType="reportVO">
+		select 
+		*
+		from reportreason
+	</select>
+	
+	<insert id="insertReport" parameterType="reportVO">
+		insert into report(
+		    report_id
+		    ,report_accept_date
+		    ,rep_cnt
+		    ,report_proc_sta
+		    ,report_rel_art_id 
+		    ,mem_id
+		    ,filter_id
+		    ,rep_rea_id
+		)values(
+		    'rep'||lpad(rep_seq.nextval, 5, 0)
+		    , sysdate
+		    , #{rep_cnt}
+		    , 'N'
+		    , #{report_rel_art_id}
+		    , #{mem_id}
+		    , #{filter_id}
+		    , ${rep_rea_id}
+		)
+	
+	</insert>
+	
+</mapper>

@@ -210,6 +210,14 @@ $(function() {
 			
 		});
 	});
+	
+	
+	// 신고하기
+	$('#post_left_wrap').on('click','.declaration_btn', function() {
+		 var report_id = $(this).siblings('#comt_rel_art_id').val();
+		 $('#report_id').val(report_id);
+	});
+	
 	     
 });   
 
@@ -375,6 +383,55 @@ function commentUpdateAjax(thisVar) {
 	    }
 	});
 }
+
+
+
+
+
+function layer_open1(el){
+
+	  var temp = $('#' + el);
+	  var bg = temp.prev().hasClass('bg');    //dimmed 레이어를 감지하기 위한 boolean 변수
+	
+	  if(bg){
+	     $('.layer1').fadeIn();  //'bg' 클래스가 존재하면 레이어가 나타나고 배경은 dimmed 된다. 
+	  }else{
+	    
+	  }
+
+	  // 화면의 중앙에 레이어를 띄운다.
+	  if (temp.outerHeight() < $(document).height() ) temp.css('margin-top', '-'+temp.outerHeight()/2+'px');
+	  else temp.css('top', '0px');
+	  if (temp.outerWidth() < $(document).width() ) temp.css('margin-left', '-'+temp.outerWidth()/2+'px');
+	  else temp.css('left', '0px');
+
+	  temp.find('a.cbtn, a.close').click(function(e){
+	     if(bg){
+	        $('.layer1').fadeOut(); //'bg' 클래스가 존재하면 레이어를 사라지게 한다. 
+	     }else{
+	        temp.fadeOut();
+	     }
+	     e.preventDefault();
+	  });
+
+	  $('.bg, .close').click(function(e){ //배경을 클릭하면 레이어를 사라지게 하는 이벤트 핸들러
+	     $('.layer1').fadeOut();
+	     e.preventDefault();
+	  });
+	}
+
+	$(document).ready(function(){
+		$('.layer_con_sub').on('click','.layer_con_subLi', function() {
+			
+			var index = $('.layer_con_sub .layer_con_subLi').index(this);
+			
+			if($(".layer_con_sub .layer_con_subLi:eq("+ index + ")").find("input[name='calendarSelection']").is("checked") == false){
+				$(".layer_con_sub .layer_con_subLi:eq("+ index + ")").find("input[name='calendarSelection']").prop("checked", true); /* by ID */
+			}
+			
+		});
+	});
+
 </script>
 
 		
@@ -545,5 +602,35 @@ function commentUpdateAjax(thisVar) {
 		<input type="hidden" id="comt_id" name="comt_id" value="">
 	</form>
 	
+	
+	<div class="layer1">
+	    <div class="bg"></div>
+	    <div id="layer_1" class="pop_layer postcard_pop_layer">
+	       <div class="layer_con">
+	       	<form action="/report/insertReport" method="post">	
+	            <ul>
+					 <li>
+					 	<input type="text" id="report_id" name="report_rel_art_id" readonly="readonly" value="">
+					 	<input type="hidden" id="mem_id" name="mem_id" value="${loginInfo.mem_id}">
+					 	<input type="hidden" id="filter_id" name="filter_id" value="postcard">
+					 	
+					 	<select name="rep_rea_id">
+					 		<option >신고사유 선택하세요.</option>
+					 		<c:forEach items="${reportVOs}" var="report">
+					 			<option value="${report.rep_rea_id}">${report.rep_rea_name}</option>
+					 		</c:forEach>
+					 	</select>
+					 </li>
+					 <li>
+					 	<textarea name="rep_cnt" placeholder="신고 내용을 적어주세요.">
+					 	</textarea>
+					 </li>	
+					 <li><input type="submit" value="신고"> <a class="close">취소</a></li>            
+	            </ul>
+	         </form>
+	       </div>
+	      
+	    </div>   
+	</div> 
 	
 <%@include file="../tail.jsp" %>

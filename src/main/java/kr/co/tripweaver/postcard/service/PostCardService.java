@@ -60,16 +60,15 @@ public class PostCardService implements IPostCardService{
 			// 해당 게시글 댓글 가져오기
 			postCardVO.setCommentList(commentService.selectComment(postCardVO.getPc_id()));
 			
+			// 해당 게시글 첨부파일 가져오기 
+			postCardVO.setAttachmentList(attachmentService.selectPostcardFile(postCardVO.getPc_id()));
+			
 		}
-		
-		
 		
 		Map<String, Object> postCardResult = new HashMap<String, Object>();
 		
 		postCardResult.put("postCardList", cardVOs);
 		postCardResult.put("hashTagCount", hashTagService.hashtagColumnConunt());
-		
-	
 		
 		return postCardResult;
 	}
@@ -173,7 +172,11 @@ public class PostCardService implements IPostCardService{
 		*
 	 */
 	@Override
-	public int updatePostcard(PostCardVO postcardVo) {
+	public int updatePostcard(Map<String, Object> resultMap) {
+		
+		PostCardVO postcardVo = (PostCardVO)resultMap.get("postcardVo");
+		String pc_id = postcardVo.getPc_id();
+		
 		// 해시태그 삭제 진행
 		int deleteHasgtagCnt = hashTagService.deleteHasgtag(postcardVo.getPc_id());
 		
@@ -201,9 +204,37 @@ public class PostCardService implements IPostCardService{
 		// 해시태그 서비스에 인서트
 		hashTagService.insertHashtag(hashList);
 		
+		//파일 첨부 작업
+		
+		String art_rel_art_id = pc_id;
+		
+		int attachmentInsertCnt = 0;
+		
+		List<AttachmentVO> attachmentVoList = (List<AttachmentVO>)resultMap.get("attachmentVo");
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		
+		for(AttachmentVO attachment: attachmentVoList) {
+			param.put("att_path", attachment.getAtt_path());
+			param.put("att_file_name", attachment.getAtt_file_name());
+			param.put("att_file_ori_name", attachment.getAtt_file_ori_name());
+			param.put("att_rel_art_id", art_rel_art_id);
+			param.put("filter_id", attachment.getFilter_id());
+			
+			System.out.println("attachment.getAtt_path()"+attachment.getAtt_path());
+			System.out.println("attachment.getAtt_file_name()"+attachment.getAtt_file_name());
+			System.out.println("attachment.getAtt_file_ori_name()"+attachment.getAtt_file_ori_name());
+			System.out.println("art_rel_art_id"+art_rel_art_id);
+			System.out.println("attachment.getFilter_id()"+attachment.getFilter_id());
+			
+			attachmentInsertCnt = attachmentService.attachmentInsert(param);
+		}
+
 		return updatePostcardCnt;
 	}
-
+	
+	
+	
 	@Override
 	public PostCardVO selectPostcard(String pc_id) {
 		
