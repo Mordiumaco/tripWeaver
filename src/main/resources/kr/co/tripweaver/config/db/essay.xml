@@ -18,4 +18,28 @@
 		select * from essay where essay_id = #{essay_id}
 	</select>
 	
+	
+	<!-- essay update(수정) query -->
+	<update id="essayUpdate" parameterType="essayVo">
+		update essay
+		set essay_title = #{essay_title}, essay_cnt = #{essay_cnt}, essay_meal_exp = #{essay_meal_exp},
+		essay_traffic_exp = #{essay_traffic_exp}, essay_room_exp = #{essay_room_exp},
+		essay_other_exp = #{essay_other_exp}
+		where essay_id = #{essay_id}
+	</update>
+	
+	<!-- 메인 화면에 띄울 최신 Essay글 6개 -->
+	<select id="recentEssayList" resultType="essayVo">
+		select essay_id , essay_title, essay_cnt, essay_date, tripplan_image
+		from
+		(
+		select * 
+		from essay e, tripplan tp
+		where essay_del = 'N' 
+		and e.tripplan_id = tp.tripplan_id
+		order by essay_id desc
+		)
+		where rownum <![CDATA[<]]>=6
+	</select>
+	
 </mapper>

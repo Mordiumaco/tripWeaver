@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@include file="head.jsp" %>
 
+
 <script type="text/javascript">
 $(document).ready(function(){
   $('.flexslider').flexslider({
@@ -23,6 +24,7 @@ $(document).ready(function () {
       }, function(){
     	    $(this).animate({ top : '60px'},100).removeClass('an');
       });
+      
  });
 
 
@@ -361,7 +363,32 @@ $(document).ready(function () {
 <div class="main_con_02">
 	<div class="flexslider">
 	  	<ul class="slides">
-		    <li>
+		    	<c:forEach items="${recentPostCardList}" var="recentPostCardVo" varStatus="loop">
+		    		<c:if test="${loop.index % 2 == 0}">
+		    			<li>
+		    		</c:if>
+		    		<a href="/postCard/postCardList?mem_id=&amp;tag_search=">
+				      	<div class="sl_left"><img src="/img/main_01.jpg" /></div>
+				      	<div class="sl_right">
+				      		<ul>
+				      			<li>Post Card<%-- <c:forEach items="${recentPostCardVo.hashTagList}" var="hashTagVo">${hashTagVo.tag_word} </c:forEach> --%></li>
+				      			<c:choose>
+				      				<c:when test="${fn:length(recentPostCardVo.hashTagList) == 0}">
+				      					<li>[ 태그 없음 ]</li>
+				      				</c:when>
+				      				<c:otherwise>
+				      					<li class="hashTagSection"><c:forEach items="${recentPostCardVo.hashTagList}" var="hashTagVo">#${hashTagVo} </c:forEach></li>
+				      				</c:otherwise>
+				      			</c:choose>
+				      			<li>${recentPostCardVo.pc_cnt}</li>
+				      		</ul>
+				      	</div>
+			      	</a>
+			      	<c:if test="${loop.index % 2 == 1}">
+		    			</li>
+		    		</c:if>
+		    	</c:forEach>
+		 <!--    <li>
 		    	<a href="">
 			      	<div class="sl_left"><img src="/img/main_01.jpg" /></div>
 			      	<div class="sl_right">
@@ -382,58 +409,36 @@ $(document).ready(function () {
 			      		</ul>
 			      	</div>
 		      	</a>
-		    </li>
-		    <li>
-		    	<a href="">
-			      	<div class="sl_left"><img src="/img/main_01.jpg" /></div>
-			      	<div class="sl_right">
-			      		<ul>
-			      			<li>Post Card</li>
-			      			<li>엄청나게 좋은 여행 잇힝</li>
-			      			<li>내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄</li>
-			      		</ul>
-			      	</div>
-		      	</a>
-		      	<a href="">
-			      	<div class="sl_left"><img src="/img/main_01.jpg" /></div>
-			      	<div class="sl_right">
-			      		<ul>
-			      			<li>Post Card</li>
-			      			<li>엄청나게 좋은 여행 잇힝</li>
-			      			<li>내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄</li>
-			      		</ul>
-			      	</div>
-		      	</a>
-		    </li>
-		    <li>
-		    	<a href="">
-			      	<div class="sl_left"><img src="/img/main_01.jpg" /></div>
-			      	<div class="sl_right">
-			      		<ul>
-			      			<li>Post Card</li>
-			      			<li>엄청나게 좋은 여행 잇힝</li>
-			      			<li>내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄</li>
-			      		</ul>
-			      	</div>
-		      	</a>
-		      	<a href="">
-			      	<div class="sl_left"><img src="/img/main_01.jpg" /></div>
-			      	<div class="sl_right">
-			      		<ul>
-			      			<li>Post Card</li>
-			      			<li>엄청나게 좋은 여행 잇힝</li>
-			      			<li>내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄</li>
-			      		</ul>
-			      	</div>
-		      	</a>
-		    </li>
+		    </li> -->
 		   
 		</ul>
 	</div>
 </div>
 
 <div class="main_con_03">
+	
+
+	<c:forEach items="${recentEssayList}" var="recentEssayVo">
 	<div class="con_03_List">
+		<a href="/essay/essayView?essay_id=${recentEssayVo.essay_id}">
+			<ul>
+				<li>Essay</li>
+				<li>${recentEssayVo.essay_title}</li>
+				<c:choose>
+					<c:when test="${fn:length(recentEssayVo.essay_cnt) > 50 }">
+						<li>${fn:substring(recentEssayVo.essay_cnt,0,50)}...</li>
+					</c:when>
+					<c:otherwise>
+						<li>${recentEssayVo.essay_cnt}</li>
+					</c:otherwise>
+				</c:choose>
+				<li><i class="fa fa-clock-o" aria-hidden="true"></i><fmt:formatDate value="${recentEssayVo.essay_date}" pattern="YYYY. MM. dd"/></li>
+				<li class="essayImageSection"><img src="/upload/${recentEssayVo.tripplan_image}" onerror="imgError(this)"/></li>
+			</ul>
+		</a>
+	</div>
+	</c:forEach> 
+	<!-- <div class="con_03_List">
 		<a href="/main/essay_view">
 			<ul>
 				<li>Essay</li>
@@ -476,29 +481,7 @@ $(document).ready(function () {
 				<li><img src="/img/main_01.jpg" /></li>
 			</ul>
 		</a>
-	</div>
-	<div class="con_03_List">
-		<a href="/main/essay_view">
-			<ul>
-				<li>Essay</li>
-				<li>일본 술을 마시다.</li>
-				<li>글 쓰는 셰프 박찬일의 일본 여행과 음식 이야기.</li>
-				<li><i class="fa fa-clock-o" aria-hidden="true"></i> 2018. 12. 01</li>
-				<li><img src="/img/main_01.jpg" /></li>
-			</ul>
-		</a>
-	</div>
-	<div class="con_03_List">
-		<a href="/main/essay_view">
-			<ul>
-				<li>Essay</li>
-				<li>일본 술을 마시다.</li>
-				<li>글 쓰는 셰프 박찬일의 일본 여행과 음식 이야기.</li>
-				<li><i class="fa fa-clock-o" aria-hidden="true"></i> 2018. 12. 01</li>
-				<li><img src="/img/main_01.jpg" /></li>
-			</ul>
-		</a>
-	</div>
+	</div> -->
 </div>
 
 <div class="main_con_04">

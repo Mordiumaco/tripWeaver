@@ -19,10 +19,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.tripweaver.article.model.ArticleVO;
 import kr.co.tripweaver.article.service.IArticleService;
+import kr.co.tripweaver.essay.model.EssayVO;
+import kr.co.tripweaver.essay.service.IEssayService;
 import kr.co.tripweaver.member.model.MemberVO;
 import kr.co.tripweaver.mymenu.mypage.tripplan.model.ClusterVO;
 import kr.co.tripweaver.mymenu.mypage.tripplan.model.MypageTripPlanForListVO;
 import kr.co.tripweaver.mymenu.mypage.tripplan.service.ITripPlanService;
+import kr.co.tripweaver.postcard.model.PostCardVO;
+import kr.co.tripweaver.postcard.service.IPostCardService;
 import kr.co.tripweaver.util.model.PageVO;
 
 @RequestMapping("/main")
@@ -34,8 +38,14 @@ public class MainController {
 	@Resource(name = "articleService")
 	private IArticleService articleService;
 	
+	@Resource(name = "essayService")
+	private IEssayService essayService;
+	
 	@Autowired
 	ITripPlanService tripPlanService;
+	
+	@Autowired
+	IPostCardService postCardService;
 	
 	@RequestMapping("/main")
 	public String mainView(Model model) {
@@ -59,10 +69,21 @@ public class MainController {
 			peotypeList.add(str);
 		}
 		
+		//최신글 에세이 리스트
+		List<EssayVO> essayList = essayService.recentEssayList();
+		
+		model.addAttribute("recentEssayList", essayList);
 		
 		model.addAttribute("seasonList", seasonList);
 		model.addAttribute("themeList", themeList);
 		model.addAttribute("peotypeList",peotypeList);
+		
+		
+		//최신글 포스트 리스트 
+		List<PostCardVO> postCardList = postCardService.recentPostCardList();
+		
+		model.addAttribute("recentPostCardList", postCardList);
+		
 		
 		return "index";
 	}

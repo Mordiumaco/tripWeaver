@@ -46,5 +46,29 @@ public class LikeDao implements ILikeDao {
 	}
 	
 	
-
+	/**
+	* Method : likeCheckByMemIdAndLikeRelId
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 26.
+	* 변경이력 :
+	* @param likeVo
+	* @return
+	* Method 설명 : 해당 글에 로그인한 멤버가 좋아요를 했는지 않했는지를 체크
+	*/
+	@Override
+	public LikeVO likeCheckByMemIdAndLikeRelId(LikeVO likeVo) {
+		
+		LikeVO resultLikeVo = null;
+		
+		try {
+			
+			resultLikeVo = template.selectOne("likeSQL.likeCheckByMemIdAndLikeRelId", likeVo);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return resultLikeVo;
+		}
+		
+		return resultLikeVo;
+	}
 }

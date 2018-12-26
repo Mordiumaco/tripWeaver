@@ -1,5 +1,7 @@
 package kr.co.tripweaver.essay.dao;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -76,5 +78,58 @@ public class EssayDao implements IEssayDao{
 		}
 		
 		return essayVo;
+	}
+	
+	/**
+	* Method : essayUpdate
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 26.
+	* 변경이력 :
+	* @param essayVo
+	* @return
+	* Method 설명 : essay update form 에서 받은 정보로 조건에 만족하는 essay_id row를 수정한다. 
+	* 조건에 만족시 1 반환 정상적으로 데이터 업데이트가 이루어지지 않았을 시 0을 반환한다. 
+	*/
+	@Override
+	public int essayUpdate(EssayVO essayVo) {
+		
+		int result = 0;
+		
+		try {
+			
+			result = template.update("essaySQL.essayUpdate", essayVo);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return result;
+		}
+		
+		return result;
+	}
+	
+	
+	/**
+	* Method : recentEssayList
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 26.
+	* 변경이력 :
+	* @return
+	* Method 설명 : 최신 에세이 글을 반환한다. 반환하는 에세이 게시글 겟수는 쿼리에서 설정할 수 있다. 
+	*/
+	@Override
+	public List<EssayVO> recentEssayList(){
+		
+		List<EssayVO> essayList = null;
+		
+		try {
+			
+			essayList = template.selectList("essaySQL.recentEssayList");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return essayList;
+		}
+		
+		return essayList;
 	}
 }

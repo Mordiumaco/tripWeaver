@@ -99,5 +99,28 @@ public class PostCardDao implements IPostCardDao{
 		return selectPostcardVo;
 	} 
 	
-	
+	/**
+	* Method : recentPostCardList
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 26.
+	* 변경이력 :
+	* @return
+	* Method 설명 : 메인에 사용할 포스트 카드 리스트를 받아오기 위한 메서드
+	*/
+	@Override
+	public List<PostCardVO> recentPostCardList(){
+		
+		List<PostCardVO> postCardList = null;
+		
+		try {
+			
+			postCardList = template.selectList("postcardSQL.recentPostCardList");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return postCardList;
+		}
+		
+		return postCardList;
+	}
 }

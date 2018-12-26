@@ -67,7 +67,7 @@ $(document).ready(function(){
 					<ul>
 						<c:if test="${essayVo.mem_id == loginInfo.mem_id}">
 							<li>
-								<form action="/main/essay_update" method="get">
+								<form action="/essay/essayUpdate" method="get">
 									<input type="hidden"  name="essay_id" value="${essayVo.essay_id}">
 									<input class="btn_bd col_03" type="submit" value="수정">
 								</form>
@@ -88,8 +88,25 @@ $(document).ready(function(){
 				<ul class="view_header">
 					<li><span class="profile_img"><img src="/img/no_profile.png" alt="no_profile" width="20" height="20" title=""></span><b>&nbsp;&nbsp;${writerVo.mem_nick}</b> 님의 글 입니다.</li>
 					<li><i class="fa fa-clock-o" aria-hidden="true"></i> &nbsp;<fmt:formatDate value="${essayVo.essay_date}" pattern="yyyy-MM-dd"/></li>
-					<li>&nbsp;&nbsp;&nbsp;&nbsp;<i class="far fa-heart likeAdd"></i>&nbsp;&nbsp;</li>
-					<li class="likeNumLi">좋아요 <b class="likeNum">100</b>개</li>
+					<li class="likeHeartSection">&nbsp;&nbsp;&nbsp;&nbsp;
+					
+						<c:choose>
+							<c:when test="${loginInfo.mem_id == null}">
+								<i class="far fa-heart likeNull"></i>
+							</c:when>
+							<c:otherwise>
+								<c:if test="${likeVo != null}">
+									<i class='fas fa-heart likeDel' style='color:#ff0000;'></i>
+								</c:if>
+								<c:if test="${likeVo == null}">
+									<i class="far fa-heart likeAdd"></i>
+								</c:if>
+							</c:otherwise>
+						</c:choose>
+				
+					
+					&nbsp;&nbsp;</li>
+					<li class="likeNumLi">&nbsp;좋아요 <b class="likeNum">${likeCount}</b>개</li>
 				</ul>
 				<br/>
 				<div class="essay_filter">
@@ -454,17 +471,16 @@ $(document).ready(function(){
 			    data: $('#likeAddFrm').serialize(),
 			    success : function(data){
 			    	    	
-			    	var thisVar2 = thisVar.parents('.postCard_con');
-					thisVar2.find('.likeNum').text(data);
+			    	var view_header = thisVar.parents('.view_header');
 			    	
-			    	thisVar.siblings('.fa-comment').remove();
+			    	view_header.find('.likeNum').text(data);
 			    	
-			    	like_heart += "<i class='fas fa-heart likeDel' style='color:#ff0000;'>";
-			    	comment += "<i class='far fa-comment'></i>";
 			    	
-			    	thisVar.parents('.postli_l2').append(like_heart);
-			    	thisVar.parents('.postli_l2').append(comment);
-					thisVar.parents('.postli_l2').children('.likeAdd').remove();
+			    	like_heart += "&nbsp;&nbsp;&nbsp;&nbsp;<i class='fas fa-heart likeDel' style='color:#ff0000;'>&nbsp;&nbsp;";
+			    	
+			    	
+			    	view_header.children('.likeHeartSection').text('');
+			    	view_header.children('.likeHeartSection').append(like_heart);
 
 			    } 
 			});	
@@ -480,18 +496,15 @@ $(document).ready(function(){
 			    data: $('#likeDeleteFrm').serialize(),
 			    success : function(data){
 			    	
+			    	var view_header = thisVar.parents('.view_header');
 			    	
-			    	var thisVar2 = thisVar.parents('.postCard_con');
-					thisVar2.find('.likeNum').text(data);
+			    	view_header.find('.likeNum').text(data);
 			    	
-			    	thisVar.siblings('.fa-comment').remove();
 			    	
-			    	like_heart += "<i class='far fa-heart likeAdd'></i>";
-			    	comment += "<i class='far fa-comment'></i>";
+			    	like_heart += "&nbsp;&nbsp;&nbsp;&nbsp;<i class='far fa-heart likeAdd'></i>&nbsp;&nbsp;";
 			    	
-			    	thisVar.parents('.postli_l2').append(like_heart);
-			    	thisVar.parents('.postli_l2').append(comment);
-					thisVar.parents('.postli_l2').children('.likeDel').remove();
+			    	view_header.children('.likeHeartSection').text('');
+			    	view_header.children('.likeHeartSection').append(like_heart);
 			    	
 			    },
 			

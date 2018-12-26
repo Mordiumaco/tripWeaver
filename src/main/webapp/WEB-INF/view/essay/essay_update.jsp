@@ -4,6 +4,50 @@
 
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/js/font-awesome/css/font-awesome.min.css">
+<script src="/SE2/js/HuskyEZCreator.js"></script>
+<script>
+	$(function(){
+		//에디터 섹션
+		var oEditors = [];
+
+		nhn.husky.EZCreator.createInIFrame({
+			oAppRef : oEditors, // 전역변수 명과 동일해야 함.
+			elPlaceHolder : "smarteditor", // 에디터가 그려질 textarea ID 값과 동일 해야 함.
+			sSkinURI : "/SE2/SmartEditor2Skin.html", // Editor HTML
+			fCreator : "createSEditor2", // SE2BasicCreator.js 메소드명이니 변경 금지 X
+			htParams : {
+				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseToolbar : true,
+				// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseVerticalResizer : true,
+				// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseModeChanger : true, 
+			}
+		});
+		
+		// 전송버튼 클릭이벤트
+		$("#savebutton").click(function(){
+			if(confirm("저장하시겠습니까?")) {
+				// id가 smarteditor인 textarea에 에디터에서 대입
+				oEditors.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
+				// 이부분에 에디터 validation 검증
+				$(this).parents("#frm").submit();
+			}
+		});
+		
+		// 필수값 Check
+		function validation(){
+			var contents = $.trim(oEditors[0].getContents());
+			if(contents === '<p>&nbsp;</p>' || contents === ''){ // 기본적으로 아무것도 입력하지 않아도 <p>&nbsp;</p> 값이 입력되어 있음. 
+				alert("내용을 입력하세요.");
+				oEditors.getById['smarteditor'].exec('FOCUS');
+				return false;
+			}
+			return true;
+		}
+	});
+	
+</script>
 
 <script type="text/javascript">
 function button_event(){
@@ -151,9 +195,16 @@ $(document).ready(function(){
    			j--;
         }
 	});
+	
+	
+	call();
 });
 
-
+function call()
+{
+  document.getElementById('sell5').value =parseInt(document.getElementById('sell1').value) + parseInt(document.getElementById('sell2').value) + parseInt(document.getElementById('sell4').value) + parseInt(document.getElementById('sell2').value);
+  document.getElementById('sell6').value = parseInt(document.getElementById('sell5').value)/parseInt($("#tripplan_days").val());
+}
 
 </script>
 
@@ -176,47 +227,160 @@ $(document).ready(function(){
 
 
 <div class="sub_container">
-	
+	<form name="essayFoam" id="frm" action="/essay/essayUpdateForm" method="post">
 	<div class="essayLeft">
 		<div class="main_con" id="main_con">
 			<div id="container">
 
 				<h1 class="mypage_title">Essay 글 수정</h1>
 		
-				<div>
+				<!-- <div>
 					<a href="javascript::" onclick="layer_open1('layer_1');return false;" class="btn_bd col_03 myCalendar_btn">나의 여행 일정 선택하기</a>
-				</div>
+				</div> -->
 				
 				<br/>
 				
 				<%-- 나의 일정을 클릭하면 나오는 정보 시작 --%>
 				<div class="essay_filter">
+						<!-- 시즌 관련 로직 -->
+					<c:choose>
+						<c:when test="${tripplanVo.tripplan_season eq 1}">
+							<c:set var="season" value="봄"></c:set>
+						</c:when>
+						<c:when test="${tripplanVo.tripplan_season eq 2}">
+							<c:set var="season" value="여름"></c:set>
+						</c:when>
+						<c:when test="${tripplanVo.tripplan_season eq 3}">
+							<c:set var="season" value="가을"></c:set>
+						</c:when>
+						<c:when test="${tripplanVo.tripplan_season eq 4}">
+							<c:set var="season" value="겨울"></c:set>
+						</c:when>
+						<c:when test="${tripplanVo.tripplan_season eq 5}">
+							<c:set var="season" value="무관"></c:set>
+						</c:when>
+					</c:choose>
+					<!-- 테마관련 로직  -->
+					<c:choose>
+						<c:when test="${tripplanVo.tripplan_theme eq 1}">
+							<c:set var="theme" value="먹거리"></c:set>
+						</c:when>
+						<c:when test="${tripplanVo.tripplan_theme eq 2}">
+							<c:set var="theme" value="레저"></c:set>
+						</c:when>
+						<c:when test="${tripplanVo.tripplan_theme eq 3}">
+							<c:set var="theme" value="쇼핑"></c:set>
+						</c:when>
+						<c:when test="${tripplanVo.tripplan_theme eq 4}">
+							<c:set var="theme" value="자연"></c:set>
+						</c:when>
+						<c:when test="${tripplanVo.tripplan_theme eq 5}">
+							<c:set var="theme" value="문화"></c:set>
+						</c:when>
+						<c:when test="${tripplanVo.tripplan_theme eq 6}">
+							<c:set var="theme" value="축제"></c:set>
+						</c:when>
+					</c:choose>
+					<!-- 구성원 타입 로직 -->
+					<c:choose>
+						<c:when test="${tripplanVo.tripplan_peo_type eq 1}">
+							<c:set var="peo_type" value="혼자"></c:set>
+						</c:when>
+						<c:when test="${tripplanVo.tripplan_peo_type eq 2}">
+							<c:set var="peo_type" value="커플"></c:set>
+						</c:when>
+						<c:when test="${tripplanVo.tripplan_peo_type eq 3}">
+							<c:set var="peo_type" value="친구"></c:set>
+						</c:when>
+						<c:when test="${tripplanVo.tripplan_peo_type eq 4}">
+							<c:set var="peo_type" value="가족"></c:set>
+						</c:when>
+						<c:when test="${tripplanVo.tripplan_peo_type eq 5}">
+							<c:set var="peo_type" value="단체"></c:set>
+						</c:when>
+						<c:when test="${tripplanVo.tripplan_peo_type eq 6}">
+							<c:set var="peo_type" value="여자끼리"></c:set>
+						</c:when>
+						<c:when test="${tripplanVo.tripplan_peo_type eq 7}">
+							<c:set var="peo_type" value="남자끼리"></c:set>
+						</c:when>
+					</c:choose>
 					<ul>
-						<li class="essay_filterLi">테마 : <b>먹거리 여행</b></li>
-						<li class="essay_filterLi">여행일수 : <b>3박 4일</b></li>
-						<li class="essay_filterLi">구성원별 : <b>커플 여행</b></li>
+						<li>시즌 : <b>${season}</b></li>
+						<li>테마 : <b>${theme}</b></li>
+						<li>여행일수 : <b>${tripplanVo.tripplan_days-1}박 ${tripplanVo.tripplan_days}일</b></li>
+						<li>구성원별 : <b>${peo_type}</b></li>
+						<li>총 인원수: <b>${tripplanVo.tripplan_peo_count}명</b></li>
 					</ul>
 					
 					<ul>
-						<li class="essay_filterLi">식비 : <b><input type="number" name="" id="wr_10"> 원</b></li>
-						<li class="essay_filterLi">숙박비 : <b><input type="number" name="" id="wr_11"> 원</b></li>
-						<li class="essay_filterLi">교통비 : <b><input type="number" name="" id="wr_12"> 원</b></li>
-						<li class="essay_filterLi">기타 : <b><input type="number" name="" id="wr_13"> 원</b></li>
-						<li class="essay_filterLi">총비용 : <b><input type="number" readonly="readonly"> 원</b></li>
-						<li class="essay_filterLi">하루평균비용 : <b><input type="number" readonly="readonly"> 원</b></li>
+						<input type="hidden" id="tripplan_days" value="${tripplanVo.tripplan_days}"/>
+						<li class="essay_filterLi">식비 : <b><input type="number" name="essay_meal_exp" id="sell1" value="${essayVo.essay_meal_exp}" onkeyup="call()"> 원</b></li>
+						<li class="essay_filterLi">숙박비 : <b><input type="number" name="essay_room_exp" id="sell2" value="${essayVo.essay_room_exp}" onkeyup="call()"> 원</b></li>
+						<li class="essay_filterLi">교통비 : <b><input type="number" name="essay_traffic_exp" id="sell3" value="${essayVo.essay_traffic_exp}" onkeyup="call()"> 원</b></li>
+						<li class="essay_filterLi">기타 : <b><input type="number" name="essay_other_exp" id="sell4" value="${essayVo.essay_other_exp}" onkeyup="call()"> 원</b></li>
+						<li class="essay_filterLi">총비용 : <b><input type="number" readonly="readonly" id="sell5"> 원</b></li>
+						<li class="essay_filterLi">하루평균비용 : <b><input type="number" readonly="readonly" id="sell6"> 원</b></li>
 					</ul>
 				</div>
 				<br/>
-				<div id="map2" class="main_map" style="width:100%;height:400px;"></div>
+				<div id="map" class="main_map" style="width:100%;height:400px;"></div>
 	
 				<script>
-					var container = document.getElementById('map2');
+					var container = document.getElementById('map');
 					var options = {
-						center: new daum.maps.LatLng(33.450701, 126.570667),
-						level: 3
-					};
+							center: new daum.maps.LatLng(33.450701, 126.570667),
+							level: 3
+						};
+						
+					//마커 이미지 관련 로직 ------------
+					var imageSrc = '/img/marker.png', // 마커이미지의 주소입니다    
+				    imageSize = new daum.maps.Size(35,47), // 마커이미지의 크기입니다
+				    imageOption = {offset: new daum.maps.Point(14,47)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+				      
+					// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+					var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);
+					//마커 이미지 로직 끝 ------------
+					
+					var polylineOption = {map: map, // 선을 표시할 지도 객체 
+						endArrow: true, // 선의 끝을 화살표로 표시되도록 설정한다,
+						strokeWeight: 4, // 선의 두께
+						strokeColor: '#2B8054', // 선 색
+						strokeOpacity: 0.7, // 선 투명도
+						strokeStyle: 'groove' // 선 스타일
+						};
 				
+					//폴리라인 객체 생성 및 옵션을 파라미터로 넣어준다. 
+					var polyline = new daum.maps.Polyline(polylineOption); 
+					var polylinePosition = [];
+					
 					var map = new daum.maps.Map(container, options);
+					var bounds = new daum.maps.LatLngBounds();
+					
+					function addMarker(position){
+						  // 마커를 생성합니다
+					    var marker = new daum.maps.Marker({
+					    	image: markerImage, // 마커이미지 설정 
+					    	draggable: false, //드래그 여부
+					        position: position
+					    });
+					    
+						bounds.extend(position);
+					    // 마커가 지도 위에 표시되도록 설정합니다
+					    marker.setMap(map);
+					    
+					    polylinePosition.push(position);
+					    polyline.setPath(polylinePosition);
+					    
+					    polyline.setMap(map);
+					    
+					}
+					
+					<c:forEach items="${mapMarkerList}" var="mapMarker">
+						addMarker(new daum.maps.LatLng(${mapMarker.mapmark_y_coor}, ${mapMarker.mapmark_x_coor}));
+					</c:forEach>
+					
+					map.setBounds(bounds);
 				</script>
 				
 				<div class="essay_calendat_btn essay_calendar1"></div>
@@ -237,313 +401,65 @@ $(document).ready(function(){
 							<th><i class="fas fa-bed"></i> 숙소</th>
 						</tr>
 						
-						<tr>
-							<td>
-								<span>11월27일(금)</span><br/>
-								<b>DAY 1</b>
-							</td>
-							<td>
-								미시령<br/>
-								대관령
-							</td>
-							<td>
-								수영<br/>
-								달리기<br/>
-								자전거<br/>
-							</td>
-							<td>
-								상세 일정 수영 1km<br/>
-								상세 일정 달리기 5km<br/>
-								상세 일정 자전거 10km<br/>
-							</td>
-							<td>
-								신문지<br/>
-								골판지 박스<br/>
-								지하철<br/>
-							</td>
-						</tr>
-						
-						<tr>
-							<td>
-								<span>11월27일(금)</span><br/>
-								<b>DAY 2</b>
-							</td>
-							<td>
-								미시령<br/>
-								대관령
-							</td>
-							<td>
-								수영<br/>
-								달리기<br/>
-								자전거<br/>
-							</td>
-							<td>
-								상세 일정 수영 1km<br/>
-								상세 일정 달리기 5km<br/>
-								상세 일정 자전거 10km<br/>
-							</td>
-							<td>
-								신문지<br/>
-								골판지 박스<br/>
-								지하철<br/>
-							</td>
-						</tr>
-						
-						<tr>
-							<td>
-								<span>11월27일(금)</span><br/>
-								<b>DAY 3</b>
-							</td>
-							<td>
-								미시령<br/>
-								대관령
-							</td>
-							<td>
-								수영<br/>
-								달리기<br/>
-								자전거<br/>
-							</td>
-							<td>
-								상세 일정 수영 1km<br/>
-								상세 일정 달리기 5km<br/>
-								상세 일정 자전거 10km<br/>
-							</td>
-							<td>
-								신문지<br/>
-								골판지 박스<br/>
-								지하철<br/>
-							</td>
-						</tr>
+						<c:forEach items="${dailyPlanList}" var="dailyPlanVo">
+							<tr>
+								<td>
+								 <fmt:parseDate var="date" value="${dailyPlanVo.dailyplan_day}" pattern="yyyy-MM-dd"/>
+									<span><fmt:formatDate value="${dailyPlanVo.dailyplan_day}" pattern="MM월dd일(E)"/></span><br>
+									<b>DAY ${dailyPlanVo.dailyplan_order}</b>
+								</td>
+								<td>
+									${dailyPlanVo.dailyplan_area}
+								</td>
+								<td>
+									${dailyPlanVo.dailyplan_traffic}
+								</td>
+								<td>
+									${dailyPlanVo.dailyplan_cnt}
+								</td>
+								<td>
+									${dailyPlanVo.dailyplan_room}
+								</td>
+							</tr>
+						</c:forEach>
 					</table>
 				</div>
 				
 				<%-- 나의 일정을 클릭하면 나오는 정보 끝 --%>
 				
-				<form action="">
-					<h2 class="view_title">제목: <input type="text" placeholder="제목을 적어주세요."></h2>
-					
+				
+					<h2 class="view_title">제목: <input type="text" name="essay_title" value="${essayVo.essay_title}" placeholder="제목을 적어주세요."></h2>
+					<input type="hidden" name="essay_id" value="${essayVo.essay_id}">
 					<p class="view_con">
-						 
-						어 스마트 에디터 적용해
+						<textarea id="smarteditor" name="essay_cnt" rows="10" cols="100" style="width:100%; height:600px;">${essayVo.essay_cnt}</textarea>						 
 					</p>
 					
-					<%-- 이쁘 사용  가이드 / 일반 --%>
-					<h2 class="view_title">가이드 일정 선택하기</h2>
-					<div class="essay_calendar3">
-						<table>
-							<colgroup>
-								<col width="35%">
-								<col width="35%">
-								<col width="10%">
-								<col width="10%">
-								<col width="10%">
-							</colgroup>
-							<tr>
-								<th>출발일</th>
-								<th>종료일</th>
-								<th>모집인원</th>
-								<th>일정추가</th>
-								<th>일정삭제</th>
-							</tr>
-							<tr class="dateTr">
-								<td><input id="datepicker" class="datepicker" type="text"  name="start" placeholder="출발일" style="width: 70%" readonly="readonly"></td>
-								<td><input id="datepicker1" class="datepicker"  type="text"  name="end" placeholder="종료일" style="width: 70%" readonly="readonly"></td>
-								<td><input type="number" placeholder="숫자로 표기하세요."></td>
-								<td><div class="plus_btn">+</div></td>
-								<td><div class="minus_btn">-</div></td>
-							</tr>
-						</table>
-					</div>
 					
 					<br/><br/><br/>
 
 					<div class="view_btn">
 						<ul>
 							<li class="essay_filterLi">
-								<input class="btn_bd col_03 " type="submit" value="수정">
+								<input class="btn_bd col_03 " type="submit" id="savebutton" value="수정">
 							</li>
 							<li class="essay_filterLi">
 								<input class="btn_bd col_02 " type="button" onclick="button_event();" value="취소">	 					
 							</li>
 						</ul>
 					</div>
-				</form>
+				
 
 				
 			</div>
 		</div>
 
 	</div>
-	
+	</form>
 </div>
 
 
 
 
-<%-- 레이어 팝업 --%>
 
-<div class="layer1">
-    <div class="bg"></div>
-    <div id="layer_1" class="pop_layer">
-       <div class="layer_con">
-             <ul class="layer_con_sub">
-              	<li class="layer_con_subLi">
-              		<a >
-						<ul class="mypage_list">
-							<li>
-								<img src="/img/main_01.jpg">
-								<div class="mypage_list01">
-									<span>2018. 11. 30</span> 3박 4일 <br>
-									<b>대전광역시</b>
-								</div>
-							</li>
-							<li>
-								<div>친구와 함께</div>
-								<ul>
-									<li> 123</li>
-								</ul>
-							</li>
-							<li>
-								<div>
-									월평동<br>
-									<b>이혜진</b>
-								</div>
-								<div>
-									<input type="radio" name="calendarSelection" id="calendarSelection0">
-								</div>
-							</li>
-						</ul>
-					</a>
-              	</li>
-              	<li class="layer_con_subLi">
-              		<a >
-						<ul class="mypage_list">
-							<li>
-								<img src="/img/main_01.jpg">
-								<div class="mypage_list01">
-									<span>2018. 11. 30</span> 3박 4일 <br>
-									<b>대전광역시</b>
-								</div>
-							</li>
-							<li>
-								<div>친구와 함께</div>
-								<ul>
-									<li> 123</li>
-								</ul>
-							</li>
-							<li>
-								<div>
-									월평동<br>
-									<b>이혜진</b>
-								</div>
-								<div>
-									<input type="radio" name="calendarSelection" id="calendarSelection">
-								</div>
-							</li>
-						</ul>
-					</a>
-              	</li>
-              	<li class="layer_con_subLi">
-              		<a >
-						<ul class="mypage_list">
-							<li>
-								<img src="/img/main_01.jpg">
-								<div class="mypage_list01">
-									<span>2018. 11. 30</span> 3박 4일 <br>
-									<b>대전광역시</b>
-								</div>
-							</li>
-							<li>
-								<div>친구와 함께</div>
-								<ul>
-									<li> 123</li>
-								</ul>
-							</li>
-							<li>
-								<div>
-									월평동<br>
-									<b>이혜진</b>
-								</div>
-								<div>
-									<input type="radio" name="calendarSelection" id="calendarSelection">
-								</div>
-							</li>
-						</ul>
-					</a>
-              	</li>
-              	<li class="layer_con_subLi">
-              		<a >
-						<ul class="mypage_list">
-							<li>
-								<img src="/img/main_01.jpg">
-								<div class="mypage_list01">
-									<span>2018. 11. 30</span> 3박 4일 <br>
-									<b>대전광역시</b>
-								</div>
-							</li>
-							<li>
-								<div>친구와 함께</div>
-								<ul>
-									<li> 123</li>
-								</ul>
-							</li>
-							<li>
-								<div>
-									월평동<br>
-									<b>이혜진</b>
-								</div>
-								<div>
-									<input type="radio" name="calendarSelection" id="calendarSelection">
-								</div>
-							</li>
-						</ul>
-					</a>
-              	</li>
-              	<li class="layer_con_subLi">
-              		<a >
-						<ul class="mypage_list">
-							<li>
-								<img src="/img/main_01.jpg">
-								<div class="mypage_list01">
-									<span>2018. 11. 30</span> 3박 4일 <br>
-									<b>대전광역시</b>
-								</div>
-							</li>
-							<li>
-								<div>친구와 함께</div>
-								<ul>
-									<li> 123</li>
-								</ul>
-							</li>
-							<li>
-								<div>
-									월평동<br>
-									<b>이혜진</b>
-								</div>
-								<div>
-									<input type="radio" name="calendarSelection" id="calendarSelection">
-								</div>
-							</li>
-						</ul>
-					</a>
-              	</li>
-
-              	<%-- 이뿌~~~ 일정 정보가 없다면 --%>
-              	<li class="produce"><a href="/main/mytravel"><img src="/img/calendar_add.jpg"></a></li>
-            </ul> 
-            <div class="view_btn">
-				<ul>
-					<li class="essay_filterLi">
-						<input class="btn_bd col_03 " type="submit" value="선택">
-					</li>
-					<li class="essay_filterLi">
-						<input class="btn_bd col_02 " type="button" onclick="button_event();" value="취소">	 					
-					</li>
-				</ul>
-			</div> 
-       </div>
-      
-    </div>   
-</div> 
 
 <%@include file="../tail.jsp" %> 

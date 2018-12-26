@@ -1,5 +1,7 @@
 package kr.co.tripweaver.essay.service;
 
+import java.util.List;
+
 import kr.co.tripweaver.essay.model.EssayVO;
 
 /**
@@ -47,4 +49,26 @@ public interface IEssayService {
 	* Method 설명 :
 	*/
 	public EssayVO selectEssayByEssayId(String essay_id);
+	
+	/**
+	* Method : essayUpdate
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 26.
+	* 변경이력 :
+	* @param essayVo
+	* @return
+	* Method 설명 : essay update form 에서 받은 정보로 조건에 만족하는 essay_id row를 수정한다. 
+	* 조건에 만족시 1 반환 정상적으로 데이터 업데이트가 이루어지지 않았을 시 0을 반환한다. 
+	*/
+	public int essayUpdate(EssayVO essayVo);
+	
+	/**
+	* Method : recentEssayList
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 26.
+	* 변경이력 :
+	* @return
+	* Method 설명 : 최신 에세이 글을 반환한다. 반환하는 에세이 게시글 겟수는 쿼리에서 설정할 수 있다. 
+	*/
+	public List<EssayVO> recentEssayList();
 }
