@@ -27,11 +27,15 @@ public interface IAttachmentDao {
 	*/
 	public List<AttachmentVO> getAttachmemt(String art_id);
 	
-	
-	
-	
-	
-	
+	/**
+	* Method : attachmentDelete
+	* 작성자 : pc23
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 파일 삭제(수정)
+	*/
+	public int attachmentDelete(Map<String, Object> param);
 	
 	/*********************************************************************/
 	/*********************************************************************/
@@ -48,4 +52,5 @@ public interface IAttachmentDao {
 		*
 	 */
 	public List<AttachmentVO> selectPostcardFile(String att_rel_art_id);
+	
 }

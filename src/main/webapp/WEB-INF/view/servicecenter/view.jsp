@@ -25,8 +25,8 @@ function button_event(){
 		<div class="view_btn">
 			<ul>
 				<c:if test="${articleVo.mem_id eq loginInfo.mem_id}">
-					<li>zr
-						<form action="/article/updateArticleView" method="get">
+					<li>
+						<form action="/article/updateArticle" method="get">
 							<input type="hidden"  name="art_id" value="${articleVo.art_id}">
 							<input class="btn_bd col_03" type="submit" value="수정">
 						</form>

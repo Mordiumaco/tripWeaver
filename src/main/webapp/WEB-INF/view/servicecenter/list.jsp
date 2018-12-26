@@ -99,7 +99,7 @@ function fboardlist_submit(f) {
 
 <%-- 뷰페이지에 게시글 아이디 넘기기 --%>
 <form action="/article/articleDetail" method="get" id="frm" >
-	<input type="text" id="art_id" name="art_id"/>
+	<input type="hidden" id="art_id" name="art_id"/>
 	
 	
 	

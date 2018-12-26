@@ -26,4 +26,8 @@ values (att_seq.nextval, #{att_path}, #{att_file_name}, #{att_file_ori_name}, #{
 	where ATT_REL_ART_ID = #{ATT_REL_ART_ID}
 </select>
 	
+<delete parameterType="Map" id="fileDelete"> 
+	delete from attachment where att_file_name = #{att_file_name} 
+</delete>	
+	
 </mapper>

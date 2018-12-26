@@ -42,11 +42,19 @@ public class AttachmentDao implements IAttachmentDao {
 		return template.selectList("attachmentSQL.fileFind", art_id);
 	}
 
-	
-	
-	
-	
-	
+	/**
+	* Method : attachmentDelete
+	* 작성자 : pc23
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 파일 삭제(수정)
+	*/
+	@Override
+	public int attachmentDelete(Map<String, Object> param) {
+		return template.delete("attachmentSQL.fileDelete", param);
+	}
+
 	/*******************************************************************/
 	
 	/**
