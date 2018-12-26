@@ -8,11 +8,23 @@
 insert into attachment (att_id, att_path, att_file_name, att_file_ori_name, att_rel_art_id, filter_id) 
 values (att_seq.nextval, #{att_path}, #{att_file_name}, #{att_file_ori_name}, #{att_rel_art_id}, #{filter_id}) 
 </insert>	
-	
+	 
 <select parameterType="String" id="fileFind" resultType="attachmentVo">
  select /*+index (IDX_ATTACHMENT_01)*/ * from attachment 
  where att_rel_art_id = #{art_id}  
-</select>	
+</select>
+
+
+
+<!-- 박찬배 작업  박찬배 작업 박찬배 작업 박찬배 작업 박찬배 작업 박찬배 작업 박찬배 작업 박찬배 작업 박찬배 작업  -->
+<!-- 박찬배 작업 박찬배 작업 박찬배 작업 박찬배 작업 박찬배 작업 박찬배 작업 박찬배 작업 박찬배 작업 박찬배 작업  -->	
+  
+<select id="selectPostcardFile" parameterType="String" resultType="attachmentVo">
+	SELECT
+    *
+	FROM ATTACHMENT
+	where ATT_REL_ART_ID = #{ATT_REL_ART_ID}
+</select>
 	
 <delete parameterType="Map" id="fileDelete"> 
 	delete from attachment where att_file_name = #{att_file_name} 

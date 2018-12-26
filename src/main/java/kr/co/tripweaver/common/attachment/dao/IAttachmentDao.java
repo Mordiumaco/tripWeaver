@@ -37,4 +37,20 @@ public interface IAttachmentDao {
 	*/
 	public int attachmentDelete(Map<String, Object> param);
 	
+	/*********************************************************************/
+	/*********************************************************************/
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 박찬배
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 포스트카드 파일 찾기
+		*
+	 */
+	public List<AttachmentVO> selectPostcardFile(String att_rel_art_id);
+	
 }

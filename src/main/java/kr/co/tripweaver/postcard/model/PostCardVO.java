@@ -3,6 +3,7 @@ package kr.co.tripweaver.postcard.model;
 import java.util.Date;
 import java.util.List;
 
+import kr.co.tripweaver.common.attachment.model.AttachmentVO;
 import kr.co.tripweaver.common.comment.model.CommentVO;
 
 public class PostCardVO {
@@ -18,8 +19,15 @@ public class PostCardVO {
 	private String mem_profile;
 	private List<String> hashTagList;
 	private List<CommentVO> commentList;
+	private List<AttachmentVO> attachmentList;
 	
 	
+	public List<AttachmentVO> getAttachmentList() {
+		return attachmentList;
+	}
+	public void setAttachmentList(List<AttachmentVO> attachmentList) {
+		this.attachmentList = attachmentList;
+	}
 	public List<CommentVO> getCommentList() {
 		return commentList;
 	}

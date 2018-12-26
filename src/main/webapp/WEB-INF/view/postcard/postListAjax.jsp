@@ -3,6 +3,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 
 
 <script type="text/javascript">
@@ -91,11 +92,10 @@ $(function() {
 
 
 
-
 </script>
 
 
-<c:forEach items="${postCardList}" var="pcl" >
+<c:forEach items="${postCardList}" var="pcl"  varStatus="i">
 	<c:choose>
 		<c:when test="${pcl.pc_del == 'N'}">	
 			<ul class="postCard_con">
@@ -112,30 +112,24 @@ $(function() {
 					</c:choose>
 				</li>
 				<li>
-					<c:choose>
-						<c:when test="">
-							<img src="/img/main_01.jpg">
-						</c:when>
-						<c:otherwise>
-							<div class="flexslider2">
-							  <ul class="slides">
-							    <li>
-							      	<img src="/img/no_image.png">
-							    </li>
-							    <li>
-							      	<img src="/img/no_image.png">
-							    </li>
-							    <li>
-							      	<img src="/img/no_image.png">
-							    </li>
-							    <li>
-							      	<img src="/img/no_image.png">
-							    </li>
-							  </ul>
-							</div>
-						</c:otherwise>
-					</c:choose>
-					
+					<div class="flexslider2">
+					  	<ul class="slides">
+							<c:forEach items="${pcl.attachmentList}" var="att">
+								<c:choose>
+									<c:when test="${fn:length(pcl.attachmentList) == 0}">
+									</c:when>
+									<c:when test="${fn:length(pcl.attachmentList) == 1}">
+										<img src="/upload/postcard/${att.att_file_name}">
+									</c:when>
+									<c:otherwise>
+											  	<li>
+											  		<img src="/upload/postcard/${att.att_file_name}">
+											    </li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</ul>
+					</div>
 				</li>
 				<li>
 					<div class="postli_l postli_l2">
@@ -231,7 +225,19 @@ $(function() {
 				</li>
 				<li>
 					<input id="comt_cnt" name="comt_cnt" type="text" placeholder="댓글달기...">
-					<button id="com_btn" type="button">작성</button> <a>ㆍㆍㆍ</a>
+					<button id="com_btn" type="button">작성</button> &nbsp;&nbsp;&nbsp; 
+					<c:choose>
+						<c:when test="${loginInfo.mem_id ne null }">
+							<a href="javascript::" onclick="layer_open1('layer_1');return false;" class="declaration_btn">
+								<img src="/img/icon/declaration.png">
+							</a>
+						</c:when>
+						<c:otherwise>
+							<img src="/img/icon/declaration.png">
+						</c:otherwise>
+					</c:choose>
+					
+					
 					<input type="hidden" id="comt_rel_art_id" name="comt_rel_art_id" value="${pcl.pc_id}">
 				</li>
 			</ul>
