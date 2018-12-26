@@ -92,7 +92,6 @@ $(function() {
 
 
 
-
 </script>
 
 
@@ -226,7 +225,19 @@ $(function() {
 				</li>
 				<li>
 					<input id="comt_cnt" name="comt_cnt" type="text" placeholder="댓글달기...">
-					<button id="com_btn" type="button">작성</button> &nbsp;&nbsp;&nbsp; <a href="javascript::" onclick="layer_open1('layer_1');return false;" class="declaration_btn"><img src="/img/icon/declaration.png"></a>
+					<button id="com_btn" type="button">작성</button> &nbsp;&nbsp;&nbsp; 
+					<c:choose>
+						<c:when test="${loginInfo.mem_id ne null }">
+							<a href="javascript::" onclick="layer_open1('layer_1');return false;" class="declaration_btn">
+								<img src="/img/icon/declaration.png">
+							</a>
+						</c:when>
+						<c:otherwise>
+							<img src="/img/icon/declaration.png">
+						</c:otherwise>
+					</c:choose>
+					
+					
 					<input type="hidden" id="comt_rel_art_id" name="comt_rel_art_id" value="${pcl.pc_id}">
 				</li>
 			</ul>
