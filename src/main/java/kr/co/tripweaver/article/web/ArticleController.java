@@ -245,14 +245,15 @@ public class ArticleController {
 		logger.debug("articleVo[] : {} ", articleVo);
 		List<AttachmentVO> attachmentList = attachmentService.getAttachmemt(art_id);
 
-		List<CommentVO> ctList = commentService.articleCommentList(art_id);
-
 		model.addAttribute("articleVo", articleVo);
-		model.addAttribute("ctList", ctList);
 		model.addAttribute("attachmentList", attachmentList);
 		
 		logger.debug("attachmentList[loginInfo] : {} ", attachmentList);
 
+		List<CommentVO> comtList = commentService.articleCommentList(art_id);
+		model.addAttribute("comtList", comtList);
+		logger.debug("comtList.size : {}", comtList.size());
+		
 		return "servicecenter/view";
 	}
 	
@@ -268,26 +269,34 @@ public class ArticleController {
 	* @return
 	* Method 설명 : 댓글 insert
 	*/
-	@RequestMapping(value= {"/commentInsert"})
+	@RequestMapping(value= {"/insertComment"})
 	public String commentInsert(HttpServletRequest request, @RequestParam("comt_cnt")String comt_cnt, 
-			@RequestParam("ct_content")String ct_content, @RequestParam(value="comt_secret", required=false) String comt_secret,
-			HttpSession session) {
+			@RequestParam(value="comt_secret", required=false, defaultValue="N") String comt_secret,
+			@RequestParam("art_id")String art_id,
+			HttpSession session, Model model) {
 		
 		MemberVO memberVo = (MemberVO) session.getAttribute("loginInfo");
 
 		String mem_id = memberVo.getMem_id();
 		
 		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("mem_id", mem_id);
 		param.put("comt_cnt", comt_cnt);
+		logger.debug("내용[] ", comt_cnt);
 		param.put("comt_secret", comt_secret);
-		param.put("ct_content", ct_content);
+		param.put("comt_rel_art_id", art_id);
+		param.put("filter_id", "article");
 		
 		int commentCnt = commentService.commentInsert(param);
 		
+		List<CommentVO> comtList = commentService.articleCommentList(art_id);
+		model.addAllAttributes(comtList);
+		logger.debug("comtList[] : ", comtList);
+		
 		if(commentCnt != 0){
-			return "";
+			return "redirect: /article/articleDetail?art_id="+art_id;
 		} else {
-			return "";
+			return "dbError";
 		}
 	}
 	

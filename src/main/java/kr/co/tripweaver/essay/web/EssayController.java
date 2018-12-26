@@ -16,8 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sun.org.apache.regexp.internal.recompile;
-
 import kr.co.tripweaver.common.comment.model.CommentVO;
 import kr.co.tripweaver.common.comment.service.ICommentService;
 import kr.co.tripweaver.essay.model.EssayVO;
@@ -35,6 +33,7 @@ import kr.co.tripweaver.mymenu.mypage.tripplan.service.IDailyPlanService;
 import kr.co.tripweaver.mymenu.mypage.tripplan.service.IMapMarkerService;
 import kr.co.tripweaver.mymenu.mypage.tripplan.service.ITripAreaService;
 import kr.co.tripweaver.mymenu.mypage.tripplan.service.ITripPlanService;
+import kr.co.tripweaver.mymenu.reservation.service.IReservationService;
 
 @RequestMapping("/essay")
 @Controller
@@ -65,6 +64,9 @@ public class EssayController {
 	
 	@Autowired
 	ICommentService commentService;
+	
+	@Autowired
+	IReservationService reservationService;
 	
 	@RequestMapping("/write")
 	public ModelAndView essayWriteView(HttpSession session) {
@@ -235,6 +237,27 @@ public class EssayController {
 			List<GuidePlanVO> guidePlanList = guidePlanService.selectGuidePlanByEssayId(essay_id);
 			
 			model.addAttribute("guidePlanList", guidePlanList);
+			
+			//가이드 리스트가 존재할시에
+			if(guidePlanList != null) {
+				//그리고 해당 예약에 대한 인원수를 체크하기 위해 예약 인원수를 체크한다. 
+				for(int i = 0; i < guidePlanList.size(); i++) {
+					
+					GuidePlanVO guidePlanVo = guidePlanList.get(i);
+					
+					//해당 예약 인원에 대한 총 인원 수를 가이드 플랜 객체에 넣어준다. 
+					Integer total_res_people_count = reservationService.reserTotalPeopleCountByGuidePlanId(guidePlanVo.getGuideplan_id());
+					
+					//total_people_count 가 null 값일 씨 0 을 넣어준다. 
+					if(total_res_people_count == null) {
+						guidePlanVo.setTotal_res_people_count(0);
+					}else {
+						//존재할 경우에는 그냥 월래 total_people_count 에 존재하는 숫자를 넣어준다. 
+						guidePlanVo.setTotal_res_people_count(total_res_people_count);
+					}
+				}
+			}
+			
 		}
 		
 		//댓글 리스트를 받아온다.
@@ -308,10 +331,6 @@ public class EssayController {
 		commentVo.setComt_rel_art_id(essay_id);
 		commentVo.setComt_cnt(comt_cnt);
 		commentVo.setMem_id(memberVo.getMem_id());
-		
-		logger.debug("-------------------------------------------------------------------------");
-		logger.debug("-------------------------------------------------------------------------");
-		logger.debug("-------------------------------------------------------------------------");
 		
 		String comt_id = commentService.insertComment(commentVo);
 		
