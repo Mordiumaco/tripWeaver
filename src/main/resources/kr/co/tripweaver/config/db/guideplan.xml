@@ -9,7 +9,7 @@
 	<insert id="insertGuidePlan" parameterType="guidePlanVo">
 		insert into guideplan
 		(guideplan_id,guideplan_start_day,guideplan_end_day,guideplan_peo_count,essay_id)
-		values(gp_seq.nextval,#{guideplan_start_day},#{guideplan_end_day},#{guideplan_peo_count},#{essay_id})
+		values('gp'||lpad(gp_seq.nextval, 5, 0),#{guideplan_start_day},#{guideplan_end_day},#{guideplan_peo_count},#{essay_id})
 	</insert>
 	
 	<!-- 해당 에세이가 에세이일 경우 가이드 일정 -->

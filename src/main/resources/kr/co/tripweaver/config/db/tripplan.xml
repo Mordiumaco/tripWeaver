@@ -8,9 +8,9 @@
 	<!-- tripplan insert tp 아이디 반환 -->
 	<insert id="insertTripplanReturnId" parameterType="tripplanVo">
 		insert into tripplan(tripplan_id,tripplan_title,tripplan_theme,tripplan_season,tripplan_peo_type,tripplan_start_day,tripplan_days,tripplan_peo_count,mem_id,tripplan_image,tripplan_del)
-		values(tp_seq.nextval, #{tripplan_title}, #{tripplan_theme}, #{tripplan_season}, #{tripplan_peo_type},#{tripplan_start_day},#{tripplan_days},#{tripplan_peo_count},#{mem_id},#{tripplan_image},'N')
+		values('tp'||lpad(tp_seq.nextval, 5, 0), #{tripplan_title}, #{tripplan_theme}, #{tripplan_season}, #{tripplan_peo_type},#{tripplan_start_day},#{tripplan_days},#{tripplan_peo_count},#{mem_id},#{tripplan_image},'N')
 		<selectKey order="AFTER" keyProperty="tripplan_id" resultType="String">
-			select tp_seq.currval from dual
+			select 'tp'||lpad(tp_seq.currval, 5, 0) from dual
 		</selectKey>
 	</insert>
 	
@@ -20,7 +20,7 @@
        (select count(*) from triparea where tripplan_id = tp.tripplan_id) totalmarker_count
 		from tripplan tp, mapmarker mm, triparea ta
 		where tp.mem_id = #{mem_id} and tp.tripplan_del='N' and tp.tripplan_id = ta.tripplan_id and ta.triparea_id= mm.triparea_id and ta.triparea_order = 1
-		order by to_number(tripplan_id) desc
+		order by tripplan_id desc
 	</select>
 	
 	<!-- tripplan id 로 tripplan 객체 리스트 받아오기  -->

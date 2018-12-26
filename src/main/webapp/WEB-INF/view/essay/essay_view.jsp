@@ -26,6 +26,20 @@ $(document).ready(function(){
 		$('.essay_calendar').show('slow'); 
 		$('.essay_calendat_btn').removeClass('essay_calendar2');
 	});  
+	
+	$('.view_header').on('click','.likeAdd', function () {
+		
+		var thisVar = $(this);
+		
+		likeAddAjax(thisVar);			
+	});
+	
+	$('.view_header').on('click','.likeDel', function () {
+		
+		var thisVar = $(this);
+		
+		likeDelAjax(thisVar);
+	});
 });
 
 
@@ -51,18 +65,16 @@ $(document).ready(function(){
 			<div id="container">
 				<div class="view_btn">
 					<ul>
-						<c:if test="${postsVo.userid == S_USER.userId}">
+						<c:if test="${essayVo.mem_id == loginInfo.mem_id}">
 							<li>
 								<form action="/main/essay_update" method="get">
-									<input type="hidden"  name="postsId" value="${postsVo.po_id}">
+									<input type="hidden"  name="essay_id" value="${essayVo.essay_id}">
 									<input class="btn_bd col_03" type="submit" value="수정">
 								</form>
 							</li>
 							<li>
 								<form action="/board/deleteBoard" method="post" name="deletePosts">
-									<input type="hidden"  name="po_id" value="${postsVo.po_id}">
-									<input type="hidden"  name="po_delete" value="Y">
-									<input type="hidden"  name="nt_id" value="${postsVo.nt_id}">
+									<input type="hidden"  name="essay_id" value="${essayVo.essay_id}">
 									<input class="btn_bd col_02" type="button" onclick="button_event();" value="삭제">	 					
 								</form>
 							</li>
@@ -76,6 +88,8 @@ $(document).ready(function(){
 				<ul class="view_header">
 					<li><span class="profile_img"><img src="/img/no_profile.png" alt="no_profile" width="20" height="20" title=""></span><b>&nbsp;&nbsp;${writerVo.mem_nick}</b> 님의 글 입니다.</li>
 					<li><i class="fa fa-clock-o" aria-hidden="true"></i> &nbsp;<fmt:formatDate value="${essayVo.essay_date}" pattern="yyyy-MM-dd"/></li>
+					<li>&nbsp;&nbsp;&nbsp;&nbsp;<i class="far fa-heart likeAdd"></i>&nbsp;&nbsp;</li>
+					<li class="likeNumLi">좋아요 <b class="likeNum">100</b>개</li>
 				</ul>
 				<br/>
 				<div class="essay_filter">
@@ -337,6 +351,21 @@ $(document).ready(function(){
 		</div>
 
 	</div>
+	
+	<%-- 좋아요. 삭제  폼 --%>
+	<form method="post" id="likeDeleteFrm">
+		<input type="hidden" id="like_rel_art_id" name="like_rel_art_id" value="${essayVo.essay_id}">
+		<input type="hidden" id="mem_id" name="mem_id" value="${loginInfo.mem_id}">
+	</form>
+	
+	<%-- 좋아요. 추가 --%>
+	<form method="post" id="likeAddFrm"  >
+		<input type="hidden" id="like_rel_art_id" name="like_rel_art_id" value="${essayVo.essay_id}">
+		<input type="hidden" id="mem_id" name="mem_id" value="${loginInfo.mem_id}">
+		<input type="hidden" name="filter_id" value="essay">
+	</form>
+	
+	
 	<script>
 		function commentInsert(){
 			let comt_cnt = $("#comt_cnt").val();
@@ -413,6 +442,61 @@ $(document).ready(function(){
 			
 			
 		}
+		
+		
+		// 좋아요 추가 아작스
+		function likeAddAjax(thisVar){
+			var like_heart = "";
+			var comment = "";
+			$.ajax({
+			    url : "/postCard/likeAdd",
+			    type: "POST",
+			    data: $('#likeAddFrm').serialize(),
+			    success : function(data){
+			    	    	
+			    	var thisVar2 = thisVar.parents('.postCard_con');
+					thisVar2.find('.likeNum').text(data);
+			    	
+			    	thisVar.siblings('.fa-comment').remove();
+			    	
+			    	like_heart += "<i class='fas fa-heart likeDel' style='color:#ff0000;'>";
+			    	comment += "<i class='far fa-comment'></i>";
+			    	
+			    	thisVar.parents('.postli_l2').append(like_heart);
+			    	thisVar.parents('.postli_l2').append(comment);
+					thisVar.parents('.postli_l2').children('.likeAdd').remove();
+
+			    } 
+			});	
+		};
+
+		// 좋아요 삭제 아작스
+		function likeDelAjax(thisVar){
+			var like_heart = "";
+			var comment = "";
+			$.ajax({
+			    url : "/postCard/likeDelete",
+			    type: "POST",
+			    data: $('#likeDeleteFrm').serialize(),
+			    success : function(data){
+			    	
+			    	
+			    	var thisVar2 = thisVar.parents('.postCard_con');
+					thisVar2.find('.likeNum').text(data);
+			    	
+			    	thisVar.siblings('.fa-comment').remove();
+			    	
+			    	like_heart += "<i class='far fa-heart likeAdd'></i>";
+			    	comment += "<i class='far fa-comment'></i>";
+			    	
+			    	thisVar.parents('.postli_l2').append(like_heart);
+			    	thisVar.parents('.postli_l2').append(comment);
+					thisVar.parents('.postli_l2').children('.likeDel').remove();
+			    	
+			    },
+			
+			});	
+		};
 	</script>
 </div>
 

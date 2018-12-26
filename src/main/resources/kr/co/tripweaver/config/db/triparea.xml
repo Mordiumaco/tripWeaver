@@ -7,9 +7,9 @@
 	<!-- triparea 아이디 반환 및 triparea insert 구문 -->
 	<insert id="insertTripAreaReturnId" parameterType="tripareaVo">
 		insert into triparea(triparea_id, triparea_stay_days, triparea_order, tripplan_id)
-		values(ta_seq.nextval, #{triparea_stay_days}, #{triparea_order}, #{tripplan_id})
+		values('ta'||lpad(ta_seq.nextval, 5, 0), #{triparea_stay_days}, #{triparea_order}, #{tripplan_id})
 		<selectKey order="AFTER" keyProperty="triparea_id" resultType="String">
-			select ta_seq.currval from dual
+			select 'ta'||lpad(ta_seq.currval, 5, 0) from dual
 		</selectKey>
 	</insert>
 	

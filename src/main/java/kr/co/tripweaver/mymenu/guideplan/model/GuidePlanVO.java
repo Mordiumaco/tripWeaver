@@ -29,7 +29,22 @@ public class GuidePlanVO {
 	private Date guideplan_end_day;
 	private Integer guideplan_peo_count;
 	private String essay_id;
+	private Integer total_res_people_count;
 	
+	
+	
+	@Override
+	public String toString() {
+		return "GuidePlanVO [guideplan_id=" + guideplan_id + ", guideplan_start_day=" + guideplan_start_day
+				+ ", guideplan_end_day=" + guideplan_end_day + ", guideplan_peo_count=" + guideplan_peo_count
+				+ ", essay_id=" + essay_id + ", total_res_people_count=" + total_res_people_count + "]";
+	}
+	public Integer getTotal_res_people_count() {
+		return total_res_people_count;
+	}
+	public void setTotal_res_people_count(Integer total_res_people_count) {
+		this.total_res_people_count = total_res_people_count;
+	}
 	public String getGuideplan_id() {
 		return guideplan_id;
 	}
