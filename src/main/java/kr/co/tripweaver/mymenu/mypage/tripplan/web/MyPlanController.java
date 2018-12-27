@@ -153,7 +153,7 @@ public class MyPlanController {
 			
 			
 			
-			if(!fileName.endsWith(".jpg")&&!fileName.endsWith(".gif")){
+			if(!fileName.endsWith(".jpg")&&!fileName.endsWith(".gif")&&fileName.endsWith(".png")){
 				File fileTest = new File(directory+fileName);
 				fileTest.delete();
 			}else{
