@@ -300,6 +300,9 @@ to {transform: translate(30px);}
 .con_03_List  li:nth-child(5) { position: absolute; bottom: 0;}
 .con_03_List  li img { width: 100%;}
 
+.hashTagSection { color:#0064ff !important;}
+.essayImageSection{ overflow:hidden; height: 240px; line-height: 240px;}
+
 /*==================  메인 컨텐츠 03  리스트 부분 끝 ============================*/
 
 

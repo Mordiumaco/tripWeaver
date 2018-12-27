@@ -18,9 +18,10 @@
 		});
 		
 		
-		var essaySection = new Vue({
-			el:'.essaySection',
-			data:${essayList}
+		var webSeries = new Vue({
+			
+			
+			
 		})
 		
 	});
@@ -53,6 +54,7 @@
 						<label for="sfl" class="sound_only">검색대상</label>
 						<select name="sfl" id="sfl">
 						    <option value="mb_nick">제목</option>
+						    <option value="mb_nick">내용</option>
 						</select>
 						<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
 						<input type="text" name="stx" value="" id="stx" required="" class="required frm_input">
@@ -97,7 +99,7 @@
 								    </tr>
 							    </thead>
 							    
-							    <tbody class="essaySection">
+							    <tbody>
 								    <tr class="bg0">
 								      	<td headers="mb_list_cert" class="td_mbcert">
 								            	1

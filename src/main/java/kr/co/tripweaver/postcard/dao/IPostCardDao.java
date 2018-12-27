@@ -105,4 +105,15 @@ public interface IPostCardDao {
 		*
 	 */
 	int selectAllPostClip(Map<String, Object> params);
+	
+	
+	/**
+	* Method : recentPostCardList
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 26.
+	* 변경이력 :
+	* @return
+	* Method 설명 : 메인에 사용할 포스트 카드 리스트를 받아오기 위한 메서드
+	*/
+	public List<PostCardVO> recentPostCardList();
 }

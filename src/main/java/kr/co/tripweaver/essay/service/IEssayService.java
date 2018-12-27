@@ -1,5 +1,8 @@
 package kr.co.tripweaver.essay.service;
 
+import java.util.List;
+import java.util.Map;
+
 import kr.co.tripweaver.essay.model.EssayVO;
 
 /**
@@ -47,4 +50,49 @@ public interface IEssayService {
 	* Method 설명 :
 	*/
 	public EssayVO selectEssayByEssayId(String essay_id);
+	
+	/**
+	* Method : essayUpdate
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 26.
+	* 변경이력 :
+	* @param essayVo
+	* @return
+	* Method 설명 : essay update form 에서 받은 정보로 조건에 만족하는 essay_id row를 수정한다. 
+	* 조건에 만족시 1 반환 정상적으로 데이터 업데이트가 이루어지지 않았을 시 0을 반환한다. 
+	*/
+	public int essayUpdate(EssayVO essayVo);
+	
+	/**
+	* Method : recentEssayList
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 26.
+	* 변경이력 :
+	* @return
+	* Method 설명 : 최신 에세이 글을 반환한다. 반환하는 에세이 게시글 겟수는 쿼리에서 설정할 수 있다. 
+	*/
+	public List<EssayVO> recentEssayList();
+	
+	/**
+	* Method : deleteEssayByEssayId
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 26.
+	* 변경이력 :
+	* @param essay_id
+	* @return
+	* Method 설명 : essay_id 에 해당하는 해당 에세이 db 내용에 삭제 쿼리를 Y 로 바꿔 처리한다. 
+	*/
+	public int deleteEssayByEssayId(String essay_id);
+	
+	/**
+	* Method : selectEssayByMemIdForBoard
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 27.
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 게시판 관리를 위한 에세이 관리 정보를 얻기 위해서 page 번호와 해당 회원의 아이디를 맵으로 받아서 
+	* EssayVO 객체 리스트를 반환하는 메서드
+	*/
+	public List<EssayVO> selectEssayByMemIdForBoard(Map<String, String> param);
 }

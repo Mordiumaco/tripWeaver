@@ -142,4 +142,18 @@
 		 and p.MEM_ID like '%' ||  #{tag_search} || '%'
 		 </if>
 	</select>
+	
+	
+	<!-- 메인에 사용할 postCard 최근 리스트를 가져오는 쿼리 -->
+	<select id="recentPostCardList" resultType="postcardVo">
+		select pc_id, pc_cnt
+		from
+		(
+		select * 
+		from postcard
+		where pc_del = 'N' 
+		order by pc_date desc
+		)
+		where rownum <![CDATA[<]]>=6
+	</select>
 </mapper>
