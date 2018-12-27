@@ -146,12 +146,6 @@ public class PostCardService implements IPostCardService{
 			param.put("att_rel_art_id", art_rel_art_id);
 			param.put("filter_id", attachment.getFilter_id());
 			
-			System.out.println("attachment.getAtt_path()"+attachment.getAtt_path());
-			System.out.println("attachment.getAtt_file_name()"+attachment.getAtt_file_name());
-			System.out.println("attachment.getAtt_file_ori_name()"+attachment.getAtt_file_ori_name());
-			System.out.println("art_rel_art_id"+art_rel_art_id);
-			System.out.println("attachment.getFilter_id()"+attachment.getFilter_id());
-			
 			attachmentInsertCnt = attachmentService.attachmentInsert(param);
 		}
 		

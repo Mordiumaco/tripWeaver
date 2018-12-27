@@ -8,20 +8,34 @@ import kr.co.tripweaver.common.comment.model.CommentVO;
 
 public class PostCardVO {
 
-	private String pc_id ;
-	private String pc_cnt;
-	private Date pc_date;
-	private int pc_view_count;
-	private int pc_like_count;
-	private String pc_del;
-	private String mem_id;
-	private String mem_nick;
-	private String mem_profile;
-	private List<String> hashTagList;
+	private String 			pc_id ;
+	private String 			pc_cnt;
+	private Date 			pc_date;
+	private int 			pc_view_count;
+	private int 			pc_like_count;
+	private String 			pc_del;
+	private String 			mem_id;
+	private String 			mem_nick;
+	private String 			mem_profile;
+	private List<String> 	hashTagList;
 	private List<CommentVO> commentList;
-	private List<AttachmentVO> attachmentList;
+	private List<AttachmentVO>  attachmentList;
+	private String 				att_path;
+	private String 				att_file_name;
 	
 	
+	public String getAtt_path() {
+		return att_path;
+	}
+	public void setAtt_path(String att_path) {
+		this.att_path = att_path;
+	}
+	public String getAtt_file_name() {
+		return att_file_name;
+	}
+	public void setAtt_file_name(String att_file_name) {
+		this.att_file_name = att_file_name;
+	}
 	public List<AttachmentVO> getAttachmentList() {
 		return attachmentList;
 	}

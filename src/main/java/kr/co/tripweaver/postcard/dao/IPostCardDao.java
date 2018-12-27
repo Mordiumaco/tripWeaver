@@ -75,6 +75,34 @@ public interface IPostCardDao {
 		*
 	 */
 	PostCardVO selectPostcard(String pc_id);
-
-
+	
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 :  박찬배
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 마이페이지 클립보드 포스트카드 리스트 뿌리기
+		*
+	 */
+	
+	List<PostCardVO> selectPostcardClip(Map<String, Object> params);
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 마이페이지 클립보드 포스트카드 총 갯수 가져오기
+		*
+	 */
+	int selectAllPostClip(Map<String, Object> params);
 }
