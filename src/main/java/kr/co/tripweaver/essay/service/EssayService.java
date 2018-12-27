@@ -1,6 +1,7 @@
 package kr.co.tripweaver.essay.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,5 +85,20 @@ public class EssayService implements IEssayService{
 	@Override
 	public int deleteEssayByEssayId(String essay_id) {
 		return essayDao.deleteEssayByEssayId(essay_id);
+	}
+	
+	/**
+	* Method : selectEssayByMemIdForBoard
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 27.
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 게시판 관리를 위한 에세이 관리 정보를 얻기 위해서 page 번호와 해당 회원의 아이디를 맵으로 받아서 
+	* EssayVO 객체 리스트를 반환하는 메서드
+	*/
+	@Override
+	public List<EssayVO> selectEssayByMemIdForBoard(Map<String, String> param){
+		return essayDao.selectEssayByMemIdForBoard(param);
 	}
 }

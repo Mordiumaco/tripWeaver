@@ -1,6 +1,7 @@
 package kr.co.tripweaver.essay.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.tripweaver.essay.model.EssayVO;
 
@@ -85,4 +86,16 @@ public interface IEssayDao {
 	* Method 설명 : essay_id 에 해당하는 해당 에세이 db 내용에 삭제 쿼리를 Y 로 바꿔 처리한다. 
 	*/
 	public int deleteEssayByEssayId(String essay_id);
+	
+	/**
+	* Method : selectEssayByMemIdForBoard
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 27.
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 게시판 관리를 위한 에세이 관리 정보를 얻기 위해서 page 번호와 해당 회원의 아이디를 맵으로 받아서 
+	* EssayVO 객체 리스트를 반환하는 메서드
+	*/
+	public List<EssayVO> selectEssayByMemIdForBoard(Map<String, String> param);
 }

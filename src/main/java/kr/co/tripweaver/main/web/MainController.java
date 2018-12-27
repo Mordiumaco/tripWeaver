@@ -272,7 +272,7 @@ public class MainController {
 		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
 		
 		if(memberVo == null) {
-			mav.setViewName("LoginCheckError");
+			mav.setViewName("loginCheckError");
 			return mav;
 		}
 		
