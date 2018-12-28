@@ -227,8 +227,9 @@ public class EssayController {
 		//해당 회원이 로그인 되있나 확인 
 		MemberVO loginMemberVo = (MemberVO)session.getAttribute("loginInfo");
 		
-	
+		//해당 글의 조회 수를 올려 준다. 
 		
+		essayService.addViewCountByEssayId(essay_id);
 		
 		logger.debug("-------------------------");
 		logger.debug("essay_id : {} ", essay_id);

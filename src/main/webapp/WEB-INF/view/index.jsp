@@ -417,19 +417,32 @@ $(document).ready(function () {
 
 <div class="main_con_03">
 	
-
+	<script>
+		text = "${recentEssayVo.essay_cnt}"
+		text = text.replace(/<br\/>/ig, "\n"); 
+		text = text.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
+	</script>
 	<c:forEach items="${recentEssayList}" var="recentEssayVo">
 	<div class="con_03_List">
 		<a href="/essay/essayView?essay_id=${recentEssayVo.essay_id}">
 			<ul>
 				<li>Essay</li>
 				<li>${recentEssayVo.essay_title}</li>
+			
 				<c:choose>
 					<c:when test="${fn:length(recentEssayVo.essay_cnt) > 50 }">
-						<li>${fn:substring(recentEssayVo.essay_cnt,0,50)}...</li>
+						
+						<li>.${fn:substring(recentEssayVo.essay_cnt,0,50)}<br/>...</li>
+
+					</c:when>
+					<c:when test="${recentEssayVo.essay_cnt == null}">
+						<li>&nbsp;&nbsp;</li>
+					</c:when>
+					<c:when test="${fn:length(recentEssayVo.essay_cnt) == 0}">
+						<li>&nbsp;&nbsp;</li>
 					</c:when>
 					<c:otherwise>
-						<li>${recentEssayVo.essay_cnt}</li>
+						<li>${recentEssayVo.essay_cnt}&nbsp;</li>
 					</c:otherwise>
 				</c:choose>
 				<li><i class="fa fa-clock-o" aria-hidden="true"></i><fmt:formatDate value="${recentEssayVo.essay_date}" pattern="YYYY. MM. dd"/></li>

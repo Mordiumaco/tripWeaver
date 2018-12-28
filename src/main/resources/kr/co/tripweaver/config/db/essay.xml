@@ -26,8 +26,19 @@
 		    select * from essay where mem_id = #{mem_id}
 		    order by essay_date asc
 		) myessay
-		where rownum between 1+(#{page-1}*10) and (#{page}*10)
+		where rownum between 1+((to_number(#{page})-1)*10) and (to_number(#{page})*10)
 		order by rnum desc
+	</select>
+	
+	<!-- 게시글 관리의 에세이 개수를 알기위한 쿼리문-->
+	<select id="essayTotalCount" resultType="Integer" parameterType="String">
+		select count(rownum)
+		from
+		(
+		    select * from essay where mem_id = #{mem_id}
+		    order by essay_date asc
+		) myessay
+		order by rownum desc
 	</select>
 	
 	<!-- essay update(수정) query -->
@@ -58,4 +69,13 @@
 		set essay_del = 'Y'
 		where essay_id = #{essay_id}
 	</update>
+	
+	<!-- 해당 에세이 글의 조회수를 올려준다. -->
+	<update id="addViewCountByEssayId" parameterType="String">
+		update essay
+		set essay_view_count = (essay_view_count+1)
+		where essay_id = #{essay_id}
+	</update>
+	
+	
 </mapper>
