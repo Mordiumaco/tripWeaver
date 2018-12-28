@@ -101,4 +101,32 @@ public class EssayService implements IEssayService{
 	public List<EssayVO> selectEssayByMemIdForBoard(Map<String, String> param){
 		return essayDao.selectEssayByMemIdForBoard(param);
 	}
+	
+	/**
+	* Method : essayTotalCount
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 27.
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 해당 회원이 쓴 에세이 목록을 조회하여 해당 회원이 가지고 있는 게시물 수를 반환한다. 
+	*/
+	@Override
+	public Integer essayTotalCount(String mem_id) {
+		return essayDao.essayTotalCount(mem_id);
+	}
+	
+	/**
+	* Method : addViewCountByEssayId
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 28.
+	* 변경이력 :
+	* @param essay_id
+	* @return
+	* Method 설명 : 에세이 글을 클릭할 시 해당 에세이의 조회수를 올려준다. 
+	*/
+	public int addViewCountByEssayId(String essay_id) {
+		return essayDao.addViewCountByEssayId(essay_id);
+	}
+	
 }

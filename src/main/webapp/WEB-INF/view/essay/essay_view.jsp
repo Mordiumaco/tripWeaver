@@ -297,9 +297,11 @@ $(document).ready(function(){
 					</table>
 				</div>
 				
-				<p class="view_con">
+				<div class="view_con" style="text-overflow: scroll;">
+				
 					 ${essayVo.essay_cnt}
-				</p>
+					 
+				</div>
 				
 				
 				<br/><br/><br/>

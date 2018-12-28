@@ -6,11 +6,14 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.co.tripweaver.essay.dao.EssayDao;
 import kr.co.tripweaver.essay.model.EssayVO;
 import kr.co.tripweaver.essay.service.IEssayService;
 import kr.co.tripweaver.member.model.MemberVO;
@@ -40,6 +43,8 @@ import kr.co.tripweaver.member.model.MemberVO;
 @Controller
 public class MyPageController {
 	
+	Logger logger = LoggerFactory.getLogger(MyPageController.class);
+	
 	@Autowired
 	IEssayService essayService;
 	
@@ -68,11 +73,48 @@ public class MyPageController {
 		//에세이 초기 리스트 출력 
 		List<EssayVO> essayList = essayService.selectEssayByMemIdForBoard(essayParam);
 		
+		logger.debug("Mypage 게시판 관리 섹션 essayList : {}", essayList);
 		
+		//해당 회원이 가지고 있는 에세이 수 출력
+		Integer essayTotalCnt = essayService.essayTotalCount(memberVo.getMem_id());
+		int essayTotalPage = ((int)(essayTotalCnt/10))+((essayTotalCnt%10) == 0 ? 0: 1);
 		
-		model.addAttribute("essayList", essayList);
+		model.addAttribute("essayList", essayList); //에세이 리스트
+		model.addAttribute("essayTotalCnt", essayTotalCnt); //총 에세이 수 
+		model.addAttribute("essayTotalPage", essayTotalPage); //총 에세이 페이지
 		
 		return "mypage/myPost";
 	}
 	
+	/**
+	* Method : essayPageAjaxView
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 28.
+	* 변경이력 :
+	* @param session
+	* @param page
+	* @param model
+	* @return
+	* Method 설명 : 페이지에 해당하는 에세이 객체 목록을 받아옴 
+	*/
+	@RequestMapping("/essayPageAjax")
+	public String essayPageAjaxView(HttpSession session, String page, Model model) {
+		
+		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
+		
+		if(memberVo == null) {
+			return "loginCheckError";
+		}
+		
+		Map<String, String> param = new HashMap<>();
+		
+		param.put("page", page);
+		param.put("mem_id", memberVo.getMem_id());
+		
+		List<EssayVO> essayList = essayService.selectEssayByMemIdForBoard(param);
+		
+		model.addAttribute("essayList", essayList);
+		
+		return "jsonView";
+	}
 }
