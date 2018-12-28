@@ -117,6 +117,7 @@ public interface IPostCardDao {
 	*/
 	public List<PostCardVO> recentPostCardList();
 	
+
 	
 	/**
 	* Method : selectPostCardByMemIdForBoard
@@ -140,4 +141,5 @@ public interface IPostCardDao {
 	* Method 설명 : 해당 회원이 가지고 있는 총 포스트 카드 게시물 수를 반환
 	*/
 	public Integer postCardTotalCount(String mem_id);
+
 }

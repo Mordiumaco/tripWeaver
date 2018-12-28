@@ -6,6 +6,7 @@
 <script type="text/javascript">
 // 기본형식
 $(function(){
+	getAjaxList1(1, '', 'e.essay_title');
 	getAjaxList2(1, '', 'm.mem_nick');
 	
 	
@@ -21,6 +22,14 @@ $(function(){
 	});
 	
 	
+	$('#web1').on('click','.btn_submit2', function() {
+		var tag_search = $(this).parents('#fsearch').find('#stx').val();
+		var search_title = $(this).parents('#fsearch').find('#sfl').val();
+		
+		getAjaxList1(1, tag_search, search_title);
+	})
+	
+	
 	$('#web2').on('click','.btn_submit', function() {
 		var tag_search = $(this).parents('#fsearch').find('#stx').val();
 		var search_title = $(this).parents('#fsearch').find('#sfl').val();
@@ -29,8 +38,20 @@ $(function(){
 	})
 	
 });
-	
 
+function getAjaxList1(page, tag_search, search_title) {
+	var pageSize = 9;
+	var mem_id = "${loginInfo.mem_id}";
+	
+	$.ajax({
+		url : "/clipEssayAjaxList",
+		type : "get",
+		data : "page="+page+"&pageSize="+pageSize+"&mem_id="+mem_id+"&tag_search="+tag_search+"&search_title="+search_title,
+		success : function(dt){
+			$("#web1").html(dt);
+		}
+	});
+}	
 
 function getAjaxList2(page, tag_search, search_title) {
 	var pageSize = 9;
@@ -41,6 +62,7 @@ function getAjaxList2(page, tag_search, search_title) {
 		type : "get",
 		data : "page="+page+"&pageSize="+pageSize+"&mem_id="+mem_id+"&tag_search="+tag_search+"&search_title="+search_title,
 		success : function(dt){
+			console.log('123');
 			$("#web2").html(dt);
 		}
 	});
@@ -63,150 +85,6 @@ function getAjaxList2(page, tag_search, search_title) {
 		<ul class="content">
 			<li id="web1">
 				
-					<h1 class="mypage_title">Essay 클립보드</h1>
-					
-				
-					<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
-						<label for="sfl" class="sound_only">검색대상</label>
-						<select name="sfl" id="sfl">
-						    <option value="mb_nick">제목</option>
-						    <option value="mb_nick">내용</option>
-						    <option value="mb_nick">닉네임</option>
-						</select>
-						<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
-						<input type="text" name="stx" value="" id="stx" required="" class="required frm_input">
-						<input type="submit" class="btn_submit" value="검색">
-					</form>
-					
-					<br/>
-					
-					<div class="clipBoard_list">
-						<ul>
-							<li><img src="/img/p_04.jpg"></li>
-							<li class="clipBoard_btn">
-								<ul>
-									<li><b>&#10084;</b></li>
-									<li><i class="fa fa-commenting-o fa-commenting-o2" aria-hidden="true"></i></li>
-									<li><i class="fa fa-share-alt fa-share-alt2" aria-hidden="true"></i></li>
-									<li><img src="/img/icon/declaration.png"></li>
-								</ul>
-							</li>
-							<li><b>&#10084; 좋아요 527개</b> <span>HIT <b>258</b></span> </li>
-							<li>감성 힐링 경천여행</li>
-							<li>2018. 01 .24</li>
-							<li>
-								내용을 먹여서 내용이 나오고 내용이 나와서 내용이 보이고 내용이 보여서 
-							</li>
-						</ul>
-						
-						<ul>
-							<li><img src="/img/p_04.jpg"></li>
-							<li class="clipBoard_btn">
-								<ul>
-									<li><b>&#10084;</b></li>
-									<li><i class="fa fa-commenting-o fa-commenting-o2" aria-hidden="true"></i></li>
-									<li><i class="fa fa-share-alt fa-share-alt2" aria-hidden="true"></i></li>
-									<li><img src="/img/icon/declaration.png"></li>
-								</ul>
-							</li>
-							<li><b>&#10084; 좋아요 527개</b> <span>HIT <b>258</b></span> </li>
-							<li>감성 힐링 경천여행</li>
-							<li>2018. 01 .24</li>
-							<li>
-								내용을 먹여서 내용이 나오고 내용이 나와서 내용이 보이고 내용이 보여서 
-							</li>
-						</ul>
-						
-						<ul>
-							<li><img src="/img/p_04.jpg"></li>
-							<li class="clipBoard_btn">
-								<ul>
-									<li><b>&#10084;</b></li>
-									<li><i class="fa fa-commenting-o fa-commenting-o2" aria-hidden="true"></i></li>
-									<li><i class="fa fa-share-alt fa-share-alt2" aria-hidden="true"></i></li>
-									<li><img src="/img/icon/declaration.png"></li>
-								</ul>
-							</li>
-							<li><b>&#10084; 좋아요 527개</b> <span>HIT <b>258</b></span> </li>
-							<li>감성 힐링 경천여행</li>
-							<li>2018. 01 .24</li>
-							<li>
-								내용을 먹여서 내용이 나오고 내용이 나와서 내용이 보이고 내용이 보여서 
-							</li>
-						</ul>
-						
-						<ul>
-							<li><img src="/img/p_04.jpg"></li>
-							<li class="clipBoard_btn">
-								<ul>
-									<li><b>&#10084;</b></li>
-									<li><i class="fa fa-commenting-o fa-commenting-o2" aria-hidden="true"></i></li>
-									<li><i class="fa fa-share-alt fa-share-alt2" aria-hidden="true"></i></li>
-									<li><img src="/img/icon/declaration.png"></li>
-								</ul>
-							</li>
-							<li><b>&#10084; 좋아요 527개</b> <span>HIT <b>258</b></span> </li>
-							<li>감성 힐링 경천여행</li>
-							<li>2018. 01 .24</li>
-							<li>
-								내용을 먹여서 내용이 나오고 내용이 나와서 내용이 보이고 내용이 보여서 
-							</li>
-						</ul>
-						
-						<ul>
-							<li><img src="/img/p_04.jpg"></li>
-							<li class="clipBoard_btn">
-								<ul>
-									<li><b>&#10084;</b></li>
-									<li><i class="fa fa-commenting-o fa-commenting-o2" aria-hidden="true"></i></li>
-									<li><i class="fa fa-share-alt fa-share-alt2" aria-hidden="true"></i></li>
-									<li><img src="/img/icon/declaration.png"></li>
-								</ul>
-							</li>
-							<li><b>&#10084; 좋아요 527개</b> <span>HIT <b>258</b></span> </li>
-							<li>감성 힐링 경천여행</li>
-							<li>2018. 01 .24</li>
-							<li>
-								내용을 먹여서 내용이 나오고 내용이 나와서 내용이 보이고 내용이 보여서 
-							</li>
-						</ul>
-						
-						<ul>
-							<li><img src="/img/p_04.jpg"></li>
-							<li class="clipBoard_btn">
-								<ul>
-									<li><b>&#10084;</b></li>
-									<li><i class="fa fa-commenting-o fa-commenting-o2" aria-hidden="true"></i></li>
-									<li><i class="fa fa-share-alt fa-share-alt2" aria-hidden="true"></i></li>
-									<li><img src="/img/icon/declaration.png"></li>
-								</ul>
-							</li>
-							<li><b>&#10084; 좋아요 527개</b> <span>HIT <b>258</b></span> </li>
-							<li>감성 힐링 경천여행</li>
-							<li>2018. 01 .24</li>
-							<li>
-								내용을 먹여서 내용이 나오고 내용이 나와서 내용이 보이고 내용이 보여서 
-							</li>
-						</ul>
-					</div>
-					
-					<nav class="pg_wrap"><span class="pg">
-						<span class="sound_only">열린</span>
-							<strong class="pg_current">1</strong><span class="sound_only">페이지</span>
-							<a href="" class="pg_page">2<span class="sound_only">페이지</span></a>
-							<a href="" class="pg_page">3<span class="sound_only">페이지</span></a>
-							<a href="" class="pg_page">4<span class="sound_only">페이지</span></a>
-							<a href="" class="pg_page">5<span class="sound_only">페이지</span></a>
-							<a href="" class="pg_page">6<span class="sound_only">페이지</span></a>
-							<a href="" class="pg_page">7<span class="sound_only">페이지</span></a>
-							<a href="" class="pg_page">8<span class="sound_only">페이지</span></a>
-							<a href="" class="pg_page">9<span class="sound_only">페이지</span></a>
-							<a href="" class="pg_page">10<span class="sound_only">페이지</span></a>
-							<a href="" class="pg_page pg_next">다음</a>
-							<a href="" class="pg_page pg_end">맨끝</a>
-						</span>
-					</nav>
-					
 			</li>
 			<li id="web2">
 				

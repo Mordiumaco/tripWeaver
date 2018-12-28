@@ -34,4 +34,12 @@ public class ConnStatDao implements IConnStatDao {
 		return pageCnt;
 	}
 
+	@Override
+	public List<ConnStatVO> selectConnStat(Map<String, Object> params) {
+		String start = (String) params.get("start");
+		String end = (String) params.get("end");
+		List<ConnStatVO> connStatVOs = template.selectList("connInfoSQL.selectConnStat", params);
+		return connStatVOs;
+	}
+
 }

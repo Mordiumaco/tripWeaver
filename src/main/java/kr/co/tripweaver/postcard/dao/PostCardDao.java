@@ -213,4 +213,6 @@ public class PostCardDao implements IPostCardDao{
 		
 		return totalEssayCnt;
 	}
+	
+	
 }
