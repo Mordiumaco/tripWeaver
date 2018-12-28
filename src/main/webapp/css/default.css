@@ -300,6 +300,9 @@ to {transform: translate(30px);}
 .con_03_List  li:nth-child(5) { position: absolute; bottom: 0;}
 .con_03_List  li img { width: 100%;}
 
+.hashTagSection { color:#0064ff !important;}
+.essayImageSection{ overflow:hidden; height: 240px; line-height: 240px;}
+
 /*==================  메인 컨텐츠 03  리스트 부분 끝 ============================*/
 
 
@@ -867,13 +870,13 @@ position:absolute;z-index:-1;top:2%;bottom:0;left:10px;right:10px;
 .pg a:first-child{border-top-left-radius:5px;border-bottom-left-radius:5px;}
 .pg a:last-child{border-top-right-radius:5px;border-bottom-right-radius:5px;}
 .pg_page {background:#fff;text-decoration:none}
-.pg_start {background:url(../img/page_1.png) 50% 50% no-repeat;width:32px;text-indent:-999px;overflow:hidden}
-.pg_prev {background:url(../img/page_2.png) 50% 50% no-repeat;width:32px;text-indent:-999px;overflow:hidden}
-.pg_next {background:url(../img/page_3.png) 50% 50% no-repeat;width:32px;text-indent:-999px;overflow:hidden}
-.pg_end {background:url(../img/page_4.png) 50% 50% no-repeat;width:32px;text-indent:-999px;overflow:hidden}
-.pg_current {display:inline-block;background:#41384b;color:#fff;font-weight:normal}
+.pg_start {background:url(../img/page_1.png) 50% 50% no-repeat;width:32px; height:32px; text-indent:-999px;overflow:hidden}
+.pg_prev {background:url(../img/page_2.png) 50% 50% no-repeat;width:32px; height:32px; text-indent:-999px;overflow:hidden}
+.pg_next {background:url(../img/page_3.png) 50% 50% no-repeat;width:32px; height:32px; text-indent:-999px;overflow:hidden}
+.pg_end {background:url(../img/page_4.png) 50% 50% no-repeat;width:32px; height:32px; text-indent:-999px;overflow:hidden}
+.pg_current {display:inline-block;background:#41384b; color:#fff !important; font-weight:normal}
 
-.social_config_explain p{padding-bottom:10px}
+.social_config_explain p {padding-bottom:10px} 
 
 /* 테이블 */
 table {clear:both;width:100%;border-collapse:collapse;border-spacing:0;}
@@ -1034,7 +1037,9 @@ a.btn_ov02:hover,a.ov_listall:hover{background:#3f51b5}
 
 .clipBoard_btn { border-bottom:1px solid #ddd; margin-bottom: 5px; height: 35px; line-height: 35px;}
 .clipBoard_btn ul li { display: inline-block !important; padding: 0; height: 35px; position: relative;}
+.clipBoard_btnP ul li { display: inline-block !important; padding: 0; height:0; position: relative;}
 .clipBoard_btn ul li:nth-child(1) b {  font-size: 1.8em; color: #ff0000; position: absolute; top:0px; }
+.clipBoard_btn ul li:nth-child(1) span { margin-left: 35px; display: inline-block; font-weight: bold; font-size: 1.2em;} 
 .clipBoard_btn ul li:nth-child(4) {float: right; }
 .clipBoard_btn ul li:nth-child(4) img {position: absolute; top:4px; right: 0px; width: 24px; height: 22px;}
 .fa-commenting-o2 { font-size: 1.6em !important; position: absolute; top:5px; left: 28px}
@@ -1271,7 +1276,7 @@ a.btn_ov02:hover,a.ov_listall:hover{background:#3f51b5}
 .postCard_con>li:nth-child(8) { padding: 10px 10px; font-size: 1.2em;}
 .postCard_con>li:nth-child(8) span { display: block; padding:4px 0 ;}
 .postCard_con>li:nth-child(9) { width: 97%; padding:10px 0; margin: 5px auto 0; border-top:1px solid rgba(0,0,0,.0975);}
-.postCard_con>li:nth-child(9) input[type=text] { padding-left: 10px; height: 40px; font-size: 1.2em; width: 530px; border: none;}
+.postCard_con>li:nth-child(9) input[type=text] { padding-left: 10px; height: 40px; font-size: 1.2em; width: 550px; border: none;} 
 .postCard_con>li:nth-child(9) button { border: 1px solid #ccc; padding: 12px; background: #fff;}
 .postCard_con>li:nth-child(9) button:hover { color: #000; font-weight: bold; background: #ccc;}
 
@@ -1287,7 +1292,7 @@ a.btn_ov02:hover,a.ov_listall:hover{background:#3f51b5}
 .hashTagList { width: 100%; height: 628px; background: #fff;  overflow-y: scroll; border:1px solid rgba(0,0,0,.0975); border-radius: 5px; }
 
 .hashTagList li  { width:90%; margin:0 auto;  font-size: 1.4em; text-align: center; height: 80px; line-height: 80px; border-bottom:1px solid rgba(0,0,0,.0975);}
-.hashTagList div {color: #0064ff; float: left; width: 40%; font-size: 1em;}
+.hashTagList div {color: #0064ff; float: left; width: 40%; font-size: 1em; height: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .hashTagList a { color: #0064ff;  font-size: 1em; cursor: pointer; }
 .hashTagList li>b { float: left; width:20%;  font-size: 1.5em;}
 .hashTagList span { width:40%; float:left; font-weight: 600; color: #666;}
@@ -1322,4 +1327,16 @@ a.btn_ov02:hover,a.ov_listall:hover{background:#3f51b5}
 /* 추가 알람 css*/
 .alram { background: #ffec42;  width:20px; height:20px; border-radius: 50px; display: block; position: absolute; top: 30px; left:55px; line-height: 20px; text-align: center;}
 .pointer { position: relative;}
+
+
+.declaration_btn { cursor: pointer; }
+.postcard_pop_layer { width: 400px !important; height: 250px !important; overflow: hidden; border-radius: 10px;}
+.postcard_pop_layer ul li:nth-child(1) { height: 40px;  }
+.postcard_pop_layer ul li:nth-child(1) input[type=text] { width:24%; height: 30px; margin-right: 10px;}
+.postcard_pop_layer ul li:nth-child(1) select { height: 30px; width: 72%;}
+.postcard_pop_layer ul li:nth-child(2) { height: 150px;  }
+.postcard_pop_layer ul li:nth-child(2) textarea { width: 100%; height: 140px; resize: none;}
+.postcard_pop_layer ul li:nth-child(3) { height: 30px; line-height: 30px; text-align: center;}
+.postcard_pop_layer ul li:nth-child(3) input[type=submit]{  background: #fff; border: none; border-right: 1px solid #ccc; padding: 5px 20px; font-weight:bold; cursor: pointer;}
+.postcard_pop_layer ul li:nth-child(3) a {  background: #fff;  padding: 5px 20px; cursor: pointer; color: #666;}
 

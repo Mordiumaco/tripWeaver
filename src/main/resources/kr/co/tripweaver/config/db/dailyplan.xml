@@ -7,7 +7,7 @@
 	<!-- dailyplan insert 구문 -->
 	<insert id="insertDailyPlan" parameterType="dailyPlanVo">
 		insert into dailyplan(dailyplan_id,dailyplan_order,dailyplan_area,dailyplan_cnt,dailyplan_day,dailyplan_traffic,dailyplan_room,tripplan_id)
-		values(dp_seq.nextval,#{dailyplan_order},#{dailyplan_area},#{dailyplan_cnt},#{dailyplan_day},#{dailyplan_traffic},#{dailyplan_room},#{tripplan_id})
+		values('dp'||lpad(dp_seq.nextval, 5, 0),#{dailyplan_order},#{dailyplan_area},#{dailyplan_cnt},#{dailyplan_day},#{dailyplan_traffic},#{dailyplan_room},#{tripplan_id})
 	</insert>
 
 	<select id="selectDailyPlanByTripplanId" parameterType="String" resultType="dailyPlanVo">

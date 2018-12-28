@@ -53,7 +53,33 @@ public class ArticleService implements IArticleService {
 	public String insertArticle(ArticleVO articleVo) {
 		return articleDao.insertArticle(articleVo);
 	}
+	
+	/**
+	* Method : updateArticle
+	* 작성자 : pc23
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 게시글 수정
+	*/
+	@Override
+	public int updateArticle(ArticleVO articleVo) {
+		return articleDao.updateArticle(articleVo);
+	}
 
+	/**
+	* Method : deleteArticle
+	* 작성자 : pc23
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 게시글 삭제
+	*/
+	@Override
+	public int deleteArticle(Map<String, Object> param) {
+		return articleDao.deleteArticle(param);
+	}
+	
 	/**
 	* Method : getArticleDetail
 	* 작성자 : pc23
@@ -66,6 +92,10 @@ public class ArticleService implements IArticleService {
 	public ArticleVO getArticleDetail(String art_id) {
 		return articleDao.getArticleDetail(art_id);
 	}
+
+	
+
+	
 
 
 	

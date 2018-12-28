@@ -132,7 +132,7 @@ $(document).ready(function(){
 		
 		<c:if test="${guidePlanList != null}">
 			<h6 class="leftUl2_title">예약 가능한 날짜</h6>
-			<form action="/essay/insertReservationForm" method="post">
+			<form action="/reservationForEssay" method="post">
 			<c:forEach items="${guidePlanList}" var="guidePlanVo" varStatus="loop">
 				<table class="reservation_list reservation_list${loop.index+1}">
 					<tr>
@@ -144,18 +144,21 @@ $(document).ready(function(){
 						<td><fmt:formatDate value="${guidePlanVo.guideplan_end_day}" pattern="yyyy .MM .dd"/></td>
 					</tr>
 					<tr>
-						<th>선택</th>
-						<td><input type="radio" id="re${loop.index+1}" name="guideplan_id" value="${guidePlanVo.guideplan_id}" required="required"></td>
-					</tr>
-					<tr>
 						<th>예약 가능인원</th>
 						<td>${guidePlanVo.guideplan_peo_count}</td>
 					</tr>
-	
+					<tr>
+						<th>예약 가능한 남은 인원</th>
+						<td>${guidePlanVo.guideplan_peo_count-guidePlanVo.total_res_people_count}</td>
+					</tr>
+					<tr>
+						<th>선택</th>
+						<td><input type="radio" id="re${loop.index+1}" name="guideplan_id" value="${guidePlanVo.guideplan_id}" required="required"></td>
+					</tr>
 				</table>						
 			</c:forEach>
-			<div class="reservation_num"> 동행 인원 : <input type="number" placeholder="숫자만 입력하세요." required="required"> 명</div>
-			<input class="reservation_btn classname" type="submit" value="예약하기">
+			<div class="reservation_num"> 동행 인원 : <input type="number" name="reser_apply_peo_count" placeholder="숫자만 입력하세요." required="required"> 명</div>
+				<input class="reservation_btn classname" type="submit" value="예약하기">
 			</form>
 		</c:if>
 		<!-- <table class="reservation_list reservation_list1">

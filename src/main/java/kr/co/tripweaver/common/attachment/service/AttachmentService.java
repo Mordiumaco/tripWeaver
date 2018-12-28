@@ -40,5 +40,42 @@ public class AttachmentService implements IAttachmentService {
 	public List<AttachmentVO> getAttachmemt(String art_id) {
 		return attachmentDao.getAttachmemt(art_id);
 	}
+
+	/**
+	* Method : attachmentDelete
+	* 작성자 : pc23
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 파일 삭제(수정)
+	*/
+	@Override
+	public int attachmentDelete(Map<String, Object> param) {
+		return attachmentDao.attachmentDelete(param);
+	}
+	
+	
+	
+	
+	
+	
+	
+	/****************************************************************************/
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 박찬배
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 포스트카드 파일 찾기
+		*
+	 */
+	@Override
+	public List<AttachmentVO> selectPostcardFile(String att_rel_art_id) {
+		return attachmentDao.selectPostcardFile(att_rel_art_id);
+	}
 	
 }

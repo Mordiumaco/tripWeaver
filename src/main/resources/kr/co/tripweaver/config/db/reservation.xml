@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reservationSQL">
+
+
+	<!-- reservation insert -->
+	<insert id="insertReser" parameterType="reservationVo">
+		insert into reservation 
+		(reser_id,reser_date,reser_apply_peo_count,mem_id,guideplan_id)
+		 values ('res'||lpad(res_seq.nextval, 5, 0),sysdate,#{reser_apply_peo_count},#{mem_id},#{guideplan_id})	
+	</insert>
+	
+	<!-- 로그인 한 회원의 예약 조회 -->
+	<select id="selectReserByMemId" parameterType="String" resultType="reservationVo">
+		select * from reservation where mem_id = #{mem_id}
+	</select>
+	
+	<!-- 해당 가이드를 위한 예약 조회 확인 리스트  -->
+	<select id="selectReserForGuide" parameterType="String" resultType="reservationVo">
+		select * from reservation where mem_id = #{mem_id}
+	</select>
+	
+	<!-- 해당 가이드 예약일자에 대한 총 예약 인원 수 -->
+	<select id="reserTotalPeopleCountByGuidePlanId" resultType="Integer" parameterType="String">
+		select sum(res.reser_apply_peo_count) total_people_count
+		from guideplan gp, reservation res
+		where gp.guideplan_id = res.guideplan_id
+		and gp.guideplan_id = #{guideplan_id}
+	</select>
+	
+</mapper>

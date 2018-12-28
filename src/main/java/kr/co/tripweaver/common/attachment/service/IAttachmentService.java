@@ -27,4 +27,29 @@ public interface IAttachmentService {
 	*/
 	public List<AttachmentVO> getAttachmemt(String art_id);
 	
+	/**
+	* Method : attachmentDelete
+	* 작성자 : pc23
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 파일 삭제(수정)
+	*/
+	public int attachmentDelete(Map<String, Object> param);
+	
+	/***************************************************************/
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 박찬배
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 포스트카드 파일 찾기
+		*
+	 */
+	public List<AttachmentVO> selectPostcardFile(String att_rel_art_id);
+	
 }

@@ -16,10 +16,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sun.org.apache.regexp.internal.recompile;
-
 import kr.co.tripweaver.common.comment.model.CommentVO;
 import kr.co.tripweaver.common.comment.service.ICommentService;
+import kr.co.tripweaver.common.like.model.LikeVO;
+import kr.co.tripweaver.common.like.service.ILikeService;
 import kr.co.tripweaver.essay.model.EssayVO;
 import kr.co.tripweaver.essay.service.IEssayService;
 import kr.co.tripweaver.member.model.MemberVO;
@@ -35,6 +35,7 @@ import kr.co.tripweaver.mymenu.mypage.tripplan.service.IDailyPlanService;
 import kr.co.tripweaver.mymenu.mypage.tripplan.service.IMapMarkerService;
 import kr.co.tripweaver.mymenu.mypage.tripplan.service.ITripAreaService;
 import kr.co.tripweaver.mymenu.mypage.tripplan.service.ITripPlanService;
+import kr.co.tripweaver.mymenu.reservation.service.IReservationService;
 
 @RequestMapping("/essay")
 @Controller
@@ -65,6 +66,12 @@ public class EssayController {
 	
 	@Autowired
 	ICommentService commentService;
+	
+	@Autowired
+	IReservationService reservationService;
+	
+	@Autowired
+	ILikeService likeService;
 	
 	@RequestMapping("/write")
 	public ModelAndView essayWriteView(HttpSession session) {
@@ -215,14 +222,38 @@ public class EssayController {
 	* Method 설명 :essay 상세보기를 위한 컨트롤러 뷰 
 	*/
 	@RequestMapping("/essayView")
-	public String essayView(Model model, String essay_id) {
+	public String essayView(Model model, String essay_id, HttpSession session) {
 		
+		//해당 회원이 로그인 되있나 확인 
+		MemberVO loginMemberVo = (MemberVO)session.getAttribute("loginInfo");
+		
+		//해당 글의 조회 수를 올려 준다. 
+		
+		essayService.addViewCountByEssayId(essay_id);
 		
 		logger.debug("-------------------------");
 		logger.debug("essay_id : {} ", essay_id);
 		logger.debug("-------------------------");
 		
 		EssayVO essayVo = essayService.selectEssayByEssayId(essay_id);
+		
+		
+		//로그인이 되어 있으면 해당 하트 표시를 보여줌 
+		if(loginMemberVo != null) {
+			
+			LikeVO likeVo = new LikeVO();
+			likeVo.setLike_rel_art_id(essayVo.getEssay_id());
+			likeVo.setMem_id(loginMemberVo.getMem_id());
+			
+			LikeVO resultLikeVo = likeService.likeCheckByMemIdAndLikeRelId(likeVo);
+			
+			
+			model.addAttribute("likeVo", resultLikeVo);
+		}
+		
+		//좋아요 수 처음 체크할때
+		int likeCount = likeService.likeCount(essayVo.getEssay_id());
+		model.addAttribute("likeCount", likeCount);
 		
 		//글쓴이 받아오기 
 		MemberVO memberVo = memberService.selectMemberById(essayVo.getMem_id());
@@ -235,6 +266,27 @@ public class EssayController {
 			List<GuidePlanVO> guidePlanList = guidePlanService.selectGuidePlanByEssayId(essay_id);
 			
 			model.addAttribute("guidePlanList", guidePlanList);
+			
+			//가이드 리스트가 존재할시에
+			if(guidePlanList != null) {
+				//그리고 해당 예약에 대한 인원수를 체크하기 위해 예약 인원수를 체크한다. 
+				for(int i = 0; i < guidePlanList.size(); i++) {
+					
+					GuidePlanVO guidePlanVo = guidePlanList.get(i);
+					
+					//해당 예약 인원에 대한 총 인원 수를 가이드 플랜 객체에 넣어준다. 
+					Integer total_res_people_count = reservationService.reserTotalPeopleCountByGuidePlanId(guidePlanVo.getGuideplan_id());
+					
+					//total_people_count 가 null 값일 씨 0 을 넣어준다. 
+					if(total_res_people_count == null) {
+						guidePlanVo.setTotal_res_people_count(0);
+					}else {
+						//존재할 경우에는 그냥 월래 total_people_count 에 존재하는 숫자를 넣어준다. 
+						guidePlanVo.setTotal_res_people_count(total_res_people_count);
+					}
+				}
+			}
+			
 		}
 		
 		//댓글 리스트를 받아온다.
@@ -309,10 +361,6 @@ public class EssayController {
 		commentVo.setComt_cnt(comt_cnt);
 		commentVo.setMem_id(memberVo.getMem_id());
 		
-		logger.debug("-------------------------------------------------------------------------");
-		logger.debug("-------------------------------------------------------------------------");
-		logger.debug("-------------------------------------------------------------------------");
-		
 		String comt_id = commentService.insertComment(commentVo);
 		
 		//댓글이 제대로 달리지 않으면 ....db 에러 페이지로
@@ -370,4 +418,82 @@ public class EssayController {
 		return "jsonView";
 	}
 		
+	@RequestMapping("/essayUpdate")
+	public String essayUpdateView(Model model, String essay_id, HttpSession session) {
+		
+		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
+		
+		if(memberVo == null) {
+			return "loginCheckError";
+		}
+		
+		EssayVO essayVo = essayService.selectEssayByEssayId(essay_id);
+		
+		model.addAttribute("essayVo", essayVo);
+		
+		String tripplan_id = essayVo.getTripplan_id();
+		
+		//tripplan 객체 받아오기
+		TripplanVO tripplanVo =  tripPlanService.selectTripPlanByTripplanId(tripplan_id);
+		
+		//tripplan id로 triparea 리스트 받아오기 
+		List<TripareaVO> tripAreaList = tripAreaService.selectTripAreaByTripplanId(tripplan_id);
+		
+		List<MapMarkerVO> mapMarkerList = new ArrayList<>();
+		//triparea로 mapmarker정보 받아오기 
+		for(int i = 0 ; i < tripAreaList.size(); i++) {
+			
+			String triparea_id = tripAreaList.get(i).getTriparea_id();
+			MapMarkerVO mapMarkerVo =  mapMarkerService.selectMapMarkerByTripAreaId(triparea_id);
+			mapMarkerList.add(mapMarkerVo);
+			
+		}
+		
+		List<DailyPlanVO> dailyPlanList = dailyPlanService.selectDailyPlanByTripplanId(tripplan_id);
+		
+		model.addAttribute("essayVo", essayVo);
+		model.addAttribute("tripplanVo", tripplanVo);
+		model.addAttribute("mapMarkerList", mapMarkerList);
+		model.addAttribute("dailyPlanList", dailyPlanList);
+		
+		return "essay/essay_update";
+	}
+	
+	
+	@RequestMapping("essayUpdateForm")
+	public String essayUpdateForm(EssayVO essayVo) {
+		
+		if(essayVo!=null) {
+			logger.debug("essayVo value = {}", essayVo);
+		}
+		
+		int resultCnt = essayService.essayUpdate(essayVo);
+		
+		if(resultCnt == 0) {
+			return "dbError";
+		}
+		
+		String essay_id = essayVo.getEssay_id();
+		
+		return "redirect:/essay/essayView?essay_id="+essay_id;
+	}
+	
+	
+	@RequestMapping("essayDelete")
+	public String essayDeleteView(HttpSession session, String essay_id) {
+		
+		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
+		
+		if(memberVo == null) {
+			return "loginCheckError";
+		}
+		
+		int resultCnt = essayService.deleteEssayByEssayId(essay_id);
+		
+		if(resultCnt == 0) {
+			return "dbError";
+		}
+		
+		return "redirect: /main/main";
+	}
 }

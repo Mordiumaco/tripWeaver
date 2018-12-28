@@ -93,12 +93,12 @@ $(document).ready(function(){
 <div class="main_con" id="main_con">
 
 <div id="container">
-	<form action="/board/updateBoard" method="post" id="frm" enctype="multipart/form-data">
+	<form action="/article/updateArticle" method="post" id="frm" enctype="multipart/form-data">
 	
 
 	<div class="write_warp">
-		<input type="hidden" readonly="readonly" name="nt_id" value="${postsVo.nt_id}">
-		<input type="hidden" readonly="readonly" name="po_id" value="${postsVo.po_id}">
+		<input type="hidden" readonly="readonly" name="board_id" value="${articleVo.board_id}">
+		<input type="hidden" readonly="readonly" name="art_id" value="${articleVo.art_id}">
 	</div>
 
 	
@@ -106,8 +106,8 @@ $(document).ready(function(){
 	<div class="write_warp">
 		<ul class="write_warpL">
 			<li><b>이름 &nbsp;&nbsp;: </b></li>
-			<li><label > ${S_USER.userId} </label></li>
-			<input type="hidden" id="userId" name="${S_USER.userId}">
+			<li><label > ${loginInfo.mem_id} </label></li>
+			<input type="hidden" id="userId" name="${loginInfo.mem_id}">
 		</ul>
 				
 	</div>
@@ -115,14 +115,14 @@ $(document).ready(function(){
 	<div class="write_warp">
 		<ul class="write_warpL">
 			<li><b>제목  &nbsp;&nbsp;: </b></li>
-			<li><input id="po_subject" name="po_subject" type="text" value="${postsVo.po_subject}"></li>
+			<li><input id="art_title" name="art_title" type="text" value="${articleVo.art_title}"></li>
 		</ul>
 	</div>
 	
 	<div class="write_warp">
 		<h3>내용</h3><br/>
-			<textarea name="smarteditor" id="smarteditor" rows="10" cols="100" style="width:100%; height:500px;">
-				${postsVo.po_contents}
+			<textarea name="art_cnt" id="smarteditor" rows="10" cols="100" style="width:100%; height:500px;">
+				${articleVo.art_cnt}
 			</textarea> 
 	</div>
 	
@@ -132,23 +132,23 @@ $(document).ready(function(){
 	<div class="write_warp">
 		<ul class="file_list">
 			<c:choose>
-				<c:when test="${fileVo == '[]'}">
-						<li class="file_list_li1}"><b>첨부 파일 :</b> &nbsp;&nbsp; <input type="file" name="fl_flie1" ><label>${fv.fl_file}</label>&nbsp;&nbsp;&nbsp;&nbsp;<div class="plus_btn">+</div> <div class="minus_btn">-</div></li>
+				<c:when test="${attachmentList == '[]'}">
+						<li class="file_list_li1}"><b>첨부 파일 :</b> &nbsp;&nbsp; <input type="file" name="attachments" ><label>${fv.fl_file}</label>&nbsp;&nbsp;&nbsp;&nbsp;<div class="plus_btn">+</div> <div class="minus_btn">-</div></li>
 				</c:when>
 			
 			</c:choose>
 		
-			<c:forEach items="${fileVo}" var="fv" begin="0" end="5" varStatus="sta">
+			<c:forEach items="${attachmentList}" var="fv" begin="0" end="5" varStatus="sta">
 				<c:choose>
 					
 					<c:when test="${sta.index == 0}">
-						<li class="file_list_li${sta.index+1}"><b>첨부 파일 :</b> &nbsp;&nbsp; <input type="file" name="fl_flie" ><label>${fv.fl_file}</label>&nbsp;&nbsp;&nbsp;&nbsp;<div class="plus_btn">+</div> <div class="minus_btn">-</div></li>	
+						<li class="file_list_li${sta.index+1}"><b>첨부 파일 :</b> &nbsp;&nbsp; <input type="file" name="attachments" ><label>${fv.att_file_name}</label>&nbsp;&nbsp;&nbsp;&nbsp;<div class="plus_btn">+</div> <div class="minus_btn">-</div></li>	
 					</c:when>
 					<c:otherwise>
-						<li class="file_list_li${sta.index+1}"><b>첨부 파일 :</b> &nbsp;&nbsp; <input type="file" name="fl_flie" ><label>${fv.fl_file}</label></li>	
+						<li class="file_list_li${sta.index+1}"><b>첨부 파일 :</b> &nbsp;&nbsp; <input type="file" name="attachments" ><label>${fv.att_file_name}</label></li>	
 					</c:otherwise>
 				</c:choose>
-				<input type="hidden" name="fl_id" value="${fv.fl_id}">
+				<input type="hidden" name="att_id" value="${fv.att_id}">
 			</c:forEach>
 		</ul>
 		

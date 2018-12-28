@@ -38,8 +38,23 @@ public class EssayVO {
 	private Integer essay_other_exp;
 	private String  mem_id;
 	private String  tripplan_id;
+	private String  tripplan_image;
+	private Integer rnum;
 	
 	
+	
+	public Integer getRnum() {
+		return rnum;
+	}
+	public void setRnum(Integer rnum) {
+		this.rnum = rnum;
+	}
+	public String getTripplan_image() {
+		return tripplan_image;
+	}
+	public void setTripplan_image(String tripplan_image) {
+		this.tripplan_image = tripplan_image;
+	}
 	public String getEssay_id() {
 		return essay_id;
 	}

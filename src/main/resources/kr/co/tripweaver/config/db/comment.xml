@@ -67,4 +67,17 @@
 		where comt_id = #{comt_id}
 	</update>
 	
+	
+	<select resultType="commentVo" parameterType="String" id="articleComment"> 
+		select /*+ (index IDX_COMMENTS_01)*/ * from comments 
+		where comt_rel_art_id = #{comt_rel_art_id} 
+	</select>
+	
+	<insert parameterType="Map" id="commentInsert"> 
+		insert into comments (comt_id, comt_cnt, comt_date, comt_secret, comt_del, comt_rel_art_id, mem_id, filter_id) 
+		values ('com' || LPAD(com_seq.nextval,3,'0'), #{comt_cnt}, SYSDATE, #{comt_secret}, 'N', #{comt_rel_art_id}, #{mem_id}, #{filter_id}) 
+	</insert>
+	
+	
+	
 </mapper>

@@ -18,6 +18,14 @@
 		*
 		from likes
 		WHERE MEM_ID = #{mem_id}
+		and filter_id = 'postcard'
+	</select>
+	
+	<!-- 해당 글이 좋아요가 되있는지 아닌지 체크 -->
+	<select id="likeCheckByMemIdAndLikeRelId" parameterType="likeVo" resultType="likeVo">
+		select * from likes
+		where mem_id = #{mem_id}
+		and like_rel_art_id = #{like_rel_art_id}
 	</select>
 	
 	<!-- 좋아요. 인서트  -->

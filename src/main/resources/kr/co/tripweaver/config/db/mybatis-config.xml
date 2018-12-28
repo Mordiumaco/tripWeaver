@@ -23,10 +23,11 @@
  	<typeAlias type="kr.co.tripweaver.mymenu.mypage.tripplan.model.MypageTripPlanForListVO" alias="mypageTripPlanForListVo"/>
  	<typeAlias type="kr.co.tripweaver.common.like.model.LikeVO" alias="likeVo"/>
  	<typeAlias type="kr.co.tripweaver.mymenu.mypage.tripplan.model.ClusterVO" alias="clusterVo"/>
- 	<typeAlias type="kr.co.tripweaver.common.comment.model.CommentVO" alias="commentVo"/>
 	<typeAlias type="kr.co.tripweaver.essay.model.EssayVO" alias="essayVo"/>
 	<typeAlias type="kr.co.tripweaver.mymenu.guideplan.model.GuidePlanVO" alias="guidePlanVo"/>
+	<typeAlias type="kr.co.tripweaver.mymenu.reservation.model.ReservationVO" alias="reservationVo"/>
 	<typeAlias type="kr.co.tripweaver.manager.conn_stat.model.ConnStatVO" alias="connStatVO"/>
+	<typeAlias type="kr.co.tripweaver.manager.report.model.ReportVO" alias="reportVO"/>
  </typeAliases>	
 	
   <mappers>
@@ -34,7 +35,6 @@
   	<mapper resource="kr/co/tripweaver/config/db/member.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/follow.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/attachment.xml"/>
-  	<mapper resource="kr/co/tripweaver/config/db/comments.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/board.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/article.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/message.xml"/>
@@ -48,7 +48,10 @@
   	<mapper resource="kr/co/tripweaver/config/db/comment.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/essay.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/guideplan.xml"/>
+  	<mapper resource="kr/co/tripweaver/config/db/reservation.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/connInfo.xml"/>
+  	<mapper resource="kr/co/tripweaver/config/db/reportreason.xml"/>
+  	
   </mappers>
   
 </configuration>

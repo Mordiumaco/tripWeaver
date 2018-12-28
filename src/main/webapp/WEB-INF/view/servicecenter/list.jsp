@@ -24,13 +24,13 @@ var getParam = function(key){
 
 $(document).ready(function(){
 	$(".board_listF").on("click", ".postsClick", function(){
-		var postsId = $(this).children()[0].innerHTML;
+		var postsId = $(this).children()[4].innerHTML;
 // 		$("#postsId").val(postsId);
 		$("#art_id").val(postsId);
 		$("#frm").submit();
 	});
 	
-	getAjaxList(1, 'po_subject', '');
+	//getAjaxList(1, 'po_subject', '');
 
 });
 
@@ -41,7 +41,7 @@ function searchFt(page) {
 	getAjaxList(page, search_key, search_value);
 }
 
-function getAjaxList(page, search_key, search_value) {
+/* function getAjaxList(page, search_key, search_value) {
 	var pageSize = 10;
 	var pageId = getParam("pageId");
 
@@ -62,7 +62,7 @@ function getAjaxList(page, search_key, search_value) {
 			$(".pg").html(dt);
 		}
 	});
-}	
+}	 */
 
 
 // 선택체크
@@ -98,8 +98,8 @@ function fboardlist_submit(f) {
 
 
 <%-- 뷰페이지에 게시글 아이디 넘기기 --%>
-<form action="/article/articlePageList" method="get" id="frm" >
-	<input type="text" id="art_id" name="art_id"/>
+<form action="/article/articleDetail" method="get" id="frm" >
+	<input type="hidden" id="art_id" name="art_id"/>
 	
 	
 	
@@ -154,6 +154,7 @@ function fboardlist_submit(f) {
 							<td>${pv.art_title}</td>
 							<td>${pv.mem_id}</td>
 							<td><fmt:formatDate value="${pv.art_date}" pattern="yyyy-MM-dd"/></td>
+							<td style=" display: none;">${pv.art_id}</td>
 						</tr>
 					</c:when>
 					<c:otherwise>

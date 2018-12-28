@@ -14,7 +14,8 @@ function imageView1(e){
 	var fileName = fileValue[fileValue.length-1]; // 파일명
 	fileArr.forEach(function(f){
 		if(!f.type.match("image.*")){
-			alert('미리보기는 이미지 파일만 가능합니다.');
+			alert('첨부 파일은 image 파일만 가능합니다.');
+			$("#input_img1").val("");
 			return;
 		}
 		if(fileName != "" ){
@@ -40,7 +41,8 @@ function imageView2(e){
 	var fileName = fileValue[fileValue.length-1]; // 파일명
 	fileArr.forEach(function(f){
 		if(!f.type.match("image.*")){
-			alert('미리보기는 이미지 파일만 가능합니다.');
+			alert('첨부 파일은 image 파일만 가능합니다.');
+			$("#input_img2").val("");
 			return;
 		}
 		if(fileName != "" ){
@@ -66,7 +68,8 @@ function imageView3(e){
 	var fileName = fileValue[fileValue.length-1]; // 파일명
 	fileArr.forEach(function(f){
 		if(!f.type.match("image.*")){
-			alert('미리보기는 이미지 파일만 가능합니다.');
+			alert('첨부 파일은 image 파일만 가능합니다.');
+			$("#input_img3").val("");
 			return;
 		}
 		if(fileName != "" ){
@@ -92,7 +95,8 @@ function imageView4(e){
 	var fileName = fileValue[fileValue.length-1]; // 파일명
 	fileArr.forEach(function(f){
 		if(!f.type.match("image.*")){
-			alert('미리보기는 이미지 파일만 가능합니다.');
+			alert('첨부 파일은 image 파일만 가능합니다.');
+			$("#input_img4").val("");
 			return;
 		}
 		if(fileName != "" ){
@@ -111,7 +115,6 @@ function imageView4(e){
 	});
 }
 
-
 // 이미지 체인지
 $(function(){
 	$('#input_img1').on("change",imageView1);
@@ -120,8 +123,6 @@ $(function(){
 	$('#input_img4').on("change",imageView4);
 	
 }); 
-
-
 
 
 // 이미지 경로 비우기 
@@ -193,19 +194,19 @@ $(document).ready(function(){
 				</ul>
 				<ul class="writeUl2">
 					<li>
-						<input id="input_img1" name="att_file_ori_name" type="file">
+						<input id="input_img1" name="att_file_ori_name" type="file" accept=".gif, .jpg, .jpeg, .png, .bmp" >
 						<button type="button" id="btn_delAttach1">&nbsp;X&nbsp;</button>
 					</li>
 					<li>
-						<input id="input_img2" name="att_file_ori_name" type="file">
+						<input id="input_img2" name="att_file_ori_name" type="file" accept=".gif, .jpg, .jpeg, .png, .bmp">
 						<button type="button" id="btn_delAttach2">&nbsp;X&nbsp;</button>
 					</li>
 					<li>
-						<input id="input_img3" name="att_file_ori_name" type="file">
+						<input id="input_img3" name="att_file_ori_name" type="file" accept=".gif, .jpg, .jpeg, .png, .bmp">
 						<button type="button" id="btn_delAttach3">&nbsp;X&nbsp;</button>
 					</li>
 					<li>
-						<input id="input_img4" name="att_file_ori_name" type="file">
+						<input id="input_img4" name="att_file_ori_name" type="file" accept=".gif, .jpg, .jpeg, .png, .bmp">
 						<button type="button" id="btn_delAttach4">&nbsp;X&nbsp;</button>
 					</li>
 				</ul>

@@ -206,20 +206,21 @@ public class ArticleController {
 				logger.debug("att_file_name{}", att_file_name[i]);
 				logger.debug("filter_id{}", "article");
 				logger.debug("att_rel_art_id{}", art_id);
-//				param2.put("att_file_ori_name", att_file_ori_name[i]);
-//				param2.put("att_path", path);
-//				param2.put("att_file_name", att_file_name[i]);
-//				param2.put("filter_id", "article");
-//				param2.put("att_rel_art_id", art_id);
+				
+				param2.put("att_file_ori_name", att_file_ori_name[i]);
+				param2.put("att_path", path);
+				param2.put("att_file_name", att_file_name[i]);
+				param2.put("filter_id", "article");
+				param2.put("att_rel_art_id", art_id);
 
-//				int atInsert = attachmentService.attachmentInsert(param2);
+				int atInsert = attachmentService.attachmentInsert(param2);
 
-//				if (atInsert != 0) {
-//
-//				} else {
-//					System.out.println("**게시글 첨부파일 오류**");
-//					return "dbError";
-//				}
+				if (atInsert != 0) {
+
+				} else {
+					System.out.println("**게시글 첨부파일 오류**");
+					return "dbError";
+				}
 			}
 			return "redirect: /main/board?board_id="+board_id;
 		} else {
@@ -240,42 +241,167 @@ public class ArticleController {
 	public String articleDetail(@RequestParam("art_id") String art_id, Model model) {
 
 		ArticleVO articleVo = articleService.getArticleDetail(art_id);
-
+		logger.debug("art_id동주[] : {} ", art_id);
+		logger.debug("articleVo[] : {} ", articleVo);
 		List<AttachmentVO> attachmentList = attachmentService.getAttachmemt(art_id);
 
-		List<CommentVO> ctList = commentService.articleCommentList(art_id);
-
 		model.addAttribute("articleVo", articleVo);
-		model.addAttribute("ctList", ctList);
 		model.addAttribute("attachmentList", attachmentList);
 		
 		logger.debug("attachmentList[loginInfo] : {} ", attachmentList);
 
-		return "article/articleDetail";
+		List<CommentVO> comtList = commentService.articleCommentList(art_id);
+		model.addAttribute("comtList", comtList);
+		logger.debug("comtList.size : {}", comtList.size());
+		
+		return "servicecenter/view";
 	}
 	
-	@RequestMapping(value= {"/commentInsert"})
+	/**
+	* Method : commentInsert
+	* 작성자 : pc23
+	* 변경이력 :
+	* @param request
+	* @param comt_cnt
+	* @param ct_content
+	* @param comt_secret
+	* @param session
+	* @return
+	* Method 설명 : 댓글 insert
+	*/
+	@RequestMapping(value= {"/insertComment"})
 	public String commentInsert(HttpServletRequest request, @RequestParam("comt_cnt")String comt_cnt, 
-			@RequestParam("ct_content")String ct_content, @RequestParam(value="comt_secret", required=false) String comt_secret,
-			HttpSession session) {
+			@RequestParam(value="comt_secret", required=false, defaultValue="N") String comt_secret,
+			@RequestParam("art_id")String art_id,
+			HttpSession session, Model model) {
 		
 		MemberVO memberVo = (MemberVO) session.getAttribute("loginInfo");
 
 		String mem_id = memberVo.getMem_id();
 		
 		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("mem_id", mem_id);
 		param.put("comt_cnt", comt_cnt);
+		logger.debug("내용[] ", comt_cnt);
 		param.put("comt_secret", comt_secret);
-		param.put("ct_content", ct_content);
+		param.put("comt_rel_art_id", art_id);
+		param.put("filter_id", "article");
 		
 		int commentCnt = commentService.commentInsert(param);
 		
+		List<CommentVO> comtList = commentService.articleCommentList(art_id);
+		model.addAllAttributes(comtList);
+		logger.debug("comtList[] : ", comtList);
+		
 		if(commentCnt != 0){
-			return "";
+			return "redirect: /article/articleDetail?art_id="+art_id;
 		} else {
-			return "";
+			return "dbError";
 		}
 	}
+	
+	@RequestMapping(value = { "/updateArticle" }, method = { RequestMethod.GET })
+	public String articleUpdateView(Model model, @RequestParam("art_id") String art_id) {
+
+		List<AttachmentVO> attachmentList = attachmentService.getAttachmemt(art_id);
+
+		ArticleVO articleVo = articleService.getArticleDetail(art_id);
+		
+		model.addAttribute("articleVo",articleVo);
+		model.addAttribute("attachmentList", attachmentList);
+
+		return "servicecenter/writeUpdate";
+	}
+	
+//	@RequestMapping(value = "/updateArticle", method = RequestMethod.POST)
+//	public String articleUpdate(HttpSession session,@RequestParam("board_id")String board_id, @RequestParam("art_cnt") String art_cnt,
+//			@RequestParam("art_title") String art_title, @RequestParam(value="art_secret", required=false) String art_secret,
+//			@RequestParam("attachments") MultipartFile[] attachments, HttpServletRequest request)
+//			throws IllegalStateException, IOException {
+//
+//		MemberVO memberVo = (MemberVO) session.getAttribute("loginInfo");
+//
+//		String mem_id = memberVo.getMem_id();
+//		String[] att_file_name = new String[2] ;
+//		String[] att_file_ori_name = new String[2];
+//		String att_path = "attachment/";
+//		
+//		int cnt = 0;
+//		String path = "C:/upload";
+//		
+//		for (MultipartFile file : attachments) {
+//			
+//			
+//			if (file == null || file.isEmpty()) {
+//				continue;
+//			}
+//
+//			att_file_ori_name[cnt] = file.getOriginalFilename();
+//			logger.debug("att_file_ori_name[cnt] {}", att_file_ori_name[cnt]);
+//
+//			String fileExt = FileUtil.getFileExt(att_file_ori_name[cnt]);
+//			if (!(att_file_ori_name[cnt].equals(""))) {
+//				att_file_name[cnt] = UUID.randomUUID().toString() + fileExt;
+//			logger.debug("att_file_name[cnt] {}", att_file_name[cnt]);
+//				file.transferTo(new File(path + File.separator + att_path + att_file_name[cnt]));
+//			}
+//			
+//			cnt++;
+//		}
+//		
+//		logger.debug("cnt{}", cnt);
+//		for (int i = 0; i < att_file_ori_name.length; i++) {
+//			logger.debug("att_file_ori_name : {}", att_file_ori_name[i]);
+//			logger.debug("att_path : {}", path);
+//			logger.debug("att_file_name : {}", att_file_name[i]);
+//			logger.debug("filter_id : {}", "article");
+//		}
+//		
+//		
+//		if(art_secret == null) {
+//			art_secret = "N";
+//		} else if(art_secret.equals("on")){
+//			art_secret = "Y";
+//		}
+//		
+//		ArticleVO articleVo = new ArticleVO();
+//		articleVo.setArt_cnt(art_cnt);
+//		articleVo.setArt_title(art_title);
+//		articleVo.setArt_secret(art_secret);
+//		articleVo.setBoard_id(board_id);
+//		
+//		articleVo.setMem_id(mem_id);
+//		
+//		int result = articleService.updateArticle(articleVo);
+//		if (result == -1) {
+//			for (int i = 0; i < cnt; i++) {
+//				Map<String, Object> param2 = new HashMap<String, Object>();
+//				logger.debug("att_file_ori_name{}", att_file_ori_name[i]);
+//				logger.debug("att_path{}", path);
+//				logger.debug("att_file_name{}", att_file_name[i]);
+//				logger.debug("filter_id{}", "article");
+//				logger.debug("att_rel_art_id{}", art_id);
+//				
+//				param2.put("att_file_ori_name", att_file_ori_name[i]);
+//				param2.put("att_path", path);
+//				param2.put("att_file_name", att_file_name[i]);
+//				param2.put("filter_id", "article");
+//				param2.put("att_rel_art_id", art_id);
+//
+//				int atInsert = attachmentService.attachmentInsert(param2);
+//
+//				if (atInsert != 0) {
+//
+//				} else {
+//					System.out.println("**게시글 첨부파일 오류**");
+//					return "dbError";
+//				}
+//			}
+//			return "redirect: /main/board?board_id="+board_id;
+//		} else {
+//			return "dbError";
+//		}
+//	}
 	
 	
 }

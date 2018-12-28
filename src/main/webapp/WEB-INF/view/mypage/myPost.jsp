@@ -2,9 +2,12 @@
     pageEncoding="UTF-8"%>
 
 <%@include file="../head.jsp" %>
-
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script type="text/javascript">
 	// 기본형식
+	
+	var currentEssayPage = 1; //에세이 페이지 초기값
+	
 	$(function(){
 		$('.content li').hide();
 		$('.content li#web1').show();
@@ -16,8 +19,63 @@
 			$('.content li').hide();//모든 내용을 안보이게 해줌
 			$($(this).attr('href')).slideDown();
 		});
+		
+		essayPage(1);
 	});
+	
+	//-----에세이 부분-----
+	function essayPageSort(){
+		var essayPagingSection = '';
+		essayPagingSection +='<a onclick="essayPage(1)" class="pg_page pg_start">처음</a>'
+		essayPagingSection +='<a href="" onclick="essayPage('+(currentEssayPage-1)+')" class="pg_page pg_prev">이전</a>';
+		essayPagingSection +='';
+		
+		for(let i = 1; i <= parseInt("${essayTotalPage}"); i++){
+			if(currentEssayPage == i){
+				essayPagingSection += '<strong class="pg_current">'+i+'</strong>';
+				continue;
+			}
+			essayPagingSection +='<a href="" onclick="essayPage('+i+')" class="pg_page">${loop.index}</a>';
+		}
+		
+		essayPagingSection +='<a href="" onclick="essayPage('+(currentEssayPage-1)+')" class="pg_page pg_next">다음</a>';
+		essayPagingSection +='<a href="" onclick="essayPage('+parseInt("${essayTotalPage}")+')" class="pg_page pg_end">맨끝</a>';
+		
+		$('.essayPagingSection').html(essayPagingSection);
+	}
+	
+	
+	function essayPage(page){
+		var essaySection = "";
+			
+		$.ajax({
+			type: "POST",
+			url: "/mypage/essayPageAjax",
+			data: "page="+page,
+			success : function(data){
+				console.log(data);
+				$(data.essayList).map(function(i, essayVo){
+					essaySection += '<tr class="bg0">';
+					essaySection += '<td headers="mb_list_cert" class="td_mbcert">'+essayVo.rnum+'</td>';
+					essaySection += '<td headers="mb_list_cert" class="td_mbcert">'+essayVo.essay_title+'</td>';
+					let essayDate = new Date(essayVo.essay_date);
+					
+					essaySection += '<td headers="mb_list_open">${essayVo.essay_view_count}'+essayVo.essay_view_count+'</td>';
+					essaySection += '<td headers="mb_list_auth" class="td_mbstat">'+essayDate.getFullYear()+'-'+(essayDate.getMonth()+1)+'-'+essayDate.getDate()+'</td>';
+					essaySection += '</tr>';
+					
+				});
+				
+				$("#essaySection").html(essaySection);
+				
+				currentEssayPage = page;
+				essayPageSort();
+			}
+		});
+		
+	}
 
+	
 </script>
 
 
@@ -46,90 +104,69 @@
 						<label for="sfl" class="sound_only">검색대상</label>
 						<select name="sfl" id="sfl">
 						    <option value="mb_nick">제목</option>
-						    <option value="mb_nick">내용</option>
 						</select>
 						<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
 						<input type="text" name="stx" value="" id="stx" required="" class="required frm_input">
 						<input type="submit" class="btn_submit" value="검색">
 					</form>
 				
-					<form name="fmemberlist" id="fmemberlist" action="" onsubmit="return fmemberlist_submit(this);" method="post">
-						<input type="hidden" name="sst" value="mb_datetime">
-						<input type="hidden" name="sod" value="desc">
-						<input type="hidden" name="sfl" value="">
-						<input type="hidden" name="stx" value="">
-						<input type="hidden" name="page" value="1">
-						<input type="hidden" name="token" value="">
-					
-						<div class="tbl_head01 tbl_wrap">
-						    <table>
-							    <caption>회원관리 목록</caption>
-							    <colgroup>
-							    	<col width="10%">
-							    	<col width="65%">
-							    	<col width="10%">
-							    	<col width="15%">
-							    
-							    </colgroup>
-							    
-							    <thead>
-								    <tr>
-								     	<th scope="col" id="mb_list_id">
-								        	<a href="">번호</a>
-								        </th>
-								        <th scope="col" id="mb_list_id">
-								        	<a href="">제목</a>
-								        </th>
-								        
-								        <th scope="col" id="mb_list_open">
-								        	<a href="">조회</a>
-								        </th>
-			
-								        <th scope="col" rowspan="2" id="mb_list_cert">
-								        	<a href="">날짜</a>
-								        </th>
-								    </tr>
-							    </thead>
-							    
-							    <tbody>
-								    <tr class="bg0">
-								      	<td headers="mb_list_cert" class="td_mbcert">
-								            	1
-								        </td>
-								        <td headers="mb_list_cert" class="td_mbcert">
-								            	행복한 부산여행
-								        </td>
-								        <td headers="mb_list_open">
-								            10
-								        </td>
-								        
-								        <td headers="mb_list_auth" class="td_mbstat">
-								           	  1988-02-13    
-								        </td>
-								     
-								       
-								    </tr>
-							
-							  </tbody>
-							</table>
-						</div>
-						
-					</form>
 				
-					<nav class="pg_wrap"><span class="pg">
-						<span class="sound_only">열린</span>
-							<strong class="pg_current">1</strong><span class="sound_only">페이지</span>
-							<a href="" class="pg_page">2<span class="sound_only">페이지</span></a>
-							<a href="" class="pg_page">3<span class="sound_only">페이지</span></a>
-							<a href="" class="pg_page">4<span class="sound_only">페이지</span></a>
-							<a href="" class="pg_page">5<span class="sound_only">페이지</span></a>
-							<a href="" class="pg_page">6<span class="sound_only">페이지</span></a>
-							<a href="" class="pg_page">7<span class="sound_only">페이지</span></a>
-							<a href="" class="pg_page">8<span class="sound_only">페이지</span></a>
-							<a href="" class="pg_page">9<span class="sound_only">페이지</span></a>
-							<a href="" class="pg_page">10<span class="sound_only">페이지</span></a>
-							<a href="" class="pg_page pg_next">다음</a>
-							<a href="" class="pg_page pg_end">맨끝</a>
+					
+					<div class="tbl_head01 tbl_wrap">
+					    <table>
+						    <caption>회원관리 목록</caption>
+						    <colgroup>
+						    	<col width="10%">
+						    	<col width="65%">
+						    	<col width="10%">
+						    	<col width="15%">
+						    
+						    </colgroup>
+						    
+						    <thead>
+							    <tr>
+							     	<th scope="col" id="mb_list_id">
+							        	<a href="">번호</a>
+							        </th>
+							        <th scope="col" id="mb_list_id">
+							        	<a href="">제목</a>
+							        </th>
+							        
+							        <th scope="col" id="mb_list_open">
+							        	<a href="">조회</a>
+							        </th>
+		
+							        <th scope="col" rowspan="2" id="mb_list_cert">
+							        	<a href="">날짜</a>
+							        </th>
+							    </tr>
+						    </thead>
+						    
+						    <tbody id="essaySection">
+						    	<%-- <c:forEach items="${essayList}" var="essayVo">
+						    		<tr class="bg0">
+								      	<td headers="mb_list_cert" class="td_mbcert">${essayVo.rnum}</td>
+								        <td headers="mb_list_cert" class="td_mbcert">${essayVo.essay_title}</td>
+								        <td headers="mb_list_open">${essayVo.essay_view_count}</td>
+								        <td headers="mb_list_auth" class="td_mbstat">${essayVo.essay_date}</td>
+							   		 </tr>
+						    	</c:forEach> --%>
+						  	</tbody>
+						</table>
+					</div>
+						
+				
+				
+					<nav class="pg_wrap">
+						<span class="pg essayPagingSection">
+							<%-- <a href="" onclick="essayPage()" class="pg_page pg_start">처음</a>
+							<a href="" onclick="essayPage()" class="pg_page pg_prev">이전</a>
+							<strong class="pg_current">1</strong>
+							<c:forEach begin="1" end="${essayTotalPage}" varStatus="loop">
+								<a href="" onclick="essayPage()" class="pg_page">${loop.index}</a>
+							</c:forEach>
+							<a href="" onclick="essayPage()" class="pg_page pg_next">다음</a>
+							<a href="" onclick="essayPage()" class="pg_page pg_end">맨끝</a> --%>
 						</span>
 					</nav>
 					
