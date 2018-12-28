@@ -22,8 +22,16 @@ public class PostCardVO {
 	private List<AttachmentVO>  attachmentList;
 	private String 				att_path;
 	private String 				att_file_name;
+	private Integer rnum;
 	
 	
+	
+	public Integer getRnum() {
+		return rnum;
+	}
+	public void setRnum(Integer rnum) {
+		this.rnum = rnum;
+	}
 	public String getAtt_path() {
 		return att_path;
 	}

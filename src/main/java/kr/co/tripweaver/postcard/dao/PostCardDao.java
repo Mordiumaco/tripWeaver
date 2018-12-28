@@ -162,5 +162,55 @@ public class PostCardDao implements IPostCardDao{
 		return postCardList;
 	}
 	
+	/**
+	* Method : selectPostCardByMemIdForBoard
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 28.
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 게시판 관리를 위한 포스트카드 관리 정보를 얻기 위해서 page 번호와 해당 회원의 아이디를 맵으로 받아서 
+	* POSTCARDVO 객체 리스트를 반환하는 메서드
+	*/
+	@Override
+	public List<PostCardVO> selectPostCardByMemIdForBoard(Map<String,String> param){
+		
+		List<PostCardVO> postCardList = null;
+		
+		try {
+			
+			postCardList = template.selectList("postcardSQL.selectPostCardByMemIdForBoard", param);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return postCardList;
+		}
+		
+		return postCardList;
+	}
 	
+	/**
+	* Method : postCardTotalCount
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 28.
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 해당 회원이 가지고 있는 총 포스트 카드 게시물 수를 반환
+	*/
+	public Integer postCardTotalCount(String mem_id) {
+		
+		Integer totalEssayCnt = null;
+		
+		try {
+			
+			totalEssayCnt = template.selectOne("postcardSQL.epostCardTotalCount", mem_id);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return totalEssayCnt;
+		}
+		
+		return totalEssayCnt;
+	}
 }

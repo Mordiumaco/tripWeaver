@@ -1,8 +1,10 @@
 package kr.co.tripweaver.manager.report.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.tripweaver.manager.report.model.ReportVO;
+import kr.co.tripweaver.mymenu.reservation.model.ReservationForMyPageVO;
 
 public interface IReportDao {
 	
@@ -33,4 +35,6 @@ public interface IReportDao {
 		*
 	 */
 	int insertReport (ReportVO reportVo);
+	
+	
 }

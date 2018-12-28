@@ -30,7 +30,11 @@ $(document).ready(function () {
 
 
 </script>
-
+<script>
+	text = "${recentEssayVo.essay_cnt}"
+	text = text.replace(/<br\/>/ig, "\n"); 
+	text = text.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
+</script>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a5f2e82aa9bad5f393255b6d8c3200cb&libraries=clusterer"></script>
 <div class="filter_rap">
@@ -417,11 +421,7 @@ $(document).ready(function () {
 
 <div class="main_con_03">
 	
-	<script>
-		text = "${recentEssayVo.essay_cnt}"
-		text = text.replace(/<br\/>/ig, "\n"); 
-		text = text.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
-	</script>
+	
 	<c:forEach items="${recentEssayList}" var="recentEssayVo">
 	<div class="con_03_List">
 		<a href="/essay/essayView?essay_id=${recentEssayVo.essay_id}">
@@ -432,7 +432,7 @@ $(document).ready(function () {
 				<c:choose>
 					<c:when test="${fn:length(recentEssayVo.essay_cnt) > 50 }">
 						
-						<li>.${fn:substring(recentEssayVo.essay_cnt,0,50)}<br/>...</li>
+						<li><c:out value="${fn:substring(recentEssayVo.essay_cnt.replaceAll('\\\<.*?\\\>',''),0,50)}"/><br/>...</li>
 
 					</c:when>
 					<c:when test="${recentEssayVo.essay_cnt == null}">

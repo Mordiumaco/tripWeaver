@@ -14,7 +14,7 @@
 		<li class="mypage_leftHover"><a href="/main/mypage">나의 여행일정 관리</a></li>
 		<li class="mypage_leftHover"><a href="/main/guide">나의 투어관리</a></li>
 		<%-- 나의 예약관리는 가이드 레벨에서만 보임 if 조건 ㄱㄱ --%>
-		<li class="mypage_leftHover"><a href="/main/reservation">나의 예약</a></li>
+		<li class="mypage_leftHover"><a href="/mypage/reservation">나의 예약</a></li>
 		<%-- --%>
 		<li class="mypage_leftHover"><a href="/mypage/myPost">게시글 관리</a></li>
 		<li class="mypage_leftHover"><a class="pointer" onclick="window.open('/main/message','window_name','width=417,height=500,location=no,status=no,scrollbars=yes');">메시지</a></li>
