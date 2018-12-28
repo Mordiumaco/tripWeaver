@@ -132,15 +132,15 @@ $( function() {
 					</td>
 					<td>
 						<c:set var="temp1" value="${fn:replace(dailyPlanVo.dailyplan_traffic, '<br/>', crlf)}"/>
-						<textarea name="dailyplan_traffic" id="dailyplan_traffic" maxlength="200">${temp1}</textarea>
+						<textarea name="dailyplan_traffic" id="dailyplan_traffic" maxlength="600">${temp1} </textarea>
 					</td>
 					<td>
 						<c:set var="temp2" value="${fn:replace(dailyPlanVo.dailyplan_cnt, '<br/>', crlf)}"/>
-						<textarea name="dailyplan_cnt" id="dailyplan_cnt" maxlength="200">${temp2}</textarea>
+						<textarea name="dailyplan_cnt" id="dailyplan_cnt" maxlength="600">${temp2} </textarea>
 					</td>
 					<td>
 						<c:set var="temp2" value="${fn:replace(dailyPlanVo.dailyplan_room, '<br/>', crlf)}"/>
-						<textarea name="dailyplan_room" id="dailyplan_room" maxlength="200">${temp3}</textarea>
+						<textarea name="dailyplan_room" id="dailyplan_room" maxlength="600">${temp3} </textarea>
 					</td>
 				</tr>
 			</c:forEach>

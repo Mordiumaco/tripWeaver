@@ -870,13 +870,13 @@ position:absolute;z-index:-1;top:2%;bottom:0;left:10px;right:10px;
 .pg a:first-child{border-top-left-radius:5px;border-bottom-left-radius:5px;}
 .pg a:last-child{border-top-right-radius:5px;border-bottom-right-radius:5px;}
 .pg_page {background:#fff;text-decoration:none}
-.pg_start {background:url(../img/page_1.png) 50% 50% no-repeat;width:32px;text-indent:-999px;overflow:hidden}
-.pg_prev {background:url(../img/page_2.png) 50% 50% no-repeat;width:32px;text-indent:-999px;overflow:hidden}
-.pg_next {background:url(../img/page_3.png) 50% 50% no-repeat;width:32px;text-indent:-999px;overflow:hidden}
-.pg_end {background:url(../img/page_4.png) 50% 50% no-repeat;width:32px;text-indent:-999px;overflow:hidden}
-.pg_current {display:inline-block;background:#41384b;color:#fff;font-weight:normal}
+.pg_start {background:url(../img/page_1.png) 50% 50% no-repeat;width:32px; height:32px; text-indent:-999px;overflow:hidden}
+.pg_prev {background:url(../img/page_2.png) 50% 50% no-repeat;width:32px; height:32px; text-indent:-999px;overflow:hidden}
+.pg_next {background:url(../img/page_3.png) 50% 50% no-repeat;width:32px; height:32px; text-indent:-999px;overflow:hidden}
+.pg_end {background:url(../img/page_4.png) 50% 50% no-repeat;width:32px; height:32px; text-indent:-999px;overflow:hidden}
+.pg_current {display:inline-block;background:#41384b; color:#fff !important; font-weight:normal}
 
-.social_config_explain p{padding-bottom:10px}
+.social_config_explain p {padding-bottom:10px} 
 
 /* 테이블 */
 table {clear:both;width:100%;border-collapse:collapse;border-spacing:0;}

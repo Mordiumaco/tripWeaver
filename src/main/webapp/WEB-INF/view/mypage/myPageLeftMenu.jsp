@@ -18,6 +18,6 @@
 		<%-- --%>
 		<li class="mypage_leftHover"><a href="/mypage/myPost">게시글 관리</a></li>
 		<li class="mypage_leftHover"><a class="pointer" onclick="window.open('/main/message','window_name','width=417,height=500,location=no,status=no,scrollbars=yes');">메시지</a></li>
-		<li class="mypage_leftHover"><a href="/main/clipBoard">클립보드</a></li>
+		<li class="mypage_leftHover"><a href="/allPostClip?page=1&pageSize=9&mem_id=${loginInfo.mem_id}&tag_search=&search_title=m.mem_nick">클립보드</a></li>
 	</ul>
 </div>

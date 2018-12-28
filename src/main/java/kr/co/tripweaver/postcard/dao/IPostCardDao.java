@@ -78,6 +78,36 @@ public interface IPostCardDao {
 	
 	
 	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 :  박찬배
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 마이페이지 클립보드 포스트카드 리스트 뿌리기
+		*
+	 */
+	
+	List<PostCardVO> selectPostcardClip(Map<String, Object> params);
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 마이페이지 클립보드 포스트카드 총 갯수 가져오기
+		*
+	 */
+	int selectAllPostClip(Map<String, Object> params);
+	
+	
+	/**
 	* Method : recentPostCardList
 	* 작성자 : Jae Hyeon Choi
 	* 생성날짜 : 2018. 12. 26.
@@ -86,5 +116,4 @@ public interface IPostCardDao {
 	* Method 설명 : 메인에 사용할 포스트 카드 리스트를 받아오기 위한 메서드
 	*/
 	public List<PostCardVO> recentPostCardList();
-
 }

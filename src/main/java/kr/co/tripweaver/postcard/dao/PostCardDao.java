@@ -29,7 +29,6 @@ public class PostCardDao implements IPostCardDao{
 	*/
 	@Override
 	public List<PostCardVO> selectPostCardAll(Map<String, Object> params){
-		System.out.println(params);
 		List<PostCardVO> postcardVo = template.selectList("postcardSQL.selectPostCardAll", params);
 		
 		return postcardVo;
@@ -97,6 +96,45 @@ public class PostCardDao implements IPostCardDao{
 	public PostCardVO selectPostcard(String pc_id) {
 		PostCardVO selectPostcardVo = template.selectOne("postcardSQL.selectPostcard", pc_id);
 		return selectPostcardVo;
+	}
+	
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 :  박찬배
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 마이페이지 클립보드 포스트카드 리스트 뿌리기
+		*
+	 */
+	
+	@Override
+	public List<PostCardVO> selectPostcardClip(Map<String, Object> params) {
+			List<PostCardVO> cardVOs = template.selectList("postcardSQL.selectPostcardClip", params);
+		return cardVOs;
+	}
+
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 박찬배
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 마이페이지 클립보드 포스트카드 총 갯수 가져오기
+		*
+	 */
+	@Override
+	public int selectAllPostClip(Map<String, Object> params) {
+		int cardVOs = template.selectOne("postcardSQL.selectAllPostClip", params);
+		return cardVOs;
 	} 
 	
 	/**
@@ -123,4 +161,6 @@ public class PostCardDao implements IPostCardDao{
 		
 		return postCardList;
 	}
+	
+	
 }
