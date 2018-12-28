@@ -87,20 +87,20 @@
 					</li>
 					
 					<li>
-						<a href="">Best</a>
+						<a href="/moneyBest">Best</a>
 						<div class="oe_menu_div1">
 							<div class="tri"></div>
 							<ul>
-								<li><a href="">짠내 Best</a></li>
-								<li><a href="">Post Best</a></li>
-								<li><a href="">Essay Best</a></li>
-								<li><a href="">지역 Best</a></li>
+								<li><a href="/moneyBest">짠내 Best</a></li>
+								<li><a href="/postBest">Post Best</a></li>
+								<li><a href="/essayBest">Essay Best</a></li>
+								<li><a href="/areaBest">지역 Best</a></li>
 							</ul>
 						</div>
 					</li>
 					
 					<li>
-						<a href="">추천 컨텐츠</a>
+						<a href="/recommendation/travelDestination">추천 컨텐츠</a>
 						<div class="oe_menu_div1">
 							<div class="tri"></div>
 							<ul>
@@ -113,7 +113,7 @@
 					</li>
 					
 					<li>
-						<a href="">고객센터</a>
+						<a href="/main/board?board_id=bd00001&page=1&pageSize=10">고객센터</a>
 						<div class="oe_menu_div1">
 							<div class="tri"></div>
 							<ul>
