@@ -1,244 +1,430 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@include file="../adminHead.jsp" %>
+	pageEncoding="UTF-8"%>
+<%@include file="../adminHead.jsp"%>
 
-<script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
-<script> zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/"; ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];</script>
+
+  
+<script src="https://cdn.zingchart.com/zingchart.min.js"></script>
 
 <style>
-	@import 'https://fonts.googleapis.com/css?family=Open+Sans';
- 
-	.zc-ref {
-	  display: none;
-	}
+@import 'https://fonts.googleapis.com/css?family=Open+Sans';
+
+.zc-ref {
+	display: none;
+}
 </style>
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+<!-- 데이트피커 -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css"> -->
+
+<!-- 통계차트 -->
+<script>
+	zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+	ZC.LICENSE = [ "569d52cefae586f634c54f86dc99e6a9",
+			"ee6b7db5b51705a13dc2339db3edaf6d" ];
+</script>
 
 <script>
-	jQuery(function($){
-	    $.datepicker.regional["ko"] = {
-	        closeText: "닫기",
-	        prevText: "이전달",
-	        nextText: "다음달",
-	        currentText: "오늘",
-	        monthNames: ["1월(JAN)","2월(FEB)","3월(MAR)","4월(APR)","5월(MAY)","6월(JUN)", "7월(JUL)","8월(AUG)","9월(SEP)","10월(OCT)","11월(NOV)","12월(DEC)"],
-	        monthNamesShort: ["1월","2월","3월","4월","5월","6월", "7월","8월","9월","10월","11월","12월"],
-	        dayNames: ["일","월","화","수","목","금","토"],
-	        dayNamesShort: ["일","월","화","수","목","금","토"],
-	        dayNamesMin: ["일","월","화","수","목","금","토"],
-	        weekHeader: "Wk",
-	        dateFormat: "yymmdd",
-	        firstDay: 0,
-	        isRTL: false,
-	        showMonthAfterYear: true,
-	        yearSuffix: ""
-	    };
-		$.datepicker.setDefaults($.datepicker.regional["ko"]);
+
+	var dateType = '${dateType}';
+	var classification = '${classification}';
+	
+	$(document).ready(function() {
+		$('#dateType').val(dateType);
+		$('#sel_ca_id').val(classification);
+		console.log("dateType : " + dateType);
+		console.log("classification : " + classification);
+		//주간용 날짜 변수
+		var startDate;
+	    var endDate;
+	    
+		if (dateType == 'month') {
+			$('#dateTypeName').text('월간');
+			console.log('월간');
+			//월별
+			$("#datepicker").datepicker({
+		        dateFormat: 'yyyyMM',
+		        changeMonth: true,
+		        changeYear: true,
+		        showWeek : true,
+		        showButtonPanel: true,
+		        onClose: function(dateText, inst) {
+		            var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+		            var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+		            $(this).val(getTimeStamp(new Date(year, month, 1), dateType));
+		        }
+		    });
+
+		    $("#datepicker").focus(function () {
+		        $(".ui-datepicker-calendar").hide();
+		        $("#ui-datepicker-div").position({
+		            my: "center top",
+		            at: "center bottom",
+		            of: $(this)
+		        });
+		    });
+		} else if (dateType == 'week') {
+			$('#dateTypeName').text('주간');
+			console.log('주간');
+			//주간
+			$('#datepicker').datepicker( {
+		        showOtherMonths: true,
+		        selectOtherMonths: true,
+				selectWeek:true,
+		        onSelect: function(dateText, inst) { 
+		        	
+		        	var part = dateText.split('/');
+		            var date = new Date(part[2], part[0] - 1, part[1]);
+		            startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
+		            endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 6);
+					var dateFormat = 'yy/mm/dd';
+		            startDate = getTimeStamp(startDate, '');
+		            endDate = getTimeStamp(endDate, '');
+					$('#datepicker').val(startDate + '-' + endDate);
+		            setTimeout("applyWeeklyHighlight()", 100);
+		        },
+				beforeShow : function() {
+					setTimeout("applyWeeklyHighlight()", 100);
+				}
+		    });
+		} else {
+			$('#dateTypeName').text('일간');
+			console.log('일간');
+			//일간
+			$( "#datepicker" ).datepicker({
+				dateFormat: "yy.mm.dd"
+			});
+		}
+		
+		contact_list(1);
+		contact_graph();
+		
+		$("#search_btn").on("click", function() {
+			contact_graph();
+		});
+		
+		$('#sel_ca_id').on('change', function() {
+			classification = $('#sel_ca_id').val();
+		});
+		
+		$(".term_btn").on('click', function() {
+			var dt = $(this).val();
+			if(dt == '월간'){
+				dateType = 'month';
+				
+			} else if (dt == '주간') {
+				dateType = 'week';
+			} else {
+				dateType = 'day';
+			}
+			$('#dateType_btn').val(dateType);
+			$('#classification_btn').val(classification);
+			
+			$('#date_btn').submit();
+		});
 	});
+
+	//ajax 
+	function contact_list(page) {
+		var pageSize = 10;
+		$.ajax({
+			url : '/connStat/contactListAjax',
+			type : 'get',
+			data : 'page=' + page + '&pageSize=' + pageSize,
+			success : function(data) {
+				$('#contact_list_ajax').html(data);
+			}
+		});
+	}
+	function contact_graph() {
+		var params = $('form[name=search]').serialize();
+		$.ajax({
+			url : '/connStat/contactGraphAjax',
+			type : 'get',
+			data : params,
+			success : function(data) {
+				console.log(data);
+				
+				var cdata = {
+					    "globals":{
+					        "font-family":"Lucida Sans Unicode"
+					    },
+					    "graphset":[
+					        {
+					            "type":"pie",
+					            "x":0,
+					            "y":0,
+					            "width":362,
+					            "height":250,
+					            "plotarea":{
+					                "margin":30,
+					            },
+					            "tooltip":{
+					                "border-width":1,
+					                "border-color":"#666",
+					                "border-radius":11,
+					                "background-color":"#fff",
+					                "color":"#000",
+					                "padding":10,
+					                "text-align":"left",
+					                "text":"<b style='font-size:17px;'>%node-percent-value%</b><br>%plot-text",
+					                "shadow":true
+					            },
+					            "plot":{
+					                "ref-angle":90,
+					                "border-width":0,
+					                "value-box":{
+					                    "text":"%data-index",
+					                    "color":"#000",
+					                    "font-size":11,
+					                    "font-weight":"normal",
+					                    "offset-r":"55%",
+					                    "connector":{
+					                        "visible":false    
+					                    }
+					                }
+					            },//그래프
+					            "series": data
+					        },
+					        {
+					            "type":"grid",
+					            "x":362,
+					            "y":0,
+					            "width":362,
+					            "height":250,
+					            "plotarea":{
+					                "margin":"15 0 0 0"
+					            },
+					            "options":{
+					                "col-labels":[" ","TYPE","PCT","TOTAL"],
+					                "col-widths":["30","50%","20%","30%"],
+					                "style":{
+					                    ".th":{
+					                        "background-color":"#fff",
+					                        "color":"#666",
+					                        "font-size":10,
+					                        "font-weight":"normal",
+					                        "border-bottom":"1px solid #aaa",
+					                        "border-right":"0px solid #fff"
+					                    },
+					                    ".td":{
+					                        "height":30,
+					                        "background-color":"#fff",
+					                        "border-bottom":"1px solid #aaa",
+					                        "font-weight":"normal",
+					                        "border-right":"0px solid #fff"
+					                    },
+					                    ".td_1":{
+					                        "offset-x":-30,
+					                        "padding-left":38
+					                    },
+					                    ".td_2":{
+					                        "offset-x":-30,
+					                        "padding-left":38
+					                    },
+					                    ".td_3":{
+					                        "offset-x":-30,
+					                        "padding-left":38
+					                    },
+					                    ".td_0_0":{
+					                        "text-align":"center",
+					                        "border-radius":21,
+					                        "border-top":null,
+					                        "border-right":null,
+					                        "border-bottom":null,
+					                        "border-left":null,
+					                        "border-color":"none",
+					                        "border-width":8,
+					                        "background-color":"#FF9900",
+					                        "color":"#000"
+					                    },
+					                    ".td_1_0":{
+					                        "text-align":"center",
+					                        "border-radius":21,
+					                        "border-top":null,
+					                        "border-right":null,
+					                        "border-bottom":null,
+					                        "border-left":null,
+					                        "border-color":"none",
+					                        "border-width":8,
+					                        "background-color":"#9DCC09",
+					                        "color":"#000"
+					                    },
+					                    ".td_2_0":{
+					                        "text-align":"center",
+					                        "border-radius":21,
+					                        "border-top":null,
+					                        "border-right":null,
+					                        "border-bottom":null,
+					                        "border-left":null,
+					                        "border-color":"none",
+					                        "border-width":8,
+					                        "background-color":"#71BDE9",
+					                        "color":"#000"
+					                    },
+					                    ".td_3_0":{
+					                        "text-align":"center",
+					                        "border-radius":21,
+					                        "border-top":null,
+					                        "border-right":null,
+					                        "border-bottom":null,
+					                        "border-left":null,
+					                        "border-color":"none",
+					                        "border-width":8,
+					                        "background-color":"#DE6829",
+					                        "color":"#000"
+					                    },
+					                    ".td_4_0":{
+					                        "text-align":"center",
+					                        "border-radius":21,
+					                        "border-top":null,
+					                        "border-right":null,
+					                        "border-bottom":null,
+					                        "border-left":null,
+					                        "border-color":"none",
+					                        "border-width":8,
+					                        "background-color":"#EDCE00",
+					                        "color":"#000"
+					                    }
+					                }
+					            },//표
+					            "series":[
+					                {
+					                    "values":["2", "Technical", "50%", "1023"]    
+					                },
+					                {
+					                    "values":["1", "Creative", "30%", "614"]    
+					                },
+					                {
+					                    "values":["3", "Management", "10%", "204"]    
+					                },
+					                {
+					                    "values":["4", "Marketing", "7%", "143"]    
+					                },
+					                {
+					                    "values":["5", "Other", "3%", "61"]    
+					                }
+					            ]
+					        }
+					    ]    
+					};
+				
+					cdata.graphset[0].series = data.series_graph;
+					cdata.graphset[1].series = data.series_table;
+					console.log("graphset[0] : " + cdata.graphset[0].series);
+					console.log("graphset[1] : " + cdata.graphset[1].series);
+					zingchart.render({ 
+						id: "myChart", 
+						data: cdata, 
+						modules : "grid"
+					});
+				
+// 				$('#contact_graph_ajax').html(data)
+			}
+		});
+	}
+	
+	function getTimeStamp(d, dType) {
+		   var s = leadingZeros(d.getFullYear(), 4) + '.' + leadingZeros(d.getMonth() + 1, 2);
+		     s += (dType == 'month'? '' :  '.' + leadingZeros(d.getDate(), 2));
+
+		   return s;
+		 }
+
+	 function leadingZeros(n, digits) {
+	   var zero = '';
+	   n = n.toString();
+
+	   if (n.length < digits) {
+	     for (i = 0; i < digits - n.length; i++)
+	       zero += '0';
+	   }
+	   return zero + n;
+	 }
+	 
+	function applyWeeklyHighlight() {
+	
+		$('.ui-datepicker-calendar tr').each(function() {
+	
+			if ($(this).parent().get(0).tagName == 'TBODY') {
+				$(this).mouseover(function() {
+					$(this).find('a').css({
+						'background' : '#ffffcc',
+						'border' : '1px solid #dddddd'
+					});
+					$(this).find('a').removeClass('ui-state-default');
+					$(this).css('background', '#ffffcc');
+				});
+				
+				$(this).mouseout(function() {
+					$(this).css('background', '#ffffff');
+					$(this).find('a').css('background', '');
+					$(this).find('a').addClass('ui-state-default');
+				});
+			}
+	
+		});
+	}
 </script>
+
 
 <div class="container_wr">
 
 
-<div class="local_ov01 local_ov">
-    <a href="" class="ov_listall">월간</a>
-    <a href="" class="ov_listall">주간</a>
-    <a href="" class="ov_listall">일간</a>    
-</div>
+	<div class="local_ov01 local_ov">
+		<input type="button" id="month" class="ov_listall term_btn" value="월간">
+		<input type="button" id="week" class="ov_listall term_btn" value="주간">
+		<input type="button" id="day" class="ov_listall term_btn" value="일간">
+	</div>
+	<form id="date_btn" action="/connStat/connStatList">
+		<input type="hidden" name="dateType" id="dateType_btn">
+		<input type="hidden" name="classification" id="classification_btn">
+		<input type="hidden" name="page" value="1">
+		<input type="hidden" name="pageSize" value="10">
+	</form>
 
-<form name="flist" class="local_sch01 local_sch">
-	<input type="hidden" name="doc" value="">
-	<input type="hidden" name="sort1" value="ct_status_sum">
-	<input type="hidden" name="sort2" value="desc">
-	<input type="hidden" name="page" value="1">
-	
-	<label for="sel_ca_id" class="sound_only">검색대상</label>
-	<select name="sel_ca_id" id="sel_ca_id">
-	    <option value="">전체분류</option>
-	    <option value="20">TOP/PANTS</option>
-	<option value="2010">&nbsp;&nbsp;&nbsp;TOP</option>
-	<option value="201010">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;셔츠</option>
-	<option value="20101010">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;체크/슬림</option>
-	<option value="2010101010">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;체크</option>
-	<option value="2010101020">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;슬림</option>
-	<option value="20101020">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;드레스셔츠</option>
-	<option value="201020">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;티</option>
-	<option value="2020">&nbsp;&nbsp;&nbsp;PANTS</option>
-	<option value="30">테스트</option>
-	</select>
-	기간설정
-	<label for="fr_date" class="sound_only">시작일</label>
-	<input type="text" name="fr_date" value="" id="fr_date" required="" class="required frm_input hasDatepicker" size="8" maxlength="8"> 에서
-	<label for="to_date" class="sound_only">종료일</label>
-	<input type="text" name="to_date" value="20181128" id="to_date" required="" class="required frm_input hasDatepicker" size="8" maxlength="8"> 까지
-	<input type="submit" value="검색" class="btn_submit">
-</form>
+	<form name="search" id="search" class="local_sch01 local_sch" >
+		<input type="hidden" name="doc" value=""> <input type="hidden"
+			name="sort1" value="ct_status_sum"> <input type="hidden"
+			name="sort2" value="desc"> <input type="hidden" name="page"
+			value="1"> <label for="sel_ca_id" class="sound_only">검색대상</label>
+		<select name="sel_ca_id" id="sel_ca_id">
+			<option value="browser">브라우저</option>
+			<option value="divice">접속기기</option>
+			<option value="referer">유입경로</option>
+			<option value="os">운영체제</option>
+		</select> 
+		
+		<label for="datepicker"><span id="dateTypeName"></span>
+			<input type="text" id="datepicker" name="datepicker" class="datepicker" placeholder="기간을 선택해주세요"/>
+		</label>
+		
+		<input type="hidden" id="dateType" name="dateType">
+		<input type="button" value="검색" class="btn_submit" id="search_btn">
+	</form>
 
 
-
-<div id='myChart'><a class="zc-ref" href="https://www.zingchart.com/">Charts by ZingChart</a></div>
-
-<script type="text/javascript">
-	var myConfig = {
-		 	type: "pie", 
-	
-		 	plot: {
-		 	  borderColor: "#2B313B",
-		 	  borderWidth: 5,
-		 	  // slice: 90,
-		 	  valueBox: {
-		 	    placement: 'out',
-		 	    text: '%t\n%npv%',
-		 	    fontFamily: "Open Sans"
-		 	  },
-		 	  tooltip:{
-		 	    fontSize: '18',
-		 	    fontFamily: "Open Sans",
-		 	    padding: "5 10",
-		 	    text: "%npv%"
-		 	  },
-		 	  animation:{
-		      effect: 2, 
-		      method: 5,
-		      speed: 500,
-		      sequence: 1
-		    }
-		 	},
-		 	source: {
-		 	  text: 'gs.statcounter.com',
-		 	  fontColor: "#8e99a9",
-		 	  fontFamily: "Open Sans"
-		 	},
-		 	title: {
-		 	  fontColor: "#fff",
-		 	  text: 'Global Browser Usage',
-		 	  align: "left",
-		 	  offsetX: 10,
-		 	  fontFamily: "Open Sans",
-		 	  fontSize: 25
-		 	},
-		 	subtitle: {
-		 	  offsetX: 10,
-		 	  offsetY: 10,
-		 	  fontColor: "#8e99a9",
-		 	  fontFamily: "Open Sans",
-		 	  fontSize: "16",
-		 	  text: 'May 2016',
-		 	  align: "left"
-		 	},
-		 	plotarea: {
-		 	  margin: "20 0 0 0"  
-		 	},
-			series : [
-				{
-					values : [11.38],
-					text: "Internet Explorer",
-				  backgroundColor: '#50ADF5',
-				},
-				{
-				  values: [56.94],
-				  text: "Chrome",
-				  backgroundColor: '#FF7965'
-				},
-				{
-				  values: [14.52],
-				  text: 'Firefox',
-				  backgroundColor: '#FFCB45'
-				},
-				{
-				  text: 'Safari',
-				  values: [9.69],
-				  backgroundColor: '#6877e5'
-				},
-				{
-				  text: 'Other',
-				  values: [7.48],
-				  backgroundColor: '#6FB07F'
-				}
-			]
-		};
-		 
-		zingchart.render({ 
-			id : 'myChart', 
-			data : myConfig, 
-			height: 600, 
-			width: 500 
-		});
-</script>
-
-<div class="local_desc01 local_desc">
-    <p>접속자 집계 통계 리스트 입니다.</p>
-</div>
-
-<div class="btn_fixed_top">
-    <a href="./itemstocklist.php" class="btn_02 btn">상품재고관리</a>
-    <a href="./itemlist.php" class="btn_01 btn">상품등록</a>
-</div>
-
-	<div class="tbl_head01 tbl_wrap">
-		<table>
-			<caption>상품판매순위 목록</caption>
-			<colgroup>
-				<col width="13%">
-				<col width="18%">
-				<col width="15%">
-				<col width="30%">
-				<col width="8%">
-				<col width="8%">
-				<col width="8%">
-			</colgroup>
-			<thead>
-				<tr>
-					<th scope="col"><a>일시</a></th>
-					<th scope="col"><a>회원아이디</a></th>
-					<th scope="col">아이피(IP)</th>
-					<th scope="col">접속경로</th>
-					<th scope="col"><a>브라우저</a></th>
-					<th scope="col"><a>OS</a></th>
-					<th scope="col"><a>접속기기</a></th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${connStatVOs}" var="connStatVO">
-					<tr class="bg0">
-						<td class="td_num"><fmt:formatDate value="${connStatVO.conn_time}" pattern="yyyy.MM.dd HH:mm:ss"/></td>
-						<td class="td_num">${connStatVO.mem_id}</td>
-						<td class="td_left">${connStatVO.conn_ip}</td>
-						<td class="td_num">${connStatVO.conn_ref}</td>
-						<td class="td_num">${connStatVO.conn_browser}</td>
-						<td class="td_num">${connStatVO.conn_os}</td>
-						<td class="td_num">${connStatVO.conn_divice}</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+	<div id="contact_graph_ajax">
+		<div id='myChart'><a class="zc-ref" href="https://www.zingchart.com/">Charts by ZingChart</a></div>
+		<!-- contact_graph_ajax 페이지 -->
 	</div>
 
-<nav class="pg_wrap">
-	<span class="pg">
-	
-		<strong class="pg_current">1</strong>
-<%-- 		<c:if test="${pageCnt}"> --%>
-<%-- 			<c:set var="" value=""/> --%>
-<%-- 			<c:set var="" value=""/> --%>
-<%-- 		</c:if> --%>
-<%-- 		<c:forEach varStatus="i" begin="${pageCnt}" end=""> --%>
-<!-- 			<a href="/connStat/connStatList?page=1&pageSize=10" class="pg_page">2<span class="sound_only">페이지</span></a> -->
-<%-- 		</c:forEach> --%>
-		
-		<a href="" class="pg_page pg_end">맨끝</a>
-	</span>
-</nav>
-<script>
-	$(function() {
-	    $("#fr_date, #to_date").datepicker({
-	        changeMonth: true,
-	        changeYear: true,
-	        dateFormat: "yymmdd",
-	        showButtonPanel: true,
-	        yearRange: "c-99:c+99",
-	        maxDate: "+0d"
-	    });
-	});
-</script>
+	<div class="local_desc01 local_desc">
+		<p>접속자 집계 통계 리스트 입니다.</p>
+	</div>
+
+	<div class="btn_fixed_top">
+		<a href="./itemstocklist.php" class="btn_02 btn">상품재고관리</a> <a
+			href="./itemlist.php" class="btn_01 btn">상품등록</a>
+	</div>
+
+	<div id="contact_list_ajax">
+		<!-- contact_list_ajax 페이지 -->
+	</div>
+
 </div>
-<%@include file="../adminTail.jsp" %>
+
+<%@include file="../adminTail.jsp"%>
