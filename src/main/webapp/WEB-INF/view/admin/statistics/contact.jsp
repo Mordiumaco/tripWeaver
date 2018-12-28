@@ -33,17 +33,27 @@
 	var classification = '${classification}';
 	
 	$(document).ready(function() {
+		var term_btn = document.getElementById(dateType); 
+		$(term_btn).css({'background' : '#006400'});
+		if(dateType == 'week'){
+			
+            var date = new Date();
+            startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
+            endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 6);
+            startDate = getTimeStamp(startDate, '');
+            endDate = getTimeStamp(endDate, '');
+			$('#datepicker').val(startDate + '-' + endDate);
+		} else {
+			$('#datepicker').val(getTimeStamp(new Date(), dateType));
+		}
 		$('#dateType').val(dateType);
 		$('#sel_ca_id').val(classification);
-		console.log("dateType : " + dateType);
-		console.log("classification : " + classification);
 		//주간용 날짜 변수
 		var startDate;
 	    var endDate;
 	    
 		if (dateType == 'month') {
 			$('#dateTypeName').text('월간');
-			console.log('월간');
 			//월별
 			$("#datepicker").datepicker({
 		        dateFormat: 'yyyyMM',
@@ -68,7 +78,6 @@
 		    });
 		} else if (dateType == 'week') {
 			$('#dateTypeName').text('주간');
-			console.log('주간');
 			//주간
 			$('#datepicker').datepicker( {
 		        showOtherMonths: true,
@@ -80,7 +89,6 @@
 		            var date = new Date(part[2], part[0] - 1, part[1]);
 		            startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
 		            endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 6);
-					var dateFormat = 'yy/mm/dd';
 		            startDate = getTimeStamp(startDate, '');
 		            endDate = getTimeStamp(endDate, '');
 					$('#datepicker').val(startDate + '-' + endDate);
@@ -92,7 +100,6 @@
 		    });
 		} else {
 			$('#dateTypeName').text('일간');
-			console.log('일간');
 			//일간
 			$( "#datepicker" ).datepicker({
 				dateFormat: "yy.mm.dd"
@@ -146,8 +153,6 @@
 			type : 'get',
 			data : params,
 			success : function(data) {
-				console.log(data);
-				
 				var cdata = {
 					    "globals":{
 					        "font-family":"Lucida Sans Unicode"
@@ -187,7 +192,7 @@
 					                    }
 					                }
 					            },//그래프
-					            "series": data
+					            "series": ''
 					        },
 					        {
 					            "type":"grid",
@@ -199,7 +204,7 @@
 					                "margin":"15 0 0 0"
 					            },
 					            "options":{
-					                "col-labels":[" ","TYPE","PCT","TOTAL"],
+					                "col-labels":["순위","구분","비율","합계"],
 					                "col-widths":["30","50%","20%","30%"],
 					                "style":{
 					                    ".th":{
@@ -238,7 +243,6 @@
 					                        "border-left":null,
 					                        "border-color":"none",
 					                        "border-width":8,
-					                        "background-color":"#FF9900",
 					                        "color":"#000"
 					                    },
 					                    ".td_1_0":{
@@ -250,7 +254,6 @@
 					                        "border-left":null,
 					                        "border-color":"none",
 					                        "border-width":8,
-					                        "background-color":"#9DCC09",
 					                        "color":"#000"
 					                    },
 					                    ".td_2_0":{
@@ -262,7 +265,6 @@
 					                        "border-left":null,
 					                        "border-color":"none",
 					                        "border-width":8,
-					                        "background-color":"#71BDE9",
 					                        "color":"#000"
 					                    },
 					                    ".td_3_0":{
@@ -274,7 +276,6 @@
 					                        "border-left":null,
 					                        "border-color":"none",
 					                        "border-width":8,
-					                        "background-color":"#DE6829",
 					                        "color":"#000"
 					                    },
 					                    ".td_4_0":{
@@ -286,36 +287,50 @@
 					                        "border-left":null,
 					                        "border-color":"none",
 					                        "border-width":8,
-					                        "background-color":"#EDCE00",
+					                        "color":"#000"
+					                    },
+					                    ".td_5_0":{
+					                        "text-align":"center",
+					                        "border-radius":21,
+					                        "border-top":null,
+					                        "border-right":null,
+					                        "border-bottom":null,
+					                        "border-left":null,
+					                        "border-color":"none",
+					                        "border-width":8,
+					                        "color":"#000"
+					                    },
+					                    ".td_6_0":{
+					                        "text-align":"center",
+					                        "border-radius":21,
+					                        "border-top":null,
+					                        "border-right":null,
+					                        "border-bottom":null,
+					                        "border-left":null,
+					                        "border-color":"none",
+					                        "border-width":8,
+					                        "color":"#000"
+					                    },
+					                    ".td_7_0":{
+					                        "text-align":"center",
+					                        "border-radius":21,
+					                        "border-top":null,
+					                        "border-right":null,
+					                        "border-bottom":null,
+					                        "border-left":null,
+					                        "border-color":"none",
+					                        "border-width":8,
 					                        "color":"#000"
 					                    }
 					                }
 					            },//표
-					            "series":[
-					                {
-					                    "values":["2", "Technical", "50%", "1023"]    
-					                },
-					                {
-					                    "values":["1", "Creative", "30%", "614"]    
-					                },
-					                {
-					                    "values":["3", "Management", "10%", "204"]    
-					                },
-					                {
-					                    "values":["4", "Marketing", "7%", "143"]    
-					                },
-					                {
-					                    "values":["5", "Other", "3%", "61"]    
-					                }
-					            ]
+					            "series": ''
 					        }
 					    ]    
 					};
 				
 					cdata.graphset[0].series = data.series_graph;
 					cdata.graphset[1].series = data.series_table;
-					console.log("graphset[0] : " + cdata.graphset[0].series);
-					console.log("graphset[1] : " + cdata.graphset[1].series);
 					zingchart.render({ 
 						id: "myChart", 
 						data: cdata, 
@@ -329,8 +344,7 @@
 	
 	function getTimeStamp(d, dType) {
 		   var s = leadingZeros(d.getFullYear(), 4) + '.' + leadingZeros(d.getMonth() + 1, 2);
-		     s += (dType == 'month'? '' :  '.' + leadingZeros(d.getDate(), 2));
-
+			   s += (dType == 'month'? '' :  '.' + leadingZeros(d.getDate(), 2));
 		   return s;
 		 }
 

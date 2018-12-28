@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -430,7 +431,7 @@ public class ConnStatService implements IConnStatService {
 			}
 			values = new String[4];	//series_table values용
 			values[0] = rank + "";	//해당 개체 개수 많은 순서
-			values[1] = "ios";	//해당 개체 이름
+			values[1] = "iOS";	//해당 개체 이름
 			values[2] = (int)(((float)ios/total)*100) + "%";	//전체 중 해당 개체 비율
 			values[3] = ios + "";	//해당 개체 개수
 			val.put("values", values);
@@ -439,8 +440,8 @@ public class ConnStatService implements IConnStatService {
 			is = new int[1];
 			is[0] = ios;
 			map.put("values", is);
-			map.put("text", "ios");
-			map.put("data-index", "ios");
+			map.put("text", "iOS");
+			map.put("data-index", "iOS");
 			map.put("background-color", background[1]);
 			series_graph.add(map);
 			
@@ -451,7 +452,7 @@ public class ConnStatService implements IConnStatService {
 			}
 			values = new String[4];	//series_table values용
 			values[0] = rank + "";	//해당 개체 개수 많은 순서
-			values[1] = "win10";	//해당 개체 이름
+			values[1] = "windows 10";	//해당 개체 이름
 			values[2] = (int)(((float)win10/total)*100) + "%";	//전체 중 해당 개체 비율
 			values[3] = win10 + "";	//해당 개체 개수
 			val.put("values", values);
@@ -460,8 +461,8 @@ public class ConnStatService implements IConnStatService {
 			is = new int[1];
 			is[0] = win10;
 			map.put("values", is);
-			map.put("text", "win10");
-			map.put("data-index", "win10");
+			map.put("text", "windows 10");
+			map.put("data-index", "windows 10");
 			map.put("background-color", background[2]);
 			series_graph.add(map);
 			
@@ -472,7 +473,7 @@ public class ConnStatService implements IConnStatService {
 			}
 			values = new String[4];	//series_table values용
 			values[0] = rank + "";	//해당 개체 개수 많은 순서
-			values[1] = "winxp";	//해당 개체 이름
+			values[1] = "windows xp";	//해당 개체 이름
 			values[2] = (int)(((float)winxp/total)*100) + "%";	//전체 중 해당 개체 비율
 			values[3] = winxp + "";	//해당 개체 개수
 			val.put("values", values);
@@ -481,8 +482,8 @@ public class ConnStatService implements IConnStatService {
 			is = new int[1];
 			is[0] = winxp;
 			map.put("values", is);
-			map.put("text", "winxp");
-			map.put("data-index", "winxp");
+			map.put("text", "windows xp");
+			map.put("data-index", "windows xp");
 			map.put("background-color", background[3]);
 			series_graph.add(map);
 			
@@ -493,7 +494,7 @@ public class ConnStatService implements IConnStatService {
 			}
 			values = new String[4];	//series_table values용
 			values[0] = rank + "";	//해당 개체 개수 많은 순서
-			values[1] = "winOther";	//해당 개체 이름
+			values[1] = "windows other...";	//해당 개체 이름
 			values[2] = (int)(((float)winOther/total)*100) + "%";	//전체 중 해당 개체 비율
 			values[3] = winOther + "";	//해당 개체 개수
 			val.put("values", values);
@@ -502,8 +503,8 @@ public class ConnStatService implements IConnStatService {
 			is = new int[1];
 			is[0] = winOther;
 			map.put("values", is);
-			map.put("text", "winOther");
-			map.put("data-index", "winOther");
+			map.put("text", "windows other...");
+			map.put("data-index", "windows other...");
 			map.put("background-color", background[4]);
 			series_graph.add(map);
 			
@@ -570,6 +571,18 @@ public class ConnStatService implements IConnStatService {
 			map.put("background-color", background[7]);
 			series_graph.add(map);
 		}
+		
+		//표(series_table) 순위 오름차순 정렬
+		Collections.sort(series_table, new Comparator<Map<String, String[]>>() {
+			@Override
+			public int compare(Map<String, String[]> o1, Map<String, String[]> o2) {
+				String[] o1str = (String[]) o1.get("values");
+				String[] o2str = (String[]) o2.get("values");
+				int o1_rank = Integer.parseInt(o1str[0]);
+				int o2_rank = Integer.parseInt(o2str[0]);
+				return o1str[0].compareTo(o2str[0]);
+			}
+		});
 		
 		resultMap.put("series_graph", series_graph);
 		resultMap.put("series_table", series_table);

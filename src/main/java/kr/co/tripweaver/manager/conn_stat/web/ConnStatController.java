@@ -207,7 +207,6 @@ public class ConnStatController {
 		System.out.println("[ConnStatController] contactGraphAjax 퇴장");
 		
 		return resultMap;
-//		return "/admin/statistics/contact_graph_ajax";
 	}
 	
 	@RequestMapping("/connStatTime")

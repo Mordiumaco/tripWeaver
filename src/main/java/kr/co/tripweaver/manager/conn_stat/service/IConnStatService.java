@@ -1,6 +1,5 @@
 package kr.co.tripweaver.manager.conn_stat.service;
 
-import java.util.List;
 import java.util.Map;
 
 import kr.co.tripweaver.manager.conn_stat.model.ConnStatVO;
