@@ -78,4 +78,56 @@
 	</update>
 	
 	
+	
+	<!-- 마이페이지 클립보드 리스트 검색용 -->
+	<select id="selectEssayClip" parameterType="Map" resultType="essayVo" >
+		SELECT  rrnum.* FROM( 
+		SELECT
+		    e.ESSAY_DATE
+		    , e.ESSAY_CNT
+		    , e.ESSAY_ID
+		    , e.ESSAY_TITLE
+		    , e.ESSAY_VIEW_COUNT
+		    , t.TRIPPLAN_IMAGE
+		    ,rownum rnum
+		    , likeNum.*
+		FROM essay e inner join (
+		     select 
+		    count(*) as essay_like_count
+		    ,LIKE_REL_ART_ID
+		    from likes
+		    WHERE FILTER_id = 'essay'
+		    GROUP BY LIKE_REL_ART_ID
+		) likeNum
+		on (likeNum.LIKE_REL_ART_ID = e.essay_id ) inner join likes l
+		on (likeNum.LIKE_REL_ART_ID = l.LIKE_REL_ART_ID and l.mem_id = #{mem_id})inner join TRIPPLAN t
+		on(e.TRIPPLAN_ID = t.TRIPPLAN_ID) inner join member m
+		on(e.mem_id = m.mem_id)
+		where e.essay_DEL = 'N'
+		<if test="tag_search != '' ">
+		and ${search_title} like '%' ||  #{tag_search} || '%'</if>)rrnum
+		where rrnum.rnum between #{pageVo.page}*#{pageVo.pageSize}-(#{pageVo.pageSize}-1) and #{pageVo.page}*#{pageVo.pageSize}
+	</select>
+	
+	<!-- 마이페이지 클립보드 에세이 부분 게시물수 체크 -->
+	<select id="selectEssayClipAllNum" parameterType="map" resultType="int">
+		select
+		count(*)
+		from essay e inner join (
+		    select 
+		    count(*) as COUNT
+		    ,LIKE_REL_ART_ID
+		    from likes
+		    WHERE FILTER_id = 'essay'
+		    GROUP BY LIKE_REL_ART_ID
+		) likeNum
+		on (likeNum.LIKE_REL_ART_ID = e.essay_ID)
+		inner join likes l
+		 on (likeNum.LIKE_REL_ART_ID = l.LIKE_REL_ART_ID and l.mem_id = #{mem_id})
+		 where e.essay_DEL = 'N'
+		 <if test="tag_search != '' ">
+		 and e.MEM_ID like '%' ||  #{tag_search} || '%'
+		 </if>
+	</select>
+	
 </mapper>

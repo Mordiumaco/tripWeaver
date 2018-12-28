@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.tripweaver.common.attachment.service.IAttachmentService;
+import kr.co.tripweaver.essay.dao.IEssayDao;
+import kr.co.tripweaver.essay.model.EssayVO;
 import kr.co.tripweaver.postcard.dao.IPostCardDao;
 import kr.co.tripweaver.postcard.model.PostCardVO;
 import kr.co.tripweaver.util.model.PageVO;
@@ -21,6 +23,9 @@ public class ClipBoardService implements IClipBoardService {
 	
 	@Autowired
 	IAttachmentService attachmentService;
+	
+	@Autowired
+	IEssayDao essayDao;
 
 	@Override
 	public Map<String, Object> selectPostcardClip(Map<String, Object> params) {
@@ -37,6 +42,23 @@ public class ClipBoardService implements IClipBoardService {
 		resultMap.put("tag_search", params.get("tag_search"));
 		resultMap.put("search_title", params.get("search_title"));
 		resultMap.put("pageSize", PageUtil.pageCnt(selectAllPostClipCnt, 9) );
+		
+		return resultMap;
+	}
+
+	@Override
+	public Map<String, Object> selectEssayClip(Map<String, Object> params) {
+		
+		List<EssayVO> essayVOs = essayDao.selectEssayClip(params);
+		int selectEssayClipAllNum = essayDao.selectEssayClipAllNum(params);
+		
+		PageVO pageVO = (PageVO) params.get("pageVo");
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("essayVOs", essayVOs);
+		resultMap.put("page", pageVO.getPage());
+		resultMap.put("tag_search", params.get("tag_search"));
+		resultMap.put("search_title", params.get("search_title"));
+		resultMap.put("pageSize", PageUtil.pageCnt(selectEssayClipAllNum, 9) );
 		
 		return resultMap;
 	}

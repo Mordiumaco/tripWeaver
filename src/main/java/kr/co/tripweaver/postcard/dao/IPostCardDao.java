@@ -116,4 +116,5 @@ public interface IPostCardDao {
 	* Method 설명 : 메인에 사용할 포스트 카드 리스트를 받아오기 위한 메서드
 	*/
 	public List<PostCardVO> recentPostCardList();
+	
 }
