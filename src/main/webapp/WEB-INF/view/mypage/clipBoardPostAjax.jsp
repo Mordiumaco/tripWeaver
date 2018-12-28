@@ -23,7 +23,14 @@
 	<c:forEach items="${clipVo}" var="clip">
 		<ul>
 			<li>
-				<img src="/upload${clip.att_path}/${clip.att_file_name}">
+				<c:choose>
+					<c:when test="${clip.att_file_name == null}">
+						<img src="/img/no_image.png">
+					</c:when>
+					<c:otherwise>
+						<img src="/upload${clip.att_path}/${clip.att_file_name}">
+					</c:otherwise>
+				</c:choose>
 			</li> 
 			<li class="clipBoard_btn clipBoard_btnP">
 				<ul>
@@ -47,22 +54,22 @@
 	<span class="sound_only">열린</span>  
 
 		<c:if test="${param.page != 1}"> 
-			<a class="pg_page pg_start" href="javascript:getAjaxList2(1,'${tag_search}');"></a>
-			<a class="pg_page pg_prev" href="javascript:getAjaxList2('${param.page -1}','${tag_search}');"></a>			
+			<a class="pg_page pg_start" href="javascript:getAjaxList2(1,'${tag_search}','${search_title }');"></a>
+			<a class="pg_page pg_prev" href="javascript:getAjaxList2('${param.page -1}','${tag_search}','${search_title }');"></a>			
 		</c:if>
 		
 		<c:forEach var="pageWrap"  varStatus="status" begin="1" end="${pageSize}">
 
 			<c:choose>
-				<c:when test="${status.index == param.page}"><a class="pg_current" href="javascript:getAjaxList2(${status.index},'${tag_search}');">${status.index}</a></c:when>
-				<c:otherwise><a class="pg_page" href="javascript:getAjaxList2(${status.index},'${tag_search}');">${status.index}</a></c:otherwise>
+				<c:when test="${status.index == param.page}"><a class="pg_current" href="javascript:getAjaxList2('${status.index}','${tag_search}','${search_title }');">${status.index}</a></c:when>
+				<c:otherwise><a class="pg_page" href="javascript:getAjaxList2('${status.index}','${tag_search}','${search_title }');">${status.index}</a></c:otherwise>
 			</c:choose>
 
 		</c:forEach>
 		
 		<c:if test="${pageSize > param.page}">
-			<a class="pg_page pg_next" href="javascript:getAjaxList2(${param.page +1},'${tag_search}');"></a>
-			<a class="pg_page pg_end" href="javascript:getAjaxList2(${pageSize},'${tag_search}');"></a>
+			<a class="pg_page pg_next" href="javascript:getAjaxList2(${param.page +1},'${tag_search}','${search_title }');"></a>
+			<a class="pg_page pg_end" href="javascript:getAjaxList2(${pageSize},'${tag_search}','${search_title }');"></a>
 		</c:if>
 
 		

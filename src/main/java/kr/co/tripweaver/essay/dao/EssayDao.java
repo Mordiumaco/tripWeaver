@@ -238,4 +238,45 @@ public class EssayDao implements IEssayDao{
 		
 		return resultCnt; 
 	}
+
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 :  박찬배
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 마이페이지 클립보드 에세이 리스트 
+		*
+	 */
+	@Override
+	public List<EssayVO> selectEssayClip(Map<String, Object> params) {
+		List<EssayVO> essayVOs = template.selectList("essaySQL.selectEssayClip", params);
+		return essayVOs;
+	}
+	
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 박찬배
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 마이페이지 클립보드 에세이 리스트 카운트
+		*
+	 */
+	@Override
+	public int selectEssayClipAllNum(Map<String, Object> params) {
+		int essayVOs = template.selectOne("essaySQL.selectEssayClipAllNum", params);
+		return essayVOs;
+	}
+	
+	
+	
+	
 }

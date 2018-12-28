@@ -122,5 +122,32 @@ public interface IEssayDao {
 	*/
 	public int addViewCountByEssayId(String essay_id);
 	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 박찬배
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 마이페이지 클립보드 에세이 리스트 
+		*
+	 */
+	public List<EssayVO> selectEssayClip(Map<String, Object> params);
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 박찬배
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 마이페이지 클립보드 에세이 리스트 카운트
+		*
+	 */
+	public int selectEssayClipAllNum(Map<String, Object> params);
 	
 }

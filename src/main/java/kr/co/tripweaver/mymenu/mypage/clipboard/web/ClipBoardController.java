@@ -27,8 +27,10 @@ public class ClipBoardController {
 		params.put("search_title", search_title);
 		
 		Map<String, Object> selectAllPostClipMap = clipBoardService.selectPostcardClip(params);
+		Map<String, Object> selectEssayClip = clipBoardService.selectEssayClip(params);
 		
 		model.addAllAttributes(selectAllPostClipMap);
+		model.addAllAttributes(selectEssayClip);
 	 
 		return "mypage/clipBoard";
 	}
@@ -58,10 +60,10 @@ public class ClipBoardController {
 		params.put("mem_id", mem_id);
 		params.put("tag_search", tag_search);
 		params.put("search_title", search_title);
-		/*
-		Map<String, Object> selectAllPostClipMap = clipBoardService.selectPostcardClip(params);
 		
-		model.addAllAttributes(selectAllPostClipMap);*/
+		Map<String, Object> selectEssayClip = clipBoardService.selectEssayClip(params);
+		
+		model.addAllAttributes(selectEssayClip);
 		
 		return "mypage/clipBoardEssayAjax";
 	}
