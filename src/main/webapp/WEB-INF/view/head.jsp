@@ -80,8 +80,8 @@
 						<div class="oe_menu_div1">
 							<div class="tri"></div>
 							<ul>
-								<li><a href="">가이드 찾기</a></li>
-								<li><a href="">파트너 찾기</a></li>
+								<li><a href="/main/board?board_id=bd00006">가이드 찾기</a></li>
+								<li><a href="/main/board?board_id=bd00007">파트너 찾기</a></li>
 							</ul>
 						</div>
 					</li>

@@ -24,7 +24,7 @@
 
 		</div>
 	
-		<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get" action="/mypage/reservation">
+		<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
 			<select name="sc" id="sc">
 			    <option value="mem_nick">닉네임</option>
 			</select>

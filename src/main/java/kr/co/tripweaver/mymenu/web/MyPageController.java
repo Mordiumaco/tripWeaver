@@ -302,7 +302,7 @@ public class MyPageController {
 	* 생성날짜 : 2018. 12. 28.
 	* 변경이력 :
 	* @return
-	* Method 설명 : 예약 관련 뷰 
+	* Method 설명 : 가이드 예약 관련 뷰 
 	*/
 	@RequestMapping("reservation")
 	public String reservationView(Model model, HttpSession session, @RequestParam(value="page", defaultValue="1", required=false) String page
@@ -336,10 +336,57 @@ public class MyPageController {
 		
 		List<ReservationForMyPageVO> reservationList = reservationService.selectReserForGuide(param);
 		
+		model.addAttribute("reserCnt", reserCnt);
 		model.addAttribute("reserTotalCnt", reserTotalCnt);
 		model.addAttribute("reservationList", reservationList);
 		model.addAttribute("page", reserPage);
 		model.addAttribute("currentPage", page);
 		return "mypage/reservation";
+	}
+	
+	
+	/**
+	* Method : reservationView
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 28.
+	* 변경이력 :
+	* @return
+	* Method 설명 : 예약자 예약 관련 뷰 
+	*/
+	@RequestMapping("guide")
+	public String guideView(Model model, HttpSession session, @RequestParam(value="page", defaultValue="1", required=false) String page
+			, @RequestParam(value="sc", defaultValue="mem_nick", required=false) String sc
+			, @RequestParam(value="searchText", defaultValue="", required=false) String searchText) {
+		
+		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
+		
+		if(memberVo == null) {
+			return "loginCheckError";
+		}
+		
+		
+		//해당 예약자 회원의 총 예약 건수 
+		int reserCnt = reservationService.reserTotalForMember(memberVo.getMem_id());
+		
+		int reserPage = 1;
+		
+		if(reserCnt != 0) {
+			reserPage = ((int)(reserCnt/10))+((reserCnt%10) == 0 ? 0: 1);
+		}
+		
+		//가이드가 받은 예약 리스트 
+		Map<String, String> param = new HashMap<>();
+		param.put("page", page);
+		param.put("mem_id", memberVo.getMem_id());
+		param.put(sc, searchText);
+		
+		
+		List<ReservationForMyPageVO> reservationList = reservationService.selectReserForMember(param);
+		
+		model.addAttribute("reserCnt", reserCnt);
+		model.addAttribute("reservationList", reservationList);
+		model.addAttribute("page", reserPage);
+		model.addAttribute("currentPage", page);
+		return "mypage/guide";
 	}
 }

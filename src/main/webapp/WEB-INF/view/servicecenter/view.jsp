@@ -128,6 +128,7 @@ function button_event(){
 	                						<input class="btn_b03" type="submit" value="삭제">
 	                					</c:if>
 	                				</form>
+	                					<input class="btn_b03" type="submit" value="수정">
 	                			</li>            
 	                		</ul>
                 		</c:if>

@@ -169,4 +169,79 @@ public class ReservationDao implements IReservationDao {
 		
 		return totalResCnt;
 	}
+	
+	/**
+	 * Method : reserDeleteByReserId
+	 * 작성자 : Jae Hyeon Choi
+	 * 생성날짜 : 2018. 12. 29.
+	 * 변경이력 : 
+	 * @param reser_id
+	 * @return
+	 * 해당 예약 번호에 해당하는 예약건을 지운다. 
+	 */
+	@Override
+	public int reserDeleteByReserId(String reser_id) {
+		
+		int resultCnt = 0;
+		
+		try {
+			resultCnt = template.delete("reservationSQL.reserDeleteByReserId", reser_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return resultCnt;
+		}
+		
+		
+		return resultCnt;
+	}
+	
+	/**
+	* Method : selectReserForMember
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 29.
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 예약자의 예약건을 가져오기 위한 리스트
+	*/
+	@Override
+	public List<ReservationForMyPageVO> selectReserForMember(Map<String, String> param){
+		
+		List<ReservationForMyPageVO> reservationList = null;
+		
+		try {
+			
+			reservationList = template.selectList("reservationSQL.selectReserForMember", param);
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			return reservationList;
+		}
+		
+		return reservationList;
+	}
+	
+	/**
+	* Method : reserTotalForMember
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 2*.
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 해당 예약 회원의 예약 건수를 받아온다.
+	*/
+	@Override
+	public int reserTotalForMember(String mem_id){
+		int totalResCnt = 0;
+		
+		try {
+			totalResCnt = template.selectOne("reservationSQL.reserTotalForMember", mem_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return totalResCnt;
+		}
+		
+		return totalResCnt;
+	}
 }

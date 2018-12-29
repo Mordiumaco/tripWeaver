@@ -72,4 +72,37 @@ public interface IReservationService {
 	* Method 설명 : 해당 가이드 회원의 예약 건수를 받아온다.
 	*/
 	public int reserTotalByMemId(String mem_id);
+	
+	/**
+	 * Method : reserDeleteByReserId
+	 * 작성자 : Jae Hyeon Choi
+	 * 생성날짜 : 2018. 12. 29.
+	 * 변경이력 : 
+	 * @param reser_id
+	 * @return
+	 * 해당 예약 번호에 해당하는 예약건을 지운다. 
+	 */
+	public int reserDeleteByReserId(String reser_id);
+	
+	/**
+	* Method : selectReserForMember
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 29.
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 예약자의 예약건을 가져오기 위한 리스트
+	*/
+	public List<ReservationForMyPageVO> selectReserForMember(Map<String, String> param);	
+	
+	/**
+	* Method : reserTotalForMember
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 2*.
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 해당 예약 회원의 예약 건수를 받아온다.
+	*/
+	public int reserTotalForMember(String mem_id);
 }
