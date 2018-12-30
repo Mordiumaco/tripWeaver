@@ -116,14 +116,16 @@ function fboardlist_submit(f) {
 			</c:when>
 		</c:choose>
 	</c:forEach>
-	
+	<h2 class="board_top">${boardVo.board_title}</h2>
 	<div class="board_top_sub">
 		<ul class="bt_left">
 			<li>Total&nbsp;&nbsp;<b>${totalArticleCnt}</b>&nbsp; 건 </li>
 			<li>&nbsp;&nbsp;<b>${pageCnt}</b> &nbsp;페이지</li>
 		</ul>
 		<ul class="bt_right">
+			<c:if test="${loginInfo.mem_author == 0}">
 			<li><button class="btn_bd col_01" type="submit" onclick="location.href='/article/articleView?board_id=${board_id}'"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp; 글쓰기</button></li>
+			</c:if>
 		</ul>
 	</div>
 	
@@ -194,7 +196,9 @@ function fboardlist_submit(f) {
 		</form>
 		<ul class="bt_right">
 			<li><button class="btn_bd col_03" type="submit" onclick="location.href='/main/board?board_id=${board_id}&page=1&pageSize=10&search_key=art_title&search_value='">목록</button></li>
-			<li><button class="btn_bd col_01" type="submit" onclick="location.href='/article/articleView?board_id=${board_id}'"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp; 글쓰기</button></li>
+			<c:if test="${loginInfo.mem_author == 0 }">
+				<li><button class="btn_bd col_01" type="submit" onclick="location.href='/article/articleView?board_id=${board_id}'"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp; 글쓰기</button></li>
+			</c:if>
 		</ul>
 		
 	</div>
@@ -205,10 +209,8 @@ function fboardlist_submit(f) {
 			<c:set var="pageSize" value="10"/>
 			
 			
-			<c:if test="${param.page != 1}">
-				<a class="pg_page pg_start" href="/main/board?board_id=${board_id}&page=1&pageSize=${pageSize}"></a>
+				<a class="pg_start pg_page" href="/main/board?board_id=${board_id}&page=1&pageSize=${pageSize}"></a>
 				<a class="pg_page pg_prev" href="/main/board?board_id=${board_id}&page=${param.page - 1}&pageSize=${pageSize}"></a>			
-			</c:if>
 			
 			<c:forEach var="pageWrap"  varStatus="status" begin="1" end="${pageCnt}">
 
@@ -219,10 +221,8 @@ function fboardlist_submit(f) {
 
 			</c:forEach>
 			
-			<c:if test="${pageCnt > param.page}">
 				<a class="pg_page pg_next" href="/main/board?board_id=${board_id}&page=${param.page + 1}&pageSize=${pageSize}"></a>
 				<a class="pg_page pg_end" href="/main/board?board_id=${board_id}&page=${pageCnt}&pageSize=${pageSize}"></a>
-			</c:if>
 			
 		
 			
