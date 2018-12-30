@@ -1,6 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib  prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+	$(function(){
+		var app = new Vue({
+		  el: '#vuejsTest',
+		  data: {
+		    mem_nick: "${loginInfo.mem_nick}"
+		  }
+		})
+	})
+	
+</script>
+
 <div class="mypage_left">
 	<ul>
 		<li>
@@ -24,7 +37,7 @@
 				<c:set var="author" value="관리자"></c:set>
 			</c:when>
 		</c:choose>
-		<li>${loginInfo.mem_nick} <span>${author}</span></li>
+		<li id="vuejsTest">{{mem_nick}} <span>${author}</span></li>
 	</ul>
 	<ul class="mypage_leftUl2">
 		<c:choose>
