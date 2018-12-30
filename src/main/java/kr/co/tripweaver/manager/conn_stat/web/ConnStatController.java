@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.tripweaver.manager.conn_stat.model.ConnStatVO;
 import kr.co.tripweaver.manager.conn_stat.service.IConnStatService;
 import kr.co.tripweaver.util.model.PageVO;
 
@@ -120,7 +118,7 @@ public class ConnStatController {
 	//접속자 통꼐 그래프 아작스
 	@ResponseBody
 	@RequestMapping("/contactGraphAjax")
-	public Map<String, Object> contactGraphAjax(@RequestParam("dateType") String dateType, @RequestParam("sel_ca_id") String classification, @RequestParam("datepicker") String datePicker,Model model) {
+	public Map<String, Object> contactGraphAjax(@RequestParam("dateType") String dateType, @RequestParam("sel_ca_id") String classification, @RequestParam("datepicker") String datePicker, Model model) {
 		System.out.println("[ConnStatController] contactGraphAjax 입장");
 		//dateType : 'month', 'week', 'day'
 		//classification : 'browser', 'divice', 'referer', 'os'
@@ -210,11 +208,14 @@ public class ConnStatController {
 	}
 	
 	@RequestMapping("/connStatTime")
-	public String connStatTime(Model model) {
-		
+	public String connStatTime(@RequestParam(value="datepicker", required=false) String datepicker, Model model) {
 		Map<String, Object> params = new HashMap<String,Object>();
+		params.put("datepicker", datepicker);
 		
+		Map<String, Object> resultMap = connStatService.selectConnTimeStat(params);
+		model.addAttribute("gnb", 3);
+		model.addAllAttributes(resultMap);
 		
-		return "";
+		return "/admin/statistics/contactTime";
 	}
 }

@@ -1,10 +1,13 @@
 package kr.co.tripweaver.manager.conn_stat.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -586,6 +589,86 @@ public class ConnStatService implements IConnStatService {
 		
 		resultMap.put("series_graph", series_graph);
 		resultMap.put("series_table", series_table);
+		
+		return resultMap;
+	}
+
+	@Override
+	public Map<String, Object> selectConnTimeStat(Map<String, Object> params) {
+		//매개변수는 선택날짜를 반환
+		String datepicker = (String) params.get("datepicker");
+		String start = "";
+		String end = "";
+		String[] str = null;
+		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+		Calendar calendar = Calendar.getInstance();
+		Date date = null;
+				
+		if(datepicker == null || datepicker.equals("")) {
+			date = new Date();
+			datepicker = format.format(date);
+		}
+		System.out.println("[selectConnTimeStat] datepicker : " + datepicker);
+		//해당 날짜를 받고 전달, 전날 총 3개의 통계 리스트를 받는다
+		String year = datepicker.substring(0,4);
+		//해당일 통계리스트
+		start = datepicker;
+		end = datepicker;
+		str = datepicker.split("\\.");
+		String str_day = str[1] + "월 " + str[2] + "일";
+		String input_str_day = str[1] + "." + str[2];
+		params.put("start", start);
+		params.put("end", end);
+		List<ConnStatVO> day = connStatDao.selectConnTimeStat(params);
+		
+		//전날 통계리스트
+		try {
+			date = format.parse(datepicker);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		calendar.setTime(date);
+		calendar.add(Calendar.DATE, -1);
+		start = format.format(calendar.getTime());
+		end = start;
+		str = start.split("\\.");
+		String str_eve_day = str[1] + "월 " + str[2] + "일";
+		params.put("start", start);
+		params.put("end", end);
+		List<ConnStatVO> eve_day = connStatDao.selectConnTimeStat(params);
+		
+		//전달 평균 통계리스트
+		calendar.clear();
+		calendar.setTime(date);
+		calendar.add(Calendar.MONTH, -1);
+		//1일 마지막일 구하기
+		while (calendar.get(Calendar.DATE) > 1) {
+			calendar.add(Calendar.DATE, -1);
+		}
+		start = format.format(calendar.getTime());
+		calendar.add(Calendar.DATE, (calendar.getActualMaximum(Calendar.DAY_OF_MONTH)-1));
+		end = format.format(calendar.getTime());
+		str = start.split("\\.");
+		String str_last_month = str[1] + "월 평균";
+		params.put("start", start);
+		params.put("end", end);
+		List<ConnStatVO> last_month = connStatDao.selectConnTimeStatMonth(params);
+		
+		System.out.println("day.size() : " + day.size());
+		System.out.println("eve_day.size() : " + eve_day.size());
+		System.out.println("last_month.size() : " + last_month.size());
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("day", day);
+		resultMap.put("eve_day", eve_day);
+		resultMap.put("last_month", last_month);
+		
+		//표에 띄어줄 선택날짜 MM월dd일, 전날 MM월dd일, 전달 MM월
+		resultMap.put("input_str_day", input_str_day);
+		resultMap.put("year", year);
+		resultMap.put("str_day", str_day);
+		resultMap.put("str_eve_day", str_eve_day);
+		resultMap.put("str_last_month", str_last_month);
 		
 		return resultMap;
 	}

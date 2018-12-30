@@ -67,4 +67,29 @@
 		FROM connstat
 		WHERE connstat_date BETWEEN TO_DATE(#{start}, 'yyyy.MM.dd') AND TO_DATE(#{end} || '23:59:59', 'yyyy.MM.dd HH24:MI:SS')
 	</select>
+	<!-- 해당기간 시간별 접속자수 통계 -->
+	<select id="selectConnTimeStat" parameterType="Map" resultType="connStatVo">
+		SELECT  t2.timestat_date AS timestat_date,
+		        SUM(t2.timestat_count) AS timestat_count
+		FROM (  SELECT TO_CHAR(t.timestat_date, 'hh24') AS timestat_date, 
+		               t.timestat_count AS timestat_count
+		        FROM (  SELECT *
+		                FROM conntimestat
+		                WHERE timestat_date BETWEEN TO_DATE(#{start}, 'yyyy.MM.dd') AND TO_DATE(#{end} || '23:59:59', 'yyyy.MM.dd HH24:MI:SS')) t) t2
+		GROUP BY t2.timestat_date
+		ORDER BY t2.timestat_date
+	</select>
+
+	<!-- 해당월 시간별 접속자수 통계 -->
+	<select id="selectConnTimeStatMonth" parameterType="Map" resultType="connStatVo">
+		SELECT  t2.timestat_date AS timestat_date,
+		        AVG(t2.timestat_count) AS timestat_count
+		FROM (  SELECT TO_CHAR(t.timestat_date, 'hh24') AS timestat_date, 
+		               t.timestat_count AS timestat_count
+		        FROM (  SELECT *
+		                FROM conntimestat
+		                WHERE timestat_date BETWEEN TO_DATE(#{start}, 'yyyy.MM.dd') AND TO_DATE(#{end} || '23:59:59', 'yyyy.MM.dd HH24:MI:SS')) t) t2
+		GROUP BY t2.timestat_date
+		ORDER BY t2.timestat_date
+	</select>
 </mapper>

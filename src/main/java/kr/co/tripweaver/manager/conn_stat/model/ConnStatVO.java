@@ -36,6 +36,10 @@ public class ConnStatVO {
 	private int os_macintosh;
 	private int os_others;
 	
+	//접속시간 통계용
+	private String timestat_date;
+	private int timestat_count;
+	
 	public String getSession_id() {
 		return session_id;
 	}
@@ -209,6 +213,18 @@ public class ConnStatVO {
 	}
 	public void setOs_others(int os_others) {
 		this.os_others = os_others;
+	}
+	public String getTimestat_date() {
+		return timestat_date;
+	}
+	public void setTimestat_date(String timestat_date) {
+		this.timestat_date = timestat_date;
+	}
+	public int getTimestat_count() {
+		return timestat_count;
+	}
+	public void setTimestat_count(int timestat_count) {
+		this.timestat_count = timestat_count;
 	}
 	@Override
 	public String toString() {
