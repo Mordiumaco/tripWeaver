@@ -1,5 +1,6 @@
 package kr.co.tripweaver.manager.conn_stat.service;
 
+import java.util.List;
 import java.util.Map;
 
 import kr.co.tripweaver.manager.conn_stat.model.ConnStatVO;
@@ -35,4 +36,15 @@ public interface IConnStatService {
 	* Method 설명 : 그래프 아작스용 결과를 반환해주는 메서드
 	 */
 	public Map<String, Object> selectConnStat(Map<String, Object> params);
+
+	/**
+	* Method : selectConnTimeStat
+	* 작성자 : jin
+	* 변경이력 :
+	* @param params
+	* @return
+	* Method 설명 : 해당일자, 전날, 저번달 평균의 접속시간 통계를 반환하는 메서드
+	 */
+	public Map<String, Object> selectConnTimeStat(Map<String, Object> params);
+
 }

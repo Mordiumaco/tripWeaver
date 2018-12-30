@@ -336,8 +336,11 @@
 						data: cdata, 
 						modules : "grid"
 					});
-				
-// 				$('#contact_graph_ajax').html(data)
+					var total = 0;
+					$.each(data.series_graph, function(idx, val) {
+						total += parseInt(val.values);
+					})
+					$('#total').text(total);
 			}
 		});
 	}
@@ -420,7 +423,9 @@
 		<input type="button" value="검색" class="btn_submit" id="search_btn">
 	</form>
 
-
+	<div>
+		<label for="total_label"><span id="total_label">총합 : </span></label><span id="total"></span>
+	</div>
 	<div id="contact_graph_ajax">
 		<div id='myChart'><a class="zc-ref" href="https://www.zingchart.com/">Charts by ZingChart</a></div>
 		<!-- contact_graph_ajax 페이지 -->
