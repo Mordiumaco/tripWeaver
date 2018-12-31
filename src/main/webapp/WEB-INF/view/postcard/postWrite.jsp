@@ -128,6 +128,7 @@ $(function(){
 // 이미지 경로 비우기 
 
 $(document).ready(function(){
+	
 	$("#btn_delAttach1").click(function(){
 		$("#input_img1").val("");
 		$("#img1").attr('src','/img/no_image.png')
@@ -156,6 +157,8 @@ $(document).ready(function(){
 $(document).ready(function(){
 	$("#btn_delAttach1, #btn_delAttach2, #btn_delAttach3, #btn_delAttach4").hide();
 });
+
+
 
 </script>
 
@@ -215,7 +218,7 @@ $(document).ready(function(){
 			
 			<div class="write_wrap">
 				<h1>내용을 적어주세요. <span>해쉬태그는 #으로 구분을 합니다.</span></h1>
-				<textarea placeholder="내용을 적어주세요. #해시태그 #이렇게사용" name="pc_cnt"></textarea>
+				<textarea id="textarea" placeholder="내용을 적어주세요. #해시태그 #이렇게사용" name="pc_cnt"></textarea>
 				<input type="hidden" name="mem_id" value="${loginInfo.mem_id}"> 
 			</div>
 			

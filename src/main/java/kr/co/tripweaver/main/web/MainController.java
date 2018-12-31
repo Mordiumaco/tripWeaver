@@ -229,11 +229,7 @@ public class MainController {
 		return "admin/board/create_board";
 	}
 	
-	@RequestMapping("/declaration")
-	public String declarationView(Model model) {
-		model.addAttribute("gnb", 0);
-		return "admin/setting/declaration";
-	}
+	
 	
 	@RequestMapping("/contact")
 	public String contactView(Model model) {

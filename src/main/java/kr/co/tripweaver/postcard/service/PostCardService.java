@@ -106,6 +106,9 @@ public class PostCardService implements IPostCardService{
 	public int insertPostcard(Map<String, Object> resultMap) {
 		
 		PostCardVO postcardVo = (PostCardVO)resultMap.get("postcardVo");
+		String pc_cnt = postcardVo.getPc_cnt();
+		pc_cnt = pc_cnt.replaceAll("(\r\n|\r|\n|\n\r)", " <br/> ");
+		postcardVo.setPc_cnt(pc_cnt); 
 		
 		String pc_id = postCardDao.insertPostcard(postcardVo);
 		
@@ -170,6 +173,10 @@ public class PostCardService implements IPostCardService{
 		
 		PostCardVO postcardVo = (PostCardVO)resultMap.get("postcardVo");
 		String pc_id = postcardVo.getPc_id();
+		
+		String pc_cnt = postcardVo.getPc_cnt();
+		pc_cnt = pc_cnt.replaceAll("(\r\n|\r|\n|\n\r)", "<br/> ");
+		postcardVo.setPc_cnt(pc_cnt); 
 		
 		// 해시태그 삭제 진행
 		int deleteHasgtagCnt = hashTagService.deleteHasgtag(postcardVo.getPc_id());
