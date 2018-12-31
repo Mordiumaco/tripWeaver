@@ -9,35 +9,76 @@
 <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico" />
 <link rel="stylesheet" href="/css/default.css">
 <script src="/js/jquery-3.3.1.min.js"></script>
+<script>
+		function findIdCheck(){
+			let mem_name = $('#mem_name').val();
+			let mem_tel = $('#mem_tel').val();
+			let mem_email = $('#mem_email').val();
+			if(mem_name.length < 2){
+				alert("2자 이상의 이름을 적어주세요");
+				return;
+			}
+			
+			if(mem_tel.length < 5){
+				alert("제대로 된 전화번호를 적어주세요");
+				return;
+			}
+			
+			if(mem_email.length < 5){
+				alert("제대로 된 이메일을 적어주세요");
+				return;
+			}
+			
+		    $.ajax({
+			   	type: "GET",
+			   	url:"/main/findIdCheck",
+			   	data : {"mem_name":mem_name, "mem_tel":mem_tel, "mem_email":mem_email},
+			   	success : function(data){
+			           
+			   		console.log(data);
+			   		if(data == null || data ==""){
+			   			
+			   			alert("해당 회원에 대한 정보가 없습니다.");
+			   			
+			   		}else{
+			   			
+			   			alert("해당 정보에 대한 회원의 아이디는 "+data+"입니다.");
+			   		}
+			           	
+			   	}
+			 });
+		}
+	
+</script>
 </head>
 <body style="min-width: 600px; overflow-x: hidden;">
 	<!-- 회원정보 찾기 시작 { -->
 	<div id="find_info" class="new_win">
 		<h1 id="win_title">회원정보 찾기</h1>
 		<div class="new_win_con">
-			<form name="fpasswordlost"
-				action="https://demo.sir.kr/gnuboard5/bbs/password_lost2.php"
-				onsubmit="return fpasswordlost_submit(this);" method="post"
-				autocomplete="off">
+			<h1>아이디 찾기</h1>
+			<form name="fpasswordlost" action="" onsubmit="return fpasswordlost_submit(this);" method="post" autocomplete="off">
 				<fieldset id="info_fs">
-					<p>회원가입 시 등록하신 이름, 전화번호, 생년월일을 적어주세요.</p>
+					<p>회원가입 시 등록하신 이름, 전화번호, 생년월일을 적어주세요.<br/> 
+					네이버 아이디 인 경우에는 네이버에서 찾기를 해주세요 </p>
 					<br /> 
 					<label for="mb_email"> 이름 </label> 
-					<input type="text" name="mb_email" id="mb_email" required="" class="required frm_input full_input email" size="30" placeholder="이름을 적어주세요."> 
+					<input type="text" name="mem_name" id="mem_name" required="" class="required frm_input full_input email" size="30" placeholder="이름을 적어주세요."> 
 					<label for="mb_email">전화번호 </label> 
-					<input type="text" name="mb_email" id="mb_email" required="" class="required frm_input full_input email" size="30" placeholder="010-0000-0000"> 
-					<label for="mb_email">생년월일 </label> <input type="text" name="mb_email" id="mb_email" required="" class="required frm_input full_input email" size="30"	placeholder="19911223">
+					<input type="text" name="mem_tel" id="mem_tel" required="" class="required frm_input full_input email" size="30" placeholder="ex) 01000000000"> 
+					<label for="mb_email">이메일 </label> <input type="text" name="mem_email" id="mem_email" required="" class="required frm_input full_input email" size="30"	placeholder="ex) tripweaver@naver.com">
 				</fieldset>
-				<input type="submit" value="확인" class="btn_submit"> 
+				<input type="button" value="확인" class="btn_submit" onclick="findIdCheck()"/>
 				<br /> 
+			</form>
+		</div>
+		<div class="new_win_con">
+			<h1>비밀번호 찾기</h1>
+			<form name="fpasswordlost" action="https://demo.sir.kr/gnuboard5/bbs/password_lost2.php" onsubmit="return fpasswordlost_submit(this);" method="post" autocomplete="off">
 				<br />
 				<br /> 
 				<label for="mb_email"> 아이디 </label> 
 				<input type="text" name="mb_email" id="mb_email" required="" readonly="readonly" class="frm_input full_input email" size="30">
-			</form>
-		</div>
-		<div class="new_win_con">
-			<form name="fpasswordlost" action="https://demo.sir.kr/gnuboard5/bbs/password_lost2.php" onsubmit="return fpasswordlost_submit(this);" method="post" autocomplete="off">
 				<fieldset id="info_fs">
 					<p>
 						회원가입 시 등록하신 이메일 주소를 입력해 주세요.<br> 해당 이메일로 비밀번호 정보를 보내드립니다.

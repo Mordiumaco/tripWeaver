@@ -215,4 +215,18 @@ public class MemberService implements IMemberService {
 		return resultMap;
 	}
 	
+	
+	/**
+	* Method : findIdCheck
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 31.
+	* 변경이력 :
+	* @param memberVo
+	* @return
+	* Method 설명 : 해당 정보에 만족하는 회원이 있으면 해당 회원의 아이디를 반환 해준다.
+	*/
+	@Override
+	public MemberVO findIdCheck(MemberVO memberVo) {
+		return memberDao.findIdCheck(memberVo);
+	}
 }
