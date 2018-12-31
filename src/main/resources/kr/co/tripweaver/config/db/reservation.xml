@@ -17,10 +17,59 @@
 		select * from reservation where mem_id = #{mem_id}
 	</select>
 	
-	<!-- 해당 가이드를 위한 예약 조회 확인 리스트  -->
-	<select id="selectReserForGuide" parameterType="String" resultType="reservationVo">
-		select * from reservation where mem_id = #{mem_id}
+	<!-- 가이드가 해당 예약을 조회를 위한 예약 조회 확인 리스트  -->
+	<select id="selectReserForGuide" parameterType="Map" resultType="reservationForMyPageVo">
+		select rownum rnum, reserv.*
+		from
+		(
+		select 
+		res.reser_date reser_date, res.reser_apply_peo_count reser_apply_peo_count, m.mem_nick mem_nick, m.mem_id mem_id, res.reser_id reser_id, gp.guideplan_start_day guideplan_start_day, e.essay_title essay_title
+		from reservation res,guideplan gp, essay e, member m
+		where res.guideplan_id=gp.guideplan_id
+		and gp.essay_id = e.essay_id
+		and res.mem_id = m.mem_id
+		and e.mem_id = #{mem_id}
+		<if test="mem_nick != null">
+			and m.mem_nick like '%'||#{mem_nick}||'%' 
+		</if>
+		order by res.reser_date asc
+		)reserv
+		where rownum between 1+(to_number(#{page}-1)*10) and (to_number(#{page}*10))
+		order by rnum desc	
 	</select>
+		
+	<!-- 예약자가 해당 예약을 조회를 위한 예약 조회 확인 리스트  -->
+	<select id="selectReserForMember" parameterType="Map" resultType="reservationForMyPageVo">
+		select rownum rnum, reserv.*
+		from
+		(
+		select 
+		res.reser_date reser_date, res.reser_apply_peo_count reser_apply_peo_count, m.mem_nick mem_nick, m.mem_id mem_id, res.reser_id reser_id, gp.guideplan_start_day guideplan_start_day, e.essay_title essay_title
+		from reservation res,guideplan gp, essay e, member m
+		where res.guideplan_id=gp.guideplan_id
+		and gp.essay_id = e.essay_id
+		and res.mem_id = #{mem_id}
+		and e.mem_id = m.mem_id
+		<if test="mem_nick != null">
+			and m.mem_nick like '%'||#{mem_nick}||'%' 
+		</if>
+		order by res.reser_date asc
+		)reserv
+		where rownum between 1+(to_number(#{page}-1)*10) and (to_number(#{page}*10))
+		order by rnum desc	
+	</select>
+	
+	
+		
+	<!-- 해당 가이드의 모든 예약에 대한 총 인원수  -->
+	<select id="reserPeoTotalCntByMemId" resultType="int" parameterType="String">
+		select sum(res.reser_apply_peo_count) 
+		from reservation res,guideplan gp, essay e
+		where res.guideplan_id=gp.guideplan_id
+		and gp.essay_id = e.essay_id
+		and e.mem_id = #{mem_id}
+	</select>
+	
 	
 	<!-- 해당 가이드 예약일자에 대한 총 예약 인원 수 -->
 	<select id="reserTotalPeopleCountByGuidePlanId" resultType="Integer" parameterType="String">
@@ -30,4 +79,24 @@
 		and gp.guideplan_id = #{guideplan_id}
 	</select>
 	
+	<!-- 해당 가이드 회원의 예약 건수 -->
+	<select id="reserTotalByMemId" resultType="int" parameterType="String">
+		select count(*) 
+		from reservation res,guideplan gp, essay e
+		where res.guideplan_id=gp.guideplan_id
+		and gp.essay_id = e.essay_id
+		and e.mem_id = #{mem_id}
+	</select>
+	
+	<!-- 해당 예약 회원의 예약 건수 -->
+	<select id="reserTotalForMember" resultType="int" parameterType="String">
+		select count(*) 
+		from reservation res
+		where mem_id = #{mem_id}
+	</select>
+	
+	<!-- 해당 예약 번호를 지우는 쿼리 문  -->
+	<delete id="reserDeleteByReserId" parameterType="String">
+		delete from reservation where reser_id = #{reser_id}
+	</delete>	
 </mapper>

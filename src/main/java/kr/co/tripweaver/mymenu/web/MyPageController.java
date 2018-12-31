@@ -12,11 +12,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import kr.co.tripweaver.essay.dao.EssayDao;
+import kr.co.tripweaver.article.model.ArticleVO;
+import kr.co.tripweaver.article.service.IArticleService;
 import kr.co.tripweaver.essay.model.EssayVO;
 import kr.co.tripweaver.essay.service.IEssayService;
 import kr.co.tripweaver.member.model.MemberVO;
+import kr.co.tripweaver.mymenu.reservation.model.ReservationForMyPageVO;
+import kr.co.tripweaver.mymenu.reservation.service.IReservationService;
+import kr.co.tripweaver.postcard.model.PostCardVO;
+import kr.co.tripweaver.postcard.service.IPostCardService;
 
 /**
 * MyPageController.java
@@ -48,6 +54,14 @@ public class MyPageController {
 	@Autowired
 	IEssayService essayService;
 	
+	@Autowired
+	IPostCardService postCardService;
+	
+	@Autowired
+	IArticleService articleSerivce;
+	
+	@Autowired
+	IReservationService reservationService;
 	/**
 	* Method : myPostView
 	* 작성자 : Jae Hyeon Choi
@@ -77,11 +91,108 @@ public class MyPageController {
 		
 		//해당 회원이 가지고 있는 에세이 수 출력
 		Integer essayTotalCnt = essayService.essayTotalCount(memberVo.getMem_id());
-		int essayTotalPage = ((int)(essayTotalCnt/10))+((essayTotalCnt%10) == 0 ? 0: 1);
 		
+		int essayTotalPage = 1;
+		
+		if(essayTotalCnt != null) {
+			essayTotalPage = ((int)(essayTotalCnt/10))+((essayTotalCnt%10) == 0 ? 0: 1);
+		}
+		
+		//해당 회원이 가지고 있는 포스트 카드 수 출력 
+		Integer postCardTotalCnt = postCardService.postCardTotalCount(memberVo.getMem_id());
+		
+		int postCardTotalPage = 1;
+		
+		if(postCardTotalCnt != null) {
+			postCardTotalPage = ((int)(postCardTotalCnt/10))+((postCardTotalCnt%10) == 0 ? 0: 1);
+		}
+		
+		//해당 회원이 가지고 있는 자유게시판 게시물 수 출력 
+		Map<String, String> freeBoardParam = new HashMap<>();
+		freeBoardParam.put("mem_id", memberVo.getMem_id());
+		freeBoardParam.put("board_id", "bd00002");
+		
+		int freeBoardTotalCnt = articleSerivce.articleTotalCount(freeBoardParam);
+		
+		int freeBoardTotalPage = 1;
+		
+		if(freeBoardTotalCnt != 0) {
+			freeBoardTotalPage = ((int)(freeBoardTotalCnt/10))+((freeBoardTotalCnt%10) == 0 ? 0: 1);
+		}
+		
+		//해당 회원이 가지고 있는 가이드신청 게시물 수 출력 
+		Map<String, String> guideRequestBoardParam = new HashMap<>();
+		guideRequestBoardParam.put("mem_id", memberVo.getMem_id());
+		guideRequestBoardParam.put("board_id", "bd00003");
+		
+		int guideRequestBoardTotalCnt = articleSerivce.articleTotalCount(guideRequestBoardParam);
+		
+		int guideRequestBoardTotalPage = 1;
+		
+		if(guideRequestBoardTotalCnt != 0) {
+			guideRequestBoardTotalPage = ((int)(guideRequestBoardTotalCnt/10))+((guideRequestBoardTotalCnt%10) == 0 ? 0: 1);
+		}
+		
+		//해당 회원이 가지고 있는 QnA 게시물 수 출력 
+		Map<String, String> qnaBoardParam = new HashMap<>();
+		qnaBoardParam.put("mem_id", memberVo.getMem_id());
+		qnaBoardParam.put("board_id", "bd00004");
+		
+		int qnaBoardTotalCnt = articleSerivce.articleTotalCount(qnaBoardParam);
+		
+		int qnaBoardTotalPage = 1;
+		
+		if(qnaBoardTotalCnt != 0) {
+			qnaBoardTotalPage = ((int)(qnaBoardTotalCnt/10))+((qnaBoardTotalCnt%10) == 0 ? 0: 1);
+		}
+		
+		//해당 회원이 가지고 있는 가이드 찾기 게시물 수 출력 
+		Map<String, String> guideSearchingBoardParam = new HashMap<>();
+		guideSearchingBoardParam.put("mem_id", memberVo.getMem_id());
+		guideSearchingBoardParam.put("board_id", "bd00006");
+		
+		int guideSearchingBoardTotalCnt = articleSerivce.articleTotalCount(guideSearchingBoardParam);
+		
+		int guideSearchingBoardTotalPage = 1;
+		
+		if(guideSearchingBoardTotalCnt != 0) {
+			guideSearchingBoardTotalPage = ((int)(guideSearchingBoardTotalCnt/10))+((guideSearchingBoardTotalCnt%10) == 0 ? 0: 1);
+		}
+		
+		//해당 회원이 가지고 있는 파트너 찾기 게시물 수 출력 
+		Map<String, String> partnerSearchingBoardParam = new HashMap<>();
+		partnerSearchingBoardParam.put("mem_id", memberVo.getMem_id());
+		partnerSearchingBoardParam.put("board_id", "bd00007");
+		
+		int partnerSearchingBoardTotalCnt = articleSerivce.articleTotalCount(partnerSearchingBoardParam);
+		
+		int partnerSearchingBoardTotalPage = 1;
+		
+		if(partnerSearchingBoardTotalCnt != 0) {
+			partnerSearchingBoardTotalPage = ((int)(partnerSearchingBoardTotalCnt/10))+((partnerSearchingBoardTotalCnt%10) == 0 ? 0: 1);
+		}
+				
 		model.addAttribute("essayList", essayList); //에세이 리스트
 		model.addAttribute("essayTotalCnt", essayTotalCnt); //총 에세이 수 
 		model.addAttribute("essayTotalPage", essayTotalPage); //총 에세이 페이지
+		
+		model.addAttribute("postCardTotalCnt", postCardTotalCnt); //총 포스트카드 수 
+		model.addAttribute("postCardTotalPage", postCardTotalPage); //총 포스트카드 페이지
+		
+		model.addAttribute("freeBoardTotalCnt", freeBoardTotalCnt); //총 자유게시판 게시물 수 
+		model.addAttribute("freeBoardTotalPage", freeBoardTotalPage); //총 자유게시판 페이지
+		
+		model.addAttribute("guideRequestBoardTotalCnt", guideRequestBoardTotalCnt); //총 가이드 신청 게시물 수 
+		model.addAttribute("guideRequestBoardTotalPage", guideRequestBoardTotalPage); //총 가이드 신청 페이지
+		
+		model.addAttribute("qnaBoardTotalCnt", qnaBoardTotalCnt); //총 Q n A 게시물 수 
+		model.addAttribute("qnaBoardTotalPage", qnaBoardTotalPage); //총 Q n A 페이지
+		
+		model.addAttribute("guideSearchingBoardTotalCnt", guideSearchingBoardTotalCnt); //총 가이드 찾기 게시물 수 
+		model.addAttribute("guideSearchingBoardTotalPage", guideSearchingBoardTotalPage); //총 가이드 찾기 페이지
+		
+		model.addAttribute("partnerSearchingBoardTotalCnt", partnerSearchingBoardTotalCnt); //총 파트너 찾기 게시물 수 
+		model.addAttribute("partnerSearchingBoardTotalPage", partnerSearchingBoardTotalPage); //총 파트너 찾기 페이지
 		
 		return "mypage/myPost";
 	}
@@ -116,5 +227,166 @@ public class MyPageController {
 		model.addAttribute("essayList", essayList);
 		
 		return "jsonView";
+	}
+	
+	
+	
+	/**
+	* Method : postCardPageAjaxView
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 28.
+	* 변경이력 :
+	* @param session
+	* @param page
+	* @param model
+	* @return
+	* Method 설명 : 해당하는 포스트카드 목록을 불러옴
+	*/
+	@RequestMapping("/postCardPageAjax")
+	public String postCardPageAjaxView(HttpSession session, String page, Model model) {
+		
+		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
+		
+		if(memberVo == null) {
+			return "loginCheckError";
+		}
+		
+		Map<String, String> param = new HashMap<>();
+		
+		param.put("page", page);
+		param.put("mem_id", memberVo.getMem_id());
+		
+		List<PostCardVO> postCardList = postCardService.selectPostCardByMemIdForBoard(param);
+		
+		model.addAttribute("postCardList", postCardList);
+		
+		return "jsonView";
+	}
+	
+	/**
+	* Method : postCardPageAjaxView
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 28.
+	* 변경이력 :
+	* @param session
+	* @param page
+	* @param model
+	* @return
+	* Method 설명 : 해당하는 포스트카드 목록을 불러옴
+	*/
+	@RequestMapping("/boardPageAjax")
+	public String postCardPageAjaxView(HttpSession session, String page, Model model, String board_id) {
+		
+		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
+		
+		if(memberVo == null) {
+			return "loginCheckError";
+		}
+		
+		Map<String, String> param = new HashMap<>();
+		
+		param.put("page", page);
+		param.put("mem_id", memberVo.getMem_id());
+		param.put("board_id", board_id);
+		
+		List<ArticleVO> articleList = articleSerivce.selectEssayByMemIdAndBoardIdForBoard(param);
+		
+		model.addAttribute("articleList", articleList);
+		
+		return "jsonView";
+	}
+	
+	/**
+	* Method : reservationView
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 28.
+	* 변경이력 :
+	* @return
+	* Method 설명 : 가이드 예약 관련 뷰 
+	*/
+	@RequestMapping("reservation")
+	public String reservationView(Model model, HttpSession session, @RequestParam(value="page", defaultValue="1", required=false) String page
+			, @RequestParam(value="sc", defaultValue="mem_nick", required=false) String sc
+			, @RequestParam(value="searchText", defaultValue="", required=false) String searchText) {
+		
+		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
+		
+		if(memberVo == null) {
+			return "loginCheckError";
+		}
+		
+		//해당 가이드 회원에 대한 모든 예약에 대한 인원 수 
+		int reserTotalCnt = reservationService.reserPeoTotalCntByMemId(memberVo.getMem_id());
+		
+		//해당 가이드 회원의 총 예약 건수 
+		int reserCnt = reservationService.reserTotalByMemId(memberVo.getMem_id());
+		
+		int reserPage = 1;
+		
+		if(reserCnt != 0) {
+			reserPage = ((int)(reserCnt/10))+((reserCnt%10) == 0 ? 0: 1);
+		}
+		
+		//가이드가 받은 예약 리스트 
+		Map<String, String> param = new HashMap<>();
+		param.put("page", page);
+		param.put("mem_id", memberVo.getMem_id());
+		param.put(sc, searchText);
+		
+		
+		List<ReservationForMyPageVO> reservationList = reservationService.selectReserForGuide(param);
+		
+		model.addAttribute("reserCnt", reserCnt);
+		model.addAttribute("reserTotalCnt", reserTotalCnt);
+		model.addAttribute("reservationList", reservationList);
+		model.addAttribute("page", reserPage);
+		model.addAttribute("currentPage", page);
+		return "mypage/reservation";
+	}
+	
+	
+	/**
+	* Method : reservationView
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 28.
+	* 변경이력 :
+	* @return
+	* Method 설명 : 예약자 예약 관련 뷰 
+	*/
+	@RequestMapping("guide")
+	public String guideView(Model model, HttpSession session, @RequestParam(value="page", defaultValue="1", required=false) String page
+			, @RequestParam(value="sc", defaultValue="mem_nick", required=false) String sc
+			, @RequestParam(value="searchText", defaultValue="", required=false) String searchText) {
+		
+		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
+		
+		if(memberVo == null) {
+			return "loginCheckError";
+		}
+		
+		
+		//해당 예약자 회원의 총 예약 건수 
+		int reserCnt = reservationService.reserTotalForMember(memberVo.getMem_id());
+		
+		int reserPage = 1;
+		
+		if(reserCnt != 0) {
+			reserPage = ((int)(reserCnt/10))+((reserCnt%10) == 0 ? 0: 1);
+		}
+		
+		//가이드가 받은 예약 리스트 
+		Map<String, String> param = new HashMap<>();
+		param.put("page", page);
+		param.put("mem_id", memberVo.getMem_id());
+		param.put(sc, searchText);
+		
+		
+		List<ReservationForMyPageVO> reservationList = reservationService.selectReserForMember(param);
+		
+		model.addAttribute("reserCnt", reserCnt);
+		model.addAttribute("reservationList", reservationList);
+		model.addAttribute("page", reserPage);
+		model.addAttribute("currentPage", page);
+		return "mypage/guide";
 	}
 }

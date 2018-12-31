@@ -36,4 +36,33 @@ public interface IConnStatDao {
 	 */
 	public int getTotalPageCount();
 	
+	/**
+	* Method : selectConnStat
+	* 작성자 : jin
+	* 변경이력 :
+	* @param params
+	* @return
+	* Method 설명 : 접속자 통계부분 해당조건에 맞는 일일통계결과리스트 반환하는 메서드
+	 */
+	public List<ConnStatVO> selectConnStat(Map<String, Object> params);
+
+	/**
+	* Method : selectConnTimeStat
+	* 작성자 : jin
+	* 변경이력 :
+	* @param params
+	* @return
+	* Method 설명 : 해당일자의 시간별 접속자수 통계를 반환하는 메서드
+	 */
+	public List<ConnStatVO> selectConnTimeStat(Map<String, Object> params);
+
+	/**
+	* Method : selectConnTimeStatMonth
+	* 작성자 : jin
+	* 변경이력 :
+	* @param params
+	* @return
+	* Method 설명 : 해당월 평균 시간별 접속자수 통계를 반환하는 메서드
+	 */
+	public List<ConnStatVO> selectConnTimeStatMonth(Map<String, Object> params);
 }

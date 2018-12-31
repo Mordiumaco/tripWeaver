@@ -55,4 +55,29 @@ where art_id = #{art_id}
 	where art_id = #{art_id} 
 </select>
 	
+	<!-- 게시글 관리의 게시판에 해당하는 목록을 뽑기 위한 쿼리문-->
+	<select id="selectEssayByMemIdAndBoardIdForBoard" resultType="articleVo" parameterType="Map">
+		select rownum rnum, myarticle.*
+		from
+		(
+		    select * from article where mem_id = #{mem_id}
+		    and board_id = #{board_id}
+		    order by art_date asc
+		) myarticle
+		where rownum between 1+((to_number(#{page})-1)*10) and (to_number(#{page})*10)
+		order by rnum desc
+	</select>
+	
+	
+	<!-- 게시글 관리의 해당 게시판에 해당하는 개수를 알기위한 쿼리문-->
+	<select id="articleTotalCount" resultType="int" parameterType="Map">
+		select count(rownum)
+		from
+		(
+		    select * from article where mem_id = #{mem_id}
+		    and board_id = #{board_id}
+		    order by art_date asc
+		) myarticle
+		order by rownum desc
+	</select>
 </mapper>

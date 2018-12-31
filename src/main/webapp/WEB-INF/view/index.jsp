@@ -30,7 +30,11 @@ $(document).ready(function () {
 
 
 </script>
-
+<script>
+	text = "${recentEssayVo.essay_cnt}"
+	text = text.replace(/<br\/>/ig, "\n"); 
+	text = text.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
+</script>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a5f2e82aa9bad5f393255b6d8c3200cb&libraries=clusterer"></script>
 <div class="filter_rap">
@@ -135,12 +139,20 @@ $(document).ready(function () {
 						console.log(data);
 				        var markers = $(data.clusterList).map(function(i, clusterInfo) {
 				        	
-				            return new daum.maps.Marker({
+				            var marker = new daum.maps.Marker({
 				            	image: markerImage, // 마커이미지 설정 
 				                position : new daum.maps.LatLng(clusterInfo.mapmark_y_coor, clusterInfo.mapmark_x_coor)
 				            });
 				            
+				            daum.maps.event.addListener(marker, 'click', function() {
+				            	location.href='/essay/essayView?essay_id='+clusterInfo.essay_id;
+						    });
+				            
+				            return marker;
+				            
 				        });
+				        
+				        
 				        // 클러스터러에 마커들을 추가합니다
 				        clusterer.addMarkers(markers);
 					}
@@ -171,6 +183,8 @@ $(document).ready(function () {
 	     
 	    });
 	    
+	    
+	    
 	    //클러스터링이 완료됐을 때 발생한다.
 	    //이벤트 핸들러 함수 인자로는 생성된 Cluster 객체 전체가 배열로 넘어온다.
 
@@ -191,6 +205,8 @@ $(document).ready(function () {
 	        //console.log(jsonInfo);
 	        $("#essay_list_ul").html("");
 	        reload();
+	        
+	        
 	        
 	        function reload(){
 	        	
@@ -335,6 +351,7 @@ $(document).ready(function () {
 	    	})
 	    }
 	    
+	    
 	</script>
 	
 	<div class="main_map main_list">
@@ -417,11 +434,7 @@ $(document).ready(function () {
 
 <div class="main_con_03">
 	
-	<script>
-		text = "${recentEssayVo.essay_cnt}"
-		text = text.replace(/<br\/>/ig, "\n"); 
-		text = text.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
-	</script>
+	
 	<c:forEach items="${recentEssayList}" var="recentEssayVo">
 	<div class="con_03_List">
 		<a href="/essay/essayView?essay_id=${recentEssayVo.essay_id}">
@@ -432,7 +445,7 @@ $(document).ready(function () {
 				<c:choose>
 					<c:when test="${fn:length(recentEssayVo.essay_cnt) > 50 }">
 						
-						<li>.${fn:substring(recentEssayVo.essay_cnt,0,50)}<br/>...</li>
+						<li><c:out value="${fn:substring(recentEssayVo.essay_cnt.replaceAll('\\\<.*?\\\>',''),0,50)}"/><br/>...</li>
 
 					</c:when>
 					<c:when test="${recentEssayVo.essay_cnt == null}">

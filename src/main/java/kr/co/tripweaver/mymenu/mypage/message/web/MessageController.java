@@ -58,7 +58,6 @@ public class MessageController {
 		ParticipantVO participantVO = new ParticipantVO();
 		participantVO.setGroup_id(group_id);
 		participantVO.setMem_id(messageVO.getMem_id());
-		//??
 		
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("group_id", group_id);

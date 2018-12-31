@@ -2,207 +2,281 @@
     pageEncoding="UTF-8"%>
 <%@include file="../adminHead.jsp" %>
 
-<script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
-<script> zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/"; ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];</script>
+<script src="https://cdn.zingchart.com/zingchart.min.js"></script>
 
 <style>
-	@import 'https://fonts.googleapis.com/css?family=Open+Sans';
-	.zc-ref {
-	  display: none;
-	}
+@import 'https://fonts.googleapis.com/css?family=Open+Sans';
+
+html, body {
+	height:100%;
+	width:100%;
+	margin:0;
+	padding:0;
+}
+#myChart {
+	height:500px;
+	width:100%;
+	min-height:150px;
+}
+.zc-ref {
+	display:none;
+}
+div .connstat_table {
+	width: 100%;
+	height: 600px;
+}
+.connstat_table table {
+	width: 100%;
+	height: 500px;
+}
+
+.connstat_table .table_div {
+	width: 450px;
+	height: 490px;
+	float: left;
+	margin: 10px;
+}
+
 </style>
+<script src="/js/jquery-3.3.1.min.js"></script>
 
-<script>
-	jQuery(function($){
-	    $.datepicker.regional["ko"] = {
-	        closeText: "닫기",
-	        prevText: "이전달",
-	        nextText: "다음달",
-	        currentText: "오늘",
-	        monthNames: ["1월(JAN)","2월(FEB)","3월(MAR)","4월(APR)","5월(MAY)","6월(JUN)", "7월(JUL)","8월(AUG)","9월(SEP)","10월(OCT)","11월(NOV)","12월(DEC)"],
-	        monthNamesShort: ["1월","2월","3월","4월","5월","6월", "7월","8월","9월","10월","11월","12월"],
-	        dayNames: ["일","월","화","수","목","금","토"],
-	        dayNamesShort: ["일","월","화","수","목","금","토"],
-	        dayNamesMin: ["일","월","화","수","목","금","토"],
-	        weekHeader: "Wk",
-	        dateFormat: "yymmdd",
-	        firstDay: 0,
-	        isRTL: false,
-	        showMonthAfterYear: true,
-	        yearSuffix: ""
-	    };
-		$.datepicker.setDefaults($.datepicker.regional["ko"]);
-	});
+<!-- 데이트피커 -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css"> -->
+
+<!-- 통계차트 -->
+<script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
+<script> 
+	zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+	ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];
 </script>
-
-<div class="container_wr">
-	<form name="flist" class="local_sch01 local_sch">
-		<input type="hidden" name="doc" value="">
-		<input type="hidden" name="sort1" value="ct_status_sum">
-		<input type="hidden" name="sort2" value="desc">
-		<input type="hidden" name="page" value="1">
+<script>
+	var day = new Array();
+	var arr_day; 
+	<c:forEach items="${day}" var="connstatVO">
+		arr_day = new Array();	
+		arr_day.push(${connstatVO.timestat_date});
+		arr_day.push(${connstatVO.timestat_count});
+		day.push(arr_day);
+	</c:forEach>
+	
+	var eve_day = new Array();
+	var arr_eve_day;	
+	<c:forEach items="${eve_day}" var="connstatVO">
+		arr_eve_day = new Array();
+		arr_eve_day.push(${connstatVO.timestat_date});
+		arr_eve_day.push(${connstatVO.timestat_count});
+		eve_day.push(arr_eve_day);
+	</c:forEach>
+	var last_month = new Array();
+	var arr_last_month;	
+	<c:forEach items="${last_month}" var="connstatVO">
+		arr_last_month = new Array();
+		arr_last_month.push(${connstatVO.timestat_date});
+		arr_last_month.push(${connstatVO.timestat_count});
+		last_month.push(arr_last_month);
+	</c:forEach>
+	
+	$(document).ready(function() {
+		$('#datepicker').val('${year}.${input_str_day}');
+		$( "#datepicker" ).datepicker({
+			dateFormat: "yy.mm.dd"
+		});
 		
-		<div class="local_ov01 local_ov">
-		    <a href="" class="ov_listall">월간</a>
-		    <a href="" class="ov_listall">주간</a>
-		    <a href="" class="ov_listall">일간</a>    
-		</div>
-		<br/>
+		$('#search_btn').on('click', function() {
+			$('#conStat_form').submit();
+		});
 		
-		<label for="sel_ca_id" class="sound_only">검색대상</label>
-		<select name="sel_ca_id" id="sel_ca_id">
-		    <option value="">전체분류</option>
-		    <option value="20">TOP/PANTS</option>
-			<option value="2010">&nbsp;&nbsp;&nbsp;TOP</option>
-			<option value="201010">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;셔츠</option>
-			<option value="20101010">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;체크/슬림</option>
-			<option value="2010101010">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;체크</option>
-			<option value="2010101020">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;슬림</option>
-			<option value="20101020">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;드레스셔츠</option>
-			<option value="201020">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;티</option>
-			<option value="2020">&nbsp;&nbsp;&nbsp;PANTS</option>
-			<option value="30">테스트</option>
-		</select>
-		
-		기간설정
-		<label for="fr_date" class="sound_only">시작일</label>
-		<input type="text" name="fr_date" value="" id="fr_date" required="" class="required frm_input hasDatepicker" size="8" maxlength="8"> 에서
-		<label for="to_date" class="sound_only">종료일</label>
-		<input type="text" name="to_date" value="20181128" id="to_date" required="" class="required frm_input hasDatepicker" size="8" maxlength="8"> 까지
-		<input type="submit" value="검색" class="btn_submit">
-	</form>
-
-	<div id='myChart'>
-		<a class="zc-ref" href="https://www.zingchart.com/">Charts by ZingChart</a>
-	</div>
-
-	<script type="text/javascript">
 		var myConfig = {
-			 	type: "pie", 
-		
-			 	plot: {
-			 	  borderColor: "#2B313B",
-			 	  borderWidth: 5,
-			 	  // slice: 90,
-			 	  valueBox: {
-			 	    placement: 'out',
-			 	    text: '%t\n%npv%',
-			 	    fontFamily: "Open Sans"
-			 	  },
-			 	  tooltip:{
-			 	    fontSize: '18',
-			 	    fontFamily: "Open Sans",
-			 	    padding: "5 10",
-			 	    text: "%npv%"
-			 	  },
-			 	  animation:{
-			      effect: 2, 
-			      method: 5,
-			      speed: 500,
-			      sequence: 1
-			    }
-			 	},
-			 	source: {
-			 	  text: 'gs.statcounter.com',
-			 	  fontColor: "#8e99a9",
-			 	  fontFamily: "Open Sans"
-			 	},
-			 	title: {
-			 	  fontColor: "#fff",
-			 	  text: 'Global Browser Usage',
-			 	  align: "left",
-			 	  offsetX: 10,
-			 	  fontFamily: "Open Sans",
-			 	  fontSize: 25
-			 	},
-			 	subtitle: {
-			 	  offsetX: 10,
-			 	  offsetY: 10,
-			 	  fontColor: "#8e99a9",
-			 	  fontFamily: "Open Sans",
-			 	  fontSize: "16",
-			 	  text: 'May 2016',
-			 	  align: "left"
-			 	},
-			 	plotarea: {
-			 	  margin: "20 0 0 0"  
-			 	},
-				series : [
-					{
-						values : [11.38],
-						text: "Internet Explorer",
-					  backgroundColor: '#50ADF5',
-					},
-					{
-					  values: [56.94],
-					  text: "Chrome",
-					  backgroundColor: '#FF7965'
-					},
-					{
-					  values: [14.52],
-					  text: 'Firefox',
-					  backgroundColor: '#FFCB45'
-					},
-					{
-					  text: 'Safari',
-					  values: [9.69],
-					  backgroundColor: '#6877e5'
-					},
-					{
-					  text: 'Other',
-					  values: [7.48],
-					  backgroundColor: '#6FB07F'
+		 	type: 'line', 
+		 	legend:{
+		 	  adjustLayout: true,
+		 	  align: 'center',
+		 	  verticalAlign: 'bottom'
+		 	},
+		 	title:{
+		 	  adjustLayout: true,
+		 	  text:"시간대별 접속자 수"
+		 	},
+		 	plot:{
+		 	  valueBox:{
+		 	    text:"%v"
+		 	  }
+		 	},
+		 	plotarea:{
+		 	  margin:"dynamic 50 dynamic dynamic"
+		 	},
+		 	scaleX:{
+				"values" : "0:23:1"
+		 	},
+		 	scaleY:{
+		 	  guide:{
+		 	    lineStyle:'solid'
+		 	  },
+		 	  label:{
+		 	    text: '접속자 수'
+		 	  },
+		 	  markers:[
+		 	    {
+		 	      type:'line',
+		 	      range: [23],
+		 	      lineColor:'#c62828',
+		 	      lineStyle:'dashed',
+		 	      label:{
+		 	        text:'지난달 최대 접속자 수',
+		 	        placement: 'right'
+		 	      }
+		 	    }
+		 	    ]
+		 	},
+		 	tooltip:{
+		 	  text:"%v<br>%kv",
+		 	  borderRadius: 2
+		 	},
+		 	crosshairX:{
+		 	  exact: true,
+		 	  lineColor:'#000',
+		    scaleLabel:{
+		      borderRadius: 2
+		    },
+		    marker:{
+		      size: 5,
+		      backgroundColor:'white',
+		      borderWidth: 2,
+		      borderColor:'#000'
+		    }
+		 	},
+			series: [
+				{
+					text: '${str_day}',
+					values: day,
+					lineColor:'#2F9D27',
+					marker:{
+					  backgroundColor:'#2F9D27'
 					}
-				]
-			};
-			 
-			zingchart.render({ 
-				id : 'myChart', 
-				data : myConfig, 
-				height: 600, 
-				width: 500 
-			});
-	</script>
+				},
+				{
+					text: '${str_eve_day}',
+					values: eve_day,
+					lineColor:'#59DA50',
+					marker:{
+					  backgroundColor:'#59DA50'
+				  }
+				},
+				{
+					text: '${str_last_month}',
+					values: last_month,
+					lineColor:'#E0844F',
+					marker:{
+					backgroundColor:'#E0844F'
+				  }
+				}
+			]
+		};
+		 
+		zingchart.render({ 
+			id: 'myChart', 
+			data: myConfig, 
+			height: '100%', 
+			width: '100%' 
+		});
+	});
+	
+	
+	function getTimeStamp(d, dType) {
+		   var s = leadingZeros(d.getFullYear(), 4) + '.' + leadingZeros(d.getMonth() + 1, 2);
+			   s += (dType == 'month'? '' :  '.' + leadingZeros(d.getDate(), 2));
+		   return s;
+		 }
+
+	 function leadingZeros(n, digits) {
+	   var zero = '';
+	   n = n.toString();
+
+	   if (n.length < digits) {
+	     for (i = 0; i < digits - n.length; i++)
+	       zero += '0';
+	   }
+	   return zero + n;
+	 }
+	 
+</script>
+	
+	<form action="/connStat/connStatTime" id="conStat_form" method="get">
+		<label for="datepicker"><span id="dateTypeName">날짜선택 : </span>
+			<input type="text" id="datepicker" name="datepicker" class="datepicker" placeholder="기간을 선택해주세요"/>
+			<input type="button" value="검색" class="btn_submit" id="search_btn">
+		</label>
+	</form>
+	
+	<div id="myChart"><a class="zc-ref" href="https://www.zingchart.com">Powered by ZingChart</a></div>
 	
 	<div class="local_desc01 local_desc">
 	    <p>일간 평균 시간 방문자 수 </p>
 	</div>
 
-	<div class="tbl_head01 tbl_wrap">
-		<table>
-			<caption>상품판매순위 목록</caption>
-			<colgroup>
-				<col width="16%">
-				<col width="14%">
-				<col width="14%">
-				<col width="14%">
-				<col width="14%">
-				<col width="14%">
-				<col width="14%">
-			</colgroup>
-			<thead>
-				<tr>
-					<th scope="col"></th>
-					<th scope="col">0 ~ 3</th>
-					<th scope="col">4 ~ 7</th>
-					<th scope="col">8 ~ 11</th>
-					<th scope="col">12 ~ 15</th>
-					<th scope="col">16 ~ 19</th>
-					<th scope="col">20 ~ 23</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr class="bg0">
-					<td class="td_num">방문자 수</td>
-					<td class="td_num">25</td>
-					<td class="td_num">25</td>
-					<td class="td_num">25</td>
-					<td class="td_num">25</td>
-					<td class="td_num">25</td>
-					<td class="td_num">25</td>
-				</tr>
-			</tbody>
-		</table>
+	<div class="tbl_head01 tbl_wrap connstat_table">
+		<div class="table_div">
+			<table>
+				<caption>00 ~ 11</caption>
+				<colgroup>
+					<col width="19%">
+					<col width="27%">
+					<col width="27%">
+					<col width="27%">
+				</colgroup>
+				<thead>
+					<tr>
+						<th scope="col">시간</th>
+						<th scope="col">${str_day}</th>
+						<th scope="col">${str_eve_day}</th>
+						<th scope="col">${str_last_month}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach begin="0" end="11" varStatus="i">
+						<tr class="bg0">
+							<td class="td_num">${i.index < 10 ? '0' + i.index : i.index}시</td>
+							<td class="td_num">${day[i.index].timestat_count == null ? '-' : day[i.index].timestat_count}</td>
+							<td class="td_num">${eve_day[i.index].timestat_count == null ? '-' : eve_day[i.index].timestat_count}</td>
+							<td class="td_num">${last_month[i.index].timestat_count == null ? '-' : last_month[i.index].timestat_count}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="table_div">
+			<table>
+				<caption>12 ~ 23</caption>
+				<colgroup>
+					<col width="19%">
+					<col width="27%">
+					<col width="27%">
+					<col width="27%">
+				</colgroup>
+				<thead>
+					<tr>
+						<th scope="col">시간</th>
+						<th scope="col">${str_day}</th>
+						<th scope="col">${str_eve_day}</th>
+						<th scope="col">${str_last_month}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach begin="12" end="23" varStatus="i">
+						<tr class="bg0">
+							<td class="td_num">${i.index < 10 ? '0' + i.index : i.index}시</td>
+							<td class="td_num">${day[i.index].timestat_count == null ? '-' : day[i.index].timestat_count}</td>
+							<td class="td_num">${eve_day[i.index].timestat_count == null ? '-' : eve_day[i.index].timestat_count}</td>
+							<td class="td_num">${last_month[i.index].timestat_count == null ? '-' : last_month[i.index].timestat_count}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>		
+		
 	</div>
 
 	<script>

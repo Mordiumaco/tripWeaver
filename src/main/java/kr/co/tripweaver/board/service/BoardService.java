@@ -64,5 +64,16 @@ public class BoardService implements IBoardService{
 		return boardDao.deleteBoard(boardVo);
 	}
 
-	
+	/**
+	 * Method : selectBoardByBoardId
+	 * 작성자 : Jae Hyeon Choi
+	 * 생성날짜 : 2018. 12. 30.
+	 * 변경이력 : 
+	 * @param board_id
+	 * @return
+	 * 해당 board_id 에 해당하는 객체를 받아온다. 
+	 */
+	public BoardVO selectBoardByBoardId(String board_id){
+		return boardDao.selectBoardByBoardId(board_id);
+	}
 }

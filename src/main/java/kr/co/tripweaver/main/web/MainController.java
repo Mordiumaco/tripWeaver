@@ -19,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.tripweaver.article.model.ArticleVO;
 import kr.co.tripweaver.article.service.IArticleService;
+import kr.co.tripweaver.board.model.BoardVO;
+import kr.co.tripweaver.board.service.IBoardService;
 import kr.co.tripweaver.essay.model.EssayVO;
 import kr.co.tripweaver.essay.service.IEssayService;
 import kr.co.tripweaver.member.model.MemberVO;
@@ -46,6 +48,9 @@ public class MainController {
 	
 	@Autowired
 	IPostCardService postCardService;
+	
+	@Autowired
+	IBoardService boardService;
 	
 	@RequestMapping("/main")
 	public String mainView(Model model) {
@@ -335,7 +340,10 @@ public class MainController {
 		param.put("searchWord", searchWord);
 		
 		List<ArticleVO> articleList = articleService.articlePagingList(param);
-
+		
+		BoardVO boardVo = boardService.selectBoardByBoardId(board_id);
+		
+		
 //		int pageCnt = (int) articleList.get("pageCnt");
 
 		int totalArticleCnt = articleService.getArticleCnt(param);
@@ -346,6 +354,7 @@ public class MainController {
 		model.addAttribute("totalArticleCnt", totalArticleCnt);
 		model.addAttribute("board_id", board_id);
 		model.addAttribute("pageCnt", pageCnt);
+		model.addAttribute("boardVo", boardVo);
 		
 		return "servicecenter/list";
 	}

@@ -156,4 +156,27 @@
 		)
 		where rownum <![CDATA[<]]>=6
 	</select>
+	
+	<!-- 게시글 관리의 포스트 카드 목록을 뽑기 위한 쿼리문-->
+	<select id="selectPostCardByMemIdForBoard" resultType="postcardVo" parameterType="Map">
+		select rownum rnum, mypostcard.*
+		from
+		(
+		    select * from postcard where mem_id = #{mem_id}
+		    order by pc_date asc
+		) mypostcard
+		where rownum between 1+((to_number(#{page})-1)*10) and (to_number(#{page})*10)
+		order by rnum desc
+	</select>
+	
+	<!-- 게시글 관리의 포스트카드 개수를 알기위한 쿼리문-->
+	<select id="postCardTotalCount" resultType="Integer" parameterType="String">
+		select count(rownum)
+		from
+		(
+		    select * from postcard where mem_id = #{mem_id}
+		    order by pc_date asc
+		) myessay
+		order by rownum desc
+	</select>
 </mapper>
