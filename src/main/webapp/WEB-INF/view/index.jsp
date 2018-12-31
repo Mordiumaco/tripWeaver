@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@include file="head.jsp" %>
 
+
 <script type="text/javascript">
 $(document).ready(function(){
   $('.flexslider').flexslider({
@@ -23,12 +24,17 @@ $(document).ready(function () {
       }, function(){
     	    $(this).animate({ top : '60px'},100).removeClass('an');
       });
+      
  });
 
 
 
 </script>
-
+<script>
+	text = "${recentEssayVo.essay_cnt}"
+	text = text.replace(/<br\/>/ig, "\n"); 
+	text = text.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
+</script>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a5f2e82aa9bad5f393255b6d8c3200cb&libraries=clusterer"></script>
 <div class="filter_rap">
@@ -133,12 +139,20 @@ $(document).ready(function () {
 						console.log(data);
 				        var markers = $(data.clusterList).map(function(i, clusterInfo) {
 				        	
-				            return new daum.maps.Marker({
+				            var marker = new daum.maps.Marker({
 				            	image: markerImage, // 마커이미지 설정 
 				                position : new daum.maps.LatLng(clusterInfo.mapmark_y_coor, clusterInfo.mapmark_x_coor)
 				            });
 				            
+				            daum.maps.event.addListener(marker, 'click', function() {
+				            	location.href='/essay/essayView?essay_id='+clusterInfo.essay_id;
+						    });
+				            
+				            return marker;
+				            
 				        });
+				        
+				        
 				        // 클러스터러에 마커들을 추가합니다
 				        clusterer.addMarkers(markers);
 					}
@@ -169,6 +183,8 @@ $(document).ready(function () {
 	     
 	    });
 	    
+	    
+	    
 	    //클러스터링이 완료됐을 때 발생한다.
 	    //이벤트 핸들러 함수 인자로는 생성된 Cluster 객체 전체가 배열로 넘어온다.
 
@@ -189,6 +205,8 @@ $(document).ready(function () {
 	        //console.log(jsonInfo);
 	        $("#essay_list_ul").html("");
 	        reload();
+	        
+	        
 	        
 	        function reload(){
 	        	
@@ -333,6 +351,7 @@ $(document).ready(function () {
 	    	})
 	    }
 	    
+	    
 	</script>
 	
 	<div class="main_map main_list">
@@ -361,7 +380,32 @@ $(document).ready(function () {
 <div class="main_con_02">
 	<div class="flexslider">
 	  	<ul class="slides">
-		    <li>
+		    	<c:forEach items="${recentPostCardList}" var="recentPostCardVo" varStatus="loop">
+		    		<c:if test="${loop.index % 2 == 0}">
+		    			<li>
+		    		</c:if>
+		    		<a href="/postCard/postCardList?mem_id=&amp;tag_search=">
+				      	<div class="sl_left"><img src="/img/main_01.jpg" /></div>
+				      	<div class="sl_right">
+				      		<ul>
+				      			<li>Post Card<%-- <c:forEach items="${recentPostCardVo.hashTagList}" var="hashTagVo">${hashTagVo.tag_word} </c:forEach> --%></li>
+				      			<c:choose>
+				      				<c:when test="${fn:length(recentPostCardVo.hashTagList) == 0}">
+				      					<li>[ 태그 없음 ]</li>
+				      				</c:when>
+				      				<c:otherwise>
+				      					<li class="hashTagSection"><c:forEach items="${recentPostCardVo.hashTagList}" var="hashTagVo">#${hashTagVo} </c:forEach></li>
+				      				</c:otherwise>
+				      			</c:choose>
+				      			<li>${recentPostCardVo.pc_cnt}</li>
+				      		</ul>
+				      	</div>
+			      	</a>
+			      	<c:if test="${loop.index % 2 == 1}">
+		    			</li>
+		    		</c:if>
+		    	</c:forEach>
+		 <!--    <li>
 		    	<a href="">
 			      	<div class="sl_left"><img src="/img/main_01.jpg" /></div>
 			      	<div class="sl_right">
@@ -382,58 +426,45 @@ $(document).ready(function () {
 			      		</ul>
 			      	</div>
 		      	</a>
-		    </li>
-		    <li>
-		    	<a href="">
-			      	<div class="sl_left"><img src="/img/main_01.jpg" /></div>
-			      	<div class="sl_right">
-			      		<ul>
-			      			<li>Post Card</li>
-			      			<li>엄청나게 좋은 여행 잇힝</li>
-			      			<li>내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄</li>
-			      		</ul>
-			      	</div>
-		      	</a>
-		      	<a href="">
-			      	<div class="sl_left"><img src="/img/main_01.jpg" /></div>
-			      	<div class="sl_right">
-			      		<ul>
-			      			<li>Post Card</li>
-			      			<li>엄청나게 좋은 여행 잇힝</li>
-			      			<li>내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄</li>
-			      		</ul>
-			      	</div>
-		      	</a>
-		    </li>
-		    <li>
-		    	<a href="">
-			      	<div class="sl_left"><img src="/img/main_01.jpg" /></div>
-			      	<div class="sl_right">
-			      		<ul>
-			      			<li>Post Card</li>
-			      			<li>엄청나게 좋은 여행 잇힝</li>
-			      			<li>내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄</li>
-			      		</ul>
-			      	</div>
-		      	</a>
-		      	<a href="">
-			      	<div class="sl_left"><img src="/img/main_01.jpg" /></div>
-			      	<div class="sl_right">
-			      		<ul>
-			      			<li>Post Card</li>
-			      			<li>엄청나게 좋은 여행 잇힝</li>
-			      			<li>내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄</li>
-			      		</ul>
-			      	</div>
-		      	</a>
-		    </li>
+		    </li> -->
 		   
 		</ul>
 	</div>
 </div>
 
 <div class="main_con_03">
+	
+	
+	<c:forEach items="${recentEssayList}" var="recentEssayVo">
 	<div class="con_03_List">
+		<a href="/essay/essayView?essay_id=${recentEssayVo.essay_id}">
+			<ul>
+				<li>Essay</li>
+				<li>${recentEssayVo.essay_title}</li>
+			
+				<c:choose>
+					<c:when test="${fn:length(recentEssayVo.essay_cnt) > 50 }">
+						
+						<li><c:out value="${fn:substring(recentEssayVo.essay_cnt.replaceAll('\\\<.*?\\\>',''),0,50)}"/><br/>...</li>
+
+					</c:when>
+					<c:when test="${recentEssayVo.essay_cnt == null}">
+						<li>&nbsp;&nbsp;</li>
+					</c:when>
+					<c:when test="${fn:length(recentEssayVo.essay_cnt) == 0}">
+						<li>&nbsp;&nbsp;</li>
+					</c:when>
+					<c:otherwise>
+						<li>${recentEssayVo.essay_cnt}&nbsp;</li>
+					</c:otherwise>
+				</c:choose>
+				<li><i class="fa fa-clock-o" aria-hidden="true"></i><fmt:formatDate value="${recentEssayVo.essay_date}" pattern="YYYY. MM. dd"/></li>
+				<li class="essayImageSection"><img src="/upload/${recentEssayVo.tripplan_image}" onerror="imgError(this)"/></li>
+			</ul>
+		</a>
+	</div>
+	</c:forEach> 
+	<!-- <div class="con_03_List">
 		<a href="/main/essay_view">
 			<ul>
 				<li>Essay</li>
@@ -476,29 +507,7 @@ $(document).ready(function () {
 				<li><img src="/img/main_01.jpg" /></li>
 			</ul>
 		</a>
-	</div>
-	<div class="con_03_List">
-		<a href="/main/essay_view">
-			<ul>
-				<li>Essay</li>
-				<li>일본 술을 마시다.</li>
-				<li>글 쓰는 셰프 박찬일의 일본 여행과 음식 이야기.</li>
-				<li><i class="fa fa-clock-o" aria-hidden="true"></i> 2018. 12. 01</li>
-				<li><img src="/img/main_01.jpg" /></li>
-			</ul>
-		</a>
-	</div>
-	<div class="con_03_List">
-		<a href="/main/essay_view">
-			<ul>
-				<li>Essay</li>
-				<li>일본 술을 마시다.</li>
-				<li>글 쓰는 셰프 박찬일의 일본 여행과 음식 이야기.</li>
-				<li><i class="fa fa-clock-o" aria-hidden="true"></i> 2018. 12. 01</li>
-				<li><img src="/img/main_01.jpg" /></li>
-			</ul>
-		</a>
-	</div>
+	</div> -->
 </div>
 
 <div class="main_con_04">

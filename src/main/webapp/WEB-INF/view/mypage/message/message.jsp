@@ -205,7 +205,7 @@ ul {
 			url : "/follow/following",
 			type : "post",
 			data : {"mem_id2":following_id,"mem_id":followed_id},
-			error : function() {
+			success : function() {
 				follow_count(following_id);
 			}
 		});
@@ -215,12 +215,13 @@ ul {
 			url : "/follow/unfollow",
 			type : "post",
 			data : {"mem_id2":following_id,"mem_id":followed_id},
-			error : function() {
+			success : function() {
 				follow_count(following_id);
 			}
 		});
 	}
 	function follow_count(mem_id) {
+		console.log('카운트 아작스 들어옴');
 		$.ajax({
 			url : "/follow/followCountAjax",
 			type : "post",
@@ -254,7 +255,7 @@ ul {
 		<b>내프로필</b> 
 		<div>
 <%-- 			<b class="my_profile"><img src="/file/read?mem_profile=${loginInfo.mem_profile}"></b> --%>
-			<b class="my_profile"><img src="/img/${loginInfo.mem_profile}"></b>
+			<b class="my_profile"><img src="/upload/${loginInfo.mem_profile}"></b>
 		</div>
 		<ul>
 			<li>${loginInfo.mem_nick}</li>

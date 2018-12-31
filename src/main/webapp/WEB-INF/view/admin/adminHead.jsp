@@ -65,10 +65,10 @@
                 <div class="gnb_oparea_wr">
                     <div class="gnb_oparea">
                         <h3>설정</h3>
-                       	<a href="">팝업관리</a>
+                       	<%--  <a href="">팝업관리</a>
                        	<a href="">투표관리</a>
-                       	<a href="">이벤트관리</a>
-                       	<a href="/main/declaration">신고관리</a>
+                       	<a href="">이벤트관리</a> --%>
+                       	<a href="/report/declaration?filter_id=&rep_rea_id=&report_proc_sta=&page=1&pageSize=10">신고관리</a>
                     </div>
                 </div>
             </li>
@@ -98,7 +98,7 @@
                 <div class="gnb_oparea_wr">
                     <div class="gnb_oparea">
                         <h3>통계</h3>
-                       	<a href="/connStat/connStatList?page=1&pageSize=10">접속자 통계</a>
+                       	<a href="/connStat/connStatList?page=1&pageSize=10&dateType=month&classification=browser">접속자 통계</a>
                        	<a href="/connStat/connStatTime">접속자 시간 통계</a>
                        	<a href="/main/adminPost">게시물 통계</a>
                        	<a href="/main/hashTag">해시태그 통계</a>

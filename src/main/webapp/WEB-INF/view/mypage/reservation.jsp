@@ -14,18 +14,21 @@
 		    
 		    <span class="btn_ov01">
 		    	<span class="ov_txt">전체 예약자</span>
-		    	<span class="ov_num"> 1,460명 </span>
+		    	<span class="ov_num"> ${reserTotalCnt} 명 </span>
 		    </span>
+		    <span class="btn_ov01">
+		    	<span class="ov_txt">전체 예약 건수</span>
+		    	<span class="ov_num"> ${reserCnt} 건 </span>
+		    </span>
+		    
 
 		</div>
 	
-		<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
-			<label for="sfl" class="sound_only">검색대상</label>
-			<select name="sfl" id="sfl">
-			    <option value="mb_nick">예약자</option>
+		<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get" action="/mypage/reservation">
+			<select name="sc" id="sc">
+			    <option value="mem_nick">닉네임</option>
 			</select>
-			<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
-			<input type="text" name="stx" value="" id="stx" required="" class="required frm_input">
+			<input type="text" name="searchText" value="" id="stx" required="" class="frm_input">
 			<input type="submit" class="btn_submit" value="검색">
 		</form>
 	
@@ -37,24 +40,19 @@
 	
 	
 		<form name="fmemberlist" id="fmemberlist" action="" onsubmit="return fmemberlist_submit(this);" method="post">
-			<input type="hidden" name="sst" value="mb_datetime">
-			<input type="hidden" name="sod" value="desc">
-			<input type="hidden" name="sfl" value="">
-			<input type="hidden" name="stx" value="">
-			<input type="hidden" name="page" value="1">
-			<input type="hidden" name="token" value="">
 		
 			<div class="tbl_head01 tbl_wrap">
 			    <table>
 				    <caption>회원관리 목록</caption>
 				    <colgroup>
 				    	<col width="5%">
-				    	<col width="40%">
-				    	<col width="13%">
-				    	<col width="10%">
-				    	<col width="10%">
-				    	<col width="14%">
+				    	<col width="37%">
+				    	<col width="11%">
+				    	<col width="11%">
 				    	<col width="8%">
+				    	<col width="8%">
+				    	<col width="10%">
+				    	<col width="10%">
 				    </colgroup>
 				    
 				    <thead>
@@ -63,16 +61,19 @@
 					        	<a href="">번호</a>
 					        </th>
 					        <th scope="col" id="mb_list_id">
-					        	<a href="">제목</a>
+					        	<a href="">예약 에세이 제목</a>
 					        </th>
 					        <th scope="col" rowspan="2" id="mb_list_cert">
 					        	<a href="">예약날짜</a>
+					        </th>
+					         <th scope="col" rowspan="2" id="mb_list_cert">
+					        	<a href="">신청날짜</a>
 					        </th>
 					        <th scope="col" id="mb_list_open">
 					        	<a href="">예약인원</a>
 					        </th>
 					        <th scope="col" id="mb_list_mailr">
-					        	<a href="">가이드</a>
+					        	<a href="">신청자</a>
 					        </th>
 					        <th scope="col" id="mb_list_auth">쪽지</th>
 					 		<th scope="col" id="mb_list_auth">삭제</th>
@@ -80,32 +81,36 @@
 				    </thead>
 				    
 				    <tbody>
-					    <tr class="bg0">
-					      	<td headers="mb_list_cert" class="td_mbcert">
-					            	1
-					        </td>
-					        <td headers="mb_list_cert" class="td_mbcert">
-					            	행복한 부산여행
-					        </td>
-					        <td headers="mb_list_open">
-					            1988-02-13
-					        </td>
-					        <td headers="mb_list_mailr">
-					            8
-					        </td>
-					        <td headers="mb_list_auth" class="td_mbstat">
-					           	 박진     
-					        </td>
-					     
-					        <td headers="mb_list_grp" class="td_numsmall">
-					        	<a href="" class="btn btn_03">쪽지 보내기</a>
-					        </td>
-					        
-					        <td headers="mb_list_grp" class="td_numsmall">
-					        	<a href="" class="btn btn_02">삭제</a>
-					        </td>
-					    </tr>
-				
+				    	<c:if test="${reservationList != null}">
+				    	<c:forEach items="${reservationList}" var="reservationForMyPageVo">
+				    		 <tr class="bg0">
+						      	<td headers="mb_list_cert" class="td_mbcert">
+						            	${reservationForMyPageVo.rnum}
+						        </td>
+						        <td headers="mb_list_cert" class="td_mbcert">
+						            	${reservationForMyPageVo.essay_title}
+						        </td>
+						        <td headers="mb_list_open">
+						           ${reservationForMyPageVo.guideplan_start_day}
+						        </td>
+						        <td headers="mb_list_open">
+						           ${reservationForMyPageVo.reser_date}
+						        </td>
+						        <td headers="mb_list_mailr">
+						            ${reservationForMyPageVo.reser_apply_peo_count}
+						        </td>
+						        <td headers="mb_list_auth" class="td_mbstat">
+						           	 ${reservationForMyPageVo.mem_nick}   
+						        </td>
+						        <td headers="mb_list_grp" class="td_numsmall">
+						        	<a href="" class="btn btn_03">쪽지</a>
+						        </td>
+						        <td headers="mb_list_grp" class="td_numsmall">
+						        	<a href="/reserDelete?reser_id=${reservationForMyPageVo.reser_id}" class="btn btn_01" >삭제</a>
+						        </td>
+						    </tr>
+				    	</c:forEach>
+				    	</c:if>
 				  </tbody>
 				</table>
 			</div>
@@ -113,19 +118,34 @@
 		</form>
 	
 		<nav class="pg_wrap"><span class="pg">
-			<span class="sound_only">열린</span>
-				<strong class="pg_current">1</strong><span class="sound_only">페이지</span>
-				<a href="" class="pg_page">2<span class="sound_only">페이지</span></a>
-				<a href="" class="pg_page">3<span class="sound_only">페이지</span></a>
-				<a href="" class="pg_page">4<span class="sound_only">페이지</span></a>
-				<a href="" class="pg_page">5<span class="sound_only">페이지</span></a>
-				<a href="" class="pg_page">6<span class="sound_only">페이지</span></a>
-				<a href="" class="pg_page">7<span class="sound_only">페이지</span></a>
-				<a href="" class="pg_page">8<span class="sound_only">페이지</span></a>
-				<a href="" class="pg_page">9<span class="sound_only">페이지</span></a>
-				<a href="" class="pg_page">10<span class="sound_only">페이지</span></a>
-				<a href="" class="pg_page pg_next">다음</a>
-				<a href="" class="pg_page pg_end">맨끝</a>
+				<a href="/mypage/reservation" class="pg_page pg_start">처음</a>
+				<c:choose>
+					<c:when test="${currentPage == 1}">
+						<a href="#" class="pg_page pg_prev">이전</a>
+					</c:when>
+					<c:otherwise>
+						<a href="/mypage/reservation?page=${currentPage-1}" class="pg_page pg_prev">이전</a>
+					</c:otherwise>
+				</c:choose>
+				<c:forEach begin="1" end="${page}" varStatus="loop">
+					<c:choose>
+						<c:when test="${currentPage == loop.index}">
+							<strong class="pg_current">${loop.index}</strong>
+						</c:when>
+						<c:otherwise>
+							<a href="" class="pg_page">${loop.index}</a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:choose>
+					<c:when test="${currentPage == page}">
+						<a href="#" class="pg_page pg_next">다음</a>
+					</c:when>
+					<c:otherwise>
+						<a href="/mypage/reservation?page=${currentPage+1}" class="pg_page pg_next">다음</a>
+					</c:otherwise>
+				</c:choose>
+				<a href="/mypage/reservation?page=${page}" class="pg_page pg_end">맨끝</a>
 			</span>
 		</nav>
 		

@@ -27,4 +27,69 @@
 	<select id="getTotalPageCount" resultType="int">
 		SELECT CEIL(COUNT(*) / 10) FROM conninformation
 	</select>
+	
+	<select id="selectConnStat" parameterType="Map" resultType="connStatVo">
+		<choose>
+			<when test="classification == 'browser'">
+				SELECT connstat_date AS conn_time,
+				       brow_firefox,
+				       brow_mise,
+				       brow_chrome,
+				       brow_opera,
+				       brow_others
+			</when>
+			<when test="classification == 'divice'">
+				SELECT connstat_date AS conn_time,
+				       divice_mobile,
+				       divice_tablet,
+				       divice_pc,
+				       divice_others
+			</when>
+			<when test="classification == 'referer'">
+				SELECT connstat_date AS conn_time,
+				       referer_email,
+				       referer_blog,
+				       referer_sns,
+				       referer_others
+			</when>
+			<otherwise>
+				SELECT connstat_date AS conn_time,
+				       os_android,
+				       os_ios,
+				       os_windows10,
+				       os_windowsxp,
+				       os_windowsothers,
+				       os_linux,
+				       os_macintosh,
+				       os_others
+			</otherwise>
+		</choose>
+		FROM connstat
+		WHERE connstat_date BETWEEN TO_DATE(#{start}, 'yyyy.MM.dd') AND TO_DATE(#{end} || '23:59:59', 'yyyy.MM.dd HH24:MI:SS')
+	</select>
+	<!-- 해당기간 시간별 접속자수 통계 -->
+	<select id="selectConnTimeStat" parameterType="Map" resultType="connStatVo">
+		SELECT  t2.timestat_date AS timestat_date,
+		        SUM(t2.timestat_count) AS timestat_count
+		FROM (  SELECT TO_CHAR(t.timestat_date, 'hh24') AS timestat_date, 
+		               t.timestat_count AS timestat_count
+		        FROM (  SELECT *
+		                FROM conntimestat
+		                WHERE timestat_date BETWEEN TO_DATE(#{start}, 'yyyy.MM.dd') AND TO_DATE(#{end} || '23:59:59', 'yyyy.MM.dd HH24:MI:SS')) t) t2
+		GROUP BY t2.timestat_date
+		ORDER BY t2.timestat_date
+	</select>
+
+	<!-- 해당월 시간별 접속자수 통계 -->
+	<select id="selectConnTimeStatMonth" parameterType="Map" resultType="connStatVo">
+		SELECT  t2.timestat_date AS timestat_date,
+		        AVG(t2.timestat_count) AS timestat_count
+		FROM (  SELECT TO_CHAR(t.timestat_date, 'hh24') AS timestat_date, 
+		               t.timestat_count AS timestat_count
+		        FROM (  SELECT *
+		                FROM conntimestat
+		                WHERE timestat_date BETWEEN TO_DATE(#{start}, 'yyyy.MM.dd') AND TO_DATE(#{end} || '23:59:59', 'yyyy.MM.dd HH24:MI:SS')) t) t2
+		GROUP BY t2.timestat_date
+		ORDER BY t2.timestat_date
+	</select>
 </mapper>

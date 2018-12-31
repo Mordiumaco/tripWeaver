@@ -18,4 +18,116 @@
 		select * from essay where essay_id = #{essay_id}
 	</select>
 	
+	<!-- 게시글 관리의 에세이 목록을 뽑기 위한 쿼리문-->
+	<select id="selectEssayByMemIdForBoard" resultType="essayVo" parameterType="Map">
+		select rownum rnum, myessay.*
+		from
+		(
+		    select * from essay where mem_id = #{mem_id}
+		    order by essay_date asc
+		) myessay
+		where rownum between 1+((to_number(#{page})-1)*10) and (to_number(#{page})*10)
+		order by rnum desc
+	</select>
+	
+	<!-- 게시글 관리의 에세이 개수를 알기위한 쿼리문-->
+	<select id="essayTotalCount" resultType="Integer" parameterType="String">
+		select count(rownum)
+		from
+		(
+		    select * from essay where mem_id = #{mem_id}
+		    order by essay_date asc
+		) myessay
+		order by rownum desc
+	</select>
+	
+	<!-- essay update(수정) query -->
+	<update id="essayUpdate" parameterType="essayVo">
+		update essay
+		set essay_title = #{essay_title}, essay_cnt = #{essay_cnt}, essay_meal_exp = #{essay_meal_exp},
+		essay_traffic_exp = #{essay_traffic_exp}, essay_room_exp = #{essay_room_exp},
+		essay_other_exp = #{essay_other_exp}
+		where essay_id = #{essay_id}
+	</update>
+	
+	<!-- 메인 화면에 띄울 최신 Essay글 6개 -->
+	<select id="recentEssayList" resultType="essayVo">
+		select essay_id , essay_title, essay_cnt, essay_date, tripplan_image
+		from
+		(
+		select * 
+		from essay e, tripplan tp
+		where essay_del = 'N' 
+		and e.tripplan_id = tp.tripplan_id
+		order by essay_id desc
+		)
+		where rownum <![CDATA[<]]>=6
+	</select>
+	
+	<update id="deleteEssayByEssayId" parameterType="String">
+		update essay
+		set essay_del = 'Y'
+		where essay_id = #{essay_id}
+	</update>
+	
+	<!-- 해당 에세이 글의 조회수를 올려준다. -->
+	<update id="addViewCountByEssayId" parameterType="String">
+		update essay
+		set essay_view_count = (essay_view_count+1)
+		where essay_id = #{essay_id}
+	</update>
+	
+	
+	
+	<!-- 마이페이지 클립보드 리스트 검색용 -->
+	<select id="selectEssayClip" parameterType="Map" resultType="essayVo" >
+		SELECT  rrnum.* FROM( 
+		SELECT
+		    e.ESSAY_DATE
+		    , e.ESSAY_CNT
+		    , e.ESSAY_ID
+		    , e.ESSAY_TITLE
+		    , e.ESSAY_VIEW_COUNT
+		    , t.TRIPPLAN_IMAGE
+		    ,rownum rnum
+		    , likeNum.*
+		FROM essay e inner join (
+		     select 
+		    count(*) as essay_like_count
+		    ,LIKE_REL_ART_ID
+		    from likes
+		    WHERE FILTER_id = 'essay'
+		    GROUP BY LIKE_REL_ART_ID
+		) likeNum
+		on (likeNum.LIKE_REL_ART_ID = e.essay_id ) inner join likes l
+		on (likeNum.LIKE_REL_ART_ID = l.LIKE_REL_ART_ID and l.mem_id = #{mem_id})inner join TRIPPLAN t
+		on(e.TRIPPLAN_ID = t.TRIPPLAN_ID) inner join member m
+		on(e.mem_id = m.mem_id)
+		where e.essay_DEL = 'N'
+		<if test="tag_search != '' ">
+		and ${search_title} like '%' ||  #{tag_search} || '%'</if>)rrnum
+		where rrnum.rnum between #{pageVo.page}*#{pageVo.pageSize}-(#{pageVo.pageSize}-1) and #{pageVo.page}*#{pageVo.pageSize}
+	</select>
+	
+	<!-- 마이페이지 클립보드 에세이 부분 게시물수 체크 -->
+	<select id="selectEssayClipAllNum" parameterType="map" resultType="int">
+		select
+		count(*)
+		from essay e inner join (
+		    select 
+		    count(*) as COUNT
+		    ,LIKE_REL_ART_ID
+		    from likes
+		    WHERE FILTER_id = 'essay'
+		    GROUP BY LIKE_REL_ART_ID
+		) likeNum
+		on (likeNum.LIKE_REL_ART_ID = e.essay_ID)
+		inner join likes l
+		 on (likeNum.LIKE_REL_ART_ID = l.LIKE_REL_ART_ID and l.mem_id = #{mem_id})
+		 where e.essay_DEL = 'N'
+		 <if test="tag_search != '' ">
+		 and e.MEM_ID like '%' ||  #{tag_search} || '%'
+		 </if>
+	</select>
+	
 </mapper>

@@ -106,6 +106,9 @@ public class PostCardService implements IPostCardService{
 	public int insertPostcard(Map<String, Object> resultMap) {
 		
 		PostCardVO postcardVo = (PostCardVO)resultMap.get("postcardVo");
+		String pc_cnt = postcardVo.getPc_cnt();
+		pc_cnt = pc_cnt.replaceAll("(\r\n|\r|\n|\n\r)", " <br/> ");
+		postcardVo.setPc_cnt(pc_cnt); 
 		
 		String pc_id = postCardDao.insertPostcard(postcardVo);
 		
@@ -146,12 +149,6 @@ public class PostCardService implements IPostCardService{
 			param.put("att_rel_art_id", art_rel_art_id);
 			param.put("filter_id", attachment.getFilter_id());
 			
-			System.out.println("attachment.getAtt_path()"+attachment.getAtt_path());
-			System.out.println("attachment.getAtt_file_name()"+attachment.getAtt_file_name());
-			System.out.println("attachment.getAtt_file_ori_name()"+attachment.getAtt_file_ori_name());
-			System.out.println("art_rel_art_id"+art_rel_art_id);
-			System.out.println("attachment.getFilter_id()"+attachment.getFilter_id());
-			
 			attachmentInsertCnt = attachmentService.attachmentInsert(param);
 		}
 		
@@ -176,6 +173,10 @@ public class PostCardService implements IPostCardService{
 		
 		PostCardVO postcardVo = (PostCardVO)resultMap.get("postcardVo");
 		String pc_id = postcardVo.getPc_id();
+		
+		String pc_cnt = postcardVo.getPc_cnt();
+		pc_cnt = pc_cnt.replaceAll("(\r\n|\r|\n|\n\r)", "<br/> ");
+		postcardVo.setPc_cnt(pc_cnt); 
 		
 		// 해시태그 삭제 진행
 		int deleteHasgtagCnt = hashTagService.deleteHasgtag(postcardVo.getPc_id());
@@ -243,4 +244,55 @@ public class PostCardService implements IPostCardService{
 		return selectPostcardVo;
 	}
 	
+	
+	/**
+	* Method : recentPostCardList
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 26.
+	* 변경이력 :
+	* @return
+	* Method 설명 : 메인에 사용할 포스트 카드 리스트를 받아오기 위한 메서드
+	*/
+	public List<PostCardVO> recentPostCardList(){
+		
+		List<PostCardVO> postCardList = postCardDao.recentPostCardList();
+		
+		for(PostCardVO postCardVO : postCardList){
+			
+			List<String> hashTagList = hashTagService.hashtagPostCard(postCardVO.getPc_id());
+			
+			postCardVO.setHashTagList(hashTagList);
+		}
+		
+		return postCardList;
+	}
+	
+	/**
+	* Method : selectPostCardByMemIdForBoard
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 28.
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 게시판 관리를 위한 포스트카드 관리 정보를 얻기 위해서 page 번호와 해당 회원의 아이디를 맵으로 받아서 
+	* POSTCARDVO 객체 리스트를 반환하는 메서드
+	*/
+	@Override
+	public List<PostCardVO> selectPostCardByMemIdForBoard(Map<String,String> param){
+		return postCardDao.selectPostCardByMemIdForBoard(param);
+	}
+	
+	/**
+	* Method : postCardTotalCount
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 28.
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 해당 회원이 가지고 있는 총 포스트 카드 게시물 수를 반환
+	*/
+	@Override
+	public Integer postCardTotalCount(String mem_id) {
+		return postCardDao.postCardTotalCount(mem_id);
+	}
 }

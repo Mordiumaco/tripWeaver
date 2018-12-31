@@ -19,10 +19,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.tripweaver.article.model.ArticleVO;
 import kr.co.tripweaver.article.service.IArticleService;
+import kr.co.tripweaver.board.model.BoardVO;
+import kr.co.tripweaver.board.service.IBoardService;
+import kr.co.tripweaver.essay.model.EssayVO;
+import kr.co.tripweaver.essay.service.IEssayService;
 import kr.co.tripweaver.member.model.MemberVO;
 import kr.co.tripweaver.mymenu.mypage.tripplan.model.ClusterVO;
 import kr.co.tripweaver.mymenu.mypage.tripplan.model.MypageTripPlanForListVO;
 import kr.co.tripweaver.mymenu.mypage.tripplan.service.ITripPlanService;
+import kr.co.tripweaver.postcard.model.PostCardVO;
+import kr.co.tripweaver.postcard.service.IPostCardService;
 import kr.co.tripweaver.util.model.PageVO;
 
 @RequestMapping("/main")
@@ -34,8 +40,17 @@ public class MainController {
 	@Resource(name = "articleService")
 	private IArticleService articleService;
 	
+	@Resource(name = "essayService")
+	private IEssayService essayService;
+	
 	@Autowired
 	ITripPlanService tripPlanService;
+	
+	@Autowired
+	IPostCardService postCardService;
+	
+	@Autowired
+	IBoardService boardService;
 	
 	@RequestMapping("/main")
 	public String mainView(Model model) {
@@ -59,10 +74,21 @@ public class MainController {
 			peotypeList.add(str);
 		}
 		
+		//최신글 에세이 리스트
+		List<EssayVO> essayList = essayService.recentEssayList();
+		
+		model.addAttribute("recentEssayList", essayList);
 		
 		model.addAttribute("seasonList", seasonList);
 		model.addAttribute("themeList", themeList);
 		model.addAttribute("peotypeList",peotypeList);
+		
+		
+		//최신글 포스트 리스트 
+		List<PostCardVO> postCardList = postCardService.recentPostCardList();
+		
+		model.addAttribute("recentPostCardList", postCardList);
+		
 		
 		return "index";
 	}
@@ -208,11 +234,7 @@ public class MainController {
 		return "admin/board/create_board";
 	}
 	
-	@RequestMapping("/declaration")
-	public String declarationView(Model model) {
-		model.addAttribute("gnb", 0);
-		return "admin/setting/declaration";
-	}
+	
 	
 	@RequestMapping("/contact")
 	public String contactView(Model model) {
@@ -251,7 +273,7 @@ public class MainController {
 		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
 		
 		if(memberVo == null) {
-			mav.setViewName("LoginCheckError");
+			mav.setViewName("loginCheckError");
 			return mav;
 		}
 		
@@ -318,7 +340,10 @@ public class MainController {
 		param.put("searchWord", searchWord);
 		
 		List<ArticleVO> articleList = articleService.articlePagingList(param);
-
+		
+		BoardVO boardVo = boardService.selectBoardByBoardId(board_id);
+		
+		
 //		int pageCnt = (int) articleList.get("pageCnt");
 
 		int totalArticleCnt = articleService.getArticleCnt(param);
@@ -329,6 +354,7 @@ public class MainController {
 		model.addAttribute("totalArticleCnt", totalArticleCnt);
 		model.addAttribute("board_id", board_id);
 		model.addAttribute("pageCnt", pageCnt);
+		model.addAttribute("boardVo", boardVo);
 		
 		return "servicecenter/list";
 	}

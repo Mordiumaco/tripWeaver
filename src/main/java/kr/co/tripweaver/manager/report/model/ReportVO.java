@@ -10,7 +10,7 @@ public class ReportVO {
 	private String 	report_rel_art_id;
 	private String	mem_id;
 	private String  filter_id;
-	private int		rep_rea_id;
+	private Integer	rep_rea_id;
 	private String  rep_rea_name;
 	
 	public String getReport_id() {
@@ -55,10 +55,10 @@ public class ReportVO {
 	public void setFilter_id(String filter_id) {
 		this.filter_id = filter_id;
 	}
-	public int getRep_rea_id() {
+	public Integer getRep_rea_id() {
 		return rep_rea_id;
 	}
-	public void setRep_rea_id(int rep_rea_id) {
+	public void setRep_rea_id(Integer rep_rea_id) {
 		this.rep_rea_id = rep_rea_id;
 	}
 	public String getRep_rea_name() {

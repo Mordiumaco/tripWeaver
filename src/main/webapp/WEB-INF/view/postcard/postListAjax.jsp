@@ -23,7 +23,7 @@ $('.postli5_con').hide();
 /* 포스트카드 내용에 a태그 추가하기  */
 function alinkSplite(thisClick) {
 
-	var content = $(thisClick[0]).siblings('.content').text();  // html 안에 'content'라는 아이디를 content 라는 변수로 정의한다.
+	var content = $(thisClick[0]).siblings('.content').html();  // html 안에 'content'라는 아이디를 content 라는 변수로 정의한다.
 
 	var splitedArray = content.split(' '); // 공백을 기준으로 문자열을 자른다.
 

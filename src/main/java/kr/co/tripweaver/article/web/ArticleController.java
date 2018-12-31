@@ -55,6 +55,18 @@ public class ArticleController {
 	@Autowired
 	private IBoardService boardService;
 	
+	
+	@RequestMapping("/deleteComment")
+	public String deleteComment(String comt_id, String art_id){
+		
+		int resultCnt = commentService.deleteComment(comt_id);
+		
+		if(resultCnt == 0){
+			return "dbError";
+		}
+		
+		return "redirect: /article/articleDetail?art_id="+art_id;
+	}
 	/**
 	* Method : articleListView
 	* 작성자 : pc23

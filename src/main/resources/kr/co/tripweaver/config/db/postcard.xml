@@ -77,6 +77,106 @@
 		FROM postcard
 		where PC_ID = #{pc_id}
 	</select>
+
+	<select id="selectPostcardClip" parameterType="Map"  resultType="postcardVo">
+		SELECT  rrnum.* FROM( 
+		    select
+		     p.pc_id        
+		    ,p.pc_cnt       
+		    ,p.pc_date      
+		    ,p.pc_del       
+		    ,p.mem_id 
+		    ,m.mem_nick 
+		    ,a.att_path
+		    ,a.att_file_name
+		    ,rownum rnum
+		    , likeNum.*
+		    from POSTCARD p inner join (
+		        select 
+		        count(*) as pc_like_count
+		        ,LIKE_REL_ART_ID
+		        from likes
+		        WHERE FILTER_id = 'postcard'
+		        GROUP BY LIKE_REL_ART_ID
+		    ) likeNum
+		    on (likeNum.LIKE_REL_ART_ID = p.PC_ID) inner join likes l
+		        on (likeNum.LIKE_REL_ART_ID = l.LIKE_REL_ART_ID and l.mem_id = #{mem_id}) inner join 
+		             (SELECT p.*,
+		                   att2.att_path,
+		                   att2.att_file_name
+		                FROM postcard p left outer join (SELECT att.* 
+		                    FROM attachment att inner JOIN (SELECT att_rel_art_id, 
+		                        MIN(att_id) AS att_id
+		                        FROM attachment
+		                        GROUP BY att_rel_art_id
+		                        ORDER BY ATT_REL_ART_ID) a
+		                    ON (att.att_id = a.att_id)) att2
+		                        ON (p.pc_id = att2.att_rel_art_id)
+		                        ORDER BY p.pc_id
+		             )a 
+		            on (p.PC_ID = a.pc_id )inner join member m
+            		on (p.mem_id = m.mem_id)
+		            where p.PC_DEL = 'N'
+		             <if test="tag_search != '' ">
+		 		and ${search_title} like '%' ||  #{tag_search} || '%'</if>)rrnum
+		where rrnum.rnum between #{pageVo.page}*#{pageVo.pageSize}-(#{pageVo.pageSize}-1) and #{pageVo.page}*#{pageVo.pageSize}
+	</select>
+	
+	<!-- 클립보드 게시물 총 개수 알아오기 -->
+	<select id="selectAllPostClip" resultType="int" parameterType="Map">
+		select
+		count(*)
+		from POSTCARD p inner join (
+		    select 
+		    count(*) as COUNT
+		    ,LIKE_REL_ART_ID
+		    from likes
+		    WHERE FILTER_id = 'postcard'
+		    GROUP BY LIKE_REL_ART_ID
+		) likeNum
+		on (likeNum.LIKE_REL_ART_ID = p.PC_ID)
+		inner join likes l
+		 on (likeNum.LIKE_REL_ART_ID = l.LIKE_REL_ART_ID and l.mem_id = #{mem_id})
+		 where p.PC_DEL = 'N'
+		 <if test="tag_search != '' ">
+		 and p.MEM_ID like '%' ||  #{tag_search} || '%'
+		 </if>
+	</select>
 	
 	
+	<!-- 메인에 사용할 postCard 최근 리스트를 가져오는 쿼리 -->
+	<select id="recentPostCardList" resultType="postcardVo">
+		select pc_id, pc_cnt
+		from
+		(
+		select * 
+		from postcard
+		where pc_del = 'N' 
+		order by pc_date desc
+		)
+		where rownum <![CDATA[<]]>=6
+	</select>
+	
+	<!-- 게시글 관리의 포스트 카드 목록을 뽑기 위한 쿼리문-->
+	<select id="selectPostCardByMemIdForBoard" resultType="postcardVo" parameterType="Map">
+		select rownum rnum, mypostcard.*
+		from
+		(
+		    select * from postcard where mem_id = #{mem_id}
+		    order by pc_date asc
+		) mypostcard
+		where rownum between 1+((to_number(#{page})-1)*10) and (to_number(#{page})*10)
+		order by rnum desc
+	</select>
+	
+	<!-- 게시글 관리의 포스트카드 개수를 알기위한 쿼리문-->
+	<select id="postCardTotalCount" resultType="Integer" parameterType="String">
+		select count(rownum)
+		from
+		(
+		    select * from postcard where mem_id = #{mem_id}
+		    order by pc_date asc
+		) myessay
+		order by rownum desc
+	</select>
 </mapper>
