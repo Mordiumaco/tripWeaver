@@ -64,17 +64,17 @@ function validation(){
 $(document).ready(function(){
 	//var j = 1;
 	var j = $('ul.file_list').length;
-	$(".plus_btn").on("click",function(){
+	$('ul.file_list').on("click",".plus_btn",function(){
 		if( j < 5){
 			j++;
-			$(".file_list").append("<li class='file_list_li"+j+"'><b>첨부 파일 :</b> &nbsp;&nbsp; <input type='file' name='fl_flie' >");
+			$(".file_list").append("<li class='file_list_li"+j+"'><b>첨부 파일 :</b> &nbsp;&nbsp; <input type='file' name='attachments' >");
 		} else {
 			alert(" 최대 5개 까지 입니다.");
 			return ;	
 		}
 	});
 	
-	$(".minus_btn").on("click",function(){
+	$('ul.file_list').on("click",".minus_btn",function(){
 	 if(j<2){
             return false;
         }else{
@@ -82,9 +82,39 @@ $(document).ready(function(){
    			j--;
         }
 	});
+	
+	
 });
 
-
+function fileDelete(buttonSection){
+	
+	confirm('해당 파일을 지우시겠습니까?');
+	
+	var fileName = $(buttonSection).siblings("label").text();
+	
+	$.ajax({
+		type: "POST",
+		url:"/article/deleteFileAjax",
+		data :"fileName="+encodeURI(fileName),
+		success: function(data){
+			
+			if(data == 0){
+				alert('db 오류 발생');
+			}else{
+				alert('정상적으로 파일삭제가 이루어 졌습니다.')
+				
+				var ulLength = $('ul.file_list').length;
+				if(ulLength == 1){
+					$(".file_list").append("<li class='file_list_li'><b>첨부 파일 :</b> &nbsp;&nbsp; <input type='file' name='attachments' >&nbsp;&nbsp;&nbsp;&nbsp;<div class='plus_btn'>+</div> <div class='minus_btn'>-</div>");			
+					$(buttonSection).parents('li').remove();
+				}
+			}
+			
+		}
+	});
+	
+	
+}
 
 
 </script>
@@ -99,8 +129,15 @@ $(document).ready(function(){
 	<div class="write_warp">
 		<input type="hidden" readonly="readonly" name="board_id" value="${articleVo.board_id}">
 		<input type="hidden" readonly="readonly" name="art_id" value="${articleVo.art_id}">
+		<input type="hidden" readonly="readonly" name="art_par_id" value="${articleVo.art_par_id}"/>
 	</div>
 
+	<div class="write_warp">
+		<ul class="write_warpL">
+			<li><b>비밀글 &nbsp;&nbsp;: </b></li>
+			<input type="checkbox" name="art_secret" >
+		</ul>
+	</div>
 	
 	
 	<div class="write_warp">
@@ -132,24 +169,24 @@ $(document).ready(function(){
 	<div class="write_warp">
 		<ul class="file_list">
 			<c:choose>
-				<c:when test="${attachmentList == '[]'}">
-						<li class="file_list_li1}"><b>첨부 파일 :</b> &nbsp;&nbsp; <input type="file" name="attachments" ><label>${fv.fl_file}</label>&nbsp;&nbsp;&nbsp;&nbsp;<div class="plus_btn">+</div> <div class="minus_btn">-</div></li>
+				<c:when test="${fn:length(attachmentList) == 0}">
+					<li class="file_list_li1}"><b>첨부 파일 :</b> &nbsp;&nbsp; <input type="file" name="attachments"><label>${fv.fl_file}</label>&nbsp;&nbsp;&nbsp;&nbsp;<div class="plus_btn">+</div> <div class="minus_btn">-</div></li>
 				</c:when>
-			
+				
+				<c:otherwise>
+					<c:forEach items="${attachmentList}" var="fv" begin="0" end="5" varStatus="sta">
+						<c:choose>
+							<c:when test="${sta.index == 0}">
+								<li class="file_list_li${sta.index+1}"><b>첨부 파일 :</b> &nbsp;&nbsp; <label>${fv.att_file_name}</label>&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" class="btn_bd col_02" onclick="fileDelete(this)" value="삭제"/>&nbsp;&nbsp;&nbsp;&nbsp;<div class="plus_btn">+</div> <div class="minus_btn">-</div></li>	
+							</c:when>
+							<c:otherwise>
+								<li class="file_list_li${sta.index+1}"><b>첨부 파일 :</b> &nbsp;&nbsp; <label>${fv.att_file_name}</label><input type="button" class="btn_bd col_02" onclick="fileDelete(this)" value="삭제"/></li>	
+							</c:otherwise>
+						</c:choose>
+						<input type="hidden" name="att_id" value="${fv.att_id}">
+					</c:forEach>
+				</c:otherwise>
 			</c:choose>
-		
-			<c:forEach items="${attachmentList}" var="fv" begin="0" end="5" varStatus="sta">
-				<c:choose>
-					
-					<c:when test="${sta.index == 0}">
-						<li class="file_list_li${sta.index+1}"><b>첨부 파일 :</b> &nbsp;&nbsp; <input type="file" name="attachments" ><label>${fv.att_file_name}</label>&nbsp;&nbsp;&nbsp;&nbsp;<div class="plus_btn">+</div> <div class="minus_btn">-</div></li>	
-					</c:when>
-					<c:otherwise>
-						<li class="file_list_li${sta.index+1}"><b>첨부 파일 :</b> &nbsp;&nbsp; <input type="file" name="attachments" ><label>${fv.att_file_name}</label></li>	
-					</c:otherwise>
-				</c:choose>
-				<input type="hidden" name="att_id" value="${fv.att_id}">
-			</c:forEach>
 		</ul>
 		
 	</div>
