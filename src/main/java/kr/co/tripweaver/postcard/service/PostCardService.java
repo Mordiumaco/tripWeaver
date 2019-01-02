@@ -295,4 +295,10 @@ public class PostCardService implements IPostCardService{
 	public Integer postCardTotalCount(String mem_id) {
 		return postCardDao.postCardTotalCount(mem_id);
 	}
+
+	@Override
+	public PostCardVO selectSinglePost(String pc_id) {
+		PostCardVO postCardVo = postCardDao.selectSinglePost(pc_id);
+		return postCardVo;
+	}
 }

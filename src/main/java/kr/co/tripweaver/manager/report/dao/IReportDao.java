@@ -92,4 +92,47 @@ public interface IReportDao {
 		*
 	 */
 	int selectRepostY();
+	
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 관리자 신고하기 처리 업데이트
+		*
+	 */
+	int updatePostReport(String pc_id);
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 관리자 신고하기 처리 업데이트
+		*
+	 */
+	int updateEssayReport(String essay_id);
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 신고처리 상태 변경하기
+		*
+	 */
+	int updateReport(String report_rel_art_id);
 }

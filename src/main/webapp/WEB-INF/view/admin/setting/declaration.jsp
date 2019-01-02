@@ -26,6 +26,21 @@ $(function() {
 		getAjaxList( '' , '', 'N', 1);
 	});
 	
+	$('.tb_wrap').on('click','.btn_02', function (){
+		var frm = $(this).parents('.bg0').find('.updateReport');
+		$(frm).submit();
+		
+	});
+	
+	
+	// 포스트 카드 클릭시 해당 포스트카드 내용을 가져오는 아작스 작동
+	
+	$('.tb_wrap').on('click','.postBtn', function() {
+		var pc_id = $(this).text();
+		postClickAjax(pc_id);
+	})
+	
+	
 })
 
 
@@ -41,6 +56,63 @@ function getAjaxList(filter_id, rep_rea_id, report_proc_sta, page) {
 		}
 	});
 }
+
+function postClickAjax(pc_id) {
+	
+	$.ajax({
+		url :"/report/reportPostClickAjax",
+		type: "get" ,
+		data : "pc_id="+pc_id,
+		success : function(dt) {
+			$(".layer_con").html(dt);
+		}
+	})
+}
+
+
+function layer_open1(el){
+
+  var temp = $('#' + el);
+  var bg = temp.prev().hasClass('bg');    //dimmed 레이어를 감지하기 위한 boolean 변수
+
+  if(bg){
+     $('.layer1').fadeIn();  //'bg' 클래스가 존재하면 레이어가 나타나고 배경은 dimmed 된다. 
+  }else{
+    
+  }
+
+  // 화면의 중앙에 레이어를 띄운다.
+  if (temp.outerHeight() < $(document).height() ) temp.css('margin-top', '-'+temp.outerHeight()/2+'px');
+  else temp.css('top', '0px');
+  if (temp.outerWidth() < $(document).width() ) temp.css('margin-left', '-'+temp.outerWidth()/2+'px');
+  else temp.css('left', '0px');
+
+  temp.find('a.cbtn, a.close').click(function(e){
+     if(bg){
+        $('.layer1').fadeOut(); //'bg' 클래스가 존재하면 레이어를 사라지게 한다. 
+     }else{
+        temp.fadeOut();
+     }
+     e.preventDefault();
+  });
+
+  $('.bg, .close').click(function(e){ //배경을 클릭하면 레이어를 사라지게 하는 이벤트 핸들러
+     $('.layer1').fadeOut();
+     e.preventDefault();
+  });
+}
+
+$(document).ready(function(){
+	$('.layer_con_sub').on('click','.layer_con_subLi', function() {
+		
+		var index = $('.layer_con_sub .layer_con_subLi').index(this);
+		
+		if($(".layer_con_sub .layer_con_subLi:eq("+ index + ")").find("input[name='calendarSelection']").is("checked") == false){
+			$(".layer_con_sub .layer_con_subLi:eq("+ index + ")").find("input[name='calendarSelection']").prop("checked", true); /* by ID */
+		}
+		
+	});
+});
 
 </script>
 
@@ -128,5 +200,15 @@ function getAjaxList(filter_id, rep_rea_id, report_proc_sta, page) {
 	    </noscript>
 	</div>
 </section>
+
+
+<div class="layer1">
+	    <div class="bg"></div>
+	    <div id="layer_1" class="pop_layer postcard_pop_layer">
+	       <div class="layer_con">
+	       		
+	       </div>
+	    </div>   
+	</div> 
  
 <%@include file="../adminTail.jsp" %>

@@ -179,4 +179,23 @@
 		) myessay
 		order by rownum desc
 	</select>
+	
+	
+	<!-- 포스트 카드 단일 가져오기 -->
+	<select id="selectSinglePost" resultType="postcardVo" parameterType="String">
+		select 
+		 p. *
+		, m.mem_nick
+		, m.mem_profile
+		from POSTCARD p INNER JOIN member m 
+		on (p.mem_id = m.mem_id) inner join  
+		(
+		SELECT
+		    distinct PC_ID
+		FROM HASHTAG 
+		WHERE PC_ID = #{pc_id}
+		) has
+		on (has.PC_ID = p.PC_ID )
+	</select>
+	
 </mapper>

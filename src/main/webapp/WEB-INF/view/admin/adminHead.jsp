@@ -106,7 +106,7 @@
                 </div>
             </li>
             
-            <li class="gnb_li">
+         <%--    <li class="gnb_li">
                 <button type="button" class="btn_op" title="필터"></button>
                 <div class="gnb_oparea_wr">
                     <div class="gnb_oparea">
@@ -114,7 +114,7 @@
                         <a href="/main/codetable">코드테이블</a>
                     </div>
                 </div>
-            </li>
+            </li> --%>
         </ul>
     </nav>
 </header>
