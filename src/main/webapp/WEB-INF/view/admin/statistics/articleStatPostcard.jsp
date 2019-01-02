@@ -57,6 +57,28 @@ div .connstat_table {
 </script>
 <script>
 
+	var dateType = '${dateType}';
+	var datepickerVal = '${datepicker}';
+	console.log("dateType : " + dateType + " datepicker : " + datepickerVal);
+
+	var total_line = new Array();
+	<c:forEach items="${total}" var="cnt">
+		total_line.push(${cnt});
+	</c:forEach>
+	var dateStr = new Array();
+	<c:forEach items="${dateStr}" var="cnt">
+		dateStr.push("${cnt}");
+	</c:forEach>
+	
+	var male = new Array();
+	var female = new Array();
+	<c:forEach items="${male}" var="gender">
+		male.push(${gender});
+	</c:forEach>		
+	<c:forEach items="${female}" var="gender">
+		female.push(${gender});
+	</c:forEach>
+	
 	$('.content li').hide();
 	$('.content li#web1').show();
 	$('.tab a').click(function(){
@@ -69,13 +91,97 @@ div .connstat_table {
 	});
 
 	$(document).ready(function() {
-		$('#datepicker').val('${year}.${input_str_day}');
-		$( "#datepicker" ).datepicker({
-			dateFormat: "yy.mm.dd"
+		
+		var term_btn = document.getElementById(dateType); 
+		$(term_btn).css({'background' : '#006400'});
+		
+		if(datepickerVal == null || datepickerVal == ""){
+			if(dateType == 'week'){
+	            var date = new Date();
+	            startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
+	            endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 6);
+	            startDate = getTimeStamp(startDate, '');
+	            endDate = getTimeStamp(endDate, '');
+				$('#datepicker').val(startDate + '-' + endDate);
+			} else {
+				$('#datepicker').val(getTimeStamp(new Date(), dateType));
+			}
+		} else {
+			$('#datepicker').val(datepickerVal);
+		}
+		
+		if (dateType == 'month') {
+			$('#dateTypeName').text('월간');
+			//월별
+			$("#datepicker").datepicker({
+		        dateFormat: 'yyyyMM',
+		        changeMonth: true,
+		        changeYear: true,
+		        showWeek : true,
+		        showButtonPanel: true,
+		        onClose: function(dateText, inst) {
+		            var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+		            var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+		            $(this).val(getTimeStamp(new Date(year, month, 1), dateType));
+		        }
+		    });
+
+		    $("#datepicker").focus(function () {
+		        $(".ui-datepicker-calendar").hide();
+		        $("#ui-datepicker-div").position({
+		            my: "center top",
+		            at: "center bottom",
+		            of: $(this)
+		        });
+		    });
+		} else if (dateType == 'week') {
+			$('#dateTypeName').text('주간');
+			//주간
+			$('#datepicker').datepicker( {
+		        showOtherMonths: true,
+		        selectOtherMonths: true,
+				selectWeek:true,
+		        onSelect: function(dateText, inst) { 
+		        	
+		        	var part = dateText.split('/');
+		            var date = new Date(part[2], part[0] - 1, part[1]);
+		            startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
+		            endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 6);
+		            startDate = getTimeStamp(startDate, '');
+		            endDate = getTimeStamp(endDate, '');
+					$('#datepicker').val(startDate + '-' + endDate);
+		            setTimeout("applyWeeklyHighlight()", 100);
+		        },
+				beforeShow : function() {
+					setTimeout("applyWeeklyHighlight()", 100);
+				}
+		    });
+		} else {
+			$('#dateTypeName').text('일간');
+			//일간
+			$( "#datepicker" ).datepicker({
+				dateFormat: "yy.mm.dd"
+			});
+		}
+		
+		$(".term_btn").on('click', function() {
+			var dt = $(this).val();
+			if(dt == '월간'){
+				dateType = 'month';
+			} else if (dt == '주간') {
+				dateType = 'week';
+			} else {
+				dateType = 'day';
+			}
+			$('#dateType').val(dateType);
+			$('#datepicker').val("");
+			
+			$('#search').submit();
 		});
 		
 		$('#search_btn').on('click', function() {
-			$('#conStat_form').submit();
+			$('#dateType').val(dateType);
+			$('#search').submit();
 		});
 		
 		zingchart.THEME="classic";
@@ -90,7 +196,7 @@ div .connstat_table {
 				            "width":"100%",
 				            "background-color":"#FFFFFF",
 				            "title":{
-				                "text":"Essay 게시물 수 : 000건",
+				                "text":"",
 				                "x":"40px",
 				                "y":"5px",
 				                "align":"left",
@@ -121,7 +227,7 @@ div .connstat_table {
 				                "margin":"125px 45px 30px 45px"
 				            },
 				            "scale-x":{
-				                "values":["WEEK 1","WEEK 2","WEEK 3","WEEK 4"],
+				                "values":dateStr,
 				                "line-color":"#D9D7D5",
 				                "line-width":"1px",
 				                "tick":{
@@ -150,31 +256,11 @@ div .connstat_table {
 				            },
 				            "series":[
 				                {
-				                    "type":"bar",
-				                    "text":"가이드 에세이",
-				                    "values":[15,10,4,13],
-				                    "background-color":"#F29E4A",
-				                    "bar-width":"10px",
-				                    "hover-state":{
-				                        "visible":false
-				                    }
-				                },
-				                {
-				                    "type":"bar",
-				                    "text":"일반 에세이",
-				                    "values":[3,2,4,5],
-				                    "background-color":"#7BBADE",
-				                    "bar-width":"10px",
-				                    "hover-state":{
-				                        "visible":false
-				                    }
-				                },
-				                {
 				                    "type":"line",
-				                    "text":"합계",
+				                    "text":"포스트카드 합계",
 				                    "aspect":"spline",
-				                    "values":[22,14,13,24],
-				                    "line-color":"#8B8B8B",
+				                    "values":total_line,
+				                    "line-color":"#F29E4A",
 				                    "line-width":"2px",
 				                    "highlight":false,
 				                    "marker":{
@@ -188,280 +274,6 @@ div .connstat_table {
 				        }
 				    ]
 			};
-		
-		var myChart_class = {
-		    "layout":"h",
-		     "globals":{
-		        "font-family":"Roboto"
-		    },
-		    "graphset":[
-		        {
-		            "type":"pie",
-		            "background-color":"#FFFFFF",
-		            "legend":{
-		                "background-color":"none",
-		                "border-width":0,
-		                "shadow":false,
-		                "layout":"float",
-		                "margin":"auto auto 16% auto",
-		                "marker":{
-		                    "border-radius":3,
-		                    "border-width":0
-		                },
-		                "item":{
-		                    "color":"%backgroundcolor"
-		                }
-		            },
-		            "title":{
-		                "text":"",
-		                "background-color":"none",
-		                "font-size":16,
-		                "color":"#626262",
-		                "x":-20,
-		                "y":80
-		            },
-		            "plotarea":{
-		                "background-color":"#FFFFFF",
-		                "border-color":"#DFE1E3",
-		                "border-width":1,
-		                "border-radius":3,
-		                "margin":"15% 5%"
-		            },
-		            "labels":[
-		                {
-		                    "x":"45%",
-		                    "y":"47%",
-		                    "width":"10%",
-		                    "text":"시즌",
-		                    "font-size":24
-		                }    
-		            ],
-		            "plot":{
-		                "size":100,
-		                "slice":70,
-		                "margin-right":100,
-		                "border-width":0,
-		                "shadow":0,
-		                "value-box":{
-		                    "visible":false
-		                },
-		                "tooltip":{
-		                    "text":"%v 건",
-		                    "shadow":false,
-		                    "border-radius":3
-		                }
-		            },
-		            "series":[
-		                {
-		                    "values":[12],
-		                    "text":"봄",
-		                    "background-color":"#FFE08C"
-		                },
-		                {
-		                    "values":[22],
-		                    "text":"여름",
-		                    "background-color":"#5CD1E5"
-		                },
-		                {
-		                    "values":[15],
-		                    "text":"가을",
-		                    "background-color":"#CE723D"
-		                },
-		                {
-		                    "values":[11],
-		                    "text":"겨울",
-		                    "background-color":"#D4F4FA"
-		                },
-		                {
-		                    "values":[8],
-		                    "text":"무관",
-		                    "background-color":"#D5D5D5"
-		                }
-		            ]
-		        },
-		        {
-		            "type":"pie",
-		            "background-color":"#FFFFFF",
-		            "legend":{
-		                "background-color":"none",
-		                "border-width":0,
-		                "shadow":false,
-		                "layout":"float",
-		                "margin":"auto auto 16% auto",
-		                "marker":{
-		                    "border-radius":3,
-		                    "border-width":0
-		                },
-		                "item":{
-		                    "color":"%backgroundcolor"
-		                }
-		            },
-		            "title":{
-		                "text":"",
-		                "background-color":"none",
-		                "color":"#626262",
-		                "font-size":16,
-		                "x":-52,
-		                "y":80
-		            },
-		            "plotarea":{
-		                "background-color":"#FFFFFF",
-		                "border-color":"#DFE1E3",
-		                "border-width":1,
-		                "border-radius":3,
-		                "margin":"15% 5%"
-		            },
-		            "labels":[
-		                {
-		                    "x":"45%",
-		                    "y":"47%",
-		                    "width":"10%",
-		                    "text":"테마",
-		                    "font-size":24
-		                }    
-		            ],
-		            "plot":{
-		                "size":100,
-		                "slice":70,
-		                "border-width":0,
-		                "shadow":0,
-		                "value-box":{
-		                    "visible":false
-		                },
-		                 "tooltip":{
-		                    "text":"%v 건 몇%",
-		                    "shadow":false,
-		                    "border-radius":3
-		                }
-		            },
-		            "series":[
-		                {
-		                    "values":[2.33],
-		                    "text":"먹거리",
-		                    "background-color":"#CC3D3D"
-		                },
-		                {
-		                    "values":[2.02],
-		                    "text":"레저",
-		                    "background-color":"#CCA63D"
-		                },
-		                {
-		                    "values":[1.85],
-		                    "text":"쇼핑",
-		                    "background-color":"#9FC93C"
-		                },
-		                {
-		                    "values":[1.85],
-		                    "text":"자연",
-		                    "background-color":"#3DB7CC"
-		                },
-		                {
-		                    "values":[1.85],
-		                    "text":"문화",
-		                    "background-color":"#4641D9"
-		                },
-		                {
-		                    "values":[1.85],
-		                    "text":"축제",
-		                    "background-color":"#D941C5"
-		                }
-		            ]
-		        },
-		        {
-		            "type":"pie",
-		            "background-color":"#FFFFFF",
-		            "legend":{
-		                "background-color":"none",
-		                "border-width":0,
-		                "shadow":false,
-		                "layout":"float",
-		                "margin":"auto auto 16% auto",
-		                "marker":{
-		                    "border-radius":3,
-		                    "border-width":0
-		                },
-		                "item":{
-		                    "color":"%backgroundcolor"
-		                }
-		            },
-		            "title":{
-		                "text":"",
-		                "background-color":"none",
-		                "color":"#626262",
-		                "font-size":16,
-		                "x":-52,
-		                "y":80
-		            },
-		            "plotarea":{
-		                "background-color":"#FFFFFF",
-		                "border-color":"#DFE1E3",
-		                "border-width":1,
-		                "border-radius":3,
-		                "margin":"15% 5%"
-		            },
-		            "labels":[
-		                {
-		                    "x":"45%",
-		                    "y":"47%",
-		                    "width":"10%",
-		                    "text":"인원",
-		                    "font-size":24
-		                }    
-		            ],
-		            "plot":{
-		                "size":100,
-		                "slice":70,
-		                "border-width":0,
-		                "shadow":0,
-		                "value-box":{
-		                    "visible":false
-		                },
-		                 "tooltip":{
-		                    "text":"%v BN",
-		                    "shadow":false,
-		                    "border-radius":3
-		                }
-		            },
-		            "series":[
-		                {
-		                    "values":[2.33],
-		                    "text":"혼자",
-		                    "background-color":"#CC3D3D"
-		                },
-		                {
-		                    "values":[2.02],
-		                    "text":"커플",
-		                    "background-color":"#CCA63D"
-		                },
-		                {
-		                    "values":[1.85],
-		                    "text":"친구들과",
-		                    "background-color":"#9FC93C"
-		                },
-		                {
-		                    "values":[1.85],
-		                    "text":"가족",
-		                    "background-color":"#3DB7CC"
-		                },
-		                {
-		                    "values":[1.85],
-		                    "text":"단체",
-		                    "background-color":"#4641D9"
-		                },
-		                {
-		                    "values":[1.85],
-		                    "text":"여자끼리",
-		                    "background-color":"#D941C5"
-		                },
-		                {
-		                    "values":[1.85],
-		                    "text":"남자끼리",
-		                    "background-color":"#747474"
-		                }
-		            ]
-		        }
-		    ]
-		};
 		
 		var myChart_writer = 
         {
@@ -505,7 +317,7 @@ div .connstat_table {
                     "callout": true,
                     "callout-height": "10px",
                     "callout-width": "15px",
-                    "hook":"node:plot=2;index=4"
+                    "hook":"node:plot=2;index=1"
                 },
                 {
                     "text": "여성",
@@ -520,7 +332,7 @@ div .connstat_table {
                     "callout": true,
                     "callout-height": "10px",
                     "callout-width": "15px",
-                    "hook":"node:plot=2;index=5",
+                    "hook":"node:plot=2;index=3",
                     "offset-y": -30
                 }
             ],
@@ -547,7 +359,7 @@ div .connstat_table {
                 }
             },
             "scale-y": {
-                "values": "0:70000:10000",
+                "values": "0:10:1",
                 "short": true,
                 "line-color": "#7E7E7E",
                 "tick": {
@@ -563,40 +375,12 @@ div .connstat_table {
             },
             "series": [
                 {
-                    "values": [
-                        15000,
-                        12000,
-                        42000,
-                        13000,
-                        19500,
-                        9750,
-                        11500
-                    ],
+                    "values": male,
                     "background-color": "#1E82FF"
                 },
                 {
-                    "values": [
-                        13000,
-                        8000,
-                        5000,
-                        20000,
-                        17000,
-                        10000,
-                        34000
-                    ],
+                    "values": female,
                     "background-color": "#FF4646"
-                },
-                {
-                    "values": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "background-color": "#90A23B"
                 }
             ],
             "tooltip": {
@@ -608,10 +392,6 @@ div .connstat_table {
 		zingchart.render({ 
 			id : 'myChart_count', 
 			data : myConfig_count, 
-		});
-		zingchart.render({ 
-			id : 'myChart_class', 
-			data : myChart_class, 
 		});
 		zingchart.render({ 
 			id : 'myChart_writer', 
@@ -636,14 +416,36 @@ div .connstat_table {
 	   }
 	   return zero + n;
 	 }
-	 
+	 function applyWeeklyHighlight() {
+			
+			$('.ui-datepicker-calendar tr').each(function() {
+		
+				if ($(this).parent().get(0).tagName == 'TBODY') {
+					$(this).mouseover(function() {
+						$(this).find('a').css({
+							'background' : '#ffffcc',
+							'border' : '1px solid #dddddd'
+						});
+						$(this).find('a').removeClass('ui-state-default');
+						$(this).css('background', '#ffffcc');
+					});
+					
+					$(this).mouseout(function() {
+						$(this).css('background', '#ffffff');
+						$(this).find('a').css('background', '');
+						$(this).find('a').addClass('ui-state-default');
+					});
+				}
+		
+			});
+	 }
 </script>
 
 <div class="mypage_right">
 
 	<ul class="tab">
-		<li><a href="#web1" class="select web1">Essay</a></li>
-		<li><a href="#web2" class="web2">PostCard</a></li>
+		<li><a href="/artstat/artstatEssay" class="web1">Essay</a></li>
+		<li><a href="/artstat/artstatPostcard" class="select web2">PostCard</a></li>
 	</ul>
 
 	<ul class="content">
@@ -658,24 +460,16 @@ div .connstat_table {
 		<input type="button" id="week" class="ov_listall term_btn" value="주간">
 		<input type="button" id="day" class="ov_listall term_btn" value="일간">
 	</div>
-	<form id="date_btn" action="/">
-		<input type="hidden" name="dateType" id="dateType_btn">
-		<input type="hidden" name="classification" id="classification_btn">
-		<input type="hidden" name="page" value="1">
-		<input type="hidden" name="pageSize" value="10">
-	<label for="datepicker"><span id="dateTypeName"></span>
-		<input type="text" id="datepicker" name="datepicker" class="datepicker" placeholder="기간을 선택해주세요"/>
-	</label>
-	
-	<input type="hidden" id="dateType" name="dateType">
-	<input type="button" value="검색" class="btn_submit" id="search_btn">
+	<form id="search" action="/artstat/artstatPostcard">
+		<label for="datepicker"><span id="dateTypeName"></span>
+			<input type="text" id="datepicker" name="datepicker" class="datepicker" placeholder="기간을 선택해주세요"/>
+		</label>
+		<input type="hidden" id="dateType" name="dateType">
+		<input type="button" value="검색" class="btn_submit" id="search_btn">
 	</form>
 </div>
 
 <div id="myChart_count">
-	<a class="zc-ref" href="https://www.zingchart.com">Powered by ZingChart</a>
-</div>
-<div id="myChart_class">
 	<a class="zc-ref" href="https://www.zingchart.com">Powered by ZingChart</a>
 </div>
 <div id="myChart_writer">

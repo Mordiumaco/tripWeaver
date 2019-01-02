@@ -49,6 +49,43 @@
 			 });
 		}
 	
+		function findPassCheck(){
+			
+			let mem_id = $('#mem_id').val();
+			let mem_email = $('#mem_email2').val();
+			
+			if(mem_id.length < 2){
+				alert("2자 이상의 아이디를 적어주세요");
+				return;
+			}
+			
+			if(mem_email.length < 5){
+				alert("제대로 된 이메일을 적어주세요");
+				return;
+			}
+			
+			 $.ajax({
+				 
+				   	type: "GET",
+				   	url:"/main/findPassCheck",
+				   	data : {"mem_id":mem_id, "mem_email":mem_email},
+				   	success : function(data){
+				           
+				   		console.log(data);
+				   		if(data == null || data ==""){
+				   			
+				   			alert("해당 회원에 대한 정보가 없습니다.");
+				   			
+				   		}else{
+				   			
+				   			alert("해당 정보에 대한 회원의 비밀번호는 "+data+"입니다.");
+				   		}
+				           	
+				   	}
+				 });
+		}
+		
+		
 </script>
 </head>
 <body style="min-width: 600px; overflow-x: hidden;">
@@ -57,7 +94,7 @@
 		<h1 id="win_title">회원정보 찾기</h1>
 		<div class="new_win_con">
 			<h1>아이디 찾기</h1>
-			<form name="fpasswordlost" action="" onsubmit="return fpasswordlost_submit(this);" method="post" autocomplete="off">
+			<form name="fIdlost" action="" method="post" autocomplete="off">
 				<fieldset id="info_fs">
 					<p>회원가입 시 등록하신 이름, 전화번호, 생년월일을 적어주세요.<br/> 
 					네이버 아이디 인 경우에는 네이버에서 찾기를 해주세요 </p>
@@ -74,19 +111,19 @@
 		</div>
 		<div class="new_win_con">
 			<h1>비밀번호 찾기</h1>
-			<form name="fpasswordlost" action="https://demo.sir.kr/gnuboard5/bbs/password_lost2.php" onsubmit="return fpasswordlost_submit(this);" method="post" autocomplete="off">
+			<form name="fpasswordlost" action="" method="post" autocomplete="off">
 				<br />
 				<br /> 
 				<label for="mb_email"> 아이디 </label> 
-				<input type="text" name="mb_email" id="mb_email" required="" readonly="readonly" class="frm_input full_input email" size="30">
+				<input type="text" name="mem_id" id="mem_id" required="" class="frm_input full_input email" size="30" placeholder="아이디를 적어주세요">
 				<fieldset id="info_fs">
 					<p>
 						회원가입 시 등록하신 이메일 주소를 입력해 주세요.<br> 해당 이메일로 비밀번호 정보를 보내드립니다.
 					</p>
 					<label for="mb_email" class="sound_only">E-mail 주소<strong class="sound_only">필수</strong></label> 
-					<input type="text" name="mb_email" id="mb_email" required="" class="required frm_input full_input email" size="30" placeholder="E-mail 주소">
+					<input type="text" name="mem_email" id="mem_email2" required="" class="required frm_input full_input email" size="30" placeholder="E-mail 주소">
 				</fieldset>
-				<input type="submit" value="확인" class="btn_submit">
+				<input type="button" value="확인" class="btn_submit" onclick="findPassCheck()">
 			</form>
 		</div>
 		<button type="button" onclick="window.close();" class="btn_close">창닫기</button>

@@ -20,16 +20,17 @@ public class ArticleStatController {
 	
 	@RequestMapping("/artstatEssay")
 	public String artstatEssay(@RequestParam(value="dateType", required=false) String dateType, @RequestParam(value="datepicker", required=false) String datepicker, Model model) {
+	
 		dateType = dateType == null || dateType.equals("") ? "month" : dateType;
 		datepicker = datepicker == null || datepicker.equals("") ? "" : datepicker;
+		
 		Map<String, Object> params = new HashMap<String, Object>();
-		//데이트타입
 		params.put("dateType", dateType);
-		//선택 날짜
 		params.put("datepicker", datepicker);
 		
 		Map<String, Object> resultMap = articleStatService.selectEssayStat(params);
 		resultMap.put("datepicker", datepicker);
+		
 		model.addAttribute("gnb", 3);
 		model.addAllAttributes(resultMap);
 		
@@ -37,11 +38,20 @@ public class ArticleStatController {
 	}
 	
 	@RequestMapping("/artstatPostcard")
-	public String artstatPostcard(@RequestParam("dateType") String dateType, @RequestParam("datepicker") String datepicker, Model model) {
+	public String artstatPostcard(@RequestParam(value="dateType", required=false) String dateType, @RequestParam(value="datepicker", required=false) String datepicker, Model model) {
 		
-
+		dateType = dateType == null || dateType.equals("") ? "month" : dateType;
+		datepicker = datepicker == null || datepicker.equals("") ? "" : datepicker;
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("dateType", dateType);
+		params.put("datepicker", datepicker);
+		
+		Map<String, Object> resultMap = articleStatService.selectPostCardStat(params);
+		resultMap.put("datepicker", datepicker);
 
 		model.addAttribute("gnb", 3);
+		model.addAllAttributes(resultMap);
 		
 		return "admin/statistics/articleStatPostcard";
 	}

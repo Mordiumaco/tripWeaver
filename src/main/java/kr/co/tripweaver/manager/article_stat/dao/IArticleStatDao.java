@@ -7,6 +7,7 @@ import kr.co.tripweaver.manager.article_stat.model.ArticleStatVO;
 
 public interface IArticleStatDao {
 
+	//에세이
 	/**
 	* Method : selectCountGraphMonth
 	* 작성자 : jin
@@ -77,4 +78,45 @@ public interface IArticleStatDao {
 	 */
 	public List<ArticleStatVO> selectAgeGenderGraph(Map<String, Object> params);
 	
+	//포스트카드
+	/**
+	* Method : selectCountGraphMonthPostcard
+	* 작성자 : jin
+	* 변경이력 :
+	* @param params
+	* @return
+	* Method 설명 : 포스트카드 월간 총 개수 그래프 데이터 반환하는 메서드
+	 */
+	public List<ArticleStatVO> selectCountGraphMonthPostcard(Map<String, Object> params);
+	
+	/**
+	* Method : selectCountGraphWeekPostcard
+	* 작성자 : jin
+	* 변경이력 :
+	* @param params
+	* @return
+	* Method 설명 : 포스트카드 주간 총 개수 그래프 데이터 반환하는 메서드
+	 */
+	public List<ArticleStatVO> selectCountGraphWeekPostcard(Map<String, Object> params);
+	
+	/**
+	* Method : selectCountGraphDayPostcard
+	* 작성자 : jin
+	* 변경이력 :
+	* @param params
+	* @return
+	* Method 설명 : 포스트카드 일간 총 개수 그래프 데이터 반환하는 메서드
+	 */
+	public List<ArticleStatVO> selectCountGraphDayPostcard(Map<String, Object> params);
+	
+	
+	/**
+	* Method : selectAgeGenderGraphPostcard
+	* 작성자 : jin
+	* 변경이력 :
+	* @param params
+	* @return
+	* Method 설명 : 선택날짜 포스트카드 나이 성별 데이터를 반환하는 메서드
+	 */
+	public List<ArticleStatVO> selectAgeGenderGraphPostcard(Map<String, Object> params);
 }

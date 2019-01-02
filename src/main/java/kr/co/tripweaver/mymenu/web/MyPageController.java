@@ -1,8 +1,11 @@
 package kr.co.tripweaver.mymenu.web;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,12 +16,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.tripweaver.article.model.ArticleVO;
 import kr.co.tripweaver.article.service.IArticleService;
 import kr.co.tripweaver.essay.model.EssayVO;
 import kr.co.tripweaver.essay.service.IEssayService;
 import kr.co.tripweaver.member.model.MemberVO;
+import kr.co.tripweaver.member.service.IMemberService;
 import kr.co.tripweaver.mymenu.reservation.model.ReservationForMyPageVO;
 import kr.co.tripweaver.mymenu.reservation.service.IReservationService;
 import kr.co.tripweaver.postcard.model.PostCardVO;
@@ -62,6 +67,9 @@ public class MyPageController {
 	
 	@Autowired
 	IReservationService reservationService;
+	
+	@Autowired
+	IMemberService memberService;
 	/**
 	* Method : myPostView
 	* 작성자 : Jae Hyeon Choi
@@ -388,5 +396,83 @@ public class MyPageController {
 		model.addAttribute("page", reserPage);
 		model.addAttribute("currentPage", page);
 		return "mypage/guide";
+	}
+	
+	/**
+	* Method : memberEditView
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2019. 1. 2.
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 해당 회원의 정보를 받아온다.  
+	*/
+	@RequestMapping("/memberEdit")
+	public String memberEditView(Model model) {
+		
+		return "mypage/member_edit";
+	}
+	
+	/**
+	* Method : memberEditForm
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2019. 1. 2.
+	* 변경이력 :
+	* @param model
+	* @return
+	* Method 설명 : 해당 회원의 받은 정보로 정보를 수정한다. 
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	*/
+	@RequestMapping("/memberEditForm")
+	public String memberEditForm(MemberVO memberVo, MultipartFile mem_profile_file, HttpSession session) throws IllegalStateException, IOException {
+		
+		logger.debug("memberVO : {}", memberVo);
+		logger.debug("mem_profile_file : {}", mem_profile_file);
+		
+
+		MemberVO InfoMemberVo = (MemberVO)session.getAttribute("loginInfo");
+		
+		//멤버에 대한 정보가 없을경우
+		if(InfoMemberVo == null) {
+			return "loginCheckError";
+		}
+		
+		//처음에 대표 이미지 파일이 있는지 먼저 확인해본다.
+		String directory = "C:/upload/profile/";
+		if(!mem_profile_file.isEmpty()) {
+			//이미지 파일이 존재한다면 이부분이 실행된다.
+			byte[] bytes = mem_profile_file.getBytes();
+			
+			String fileName = UUID.randomUUID().toString()+mem_profile_file.getOriginalFilename();
+			
+			
+			mem_profile_file.transferTo(new File(directory + File.separator + fileName));
+			
+			
+			
+			if(!fileName.endsWith(".jpg")&&!fileName.endsWith(".gif")&&fileName.endsWith(".png")){
+				File fileTest = new File(directory+fileName);
+				fileTest.delete();
+			}else{
+				memberVo.setMem_profile("profile/"+fileName);
+			}
+			
+		}else {
+			//이미지 파일이 존재하지 않는다면 이부분이 실행된다.
+			memberVo.setMem_profile("");
+		}
+		
+		int resultCnt = memberService.updateMember(memberVo);
+		
+		if(resultCnt == 0) {
+			return "dbError";
+		}
+		
+		MemberVO updateMemberVo = memberService.selectMemberById(memberVo.getMem_id());
+		
+		session.setAttribute("loginInfo", updateMemberVo);
+		
+		return "redirect: /main/mypage";
 	}
 }

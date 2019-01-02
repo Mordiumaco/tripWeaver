@@ -14,6 +14,8 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 import kr.co.tripweaver.manager.report.model.ReportVO;
 import kr.co.tripweaver.manager.report.service.IReportService;
+import kr.co.tripweaver.postcard.model.PostCardVO;
+import kr.co.tripweaver.postcard.service.IPostCardService;
 import kr.co.tripweaver.util.model.PageVO;
 
 @RequestMapping("/report")
@@ -22,6 +24,9 @@ public class ReportController {
 	
 	@Autowired
 	IReportService reportService;
+	
+	@Autowired
+	IPostCardService postCardService;
 	
 	// 신고관리 페이지 이동
 	@RequestMapping("/declaration")
@@ -68,6 +73,39 @@ public class ReportController {
 		int insertReportCnt = reportService.insertReport(reportVo);
 		
 		return "redirect:/postCard/postCardList?mem_id=" + reportVo.getMem_id() + "&tag_search="; 
+	}
+	
+	@RequestMapping(value = "/insertReportEssay", method=RequestMethod.POST)
+	public String insertReportEssay(ReportVO reportVo) {
+		int insertReportCntEssay = reportService.insertReport(reportVo);
+		
+		return "redirect:/essay/essayView?essay_id=" + reportVo.getReport_rel_art_id(); 
+	}
+	
+	@RequestMapping(value ="/updatePostReport", method=RequestMethod.POST )
+	public String updatePostReport(@RequestParam("pc_id")String pc_id) {
+		int updatePostReportCnt = reportService.updatePostReport(pc_id);
+		int updateReportCnt = reportService.updateReport(pc_id);
+		
+		
+		
+		return "redirect:/report/declaration?filter_id=&rep_rea_id=&report_proc_sta=&page=1&pageSize=10";
+	}
+	
+	@RequestMapping(value ="/updateEssayReport", method=RequestMethod.POST )
+	public String updateEssayReport(@RequestParam("essay_id")String essay_id) {
+		int updateEssayReportCnt = reportService.updateEssayReport(essay_id);
+		int updateReportCnt = reportService.updateReport(essay_id);
+		
+		return "redirect:/report/declaration?filter_id=&rep_rea_id=&report_proc_sta=&page=1&pageSize=10";
+	}
+	
+	
+	@RequestMapping("/reportPostClickAjax")
+	public String reportPostClickAjax(@RequestParam("pc_id")String pc_id, Model model) {
+		model.addAttribute("postcardVo", postCardService.selectSinglePost(pc_id));
+		
+		return "admin/setting/reportPostClickAjax";
 	}
 	
 	

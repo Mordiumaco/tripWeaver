@@ -819,8 +819,8 @@ div .connstat_table {
 <div class="mypage_right">
 
 	<ul class="tab">
-		<li><a href="#web1" class="select web1">Essay</a></li>
-		<li><a href="#web2" class="web2">PostCard</a></li>
+		<li><a href="/artstat/artstatEssay" class="select web1">Essay</a></li>
+		<li><a href="/artstat/artstatPostcard" class="web2">PostCard</a></li>
 	</ul>
 
 	<ul class="content">

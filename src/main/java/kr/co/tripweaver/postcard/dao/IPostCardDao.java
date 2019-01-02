@@ -141,5 +141,20 @@ public interface IPostCardDao {
 	* Method 설명 : 해당 회원이 가지고 있는 총 포스트 카드 게시물 수를 반환
 	*/
 	public Integer postCardTotalCount(String mem_id);
+	
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 :  박찬배
+		* 생성날짜 : 2019.01.02
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 신고쿼리 포스트카드 클릭시 단일 내용 가져오기
+		*
+	 */
+	public PostCardVO selectSinglePost(String pc_id);
 
 }

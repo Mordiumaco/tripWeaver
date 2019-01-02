@@ -58,4 +58,28 @@ public class ArticleStatDao implements IArticleStatDao {
 		return articleStatVOs;
 	}
 
+	@Override
+	public List<ArticleStatVO> selectCountGraphMonthPostcard(Map<String, Object> params) {
+		List<ArticleStatVO> articleStatVOs = template.selectList("articleStatSQL.selectCountGraphMonthPostcard", params);
+		return articleStatVOs;
+	}
+
+	@Override
+	public List<ArticleStatVO> selectCountGraphWeekPostcard(Map<String, Object> params) {
+		List<ArticleStatVO> articleStatVOs = template.selectList("articleStatSQL.selectCountGraphWeekPostcard", params);
+		return articleStatVOs;
+	}
+
+	@Override
+	public List<ArticleStatVO> selectCountGraphDayPostcard(Map<String, Object> params) {
+		List<ArticleStatVO> articleStatVOs = template.selectList("articleStatSQL.selectCountGraphDayPostcard", params);
+		return articleStatVOs;
+	}
+
+	@Override
+	public List<ArticleStatVO> selectAgeGenderGraphPostcard(Map<String, Object> params) {
+		List<ArticleStatVO> articleStatVOs = template.selectList("articleStatSQL.selectAgeGenderGraphPostcard", params);
+		return articleStatVOs;
+	}
+
 }

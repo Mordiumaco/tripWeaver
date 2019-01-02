@@ -94,7 +94,7 @@
 								<li><a href="/moneyBest">짠내 Best</a></li>
 								<li><a href="/postBest">Post Best</a></li>
 								<li><a href="/essayBest">Essay Best</a></li>
-								<li><a href="/areaBest">지역 Best</a></li>
+								<%--  <li><a href="/areaBest">지역 Best</a></li> --%>
 							</ul>
 						</div>
 					</li>

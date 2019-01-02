@@ -456,4 +456,28 @@ public class MainController {
 		
 		return resultMemberVo.getMem_id();
 	}
+	
+	
+	/**
+	* Method : findPassCheckAjax
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2019. 1. 2.
+	* 변경이력 :
+	* @param memberVo
+	* @return
+	* Method 설명 : 해당 회원 비밀번호 찾기에 대한 아작스 처리 
+	*/
+	@RequestMapping("/findPassCheck")
+	@ResponseBody
+	public String findPassCheckAjax(MemberVO memberVo) {
+		
+		MemberVO resultMemberVo = memberService.findPassCheck(memberVo);
+		
+		if(resultMemberVo == null) {
+			return null;
+		}
+		
+		return resultMemberVo.getMem_pass();
+		
+	}
 }

@@ -35,11 +35,14 @@
 	
 	<!-- 신고 쿼리 필요한 부분  -->
 	<select id="selectRepost" parameterType="Map" resultType="reportVO">
-		SELECT  rrnum.* FROM( 
-                    select r.*,
-                           rownum rnum
-                    from report r)rrnum
-		where rrnum.rnum between #{pageVo.page}*#{pageVo.pageSize}-(#{pageVo.pageSize}-1) and #{pageVo.page}*#{pageVo.pageSize}
+		select * from
+		(SELECT  rownum rnum,rrnum.* FROM( 
+                    select r.*
+                    from report r
+                    ORDER by REPORT_id desc
+                    )rrnum)rrrnum
+		where rrrnum.rnum between #{pageVo.page}*#{pageVo.pageSize}-(#{pageVo.pageSize}-1) and #{pageVo.page}*#{pageVo.pageSize}
+		
 		<if test="filter_id != ''">
 			and filter_id = #{filter_id}
 		</if>
@@ -49,7 +52,7 @@
 		<if test="report_proc_sta != ''">
 			and report_proc_sta = #{report_proc_sta}
 		</if>
-		ORDER by REPORT_ACCEPT_DATE desc
+		
 	</select>
 	
 	<!-- 신고 총 숫자  -->
@@ -74,7 +77,26 @@
 		from report
 		where report_proc_sta = 'Y'
 	</select>
-		
 	
 	
+	<!--  포스트카드 신고 처리 -->
+	<update id="updatePostReport" parameterType="String">
+		update postcard
+		set pc_del = 'Y'
+		where pc_id = #{pc_id}
+	</update>
+	
+	<!-- 에세이 신고처리 -->	
+	<update id="updateEssayReport" parameterType="String">
+		update essay
+		set essay_del = 'Y'
+		where essay_id = #{essay_id}
+	</update>
+	
+	<!--  신고처리  상태 변경 -->
+	<update id="updateReport" parameterType="String">
+		update report
+		set REPORT_PROC_STA = 'Y'
+		where REPORT_REL_ART_ID = #{report_rel_art_id}
+	</update>
 </mapper>

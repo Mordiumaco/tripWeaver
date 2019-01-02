@@ -110,23 +110,56 @@ public class ArticleStatVO {
 		this.ess_mem_female = ess_mem_female;
 	}
 	
-	
 	//포스트카드 통계
-//	private String pc_;
-//	private String pc_;
-//	private String pc_;
-//	private String pc_;
-//	private String pc_;
-//	private String pc_;
-//	private String pc_;
-//	private String pc_;
-//	private String pc_;
-//	private String pc_;
-//	private String pc_;
-//	private String pc_;
-//	private String pc_;
-//	private String pc_;
-	
-	
-	
+	private int pc_total;
+	private String pc_month;
+	private String pc_week;
+	private String pc_day;
+	private String pc_mem_age;
+	private int pc_mem_male;
+	private int pc_mem_female;
+
+	public int getPc_total() {
+		return pc_total;
+	}
+	public void setPc_total(int pc_total) {
+		this.pc_total = pc_total;
+	}
+	public String getPc_month() {
+		return pc_month;
+	}
+	public void setPc_month(String pc_month) {
+		this.pc_month = pc_month;
+	}
+	public String getPc_week() {
+		return pc_week;
+	}
+	public void setPc_week(String pc_week) {
+		this.pc_week = pc_week;
+	}
+	public String getPc_day() {
+		return pc_day;
+	}
+	public void setPc_day(String pc_day) {
+		this.pc_day = pc_day;
+	}
+	public String getPc_mem_age() {
+		return pc_mem_age;
+	}
+	public void setPc_mem_age(String pc_mem_age) {
+		this.pc_mem_age = pc_mem_age;
+	}
+	public int getPc_mem_male() {
+		return pc_mem_male;
+	}
+	public void setPc_mem_male(int pc_mem_male) {
+		this.pc_mem_male = pc_mem_male;
+	}
+	public int getPc_mem_female() {
+		return pc_mem_female;
+	}
+	public void setPc_mem_female(int pc_mem_female) {
+		this.pc_mem_female = pc_mem_female;
+	}
+
 }

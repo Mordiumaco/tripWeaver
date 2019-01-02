@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 	<div class="tbl_head01 tbl_wrap">
 	    <table>
@@ -61,13 +62,45 @@
 				        	</c:choose>
 				        	
 				        </td>
-				        <td headers="mb_list_open">${repostVo.report_rel_art_id}</td>
+				        <td headers="mb_list_open" class="mb_list_open">
+				        <c:set value="${fn:substring(repostVo.report_rel_art_id,0,1)}" var="letter"></c:set>
+				        	 <c:choose>
+				        		<c:when test="${ letter eq 'p' }" >
+				        			<form class="updateReport" method="post" action="/report/updatePostReport">
+				        				<input type="hidden" name="pc_id" value="${repostVo.report_rel_art_id}">
+					        			
+						        		<c:choose>
+				        					<c:when test="${repostVo.report_proc_sta == 'N'}">
+				        						<a class="postBtn" href="javascript::" onclick="layer_open1('layer_1');return false;" >${repostVo.report_rel_art_id}</a>
+				        					</c:when>
+				        					<c:otherwise>
+				        						${repostVo.report_rel_art_id}
+				        					</c:otherwise>
+				        				</c:choose>
+						        	</form>
+				        		</c:when>
+				        		<c:otherwise>
+				        			<form class="updateReport" method="post" action="/report/updateEssayReport">
+				        				<input type="hidden" name="essay_id" value="${repostVo.report_rel_art_id}">
+				        				<c:choose>
+				        					<c:when test="${repostVo.report_proc_sta == 'N'}">
+				        						<a href="/essay/essayView?essay_id=${repostVo.report_rel_art_id}" target="blink" >${repostVo.report_rel_art_id}</a>
+				        					</c:when>
+				        					<c:otherwise>
+				        						${repostVo.report_rel_art_id}
+				        					</c:otherwise>
+				        				</c:choose>
+					        			
+							        </form>
+				        		</c:otherwise>
+				        	</c:choose>
+				        </td>
 				        <td headers="mb_list_auth" class="td_mbstat">${repostVo.mem_id}</td>
 				        <td headers="mb_list_mailr">${repostVo.report_proc_sta}</td>
 				        <td headers="mb_list_grp" class="td_numsmall">
 				        	<c:choose>
 				        		<c:when test="${repostVo.report_proc_sta == 'N'}">
-				        			<a href="" class="btn btn_02">처리 완료</a>
+				        			<a class="btn btn_02">처리 완료</a>
 				        		</c:when>
 				        	</c:choose>
 				        </td>
