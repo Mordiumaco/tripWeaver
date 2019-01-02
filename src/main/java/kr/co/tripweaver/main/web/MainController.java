@@ -247,18 +247,6 @@ public class MainController {
 		return "admin/statistics/contactTime";
 	}
 	
-	@RequestMapping("/hashTag")
-	public String hashTagView(Model model) {
-		model.addAttribute("gnb", 3);
-		return "admin/statistics/hashTag";
-	}
-	
-	@RequestMapping("/adminPost")
-	public String adminPostView(Model model) {
-		model.addAttribute("gnb", 3);
-		return "admin/statistics/post";
-	}
-	
 	@RequestMapping("/codetable")
 	public String codetableView(Model model) {
 		model.addAttribute("gnb", 4);

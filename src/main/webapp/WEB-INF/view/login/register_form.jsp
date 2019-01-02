@@ -41,7 +41,7 @@
 					<li>
 						<label for="reg_mb_gender" class="sound_only">성별<strong>필수</strong></label>
 						<input type="radio" id="reg_mb_gender" name="mem_gender" value="M" class="frm_input required " size="10">남자 
-						<input type="radio" id="reg_mb_gender" name="mem_gender" value="W" class="frm_input required " size="10">여자
+						<input type="radio" id="reg_mb_gender" name="mem_gender" value="F" class="frm_input required " size="10">여자
 						
 					</li>
 					<li>
