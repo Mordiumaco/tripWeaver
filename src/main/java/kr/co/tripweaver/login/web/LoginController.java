@@ -124,7 +124,7 @@ public class LoginController {
 			request.getSession().setAttribute("loginInfo", existedMember);
 			
 			//로그인 정보를 세션에 넣어줬으니 메인으로 이동시킨다. 
-			return "index";
+			return "redirect: /main/main";
 		}
 		
 	}

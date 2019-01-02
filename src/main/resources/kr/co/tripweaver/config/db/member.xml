@@ -35,6 +35,13 @@
   	values(#{mem_id}, #{mem_email}, #{mem_pass}, #{mem_name}, #{mem_nick}, #{mem_tel}, #{mem_age}, #{mem_gender}, 0, 0, 'N', 1)
   </insert>
   
+  <!-- 회원 정보 변경 쿼리 -->
+  <update id="updateMember" parameterType="memberVo">
+  	update member
+  	set mem_email = #{mem_email}, mem_pass = #{mem_pass}, mem_name = #{mem_name}, mem_nick = #{mem_nick}, mem_tel = #{mem_tel}, mem_age = #{mem_age}, mem_profile = #{mem_profile}
+  	where mem_id = #{mem_id}
+  </update>
+  
   <!-- 모든 회원리스트를 조회 -->
   <select id="selectMemberAllCount" parameterType="Map" resultType="integer">
   	SELECT COUNT(*) FROM member
@@ -81,4 +88,15 @@
     WHERE mem_author = 3
   </select>
   
+  <!-- 아이디 찾기용 쿼리 -->
+  <select id="findIdCheck" resultType="memberVo" parameterType="memberVo">
+  		select * from member
+  		where mem_name = #{mem_name} and mem_tel = #{mem_tel} and mem_email = #{mem_email}
+  </select>
+  
+  <!--비밀번호 찾기용 쿼리 -->
+  <select id="findPassCheck" resultType="memberVo" parameterType="memberVo">
+  		select * from member
+  		where mem_id = #{mem_id} and mem_email = #{mem_email}
+  </select>
 </mapper>

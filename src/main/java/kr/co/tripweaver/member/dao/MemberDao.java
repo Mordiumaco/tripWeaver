@@ -223,5 +223,84 @@ public class MemberDao implements IMemberDao {
 		int authCnt = template.selectOne("memberSQL.manageCountMemberAuth");
 		return authCnt;
 	}
+	
+	/**
+	* Method : findIdCheck
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 31.
+	* 변경이력 :
+	* @param memberVo
+	* @return
+	* Method 설명 : 해당 정보에 만족하는 회원이 있으면 해당 회원의 아이디를 반환 해준다.
+	*/
+	@Override
+	public MemberVO findIdCheck(MemberVO memberVo) {
+		
+		MemberVO resultMemberVo = null;
+		
+		try {
+			
+			resultMemberVo = template.selectOne("memberSQL.findIdCheck", memberVo);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return resultMemberVo;
+		}
+		
+		return resultMemberVo;
+	}
+	
+	/**
+	* Method : findPassCheck
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 31.
+	* 변경이력 :
+	* @param memberVo
+	* @return
+	* Method 설명 : 해당 정보에 만족하는 회원이 있으면 해당 회원의 비밀번호를 반환 해준다.
+	*/
+	@Override
+	public MemberVO findPassCheck(MemberVO memberVo) {
+		
+		MemberVO resultMemberVo = null;
+		
+		try {
+			
+			resultMemberVo = template.selectOne("memberSQL.findPassCheck", memberVo);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return resultMemberVo;
+		}
+		
+		return resultMemberVo;
+	}
+	
+	/**
+	* Method : updateMember
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2019. 1. 2.
+	* 변경이력 :
+	* @param memberVo
+	* @return
+	* Method 설명 : 회원 아이디와 일치하는 튜플에 정보를 업데이트 한다. 
+	*/
+	@Override
+	public int updateMember(MemberVO memberVo) {
+		
+		int resultCnt = 0;
+		
+		try {
+			
+			resultCnt = template.update("memberSQL.updateMember", memberVo);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return resultCnt;
+			
+		} 
+		
+		return resultCnt;
+	}
 
 }
