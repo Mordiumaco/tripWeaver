@@ -114,6 +114,12 @@ function imageView4(e){
 
 // 이미지 체인지
 $(function(){
+	
+	//텍스트에리어 br 처리
+	var str = $("#textarea").val();
+	var result = str.replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
+	$("#textarea").val(result);
+	
 	$('#input_img1').on("change",imageView1);
 	$('#input_img2').on("change",imageView2);
 	$('#input_img3').on("change",imageView3);
@@ -286,7 +292,7 @@ $(document).ready(function(){
 		
 			<div class="write_wrap">
 				<h1>내용을 적어주세요. <span>해쉬태그는 #으로 구분을 합니다.</span></h1>
-				<textarea placeholder="내용을 적어주세요. #해시태그 #이렇게사용" name="pc_cnt">${pc_cnt}</textarea>
+				<textarea id="textarea" placeholder="내용을 적어주세요. #해시태그 #이렇게사용" name="pc_cnt">${pc_cnt}</textarea>
 				<input type="hidden" name="mem_id" value="${mem_id}"> 
 				<input type="hidden" name="pc_id" value="${pc_id}"> 
 			</div>

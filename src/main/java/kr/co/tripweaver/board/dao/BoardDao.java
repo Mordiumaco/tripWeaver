@@ -35,6 +35,30 @@ public class BoardDao implements IBoardDao{
 		return template.delete("boardSQL.deleteBoard", boardVo);
 	}
 
-	
+	/**
+	 * Method : selectBoardByBoardId
+	 * 작성자 : Jae Hyeon Choi
+	 * 생성날짜 : 2018. 12. 30.
+	 * 변경이력 : 
+	 * @param board_id
+	 * @return
+	 * 해당 board_id 에 해당하는 객체를 받아온다. 
+	 */
+	@Override
+	public BoardVO selectBoardByBoardId(String board_id){
+		
+		BoardVO boardVo = null;
+		
+		try {
+			
+			boardVo = template.selectOne("boardSQL.selectBoardByBoardId", board_id);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return boardVo;
+		}
+		
+		return boardVo;
+	}
 	
 }

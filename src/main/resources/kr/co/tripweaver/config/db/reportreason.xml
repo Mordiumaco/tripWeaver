@@ -33,4 +33,48 @@
 	
 	</insert>
 	
+	<!-- 신고 쿼리 필요한 부분  -->
+	<select id="selectRepost" parameterType="Map" resultType="reportVO">
+		SELECT  rrnum.* FROM( 
+                    select r.*,
+                           rownum rnum
+                    from report r)rrnum
+		where rrnum.rnum between #{pageVo.page}*#{pageVo.pageSize}-(#{pageVo.pageSize}-1) and #{pageVo.page}*#{pageVo.pageSize}
+		<if test="filter_id != ''">
+			and filter_id = #{filter_id}
+		</if>
+		<if test="rep_rea_id != null ">
+			and rep_rea_id = #{rep_rea_id}
+		</if>
+		<if test="report_proc_sta != ''">
+			and report_proc_sta = #{report_proc_sta}
+		</if>
+		ORDER by REPORT_ACCEPT_DATE desc
+	</select>
+	
+	<!-- 신고 총 숫자  -->
+	<select id="selectRepostAll" resultType="int" >
+		select
+		count(*) as count
+		from report
+	</select> 
+	
+	<!-- 신고 미완료 숫자 -->
+	<select id="selectRepostN" resultType="int">
+		select
+		count(*) as count
+		from report
+		where report_proc_sta = 'N'
+	</select>
+	
+	<!-- 신고 완료 숫자  -->
+	<select id="selectRepostY" resultType="int">
+		select
+		count(*) as count
+		from report
+		where report_proc_sta = 'Y'
+	</select>
+		
+	
+	
 </mapper>

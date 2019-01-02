@@ -8,6 +8,10 @@
 	<select id="selectBoardAllList" resultType="boardVo">
 		select * from board where board_del ='N'
 	</select>
+	
+	<select id="selectBoardByBoardId" parameterType="String" resultType="boardVo">
+		select * from board where board_id = #{board_id}
+	</select>
 
 	<!-- 게시판 생성 -->
 	<insert id="insertBoard" parameterType="boardVo">

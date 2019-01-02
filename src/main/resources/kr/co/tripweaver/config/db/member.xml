@@ -81,4 +81,9 @@
     WHERE mem_author = 3
   </select>
   
+  <!-- 아이디 찾기용 쿼리 -->
+  <select id="findIdCheck" resultType="memberVo" parameterType="memberVo">
+  		select * from member
+  		where mem_name = #{mem_name} and mem_tel = #{mem_tel} and mem_email = #{mem_email}
+  </select>
 </mapper>

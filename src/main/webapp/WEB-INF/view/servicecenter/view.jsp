@@ -120,15 +120,20 @@ function button_event(){
 				        <c:if test="${co.mem_id == loginInfo.mem_id }">
 					        <ul class="bo_vc_act">
 	                			<li>
-	                				<form action="/board/deleteComment" method="post">
-<%-- 	                					<input type="hidden" name="art_id" value="${co.art_id}"> --%>
+	                				<form action="/article/deleteComment" method="post">
+	                					<input type="hidden" name="art_id" value="${articleVo.art_id}">
+ 	                					<input type="hidden" name="comt_id" value="${co.comt_id}">
+ 	                					<input type="hidden" name="filter_id" value="article">
 	                					<input type="hidden" name="comt_rel_art_id" value="${co.comt_rel_art_id}">
 	                					<input type="hidden" name="comt_del" value="Y">
 	                					<c:if test="${co.comt_del != 'Y'}">
 	                						<input class="btn_b03" type="submit" value="삭제">
 	                					</c:if>
+	                					
 	                				</form>
+	                				<c:if test="${co.comt_del != 'Y'}">
 	                					<input class="btn_b03" type="submit" value="수정">
+                					</c:if>
 	                			</li>            
 	                		</ul>
                 		</c:if>
