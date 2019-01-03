@@ -17,6 +17,27 @@ function button_event(){
 	}
 }
 
+function commentEdit(m){
+	
+	
+	let comt_id= $(m).siblings("#comt_id").val();
+	let comt_cnt = $(m).siblings("#comt_cnt").val();
+	
+	console.log(comt_id);
+	console.log(comt_cnt);
+	
+	 let contents = '';	
+	 contents +=  '<form action="/article/updateComment" method="post">';
+	 contents +=  '<input type="hidden" name="comt_id" value="'+comt_id+'">';
+	 contents +=  '<input type="hidden" name="art_id" value="${articleVo.art_id}">';
+	 contents +=  '<input type="text" name="comt_cnt" value="'+comt_cnt+'" required="required" style="width:80%;height:2em;">';
+	 contents +=  '&nbsp;<input class="btn_bd col_01" type="submit" value="수정">';
+	 contents +=  '</form>';
+	
+	$(m).parents(".bo_vc_act").siblings('.cmt_contents').html(contents);
+	$(m).parents(".bo_vc_act").remove();
+}	
+
 
 </script>
 
@@ -32,10 +53,10 @@ function button_event(){
 						</form>
 					</li>
 					<li>
-						<form action="/board/deleteBoard" method="post" name="deletePosts">
-							<input type="hidden"  name="po_id" value="${postsVo.po_id}">
-							<input type="hidden"  name="po_delete" value="Y">
-							<input type="hidden"  name="nt_id" value="${postsVo.nt_id}">
+						<form action="/article/deleteArticle" method="post" name="deletePosts">
+							<input type="hidden"  name="art_id" value="${articleVo.art_id}">
+							<input type="hidden"  name="art_del" value="Y">
+							<input type="hidden"  name="board_id" value="${articleVo.board_id}">
 							<input class="btn_bd col_02" type="button" onclick="button_event();" value="삭제">	 					
 						</form>
 					</li>
@@ -113,7 +134,7 @@ function button_event(){
 			            			<p>${co.comt_cnt}</p>
 			            		</c:when>
 			            		<c:otherwise>
-			            			<p>삭제된 게시글 입니다.</p>
+			            			<p>삭제된 댓글 입니다.</p>
 			            		</c:otherwise>
 				            </c:choose>
 				        </div>
@@ -132,7 +153,9 @@ function button_event(){
 	                					
 	                				</form>
 	                				<c:if test="${co.comt_del != 'Y'}">
-	                					<input class="btn_b03" type="submit" value="수정">
+	                					<input type="hidden" name="comt_id" value="${co.comt_id}" id="comt_id">
+	                					<input type="hidden" name="comt_cnt" value="${co.comt_cnt}" id="comt_cnt">
+	                					<input class="btn_b03" type="button" value="수정" onclick="commentEdit(this)"/>
                 					</c:if>
 	                			</li>            
 	                		</ul>

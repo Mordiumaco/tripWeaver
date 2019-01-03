@@ -56,6 +56,15 @@ public class ArticleController {
 	private IBoardService boardService;
 	
 	
+	/**
+	* Method : deleteComment
+	* 작성자 : pc23
+	* 변경이력 :
+	* @param comt_id
+	* @param art_id
+	* @return
+	* Method 설명 : 댓글 삭제
+	*/
 	@RequestMapping("/deleteComment")
 	public String deleteComment(String comt_id, String art_id){
 		
@@ -67,6 +76,27 @@ public class ArticleController {
 		
 		return "redirect: /article/articleDetail?art_id="+art_id;
 	}
+	
+	@RequestMapping("/deleteArticle")
+	public String articleDelete(@RequestParam("art_id") String art_id, String art_title) {
+		
+		ArticleVO articleVo = new ArticleVO();
+		articleVo.setArt_id(art_id);
+		articleVo.setArt_title(art_title);
+		
+		ArticleVO findBoardVo = articleService.getArticleDetail(art_id);
+			
+		String board_id = findBoardVo.getBoard_id();
+		
+		int resultCnt = articleService.deleteArticle(articleVo);
+		
+		if(resultCnt == 0) {
+			return "dbError";
+		}
+		
+		return "redirect: /article/articlePageList?board_id="+board_id+"&page=1&pageSize=10";
+	}
+	
 	/**
 	* Method : articleListView
 	* 작성자 : pc23
@@ -101,7 +131,7 @@ public class ArticleController {
 		model.addAttribute("board_id", board_id);
 		model.addAttribute("pageCnt", pageCnt);
 
-		return "article/articlePageList";
+		return "servicecenter/list";
 		
 	}
 
@@ -446,4 +476,22 @@ public class ArticleController {
 	}
 	
 	
+	/**
+	* Method : updateCommentView
+	* 작성자 : pc23
+	* 변경이력 :
+	* @return
+	* Method 설명 : 해당 댓글을 수정하는기능
+	*/
+	@RequestMapping("/updateComment")
+	public String updateCommentView(CommentVO commentVo, String art_id) {
+		
+		int resultCnt = commentService.updateComment(commentVo);
+		
+		if(resultCnt == 0) {
+			return "dbError";
+		}
+		
+		return "redirect: /article/articleDetail?art_id="+art_id;
+	}
 }
