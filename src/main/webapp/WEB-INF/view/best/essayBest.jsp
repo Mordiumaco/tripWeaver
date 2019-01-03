@@ -148,25 +148,17 @@
 		<span class="pg">
 		
 			<c:set var="pageSize" value="10"/>
-			
-			
 				<a class="pg_start pg_page" href="/main/board?board_id=${board_id}&page=1&pageSize=${pageSize}"></a>
 				<a class="pg_page pg_prev" href="/main/board?board_id=${board_id}&page=${param.page - 1}&pageSize=${pageSize}"></a>			
-			
 			<c:forEach var="pageWrap"  varStatus="status" begin="1" end="${pageCnt}">
-
 				<c:choose>
 					<c:when test="${status.index == param.page}"><a class="pg_current" href="/main/board?board_id=${board_id}&page=${status.index}&pageSize=${pageSize}">${status.index}</a></c:when>
 					<c:otherwise><a class="pg_page" href="/main/board?board_id=${board_id}&page=${status.index}&pageSize=${pageSize}">${status.index}</a></c:otherwise>
 				</c:choose>
-
 			</c:forEach>
 			
 				<a class="pg_page pg_next" href="/main/board?board_id=${board_id}&page=${param.page + 1}&pageSize=${pageSize}"></a>
 				<a class="pg_page pg_end" href="/main/board?board_id=${board_id}&page=${pageCnt}&pageSize=${pageSize}"></a>
-			
-		
-			
 			
 		</span>
 	</nav> --%>

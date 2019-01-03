@@ -222,12 +222,6 @@ public class PostCardService implements IPostCardService{
 			param.put("att_rel_art_id", art_rel_art_id);
 			param.put("filter_id", attachment.getFilter_id());
 			
-			System.out.println("attachment.getAtt_path()"+attachment.getAtt_path());
-			System.out.println("attachment.getAtt_file_name()"+attachment.getAtt_file_name());
-			System.out.println("attachment.getAtt_file_ori_name()"+attachment.getAtt_file_ori_name());
-			System.out.println("art_rel_art_id"+art_rel_art_id);
-			System.out.println("attachment.getFilter_id()"+attachment.getFilter_id());
-			
 			attachmentInsertCnt = attachmentService.attachmentInsert(param);
 		}
 
@@ -300,5 +294,23 @@ public class PostCardService implements IPostCardService{
 	public PostCardVO selectSinglePost(String pc_id) {
 		PostCardVO postCardVo = postCardDao.selectSinglePost(pc_id);
 		return postCardVo;
+	}
+
+	@Override
+	public Map<String, Object> bestPostSelect(Map<String, Object> params) {
+		
+		List<PostCardVO> cardVOs = postCardDao.bestPostSelect(params);
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		for(PostCardVO postCardVO : cardVOs){
+			
+			List<String> hashTagList = hashTagService.hashtagPostCard(postCardVO.getPc_id());
+			
+			postCardVO.setHashTagList(hashTagList);
+		}
+		
+		resultMap.put("postcardVo", cardVOs);
+		
+		return resultMap;
 	}
 }
