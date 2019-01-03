@@ -76,8 +76,8 @@ public class ArticleService implements IArticleService {
 	* Method 설명 : 게시글 삭제
 	*/
 	@Override
-	public int deleteArticle(Map<String, Object> param) {
-		return articleDao.deleteArticle(param);
+	public int deleteArticle(ArticleVO articleVo) {
+		return articleDao.deleteArticle(articleVo);
 	}
 	
 	/**

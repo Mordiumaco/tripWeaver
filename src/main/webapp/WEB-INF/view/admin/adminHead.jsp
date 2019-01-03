@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +11,8 @@
 <link rel="stylesheet" href="/css/admin.css">
 <script src="/js/jquery-3.3.1.min.js"></script>
 <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico" />
+<link rel="stylesheet" href="/css/flexslider2.css" type="text/css" media="screen" />
+<script defer src="/js/jquery.flexslider.js"></script>
 <script>
 	var tempX = 0;
 	var tempY = 0;
@@ -100,13 +103,12 @@
                         <h3>통계</h3>
                        	<a href="/connStat/connStatList?page=1&pageSize=10&dateType=month&classification=browser">접속자 통계</a>
                        	<a href="/connStat/connStatTime">접속자 시간 통계</a>
-                       	<a href="/main/adminPost">게시물 통계</a>
-                       	<a href="/main/hashTag">해시태그 통계</a>
+                       	<a href="/artstat/artstatEssay">게시물 통계</a>
                     </div>
                 </div>
             </li>
             
-            <li class="gnb_li">
+         <%--    <li class="gnb_li">
                 <button type="button" class="btn_op" title="필터"></button>
                 <div class="gnb_oparea_wr">
                     <div class="gnb_oparea">
@@ -114,7 +116,7 @@
                         <a href="/main/codetable">코드테이블</a>
                     </div>
                 </div>
-            </li>
+            </li> --%>
         </ul>
     </nav>
 </header>

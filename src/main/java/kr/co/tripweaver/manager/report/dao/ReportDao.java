@@ -19,7 +19,7 @@ public class ReportDao implements IReportDao {
 	 * 
 		* 
 		* Method : 
-		* 작성자 : 
+		* 작성자 : 박찬배
 		* 생성날짜 : 
 		* 변경이력 :
 		* @param 
@@ -37,7 +37,7 @@ public class ReportDao implements IReportDao {
 	 * 
 		* 
 		* Method : 
-		* 작성자 : 
+		* 작성자 : 박찬배
 		* 생성날짜 : 
 		* 변경이력 :
 		* @param 
@@ -56,7 +56,7 @@ public class ReportDao implements IReportDao {
 	 * 
 		* 
 		* Method : 
-		* 작성자 : 
+		* 작성자 : 박찬배
 		* 생성날짜 : 
 		* 변경이력 :
 		* @param 
@@ -74,7 +74,7 @@ public class ReportDao implements IReportDao {
 	 * 
 		* 
 		* Method : 
-		* 작성자 : 
+		* 작성자 : 박찬배
 		* 생성날짜 : 
 		* 변경이력 :
 		* @param 
@@ -92,7 +92,7 @@ public class ReportDao implements IReportDao {
 	 * 
 		* 
 		* Method : 
-		* 작성자 : 
+		* 작성자 : 박찬배
 		* 생성날짜 : 
 		* 변경이력 :
 		* @param 
@@ -111,7 +111,7 @@ public class ReportDao implements IReportDao {
 	 * 
 		* 
 		* Method : 
-		* 작성자 : 
+		* 작성자 : 박찬배
 		* 생성날짜 : 
 		* 변경이력 :
 		* @param 
@@ -123,6 +123,63 @@ public class ReportDao implements IReportDao {
 	public List<ReportVO> selectRepost(Map<String, Object> params) {
 			List<ReportVO> reportVOs = template.selectList("reportSQL.selectRepost", params);
 		return reportVOs;
+	}
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 관리자 신고하기 처리 업데이트
+		*
+	 */
+	
+	@Override
+	public int updatePostReport(String pc_id) {
+		int updatePostReportCnt = template.update("reportSQL.updatePostReport", pc_id);
+		return updatePostReportCnt;
+	}
+	
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 관리자 신고하기 처리 업데이트
+		*
+	 */
+	@Override
+	public int updateEssayReport(String essay_id) {
+		int updateEssayReportCnt = template.update("reportSQL.updateEssayReport", essay_id);
+		return updateEssayReportCnt;
+	}
+	
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 
+		* 생성날짜 : 
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 신고처리 상태 변경하기
+		*
+	 */
+	@Override
+	public int updateReport(String report_rel_art_id) {
+		int updateReportCnt = template.update("reportSQL.updateReport", report_rel_art_id);
+		return updateReportCnt;
 	}
 
 }

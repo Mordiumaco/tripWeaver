@@ -22,6 +22,8 @@ import kr.co.tripweaver.common.like.model.LikeVO;
 import kr.co.tripweaver.common.like.service.ILikeService;
 import kr.co.tripweaver.essay.model.EssayVO;
 import kr.co.tripweaver.essay.service.IEssayService;
+import kr.co.tripweaver.manager.report.model.ReportVO;
+import kr.co.tripweaver.manager.report.service.IReportService;
 import kr.co.tripweaver.member.model.MemberVO;
 import kr.co.tripweaver.member.service.IMemberService;
 import kr.co.tripweaver.mymenu.guideplan.model.GuidePlanVO;
@@ -72,6 +74,10 @@ public class EssayController {
 	
 	@Autowired
 	ILikeService likeService;
+	
+	// 신고 기능을 위한 부분 2018. 12. 31
+	@Autowired
+	IReportService reportService;
 	
 	@RequestMapping("/write")
 	public ModelAndView essayWriteView(HttpSession session) {
@@ -332,6 +338,12 @@ public class EssayController {
 		model.addAttribute("tripplanVo", tripplanVo);
 		model.addAttribute("mapMarkerList", mapMarkerList);
 		model.addAttribute("dailyPlanList", dailyPlanList);
+		
+		
+		//신고사유  박찬배 2018.12.31   신고기능  작성
+		List<ReportVO> reportVOs = reportService.selectReportreason();
+		model.addAttribute("reportVOs", reportVOs);
+		
 
 		return "/essay/essay_view";
 	}
@@ -496,4 +508,7 @@ public class EssayController {
 		
 		return "redirect: /main/main";
 	}
+	
+	
+	
 }

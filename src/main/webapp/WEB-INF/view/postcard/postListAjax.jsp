@@ -154,8 +154,12 @@ $(function() {
 		<c:when test="${pcl.pc_del == 'N'}">	
 			<ul class="postCard_con">
 				<li>
-					<div class="postli_l"><b><img src="/file/read?mem_profile=${pcl.mem_profile}"></b><span>${pcl.mem_nick}</span>
-					<input type="hidden" value="${pcl.mem_id}"/>
+					<div class="postli_l">
+						<b>
+							<img src="/file/read?mem_profile=${pcl.mem_profile}">
+						</b>
+						<span>${pcl.mem_nick}</span>
+						<input type="hidden" id="pc_id" name="pc_id" value="${pcl.pc_id}">
 					</div> 
 					<c:choose>
 						<c:when test="${loginInfo.mem_id == pcl.mem_id}">

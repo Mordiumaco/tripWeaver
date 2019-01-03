@@ -67,6 +67,24 @@ public class ReportService implements IReportService {
 		
 		return resultMap;
 	}
+
+	@Override
+	public int updatePostReport(String pc_id) {
+		int updatePostReportCnt = reportDao.updatePostReport(pc_id);
+		return updatePostReportCnt;
+	}
+
+	@Override
+	public int updateEssayReport(String essay_id) {
+		int updateEssayReportCnt = reportDao.updateEssayReport(essay_id);
+		return updateEssayReportCnt;
+	}
+
+	@Override
+	public int updateReport(String report_rel_art_id) {
+		int updateReportCnt = reportDao.updateReport(report_rel_art_id);
+		return updateReportCnt;
+	}
 	
 	
 	
