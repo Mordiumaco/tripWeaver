@@ -17,7 +17,7 @@ textarea, select {font-family:'Malgun Gothic',"맑은 고딕",AppleGothic,Dotum,
 select {margin:0}
 p {margin:0;padding:0;word-break:break-all}
 pre {overflow-x:scroll;font-size:1.1em}
-a:link, a:visited {color:#000;text-decoration:none}
+a:link, a:visited {color:#000;text-decoration:none;  }
 
 * {
   -webkit-box-sizing: border-box;
@@ -93,6 +93,7 @@ h2{font-size: 1.083em;font-weight: bold;margin:10px 0}
 #container_title{position:fixed;top:50px;left:0;width:100%;line-height:50px;font-size:1.5em;padding:0 20px;padding-left:240px;border-bottom:1px solid #ddd;background:#fff;z-index:99}
 #container.container-small #container_title{padding-left:70px}
 .container_wr{padding:20px; min-height: 777px;}
+.container_art{padding:20px; min-height: 30px;}
 
 /* 화면낭독기 사용자용 */
 #hd_login_msg {position:absolute;top:0;left:0;width:1px;height:1px;overflow:hidden}
@@ -1263,3 +1264,11 @@ input[type="text"]{max-width:200px}
 	width: 90%;
 	height: 30px;
 }
+
+/* 게시판 관리 */
+.tab { width: 100%; height: 60px;}
+.tab li {float:left; width:124px; height:40px; font-size:17px; font-weight:bold;}
+.tab li a {display:block; color:#999; background:#fff; line-height:40px; text-align:center; border:1px solid #ddd;}
+
+
+.tab li a.select {background:#f1f1f1; color:#000; border-bottom:none;}

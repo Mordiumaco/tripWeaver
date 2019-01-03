@@ -29,6 +29,7 @@
 	<typeAlias type="kr.co.tripweaver.mymenu.reservation.model.ReservationForMyPageVO" alias="reservationForMyPageVo"/>
 	<typeAlias type="kr.co.tripweaver.manager.conn_stat.model.ConnStatVO" alias="connStatVO"/>
 	<typeAlias type="kr.co.tripweaver.manager.report.model.ReportVO" alias="reportVO"/>
+	<typeAlias type="kr.co.tripweaver.manager.article_stat.model.ArticleStatVO" alias="articleStatVO"/>
  </typeAliases>	
 	
   <mappers>
@@ -52,7 +53,7 @@
   	<mapper resource="kr/co/tripweaver/config/db/reservation.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/connInfo.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/reportreason.xml"/>
-  	
+  	<mapper resource="kr/co/tripweaver/config/db/articleStat.xml"/>
   </mappers>
   
 </configuration>

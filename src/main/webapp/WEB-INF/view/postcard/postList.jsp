@@ -622,8 +622,7 @@ function layer_open1(el){
 					 	</select>
 					 </li>
 					 <li>
-					 	<textarea name="rep_cnt" placeholder="신고 내용을 적어주세요.">
-					 	</textarea>
+					 	<textarea name="rep_cnt" placeholder="신고 내용을 적어주세요."></textarea>
 					 </li>	
 					 <li><input type="submit" value="신고"> <a class="close">취소</a></li>            
 	            </ul>

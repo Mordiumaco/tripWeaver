@@ -60,7 +60,7 @@
 				<c:set var="generation" value="60대"></c:set>
 			</c:when>
 		</c:choose>
-		<li><span>${generation}</span> <a href="/main/memModified">개인정보변경</a></li>
+		<li><span>${generation}</span> <a href="/mypage/memberEdit">개인정보변경</a></li>
 		<li class="mypage_leftUl2_li2"><a href=""><b>1234</b> 팔로잉</a> <a href=""><b>1231</b> 팔로워</a></li>
 		<li class="mypage_leftHover"><a href="/main/mypage">나의 여행일정 관리</a></li>
 		<li class="mypage_leftHover"><a href="/mypage/guide">나의 투어관리</a></li>

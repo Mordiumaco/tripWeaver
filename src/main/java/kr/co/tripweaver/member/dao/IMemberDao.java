@@ -149,4 +149,26 @@ public interface IMemberDao {
 	* Method 설명 : 해당 정보에 만족하는 회원이 있으면 해당 회원의 아이디를 반환 해준다.
 	*/
 	public MemberVO findIdCheck(MemberVO memberVo);
+	
+	/**
+	* Method : findPassCheck
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2018. 12. 31.
+	* 변경이력 :
+	* @param memberVo
+	* @return
+	* Method 설명 : 해당 정보에 만족하는 회원이 있으면 해당 회원의 비밀번호를 반환 해준다.
+	*/
+	public MemberVO findPassCheck(MemberVO memberVo);
+	
+	/**
+	* Method : updateMember
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2019. 1. 2.
+	* 변경이력 :
+	* @param memberVo
+	* @return
+	* Method 설명 : 회원 아이디와 일치하는 튜플에 정보를 업데이트 한다. 
+	*/
+	public int updateMember(MemberVO memberVo);
 }

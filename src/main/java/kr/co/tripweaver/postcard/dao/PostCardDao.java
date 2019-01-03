@@ -215,4 +215,23 @@ public class PostCardDao implements IPostCardDao{
 	}
 	
 	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 :  박찬배
+		* 생성날짜 : 2019.01.02
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 신고쿼리 포스트카드 클릭시 단일 내용 가져오기
+		*
+	 */
+	@Override
+	public PostCardVO selectSinglePost(String pc_id) {
+		PostCardVO postCardVo = template.selectOne("postcardSQL.selectSinglePost", pc_id);
+		return postCardVo;
+	}
+	
+	
 }
