@@ -85,7 +85,61 @@ $(function() {
 
 	});
 	
-			
+	$('.postCard_con').on('click', '.postli_l', function(event){
+		
+		$(this).css("cursor", "pointer");
+		
+		let memIdValue = $(this).find(":hidden").val();
+		
+		var sWidth = window.innerWidth;
+		var sHeight = window.innerHeight;
+
+		var oWidth = $('.followLayer').width();
+		var oHeight = $('.followLayer').height();
+
+		// 레이어가 나타날 위치를 셋팅한다.
+		var divLeft = event.pageX+10;
+		var divTop = event.pageY+5;
+
+		// 레이어가 화면 크기를 벗어나면 위치를 바꾸어 배치한다.
+		if( divLeft + oWidth > sWidth ) divLeft -= oWidth;
+		if( divTop + oHeight > sHeight ) divTop -= oHeight;
+
+		// 레이어 위치를 바꾸었더니 상단기준점(0,0) 밖으로 벗어난다면 상단기준점(0,0)에 배치하자.
+		if( divLeft < 0 ) divLeft = 0;
+		if( divTop < 0 ) divTop = 0;
+
+		$('.followLayer').css({
+			"top": divTop,
+			"left": divLeft,
+			"position": "absolute"
+		}).toggle("500");
+		 
+		//아작스로 해당 팔로우 상태를 확인한다. 
+		
+		$.ajax({
+	    url : "/follow/followState",
+	    type: "POST",
+	    data: "mem_id="+memIdValue+"&mem_id2="+"${loginInfo.mem_id}",
+		    success : function(data){
+		    	if(data == 1){
+		    		let linkValue = 'javascript: followDelete('+'"'+memIdValue+'"'+',"${loginInfo.mem_id}")';
+		    		$('.followLayer').find('a').text("Unfollow");
+		    		$('.followLayer').find('a').attr("href", linkValue);
+		    	}
+		    	
+		    	if(data == 0){
+		    		let linkValue = 'javascript: followProcess('+'"'+memIdValue+'"'+',"${loginInfo.mem_id}")';
+		    		$('.followLayer').find('a').text("Following");
+		    		$('.followLayer').find('a').attr("href", linkValue);
+		    	}
+		    },
+		});	
+		
+	
+	})
+	
+	
 });
 
 
@@ -100,7 +154,9 @@ $(function() {
 		<c:when test="${pcl.pc_del == 'N'}">	
 			<ul class="postCard_con">
 				<li>
-					<div class="postli_l"><b><img src="/file/read?mem_profile=${pcl.mem_profile}"></b><span>${pcl.mem_nick}</span></div> 
+					<div class="postli_l"><b><img src="/file/read?mem_profile=${pcl.mem_profile}"></b><span>${pcl.mem_nick}</span>
+					<input type="hidden" value="${pcl.mem_id}"/>
+					</div> 
 					<c:choose>
 						<c:when test="${loginInfo.mem_id == pcl.mem_id}">
 							<div class="postli_r">

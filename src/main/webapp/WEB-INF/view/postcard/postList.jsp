@@ -13,7 +13,49 @@ window.onbeforeunload = function() {
 
 }
 
+function closeLayer( obj ) {
+	$(obj).parent().parent().hide(500);
+}
 
+
+// follow 처리 부분 
+$(function(){
+	$(".followLayer").hide();
+	
+})
+
+function followProcess(mem_id, mem_id2){
+	
+	$.ajax({
+	    url : "/follow/following",
+	    type: "POST",
+	    data: "mem_id="+mem_id+"&mem_id2="+mem_id2,
+	    success : function(data){
+	    	alert("팔로우 완료");
+	    	$('.followLayer').hide();
+	    },
+	    error: function(){
+	    	alert("뿌잉 터짐");
+	    }
+	});	
+	
+}
+
+function followDelete(mem_id, mem_id2){
+	
+	$.ajax({
+	    url : "/follow/unfollow",
+	    type: "POST",
+	    data: "mem_id="+mem_id+"&mem_id2="+mem_id2,
+	    success : function(data){
+	    	alert("언팔로우 완료");
+	    	$('.followLayer').hide(500);
+	    },
+	    error: function(){
+	    	alert("뿌잉 터짐");
+	    }
+	});	
+}
 
 /* 해시태그 클릭시 검색기에 값 넣어주고 검색 실행 */
 $(function() {
@@ -38,7 +80,8 @@ $(function() {
 
 	});
 	
-			
+	
+	
 });
 
 
@@ -481,7 +524,12 @@ function layer_open1(el){
 .loading img { float: none; width: 200px; margin-bottom: 20px;}
 
 </style>
-	
+	<div class="followLayer">
+		<div>
+			<img onClick="closeLayer(this)" style="cursor:pointer;font-size:1.5em" title="닫기" src="/img/cancel.png">
+		</div>
+		<a href="#" class="btn btn_02"> 팔로잉 </a>
+	</div>	
 	<div class="postSearch" id="postSearch">
 		<div class="pbgfb Di7vw " role="button" tabindex="0">
 			<div class="eyXLr postLogo">
