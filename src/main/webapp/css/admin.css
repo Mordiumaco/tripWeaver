@@ -1272,10 +1272,45 @@ input[type="text"]{max-width:200px}
 .layer1 {display:none; position:fixed; _position:absolute; top:0; left:0; width:100%; height:100%; z-index:100;}
 .layer1 .bg {position:absolute; top:0; left:0; width:100%; height:100%; background:#000; opacity:.5; filter:alpha(opacity=50);}
 .layer1 .pop_layer {display:block;}
-.pop_layer {display:none; position: absolute; top: 50%; left: 50%; width: 678px; height: 835px;  background:#fff;; z-index: 10; padding: 20px;}   
+.pop_layer {display:none; position: absolute; top: 50%; left: 50%; width: 678px; height: 670px;  background:#fff;; z-index: 10; padding: 20px;}   
 
 .layer_con { width:100%; margin:0 auto;}
 .layer_con .layer_con_sub>li { width:32%; float:left; margin-bottom: 20px; margin-right:2%; }
 .layer_con .layer_con_sub>li:nth-child(3n+3) { margin-right: 0;}
 .layer_con .layer_con_sub>li img { height: 181px;}
+
+/* 신고관리 팝업 내용*/
+.postCard_con { width:100%; display: inline-block; border: 1px solid rgba(0,0,0,.0975); background: #fff; border-radius: 5px; margin-bottom: 30px;}
+.postCard_con>li:nth-child(1) { height: 80px; line-height: 80px; padding: 10px; margin-bottom: 10px; }
+.postCard_con>li:nth-child(1) b { width: 50px; height: 50px; border-radius: 50%; overflow: hidden; display: inline-block;}
+.postCard_con>li:nth-child(1) img { width: 100%; vertical-align: inherit; }
+
+.postCard_con>li:nth-child(2) {max-height: 500px; overflow:hidden;}
+.postCard_con>li:nth-child(2)>img { width: 100%;}
+
+.postli_l { float: left; font-size: 1.4em; color: #666; height: 60px;}
+.postli_l span { font-size: 1.2em; font-weight: bolder; margin-left: 10px; height: 60px;line-height: 60px; vertical-align: text-bottom; display: inline-block;}
+.postli_l2 { height: 20px;}
+.postli_r { float: right;}
+.postli_r>a { padding: 10px; border: 1px solid #ddd; padding: 10px; border-radius: 3px;}
+.postli_r a:hover {color: #000; background: #f6f6f6; font-weight: bold;}
+
+.postCard_con>li:nth-child(3) {height: 36px; line-height: 30px; padding: 5px 10px; font-size: 1em;}
+.postCard_con>li:nth-child(3) i { position: inherit !important; margin-right: 10px; margin-top: 5px; cursor: pointer; float: left;}
+.postCard_con>li:nth-child(4) {height: 20px; padding: 0px 10px; font-size: 1.2em; text-align: left;}
+.postCard_con>li:nth-child(5) {padding: 10px 10px; font-size: 1.2em;}
+.postCard_con>li:nth-child(6) { padding: 4px 10px; }
+.postCard_con>li:nth-child(6) a { margin-right: 10px; color: #0064ff; cursor: pointer; }
+.postCard_con>li:nth-child(7) { padding: 4px 10px; color: #666;}
+.postCard_con>li:nth-child(8) { padding: 10px 10px; font-size: 1.2em;}
+.postCard_con>li:nth-child(8) span { display: block; padding:4px 0 ;}
+.postCard_con>li:nth-child(9) { width: 97%; padding:10px 0; margin: 5px auto 0; border-top:1px solid rgba(0,0,0,.0975);}
+.postCard_con>li:nth-child(9) input[type=text] { padding-left: 10px; height: 40px; font-size: 1.2em; width: 550px; border: none;} 
+.postCard_con>li:nth-child(9) button { border: 1px solid #ccc; padding: 12px; background: #fff;}
+.postCard_con>li:nth-child(9) button:hover { color: #000; font-weight: bold; background: #ccc;}
+
+
+
+
+
 
