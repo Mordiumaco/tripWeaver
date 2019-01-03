@@ -1342,3 +1342,81 @@ a.btn_ov02:hover,a.ov_listall:hover{background:#3f51b5}
 .postcard_pop_layer ul li:nth-child(3) input[type=submit]{  background: #fff; border: none; border-right: 1px solid #ccc; padding: 5px 20px; font-weight:bold; cursor: pointer;}
 .postcard_pop_layer ul li:nth-child(3) a {  background: #fff;  padding: 5px 20px; cursor: pointer; color: #666;}
 
+
+
+
+
+
+/* 베스트 css 짠내 */
+.bestContainer { display: inline-block;}
+
+.ranking_top { width: 49%; margin-right:2%; margin-bottom:2%; height: 180px; float: left; border: 1px solid #ddd; box-sizing: border-box; position: relative; }
+.ranking_top1 {width: 100%;}
+
+.ranking_top1>span {
+	position:absolute;
+	top:-27px; left:111px;
+	width:66px;
+	height : 60px;
+	display:inline-block;
+	text-align:center;
+	line-height:75px;
+	color:#fff;
+	font-size:1.4em;
+	text-shadow: 1px 1px #333;
+	background-image: url(../img/icon/ranking01.png);
+	background-repeat: no-repeat;
+    background-position: -4px, -12px;
+}
+.ranking_top2>span { 
+	position:absolute;
+	top:-27px; left:19px;
+	width:66px;
+	height : 60px;
+	display:inline-block;
+	text-align:center;
+	line-height:75px;
+	color:#fff;
+	font-size:1.4em;
+	text-shadow: 1px 1px #333;
+	background-image: url(../img/icon/ranking02.png); 
+	background-repeat: no-repeat;
+    background-position: -4px, -12px;
+}
+.ranking_top3>span { 
+	position:absolute;
+	top:-27px; left:19px;
+	width:66px;
+	height : 60px;
+	display:inline-block;
+	text-align:center;
+	line-height:75px;
+	color:#fff;
+	font-size:1.4em;
+	text-shadow: 1px 1px #333;
+	background-image: url(../img/icon/ranking03.png);
+	background-repeat: no-repeat;
+    background-position: -4px, -12px;
+}
+.ranking_Mar { margin-right: 0;}
+.ranking_profile { width: 30%; float: left;}
+.ranking_top ul { float: left; width: 70%; height: 80px; line-height: 80px; margin-top: 50px;}
+.ranking_top ul li {height: 40px; line-height: 40px; font-size: 1.4em;}
+.ranking_top ul li b { margin-right: 20px; display: inline-block;}
+.ranking_top ul li span { margin-right: 20px; display: inline-block;}
+.ranking_top img { width: 100%;}
+
+.board_listBest td { height: 60px !important;}
+
+.my_profile3 { width: 50px; height: 50px; line-height: 50px;}
+.my_profile3 img { width: 100%;}
+.my_profile_nick { line-height: 50px; margin-left: 10px; font-weight: bold; font-size: 1.2em;}
+
+.my_profile4 { width: 150px; height: 150px; line-height: 100px;}
+
+.ranking_profile { text-align: center; line-height: 164px; }
+
+.money { font-size: 1.4em; font-weight: bold; color: #1087e3;}
+
+/* 추가 적인 부분*/
+.center_td { text-align: center !important;}
