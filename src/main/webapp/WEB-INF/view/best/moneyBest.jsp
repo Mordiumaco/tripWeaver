@@ -13,6 +13,21 @@
 }
 </style>
 
+<script>
+	
+	$(function(){
+		$(".essaySection").css("cursor", "pointer");
+		
+		$(".board_listF").on("click", "tr", function(){
+	 		
+			let essay_id = $(this).find("td").eq(1).text();
+	 		
+			location.href = "/essay/essayView?essay_id="+essay_id;
+	 	});	
+	});
+ 	
+</script>
+
 <div class="sub_container">
 
 	<h2 class="lodgment_title">짠내 Best</h2>
@@ -105,8 +120,9 @@
 		
 		<tbody class="board_listF board_listBest">
 			<c:forEach items="${essayList}" var="essayVo" >
-				<tr>
+				<tr class="essaySection">
 					<td>${essayVo.rnum}</td>
+					<td style="display: none;">${essayVo.essay_id}</td>	
 					<td>
 						<b class="my_profile my_profile3">
 							<c:choose>
@@ -125,7 +141,8 @@
 					<td>${essayVo.essay_title}</td>
 					<td>${essayVo.essay_like_count}개</td>
 					<td>${essayVo.essay_view_count}뷰</td>
-				</tr>	
+				</tr>
+					
 			</c:forEach>
 		</tbody>
 		
