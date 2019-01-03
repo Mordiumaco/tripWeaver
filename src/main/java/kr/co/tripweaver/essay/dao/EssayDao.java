@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import kr.co.tripweaver.essay.model.EssayVO;
+import kr.co.tripweaver.mymenu.mypage.tripplan.model.ClusterVO;
 
 @Repository
 public class EssayDao implements IEssayDao{
@@ -276,7 +277,30 @@ public class EssayDao implements IEssayDao{
 		return essayVOs;
 	}
 	
-	
+	/**
+	* Method : bestMoneyEssayList
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2019. 1. 3.
+	* 변경이력 :
+	* @return
+	* Method 설명 : 해당 짠내 베스트 랭킹을 위한 에세이 리스트 
+	*/
+	@Override
+	public List<ClusterVO> bestMoneyEssayList(){
+		
+		List<ClusterVO> essayList = null;
+		
+		try {
+			
+			essayList = template.selectList("essaySQL.bestMoneyEssayList");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return essayList;
+		}
+				
+		return essayList;
+	}
 	
 	
 }

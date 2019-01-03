@@ -25,6 +25,15 @@ $(function(){
 	//프로필 사진 부분을 클릭했을 때 언팔로우 팔로우 여부 확인
 	$('#post_left_wrap').on('click', '.postli_l', function(event){
 		
+		let logincheck = "${loginInfo.mem_id}";
+		
+		if(logincheck == ""){
+			alert("팔로잉/언팔로우를 위해 로그인을 먼저 해주세요");
+			event.preventDefault();
+			return;
+		}	
+	
+		
 		$(this).css("cursor", "pointer");
 		
 		let memIdValue = $(this).find("#mem_id").val();
