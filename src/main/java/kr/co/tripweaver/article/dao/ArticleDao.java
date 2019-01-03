@@ -39,8 +39,8 @@ public class ArticleDao implements IArticleDao {
 	}
 
 	@Override
-	public int deleteArticle(Map<String, Object> param) {
-		return template.delete("articleSQL.articleDelete", param);
+	public int deleteArticle(ArticleVO articleVo) {
+		return template.delete("articleSQL.articleDelete", articleVo);
 	}
 	
 	@Override

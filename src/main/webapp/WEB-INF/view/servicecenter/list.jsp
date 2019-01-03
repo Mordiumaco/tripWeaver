@@ -24,6 +24,11 @@ var getParam = function(key){
 
 $(document).ready(function(){
 	$(".board_listF").on("click", ".postsClick", function(){
+		if($(this).children().eq(1).text() == '삭제된 게시글입니다.'){
+			alert("해당 글은 삭제된 게시글 입니다.");
+			return;
+		}
+		
 		var postsId = $(this).children()[4].innerHTML;
 // 		$("#postsId").val(postsId);
 		$("#art_id").val(postsId);

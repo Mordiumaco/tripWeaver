@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="articleStatSQL">
+	
+	<!-- 에세이 -->
+	<select id="selectCountGraphMonth" parameterType="Map" resultType="articleStatVO">
+		SELECT TO_CHAR(e.essay_date, 'MM') || '월' AS ess_month,
+		       COUNT(e.essay_filter) AS ess_total,
+		       COUNT(CASE e.essay_filter WHEN 'G' THEN 1 END) AS ess_guide,
+		       COUNT(CASE e.essay_filter WHEN 'N' THEN 1 END) AS ess_normal
+		FROM essay e
+		WHERE e.essay_date BETWEEN TO_DATE(#{start}, 'yyyy.MM.dd') AND TO_DATE(#{end} || '23:59:59', 'yyyy.MM.dd HH24:MI:SS')
+		GROUP BY TO_CHAR(e.essay_date, 'MM') || '월'
+		ORDER BY ess_month
+	</select>
+	
+	<select id="selectCountGraphWeek" parameterType="Map" resultType="articleStatVO">
+	SELECT b.ess_week,
+	       COUNT(b.ess_total) AS ess_total,
+	       COUNT(b.ess_guide) AS ess_guide,
+	       COUNT(b.ess_normal) AS ess_normal
+	FROM (
+		SELECT CASE WHEN TO_DATE(TO_CHAR(e.essay_date, 'yyyy.MM.dd'), 'yyyy.MM.dd') BETWEEN TO_DATE(#{start}, 'yyyy.MM.dd') AND TO_DATE(TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 6, 'yyyy.MM.dd') || '23:59:59', 'yyyy.MM.dd HH24:MI:SS') THEN TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd'), 'MM.dd') || '-' || TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 6, 'MM.dd')
+		            WHEN TO_DATE(TO_CHAR(e.essay_date, 'yyyy.MM.dd'), 'yyyy.MM.dd') BETWEEN TO_DATE(#{start}, 'yyyy.MM.dd') + 7 AND TO_DATE(TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 13, 'yyyy.MM.dd') || '23:59:59', 'yyyy.MM.dd HH24:MI:SS') THEN TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 7, 'MM.dd') || '-' || TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 13, 'MM.dd')
+		            WHEN TO_DATE(TO_CHAR(e.essay_date, 'yyyy.MM.dd'), 'yyyy.MM.dd') BETWEEN TO_DATE(#{start}, 'yyyy.MM.dd') + 14 AND TO_DATE(TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 20, 'yyyy.MM.dd') || '23:59:59', 'yyyy.MM.dd HH24:MI:SS') THEN TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 14, 'MM.dd') || '-' || TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 20, 'MM.dd')
+		            WHEN TO_DATE(TO_CHAR(e.essay_date, 'yyyy.MM.dd'), 'yyyy.MM.dd') BETWEEN TO_DATE(#{start}, 'yyyy.MM.dd') + 21 AND TO_DATE(TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 27, 'yyyy.MM.dd') || '23:59:59', 'yyyy.MM.dd HH24:MI:SS') THEN TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 21, 'MM.dd') || '-' || TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 27, 'MM.dd')
+		            WHEN TO_DATE(TO_CHAR(e.essay_date, 'yyyy.MM.dd'), 'yyyy.MM.dd') BETWEEN TO_DATE(#{start}, 'yyyy.MM.dd') + 28 AND TO_DATE(TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 34, 'yyyy.MM.dd') || '23:59:59', 'yyyy.MM.dd HH24:MI:SS') THEN TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 28, 'MM.dd') || '-' || TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 34, 'MM.dd') END AS ess_week,
+		       e.essay_filter AS ess_total,
+		       CASE e.essay_filter WHEN 'G' THEN 1 END AS ess_guide,
+		       CASE e.essay_filter WHEN 'N' THEN 1 END AS ess_normal
+		FROM essay e
+		WHERE e.essay_date BETWEEN TO_DATE(#{start}, 'yyyy.MM.dd') AND TO_DATE(#{end} || '23:59:59', 'yyyy.MM.dd HH24:MI:SS')
+		ORDER BY ess_week) b
+	GROUP BY b.ess_week
+	</select>
+	
+	<select id="selectCountGraphDay" parameterType="Map" resultType="articleStatVO">
+		SELECT TO_CHAR(e.essay_date, 'MM.dd') AS ess_day, 
+		       COUNT(e.essay_filter) AS ess_total,
+		       COUNT(CASE e.essay_filter WHEN 'G' THEN 1 END) AS ess_guide,
+		       COUNT(CASE e.essay_filter WHEN 'N' THEN 1 END) AS ess_normal
+		FROM essay e
+		WHERE e.essay_date BETWEEN TO_DATE(#{start}, 'yyyy.MM.dd') AND TO_DATE(#{end} || '23:59:59', 'yyyy.MM.dd HH24:MI:SS')
+		GROUP BY TO_CHAR(e.essay_date, 'MM.dd')
+		ORDER BY ess_day
+	</select>
+	
+	<select id="selectSeasonGraph" parameterType="Map" resultType="articleStatVO">
+		SELECT t.tripplan_season AS ess_season, COUNT(t.tripplan_id) AS ess_season_count
+		FROM essay e INNER JOIN tripplan t
+		ON (e.tripplan_id = t.tripplan_id)
+		WHERE e.essay_date BETWEEN TO_DATE(#{start2}, 'yyyy.MM.dd') AND TO_DATE(#{end2} || '23:59:59', 'yyyy.MM.dd HH24:MI:SS')
+		GROUP BY t.tripplan_season
+		ORDER BY t.tripplan_season
+	</select>
+	
+	<select id="selectThemeGraph" parameterType="Map" resultType="articleStatVO">
+		SELECT t.tripplan_theme AS ess_theme, COUNT(t.tripplan_id) AS ess_theme_count
+		FROM essay e INNER JOIN tripplan t
+		ON (e.tripplan_id = t.tripplan_id)
+		WHERE e.essay_date BETWEEN TO_DATE(#{start2}, 'yyyy.MM.dd') AND TO_DATE(#{end2} || '23:59:59', 'yyyy.MM.dd HH24:MI:SS')
+		GROUP BY t.tripplan_theme
+		ORDER BY t.tripplan_theme
+	</select>
+	
+	<select id="selectPeoGraph" parameterType="Map" resultType="articleStatVO">
+		SELECT t.tripplan_peo_type AS ess_peo, COUNT(t.tripplan_id) AS ess_peo_count
+		FROM essay e INNER JOIN tripplan t
+		ON (e.tripplan_id = t.tripplan_id)
+		WHERE e.essay_date BETWEEN TO_DATE(#{start2}, 'yyyy.MM.dd') AND TO_DATE(#{end2} || '23:59:59', 'yyyy.MM.dd HH24:MI:SS')
+		GROUP BY t.tripplan_peo_type
+		ORDER BY t.tripplan_peo_type
+	</select>
+	
+	<select id="selectAgeGenderGraph"  parameterType="Map" resultType="articleStatVO">
+		SELECT m.mem_age AS ess_mem_age,
+		       COUNT(CASE m.mem_gender WHEN 'M' THEN 1 END) AS ess_mem_male,
+		       COUNT(CASE m.mem_gender WHEN 'F' THEN 1 END) AS ess_mem_female
+		FROM essay e INNER JOIN member m
+		ON (e.mem_id = m.mem_id)
+		WHERE e.essay_date BETWEEN TO_DATE(#{start2}, 'yyyy.MM.dd') AND TO_DATE(#{end2} || '23:59:59', 'yyyy.MM.dd HH24:MI:SS')
+		GROUP BY m.mem_age
+	</select>
+	
+	<!-- 포스트카드 -->
+	<select id="selectCountGraphMonthPostcard" parameterType="Map" resultType="articleStatVO">
+		SELECT TO_CHAR(p.pc_date, 'MM') || '월' AS pc_month,
+		       COUNT(p.pc_id) AS pc_total
+		FROM postcard p
+		WHERE p.pc_date BETWEEN TO_DATE(#{start}, 'yyyy.MM.dd') AND TO_DATE(#{end} || '23:59:59', 'yyyy.MM.dd HH24:MI:SS')
+		GROUP BY TO_CHAR(p.pc_date, 'MM') || '월'
+		ORDER BY pc_month
+	</select>
+	
+	<select id="selectCountGraphWeekPostcard" parameterType="Map" resultType="articleStatVO">
+		SELECT b.pc_week,
+		       COUNT(b.pc_total) AS pc_total
+		FROM (
+		SELECT CASE WHEN TO_DATE(TO_CHAR(p.pc_date, 'yyyy.MM.dd'), 'yyyy.MM.dd') BETWEEN TO_DATE(#{start}, 'yyyy.MM.dd') AND TO_DATE(TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 6, 'yyyy.MM.dd') || '23:59:59', 'yyyy.MM.dd HH24:MI:SS') THEN TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd'), 'MM.dd') || '-' || TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 6, 'MM.dd')
+		            WHEN TO_DATE(TO_CHAR(p.pc_date, 'yyyy.MM.dd'), 'yyyy.MM.dd') BETWEEN TO_DATE(#{start}, 'yyyy.MM.dd') + 7 AND TO_DATE(TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 13, 'yyyy.MM.dd') || '23:59:59', 'yyyy.MM.dd HH24:MI:SS') THEN TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 7, 'MM.dd') || '-' || TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 13, 'MM.dd')
+		            WHEN TO_DATE(TO_CHAR(p.pc_date, 'yyyy.MM.dd'), 'yyyy.MM.dd') BETWEEN TO_DATE(#{start}, 'yyyy.MM.dd') + 14 AND TO_DATE(TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 20, 'yyyy.MM.dd') || '23:59:59', 'yyyy.MM.dd HH24:MI:SS') THEN TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 14, 'MM.dd') || '-' || TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 20, 'MM.dd')
+		            WHEN TO_DATE(TO_CHAR(p.pc_date, 'yyyy.MM.dd'), 'yyyy.MM.dd') BETWEEN TO_DATE(#{start}, 'yyyy.MM.dd') + 21 AND TO_DATE(TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 27, 'yyyy.MM.dd') || '23:59:59', 'yyyy.MM.dd HH24:MI:SS') THEN TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 21, 'MM.dd') || '-' || TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 27, 'MM.dd')
+		            WHEN TO_DATE(TO_CHAR(p.pc_date, 'yyyy.MM.dd'), 'yyyy.MM.dd') BETWEEN TO_DATE(#{start}, 'yyyy.MM.dd') + 28 AND TO_DATE(TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 34, 'yyyy.MM.dd') || '23:59:59', 'yyyy.MM.dd HH24:MI:SS') THEN TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 28, 'MM.dd') || '-' || TO_CHAR(TO_DATE(#{start}, 'yyyy.MM.dd') + 34, 'MM.dd') END AS pc_week,
+		       p.pc_id AS pc_total
+		FROM postcard p
+		WHERE p.pc_date BETWEEN TO_DATE('2018.12.02', 'yyyy.MM.dd') AND TO_DATE('2019.01.05' || '23:59:59', 'yyyy.MM.dd HH24:MI:SS')
+		ORDER BY pc_week) b
+		GROUP BY b.pc_week
+	</select>
+	
+	<select id="selectCountGraphDayPostcard" parameterType="Map" resultType="articleStatVO">
+		SELECT TO_CHAR(p.pc_date, 'MM.dd') AS pc_day,
+		       COUNT(p.pc_id) AS pc_total
+		FROM postcard p
+		WHERE p.pc_date BETWEEN TO_DATE(#{start}, 'yyyy.MM.dd') AND TO_DATE(#{end} || '23:59:59', 'yyyy.MM.dd HH24:MI:SS')
+		GROUP BY TO_CHAR(p.pc_date, 'MM.dd')
+		ORDER BY pc_day
+	</select>
+	
+	<select id="selectAgeGenderGraphPostcard" parameterType="Map" resultType="articleStatVO">
+		SELECT m.mem_age AS pc_mem_age,
+		       COUNT(CASE m.mem_gender WHEN 'M' THEN 1 END) AS pc_mem_male,
+		       COUNT(CASE m.mem_gender WHEN 'F' THEN 1 END) AS pc_mem_female
+		FROM postcard p INNER JOIN member m
+		ON (p.mem_id = m.mem_id)
+		WHERE p.pc_date BETWEEN TO_DATE(#{start2}, 'yyyy.MM.dd') AND TO_DATE(#{end2} || '23:59:59', 'yyyy.MM.dd HH24:MI:SS')
+		GROUP BY m.mem_age
+	</select>
+	
+</mapper>

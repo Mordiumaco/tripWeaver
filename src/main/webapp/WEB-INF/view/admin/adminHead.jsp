@@ -103,8 +103,7 @@
                         <h3>통계</h3>
                        	<a href="/connStat/connStatList?page=1&pageSize=10&dateType=month&classification=browser">접속자 통계</a>
                        	<a href="/connStat/connStatTime">접속자 시간 통계</a>
-                       	<a href="/main/adminPost">게시물 통계</a>
-                       	<a href="/main/hashTag">해시태그 통계</a>
+                       	<a href="/artstat/artstatEssay">게시물 통계</a>
                     </div>
                 </div>
             </li>

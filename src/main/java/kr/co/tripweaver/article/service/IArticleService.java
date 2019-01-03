@@ -55,7 +55,7 @@ public interface IArticleService {
 	* @return
 	* Method 설명 : 게시글 삭제
 	*/
-	public int deleteArticle(Map<String, Object> param);
+	public int deleteArticle(ArticleVO articleVo);
 	
 	/**
 	* Method : getArticleDetail

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="../adminHead.jsp" %>
+<%@ include file="../adminHead.jsp" %>
 
 <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
 
@@ -31,7 +31,7 @@ div .connstat_table {
 }
 
 .connstat_table .table_div {
-	width: 450px;
+	width: 40%;
 	height: 490px;
 	float: left;
 	margin: 10px;
@@ -213,7 +213,7 @@ div .connstat_table {
 	<div id="myChart"><a class="zc-ref" href="https://www.zingchart.com">Powered by ZingChart</a></div>
 	
 	<div class="local_desc01 local_desc">
-	    <p>일간 평균 시간 방문자 수 </p>
+	    <p>시간대별 접속자 수</p>
 	</div>
 
 	<div class="tbl_head01 tbl_wrap connstat_table">
@@ -278,19 +278,6 @@ div .connstat_table {
 		</div>		
 		
 	</div>
-
-	<script>
-		$(function() {
-			$("#fr_date, #to_date").datepicker({
-				changeMonth : true,
-				changeYear : true,
-				dateFormat : "yymmdd",
-				showButtonPanel : true,
-				yearRange : "c-99:c+99",
-				maxDate : "+0d"
-			});
-		});
-	</script>
 </div>
 
 <%@include file="../adminTail.jsp" %>
