@@ -22,6 +22,59 @@ function closeLayer( obj ) {
 $(function(){
 	$(".followLayer").hide();
 	
+	//프로필 사진 부분을 클릭했을 때 언팔로우 팔로우 여부 확인
+	$('#post_left_wrap').on('click', '.postli_l', function(event){
+		
+		$(this).css("cursor", "pointer");
+		
+		let memIdValue = $(this).find("#mem_id").val();
+		var sWidth = window.innerWidth;
+		var sHeight = window.innerHeight;
+
+		var oWidth = $('.followLayer').width();
+		var oHeight = $('.followLayer').height();
+
+		// 레이어가 나타날 위치를 셋팅한다.
+		var divLeft = event.pageX+10;
+		var divTop = event.pageY+5;
+
+		// 레이어가 화면 크기를 벗어나면 위치를 바꾸어 배치한다.
+		if( divLeft + oWidth > sWidth ) divLeft -= oWidth;
+		if( divTop + oHeight > sHeight ) divTop -= oHeight;
+
+		// 레이어 위치를 바꾸었더니 상단기준점(0,0) 밖으로 벗어난다면 상단기준점(0,0)에 배치하자.
+		if( divLeft < 0 ) divLeft = 0;
+		if( divTop < 0 ) divTop = 0;
+
+		$('.followLayer').css({
+			"top": divTop,
+			"left": divLeft,
+			"position": "absolute"
+		}).toggle("500");
+		 
+		//아작스로 해당 팔로우 상태를 확인한다. 
+		
+		$.ajax({
+	    url : "/follow/followState",
+	    type: "POST",
+	    data: "mem_id="+memIdValue+"&mem_id2="+"${loginInfo.mem_id}",
+		    success : function(data){
+		    	if(data == 1){
+		    		let linkValue = 'javascript: followDelete('+'"'+memIdValue+'"'+',"${loginInfo.mem_id}")';
+		    		$('.followLayer').find('a').text("Unfollow");
+		    		$('.followLayer').find('a').attr("href", linkValue);
+		    	}
+		    	
+		    	if(data == 0){
+		    		let linkValue = 'javascript: followProcess('+'"'+memIdValue+'"'+',"${loginInfo.mem_id}")';
+		    		$('.followLayer').find('a').text("Following");
+		    		$('.followLayer').find('a').attr("href", linkValue);
+		    	}
+		    },
+		});	
+		
+	
+	})
 })
 
 function followProcess(mem_id, mem_id2){
@@ -32,7 +85,7 @@ function followProcess(mem_id, mem_id2){
 	    data: "mem_id="+mem_id+"&mem_id2="+mem_id2,
 	    success : function(data){
 	    	alert("팔로우 완료");
-	    	$('.followLayer').hide();
+	    	$('.followLayer').hide(500);
 	    },
 	    error: function(){
 	    	alert("뿌잉 터짐");
