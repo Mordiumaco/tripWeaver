@@ -3,6 +3,59 @@
 <%@include file="../head.jsp" %>
 
 <link rel="stylesheet" href="/css/style.css">
+<!-- 데이트피커 -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+$(function() {
+	
+	if($('#datepicker').val() == '' ){
+		$('#datepicker').val(getTimeStamp(new Date(), dateType));
+	}
+	
+	$("#datepicker").datepicker({
+	    dateFormat: 'yyyyMM',
+	    changeMonth: true,
+	    changeYear: true,
+	    showWeek : true,
+	    showButtonPanel: true,
+	    onClose: function(dateText, inst) {
+	        var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+	        var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+	        $(this).val(getTimeStamp(new Date(year, month, 1), dateType));
+	    }
+	});
+	
+	$("#datepicker").focus(function () {
+        $(".ui-datepicker-calendar").hide();
+        $("#ui-datepicker-div").position({
+            my: "center top",
+            at: "center bottom",
+            of: $(this)
+        });
+    });
+	
+});
+
+function getTimeStamp(d, dType) {
+   var s = leadingZeros(d.getFullYear(), 4) + leadingZeros(d.getMonth() + 1, 2);
+   return s;
+ }
+
+function leadingZeros(n, digits) {
+	var zero = '';
+	n = n.toString();
+	
+	if (n.length < digits) {
+	  for (i = 0; i < digits - n.length; i++)
+	    zero += '0';
+	}
+	return zero + n;
+}
+
+
+</script>
 
 <style>
 .lodgment_title {
@@ -18,16 +71,44 @@
 
 	<h2 class="lodgment_title">PostCard Best</h2>
 	
+	<div class="local_desc01 local_desc">
+	    <p>
+			PostCard Best는 매월 1일 부터 마지막일을 기준으로 상위권 30인을 기준으로 합니다.
+	    </p>
+	</div>
+	
+	<form  method="get" action="/postBest">
+			
+		<label for="datepicker"><span id="dateTypeName"></span>
+			<input type="text" id="datepicker" name="datepicker" class="datepicker" placeholder="기간을 선택해주세요" required="required" readonly="readonly" value="${param.datepicker}">
+		</label>
+		
+		<input type="hidden" id="dateType" name="dateType" required="required" value="">
+		<input type="submit" value="검색" class="btn_submit" id="search_btn">
+	</form>
+	
+	<br/>
+	<br/>
 	<div class="ranking_top ranking_top1">
 		<span>1</span>
 		<div class="ranking_profile">
 			<b class="my_profile my_profile4">
-				<img src="/upload/profile/profile1.jpg">
+				<img src="/file/read?mem_profile=${postcardVo[0].mem_profile}">
 			</b>
 		</div>
 		<ul>
-			<li><b>닉네임 자리다</b><span class="hashtag_text">#좋아요 #행복 #최유정</span></li>
-			<li><span><i class="fas fa-heart likeDel" style="color:#ff0000;"></i> 30개</span><span><span><i class="far fa-comment"></i> 60개 </span></span></li>
+			<li>
+				<b>${postcardVo[0].mem_nick}</b>
+				<span class="hashtag_text">
+					<c:forEach items="${postcardVo[0].hashTagList}" var="hash">
+						#<a href="/postCard/postCardList?mem_id=${loginInfo.mem_id}&tag_search=${hash}">${hash}</a>
+					</c:forEach>
+				</span>
+			</li>
+			<li>
+				<span><i class="fas fa-heart likeDel" style="color:#ff0000;"></i> ${postcardVo[0].pc_like_count} 개</span>
+				<span><span><i class="far fa-comment"></i> ${postcardVo[0].comt_count} 개 </span></span>
+			</li>
 		</ul>
 	</div>
 	
@@ -36,12 +117,22 @@
 		<span>2</span>
 		<div class="ranking_profile">
 			<b class="my_profile my_profile4">
-				<img src="/upload/profile/profile1.jpg">
+				<img src="/file/read?mem_profile=${postcardVo[1].mem_profile}">
 			</b>
 		</div>
 		<ul>
-			<li><b>닉네임 자리다</b><span class="hashtag_text">#좋아요 #행복 #최유정</span></li>
-			<li><span><i class="fas fa-heart likeDel" style="color:#ff0000;"></i> 30개</span><span><i class="far fa-comment"></i> 60개 </span></li>
+			<li>
+				<b>${postcardVo[1].mem_nick}</b>
+				<span class="hashtag_text">
+					<c:forEach items="${postcardVo[1].hashTagList}" var="hash">
+						#<a href="/postCard/postCardList?mem_id=${loginInfo.mem_id}&tag_search=${hash}">${hash}</a>
+					</c:forEach>
+				</span>
+			</li>
+			<li>
+				<span><i class="fas fa-heart likeDel" style="color:#ff0000;"></i> ${postcardVo[1].pc_like_count} 개</span>
+				<span><span><i class="far fa-comment"></i> ${postcardVo[1].comt_count} 개 </span></span>
+			</li>
 		</ul>
 	</div>
 	
@@ -49,12 +140,22 @@
 		<span>3</span>
 		<div class="ranking_profile">
 			<b class="my_profile my_profile4">
-				<img src="/upload/profile/profile1.jpg">
+				<img src="/file/read?mem_profile=${postcardVo[2].mem_profile}">
 			</b>
 		</div>
 		<ul>
-			<li><b>닉네임 자리다</b><span class="hashtag_text">#좋아요 #행복 #최유정</span></li>
-			<li><span><i class="fas fa-heart likeDel" style="color:#ff0000;"></i> 30개</span><span><i class="far fa-comment"></i> 60개 </span></li>
+			<li>
+				<b>${postcardVo[2].mem_nick}</b>
+				<span class="hashtag_text">
+					<c:forEach items="${postcardVo[2].hashTagList}" var="hash">
+						#<a href="/postCard/postCardList?mem_id=${loginInfo.mem_id}&tag_search=${hash}">${hash}</a>
+					</c:forEach>
+				</span>
+			</li>
+			<li>
+				<span><i class="fas fa-heart likeDel" style="color:#ff0000;"></i> ${postcardVo[2].pc_like_count} 개</span>
+				<span><span><i class="far fa-comment"></i> ${postcardVo[2].comt_count} 개 </span></span>
+			</li>
 		</ul>
 	</div>
 
@@ -79,48 +180,29 @@
 		</thead>
 		
 		<tbody class="board_listF board_listBest">
-			<tr>
-				<td>1</td>
-				<td>
-					<b class="my_profile my_profile3">
-						<img src="/upload/profile/profile1.jpg">
-					</b>
-					<span class="my_profile_nick">닉네임</span>
-				</td>
-				<td class="center_td00 hashtag_text">#좋아요 #행복 #최유정</td>
-				<td >20개</td>
-				<td>200개</td>
-			</tr>	
+			<c:forEach items="${postcardVo}" var="post" varStatus="i">
+				<tr>
+					<td>${i.index + 1}</td>
+					<td>
+						<b class="my_profile my_profile3">
+							<img src="/file/read?mem_profile=${post.mem_profile}">
+						</b>
+						<span class="my_profile_nick">${post.mem_nick}</span>
+					</td>
+					<td class="center_td00 hashtag_text">
+						<c:forEach items="${post.hashTagList}" var="hash">
+							#<a href="/postCard/postCardList?mem_id=${loginInfo.mem_id}&tag_search=${hash}">${hash}</a>
+						</c:forEach>
+					</td>
+					<td >${post.comt_count} 개</td>
+					<td>${post.pc_like_count} 개</td>
+				</tr>	
+			</c:forEach>
+			
 		</tbody>
 		
 	</table>
 
-	<nav class="pg_wrap">
-		<span class="pg">
-		
-			<c:set var="pageSize" value="10"/>
-			
-			
-				<a class="pg_start pg_page" href="/main/board?board_id=${board_id}&page=1&pageSize=${pageSize}"></a>
-				<a class="pg_page pg_prev" href="/main/board?board_id=${board_id}&page=${param.page - 1}&pageSize=${pageSize}"></a>			
-			
-			<c:forEach var="pageWrap"  varStatus="status" begin="1" end="${pageCnt}">
-
-				<c:choose>
-					<c:when test="${status.index == param.page}"><a class="pg_current" href="/main/board?board_id=${board_id}&page=${status.index}&pageSize=${pageSize}">${status.index}</a></c:when>
-					<c:otherwise><a class="pg_page" href="/main/board?board_id=${board_id}&page=${status.index}&pageSize=${pageSize}">${status.index}</a></c:otherwise>
-				</c:choose>
-
-			</c:forEach>
-			
-				<a class="pg_page pg_next" href="/main/board?board_id=${board_id}&page=${param.page + 1}&pageSize=${pageSize}"></a>
-				<a class="pg_page pg_end" href="/main/board?board_id=${board_id}&page=${pageCnt}&pageSize=${pageSize}"></a>
-			
-		
-			
-			
-		</span>
-	</nav>
 	
 </div>
 

@@ -198,4 +198,48 @@
 		on (has.PC_ID = p.PC_ID )
 	</select>
 	
+	
+	<!-- 베스트 포스트 카드를 위한 쿼리 문 -->
+	
+	<select id="bestPostSelect" parameterType="Map" resultType="postcardVo"> 
+		SELECT
+    		rownum rnum, rrrrnum.*
+			FROM(
+			select * from
+			(SELECT  rrnum.* from
+			(
+			    SELECT
+			    p.pc_id
+			    ,p.pc_cnt
+			    ,p.pc_date
+			    ,p.pc_del
+			    ,nvl(c.comt_count, 0) as comt_count
+			    ,nvl(l.like_count, 0) as pc_like_count
+			    , nvl(c.comt_count, 0)*1.5 + nvl(l.like_count, 0) sum_count
+			    , m.MEM_NICK
+    			, m.MEM_PROFILE
+			FROM postcard p left outer join (
+			    select
+			    comt_rel_art_id
+			    , COUNT(*) as comt_count
+			    from comments 
+			    group by comt_rel_art_id
+			) c
+			on (p.pc_id = c.comt_rel_art_id ) left outer join (
+			    select
+			    like_rel_art_id
+			    , COUNT(*) as like_count
+			    from likes 
+			    group by like_rel_art_id
+			)l
+			on (p.pc_id = l.like_rel_art_id) inner join member m
+			on (p.MEM_ID = m.MEM_ID)
+			where p.pc_del = 'N'
+			order by sum_count desc, pc_date desc
+			)rrnum)rrrnum
+			where rrrnum.pc_date between to_date(#{startDate},'yyyyMMdd') and to_date(#{endDate} || '23:59:59','yyyyMMdd HH24:MI:SS')
+			)rrrrnum
+			where rownum  <![CDATA[<]]>  31
+	</select>
+	
 </mapper>

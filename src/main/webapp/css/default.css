@@ -1433,6 +1433,18 @@ a.btn_ov02:hover,a.ov_listall:hover{background:#3f51b5}
 .money { font-size: 1.4em; font-weight: bold; color: #1087e3;}
 
 .hashtag_text { font-size: 1em; font-weight: bold; color: #1087e3;}
-
+.hashtag_text a { font-size: 1em; font-weight: bold; color: #1087e3 !important; }
 /* 추가 적인 부분*/
 .center_td { text-align: center !important;}
+
+.btn_submit {
+    width: 40px;
+    height: 40px;
+    border: 0;
+    padding: 0;
+    background: url(../img/sch_btn.png) no-repeat 50% 50% #eee;
+    border: 1px solid #dcdcdc;
+    text-indent: -999px;
+    overflow: hidden;
+    vertical-align: bottom;
+}
