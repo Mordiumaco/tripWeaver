@@ -44,7 +44,15 @@ public class FollowDao implements IFollowDao {
 	@Override
 	public int insertFollowing(FollowVO followVO) {
 		System.out.println("insert follow : " + followVO);
-		int followCnt = template.insert("followSQL.insertFollowing", followVO);
+		int followCnt = 0;
+		
+		try {
+			followCnt = template.insert("followSQL.insertFollowing", followVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	
 		return followCnt;
 	}
 

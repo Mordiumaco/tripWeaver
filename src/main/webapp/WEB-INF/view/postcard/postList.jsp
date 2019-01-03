@@ -13,7 +13,102 @@ window.onbeforeunload = function() {
 
 }
 
+function closeLayer( obj ) {
+	$(obj).parent().parent().hide(500);
+}
 
+
+// follow 처리 부분 
+$(function(){
+	$(".followLayer").hide();
+	
+	//프로필 사진 부분을 클릭했을 때 언팔로우 팔로우 여부 확인
+	$('#post_left_wrap').on('click', '.postli_l', function(event){
+		
+		$(this).css("cursor", "pointer");
+		
+		let memIdValue = $(this).find("#mem_id").val();
+		var sWidth = window.innerWidth;
+		var sHeight = window.innerHeight;
+
+		var oWidth = $('.followLayer').width();
+		var oHeight = $('.followLayer').height();
+
+		// 레이어가 나타날 위치를 셋팅한다.
+		var divLeft = event.pageX+10;
+		var divTop = event.pageY+5;
+
+		// 레이어가 화면 크기를 벗어나면 위치를 바꾸어 배치한다.
+		if( divLeft + oWidth > sWidth ) divLeft -= oWidth;
+		if( divTop + oHeight > sHeight ) divTop -= oHeight;
+
+		// 레이어 위치를 바꾸었더니 상단기준점(0,0) 밖으로 벗어난다면 상단기준점(0,0)에 배치하자.
+		if( divLeft < 0 ) divLeft = 0;
+		if( divTop < 0 ) divTop = 0;
+
+		$('.followLayer').css({
+			"top": divTop,
+			"left": divLeft,
+			"position": "absolute"
+		}).toggle("500");
+		 
+		//아작스로 해당 팔로우 상태를 확인한다. 
+		
+		$.ajax({
+	    url : "/follow/followState",
+	    type: "POST",
+	    data: "mem_id="+memIdValue+"&mem_id2="+"${loginInfo.mem_id}",
+		    success : function(data){
+		    	if(data == 1){
+		    		let linkValue = 'javascript: followDelete('+'"'+memIdValue+'"'+',"${loginInfo.mem_id}")';
+		    		$('.followLayer').find('a').text("Unfollow");
+		    		$('.followLayer').find('a').attr("href", linkValue);
+		    	}
+		    	
+		    	if(data == 0){
+		    		let linkValue = 'javascript: followProcess('+'"'+memIdValue+'"'+',"${loginInfo.mem_id}")';
+		    		$('.followLayer').find('a').text("Following");
+		    		$('.followLayer').find('a').attr("href", linkValue);
+		    	}
+		    },
+		});	
+		
+	
+	})
+})
+
+function followProcess(mem_id, mem_id2){
+	
+	$.ajax({
+	    url : "/follow/following",
+	    type: "POST",
+	    data: "mem_id="+mem_id+"&mem_id2="+mem_id2,
+	    success : function(data){
+	    	alert("팔로우 완료");
+	    	$('.followLayer').hide(500);
+	    },
+	    error: function(){
+	    	alert("뿌잉 터짐");
+	    }
+	});	
+	
+}
+
+function followDelete(mem_id, mem_id2){
+	
+	$.ajax({
+	    url : "/follow/unfollow",
+	    type: "POST",
+	    data: "mem_id="+mem_id+"&mem_id2="+mem_id2,
+	    success : function(data){
+	    	alert("언팔로우 완료");
+	    	$('.followLayer').hide(500);
+	    },
+	    error: function(){
+	    	alert("뿌잉 터짐");
+	    }
+	});	
+}
 
 /* 해시태그 클릭시 검색기에 값 넣어주고 검색 실행 */
 $(function() {
@@ -38,7 +133,8 @@ $(function() {
 
 	});
 	
-			
+	
+	
 });
 
 
@@ -481,7 +577,12 @@ function layer_open1(el){
 .loading img { float: none; width: 200px; margin-bottom: 20px;}
 
 </style>
-	
+	<div class="followLayer">
+		<div>
+			<img onClick="closeLayer(this)" style="cursor:pointer;font-size:1.5em" title="닫기" src="/img/cancel.png">
+		</div>
+		<a href="#" class="btn btn_02"> 팔로잉 </a>
+	</div>	
 	<div class="postSearch" id="postSearch">
 		<div class="pbgfb Di7vw " role="button" tabindex="0">
 			<div class="eyXLr postLogo">
