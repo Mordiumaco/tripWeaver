@@ -79,9 +79,26 @@
 		and ta.tripplan_id = tp.tripplan_id 
 		order by totalmoney asc
 		)
-		where rownum <![CDATA[<]]>=100
+		where rownum <![CDATA[<]]>=30
 	</select>
 	
+	<select id="bestEssayList" resultType="clusterVo">
+		select rownum rnum , essay_id , essay_title, essay_cnt, essay_date, tripplan_image,mem_nick, mem_profile, essay_like_count, 
+		essay_view_count, mapmark_sido, mapmark_sigungu, (select count(*) from comments where comt_rel_art_id = essay_id) comment_count
+		from
+		(
+		select essay_id , essay_title, essay_cnt, essay_date, tripplan_image, mem_nick, mem_profile, essay_view_count, mapmark_sido, mapmark_sigungu, (select count(*) from likes WHERE LIKE_REL_ART_ID = essay_id) essay_like_count
+		from essay e, tripplan tp, member m, triparea ta, mapmarker mm
+		where essay_del = 'N' 
+		and m.mem_id = e.mem_id
+		and e.tripplan_id = tp.tripplan_id
+		and mm.triparea_id = ta.triparea_id 
+		and ta.triparea_order = 1 
+		and ta.tripplan_id = tp.tripplan_id 
+		order by essay_like_count desc
+		)
+		where rownum <![CDATA[<]]>=30
+	</select>
 	<update id="deleteEssayByEssayId" parameterType="String">
 		update essay
 		set essay_del = 'Y'
