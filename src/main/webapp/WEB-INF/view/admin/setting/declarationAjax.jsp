@@ -65,7 +65,7 @@
 				        	 <c:choose>
 				        		<c:when test="${ letter eq 'p' }" >
 				        			<form class="updateReport" method="post" action="/report/updatePostReport">
-				        				<input type="hidden" name="pc_id" value="${repostVo.report_rel_art_id}">
+				        				<input type="hidden" class="post_id" name="pc_id" value="${repostVo.report_rel_art_id}">
 					        			
 						        		<c:choose>
 				        					<c:when test="${repostVo.report_proc_sta == 'N'}">
@@ -79,7 +79,7 @@
 				        		</c:when>
 				        		<c:otherwise>
 				        			<form class="updateReport" method="post" action="/report/updateEssayReport">
-				        				<input type="hidden" name="essay_id" value="${repostVo.report_rel_art_id}">
+				        				<input type="hidden" class="post_id" name="essay_id" value="${repostVo.report_rel_art_id}">
 				        				<c:choose>
 				        					<c:when test="${repostVo.report_proc_sta == 'N'}">
 				        						<a href="/essay/essayView?essay_id=${repostVo.report_rel_art_id}" target="blink" >${repostVo.report_rel_art_id}</a>

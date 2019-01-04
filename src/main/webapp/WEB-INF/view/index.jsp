@@ -28,12 +28,11 @@ $(document).ready(function () {
  });
 
 
-
-</script>
-<script>
-	text = "${recentEssayVo.essay_cnt}"
-	text = text.replace(/<br\/>/ig, "\n"); 
-	text = text.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
+// 메인 최시글 리스트에서 필요없는 태그요소 지우기
+/* text = "${recentEssayVo.essay_cnt}"
+text = text.replace(/<br\/>/ig, "\n"); 
+text = text.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
+text = text.replace("&nbsp;",""); */
 </script>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a5f2e82aa9bad5f393255b6d8c3200cb&libraries=clusterer"></script>
@@ -356,18 +355,7 @@ $(document).ready(function () {
 	
 	<div class="main_map main_list">
 		<ul id="essay_list_ul">
-			<!-- <li class="essay_list">
-				<a href="/main/essay_view">
-					<div class="essay_img">
-						<img src="/img/main_01.jpg"/>
-					</div>
-					<ul class="essay_info">
-						<li>20 <span>만원</span> <h6>박  진</h6></li>
-						<li>여행지  : 충청북도 박진집</li>
-						<li>먹거리  / 겨울  /  혼자 </li>
-					</ul>
-				</a>
-			</li> -->
+			
 			
 		</ul>
 		
@@ -384,7 +372,7 @@ $(document).ready(function () {
 		    		<c:if test="${loop.index % 2 == 0}">
 		    			<li>
 		    		</c:if>
-		    		<a href="/postCard/postCardList?mem_id=&amp;tag_search=">
+		    		<a>
 				      	<div class="sl_left"><img src="/img/main_01.jpg" /></div>
 				      	<div class="sl_right">
 				      		<ul>
@@ -394,7 +382,13 @@ $(document).ready(function () {
 				      					<li>[ 태그 없음 ]</li>
 				      				</c:when>
 				      				<c:otherwise>
-				      					<li class="hashTagSection"><c:forEach items="${recentPostCardVo.hashTagList}" var="hashTagVo">#${hashTagVo} </c:forEach></li>
+				      					<li class="hashTagSection">
+				      						<c:forEach items="${recentPostCardVo.hashTagList}" var="hashTagVo">
+				      							#<a href="/postCard/postCardList?mem_id=${loginInfo.mem_id}&tag_search=${hashTagVo}" style="color:#0064ff !important;">
+				      								${hashTagVo}
+				      							</a>
+				      						</c:forEach>
+				      					</li>
 				      				</c:otherwise>
 				      			</c:choose>
 				      			<li>${recentPostCardVo.pc_cnt}</li>
@@ -405,29 +399,7 @@ $(document).ready(function () {
 		    			</li>
 		    		</c:if>
 		    	</c:forEach>
-		 <!--    <li>
-		    	<a href="">
-			      	<div class="sl_left"><img src="/img/main_01.jpg" /></div>
-			      	<div class="sl_right">
-			      		<ul>
-			      			<li>Post Card</li>
-			      			<li>엄청나게 좋은 여행 잇힝</li>
-			      			<li>내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄</li>
-			      		</ul>
-			      	</div>
-		      	</a>
-		      	<a href="">
-			      	<div class="sl_left"><img src="/img/main_01.jpg" /></div>
-			      	<div class="sl_right">
-			      		<ul>
-			      			<li>Post Card</li>
-			      			<li>엄청나게 좋은 여행 잇힝</li>
-			      			<li>내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄 내용이지롱 내용   꾸꾸꾸 꾸 끄끄끄</li>
-			      		</ul>
-			      	</div>
-		      	</a>
-		    </li> -->
-		   
+		
 		</ul>
 	</div>
 </div>
@@ -444,9 +416,10 @@ $(document).ready(function () {
 			
 				<c:choose>
 					<c:when test="${fn:length(recentEssayVo.essay_cnt) > 50 }">
-						
-						<li><c:out value="${fn:substring(recentEssayVo.essay_cnt.replaceAll('\\\<.*?\\\>',''),0,50)}"/><br/>...</li>
-
+						<li class="essay_cnt">
+							<c:set var="essay_cnt1" value="${fn:substring(recentEssayVo.essay_cnt.replaceAll('\\\<.*?\\\>',''),0,150)}"></c:set>
+							<c:out  value="${essay_cnt1.replaceAll('&nbsp;',' ')}"/>
+						</li>
 					</c:when>
 					<c:when test="${recentEssayVo.essay_cnt == null}">
 						<li>&nbsp;&nbsp;</li>
@@ -458,56 +431,13 @@ $(document).ready(function () {
 						<li>${recentEssayVo.essay_cnt}&nbsp;</li>
 					</c:otherwise>
 				</c:choose>
-				<li><i class="fa fa-clock-o" aria-hidden="true"></i><fmt:formatDate value="${recentEssayVo.essay_date}" pattern="YYYY. MM. dd"/></li>
+				<li><i class="fa fa-clock-o" aria-hidden="true"></i> <fmt:formatDate value="${recentEssayVo.essay_date}" pattern="YYYY. MM. dd"/></li>
 				<li class="essayImageSection"><img src="/upload/${recentEssayVo.tripplan_image}" onerror="imgError(this)"/></li>
 			</ul>
 		</a>
 	</div>
 	</c:forEach> 
-	<!-- <div class="con_03_List">
-		<a href="/main/essay_view">
-			<ul>
-				<li>Essay</li>
-				<li>일본 술을 마시다.</li>
-				<li>글 쓰는 셰프 박찬일의 일본 여행과 음식 이야기.</li>
-				<li><i class="fa fa-clock-o" aria-hidden="true"></i> 2018. 12. 01</li>
-				<li><img src="/img/main_01.jpg" /></li>
-			</ul>
-		</a>
-	</div>
-	<div class="con_03_List">
-		<a href="/main/essay_view">
-			<ul>
-				<li>Essay</li>
-				<li>일본 술을 마시다.</li>
-				<li>글 쓰는 셰프 박찬일의 일본 여행과 음식 이야기.</li>
-				<li><i class="fa fa-clock-o" aria-hidden="true"></i> 2018. 12. 01</li>
-				<li><img src="/img/main_01.jpg" /></li>
-			</ul>
-		</a>
-	</div>
-	<div class="con_03_List">
-		<a href="/main/essay_view">
-			<ul>
-				<li>Essay</li>
-				<li>일본 술을 마시다.</li>
-				<li>글 쓰는 셰프 박찬일의 일본 여행과 음식 이야기.</li>
-				<li><i class="fa fa-clock-o" aria-hidden="true"></i> 2018. 12. 01</li>
-				<li><img src="/img/main_01.jpg" /></li>
-			</ul>
-		</a>
-	</div>
-	<div class="con_03_List">
-		<a href="/main/essay_view">
-			<ul>
-				<li>Essay</li>
-				<li>일본 술을 마시다.</li>
-				<li>글 쓰는 셰프 박찬일의 일본 여행과 음식 이야기.</li>
-				<li><i class="fa fa-clock-o" aria-hidden="true"></i> 2018. 12. 01</li>
-				<li><img src="/img/main_01.jpg" /></li>
-			</ul>
-		</a>
-	</div> -->
+	
 </div>
 
 <div class="main_con_04">

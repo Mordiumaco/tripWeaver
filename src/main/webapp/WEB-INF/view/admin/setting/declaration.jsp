@@ -114,23 +114,57 @@ $(document).ready(function(){
 	});
 });
 
+// 체크박스 전체 선택용 스크립트
 $( document ).ready( function() {
     $( '.tb_wrap' ).on('click','#chkall', function() {
       $( '.ab' ).prop( 'checked', this.checked );
     } );
   } );
   
- $(function() {
+// 선택한 체크박스만 작동 하기  
+$(function() {
 	$('.container_wr').on('click','.allbtn', function() {
 	
 		$("input:checkbox[name=chk]:checked").each(function(i,elements){
 		    //해당 index(순서)값을 가져옵니다.
 		    index = $(elements).index("input:checkbox[name=chk]"); 
-		    $('.updateReport').eq(index).submit();
-
+		    var submitIndex = $('.post_id').eq(index).val();
+		    var sub = submitIndex.substring(0, 2);
+		    
+ 			if(sub == 'pc'){
+ 				postAllModifiedAjax(submitIndex, index);
+		    }else{
+		    	essayAllModifiedAjax(submitIndex, index);
+		    }
+		    
 		});
 	})
 });
+
+// 처리완료용 아작스
+function postAllModifiedAjax(submitIndex, index) {
+	
+	$.ajax({
+		url :"/report/updatePostReport",
+		type: "post" ,
+		data : "pc_id="+submitIndex,
+		success : function(dt) {
+			$('.td_numsmall').eq(index).html('');
+		}
+	})
+}
+
+function essayAllModifiedAjax(submitIndex, index) {
+	
+	$.ajax({
+		url :"/report/updateEssayReport",
+		type: "post" ,
+		data : "essay_id="+submitIndex,
+		success : function(dt) {
+			$('.td_numsmall').eq(index).html('');
+		}
+	})
+}
 
 </script>
 
