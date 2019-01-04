@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+import kr.co.tripweaver.common.attachment.service.IAttachmentService;
 import kr.co.tripweaver.manager.report.model.ReportVO;
 import kr.co.tripweaver.manager.report.service.IReportService;
 import kr.co.tripweaver.postcard.model.PostCardVO;
@@ -27,6 +28,9 @@ public class ReportController {
 	
 	@Autowired
 	IPostCardService postCardService;
+	
+	@Autowired
+	IAttachmentService attachmentService;
 	
 	// 신고관리 페이지 이동
 	@RequestMapping("/declaration")
@@ -104,6 +108,7 @@ public class ReportController {
 	@RequestMapping("/reportPostClickAjax")
 	public String reportPostClickAjax(@RequestParam("pc_id")String pc_id, Model model) {
 		model.addAttribute("postcardVo", postCardService.selectSinglePost(pc_id));
+		model.addAttribute("attVo", attachmentService.selectPostcardFile(pc_id));
 		
 		return "admin/setting/reportPostClickAjax";
 	}

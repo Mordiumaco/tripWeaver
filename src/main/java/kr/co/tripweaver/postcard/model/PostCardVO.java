@@ -23,9 +23,16 @@ public class PostCardVO {
 	private String 				att_path;
 	private String 				att_file_name;
 	private Integer rnum;
+	private int 			comt_count;
 	
 	
 	
+	public int getComt_count() {
+		return comt_count;
+	}
+	public void setComt_count(int comt_count) {
+		this.comt_count = comt_count;
+	}
 	public Integer getRnum() {
 		return rnum;
 	}

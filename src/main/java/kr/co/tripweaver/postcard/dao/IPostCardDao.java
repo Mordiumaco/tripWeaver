@@ -156,5 +156,19 @@ public interface IPostCardDao {
 		*
 	 */
 	public PostCardVO selectSinglePost(String pc_id);
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 : 박찬배
+		* 생성날짜 : 2019. 01. 03
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 베스트 포스트카드 리스트
+		*
+	 */
+	public List<PostCardVO> bestPostSelect (Map<String, Object> params);
 
 }

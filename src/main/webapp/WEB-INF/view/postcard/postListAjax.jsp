@@ -85,7 +85,9 @@ $(function() {
 
 	});
 	
-			
+	
+	
+	
 });
 
 
@@ -105,6 +107,7 @@ $(function() {
 							<img src="/file/read?mem_profile=${pcl.mem_profile}">
 						</b>
 						<span>${pcl.mem_nick}</span>
+						<input type="hidden" id="mem_id" name="mem_id" value="${pcl.mem_id}">
 						<input type="hidden" id="pc_id" name="pc_id" value="${pcl.pc_id}">
 					</div> 
 					<c:choose>

@@ -45,4 +45,17 @@ public interface IFollowService {
 	* Method 설명 : 최신 팔로잉, 팔로워 조회하는 메서드
 	 */
 	public Map<String, Object> followCount(String mem_id);
+	
+
+	
+	/**
+	* Method : selectFolState
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2019. 1. 3.
+	* 변경이력 :
+	* @param followVo
+	* @return
+	* Method 설명 : 해당 팔로우 상태를 반환한다. 팔로우 상태일경우 1 아닐경우 0 
+	*/
+	public int selectFolState(FollowVO followVo);
 }

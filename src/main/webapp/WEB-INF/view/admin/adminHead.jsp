@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +11,8 @@
 <link rel="stylesheet" href="/css/admin.css">
 <script src="/js/jquery-3.3.1.min.js"></script>
 <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico" />
+<link rel="stylesheet" href="/css/flexslider2.css" type="text/css" media="screen" />
+<script defer src="/js/jquery.flexslider.js"></script>
 <script>
 	var tempX = 0;
 	var tempY = 0;

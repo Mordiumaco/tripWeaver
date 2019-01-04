@@ -1,155 +1,167 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../head.jsp" %>
+<link rel="stylesheet" href="/css/style.css">
 
+<style>
+.lodgment_title {
+	width: 100%;
+	text-align: center;
+	font-size: 3em;
+	margin: 20px 0 30px 0;
+	color: #1087e3;
+}
+</style>
+<script>
+	
+	$(function(){
+		$(".essaySection").css("cursor", "pointer");
+		
+		$(".board_listF").on("click", "tr", function(){
+	 		
+			let essay_id = $(this).find("td").eq(1).text();
+	 		
+			location.href = "/essay/essayView?essay_id="+essay_id;
+	 	});	
+	});
+ 	
+</script>
 <div class="sub_container">
-	抱きしめた　心の小宇宙
 
-다키시메타 코코로노 코스모
-
-가슴에 품은 마음의 소우주
-熱く燃やせ　奇跡を起こせ
-
-아츠쿠 모야세 키세키오 오코세
-
-뜨겁게 불태워라 기적을 일으켜라
-傷ついたままじゃいないと
-
-키즈츠이타마마쟈 이나이토
-
-상처 입은 채로 있지 않겠노라 
-誓いあった　遥かな銀河
-
-치카이앗타 하루카나 긴가
-
-함께 맹세했지 아득한 은하에
-ペガサス幻想　そうさ夢だけは
-
-페가사스 판타지- 소-사 유메다케와
-
-페가서스 판타지 그래, 꿈만큼은
-誰も奪えない　心の翼だから
-
-다레모 우바에나이 코코로노 츠바사다카라
-
-누구도 빼앗을 수 없는 마음의 날개니까
-
-
-聖闘士　星矢　少年はみんな
-
-세인트 세이야 쇼-넨와 민나
-
-세인트 세이야 소년은 모두
-
-聖闘士　星矢　明日の勇者　oh yeah
-
-세인트 세이야 아시타노 유-샤 oh yeah
-
-세인트 세이야 내일의 용사 oh yeah
-聖闘士　星矢　ペガサスのように
-
-세인트 세이야 페가사스노요-니
-
-세인트 세이야 페가서스처럼
-聖闘士　星矢　今こそ　はばたけ
-
-세인트 세이야 이마코소 하바타케
-
-세인트 세이야 지금이야말로 날아올라라
-
-
- 
-
-どこまでも　輝く空に
-
-도코마데모 카가야쿠 소라니
-
-끝없이 반짝이는 하늘에
- おまえだけの　星座をめざせ
-
-오마에다케노 세이자오 메자세 
-
-너만의 별자리를 목표로 삼아
- その日まで　負けられないさ
-
-소노 히마데 마케라레나이사
-
-그날까지 질 수 없어
-命賭けて　挑んだ　バトル
-
-이노치 카케테 이돈다 바토루 
-
-목숨 걸고 도전했던 배틀
- ペガサス幻想　誰もが夢見る
-
-페가사스 판타지 다레모가 유메미루
-
-페가서스 판타지 누구나 꿈꾸는
-自由という翼広げ　駆けてゆけ
-
-지유-토 이우 츠바사 히로게 카케테 유케
-
-자유라는 날개를 펼치고 달려가는 거야
-
-
-聖闘士　星矢　少年はみんな
-
-세인트 세이야 쇼-넨와 민나
-
-세인트 세이야 소년은 모두
-
-聖闘士　星矢　孤独な戦士　oh yeah
-
-세인트 세이야 코도쿠나 센시 oh yeah
-
-세인트 세이야 고독한 전사 oh yeah
-聖闘士　星矢　ペガサスのように
-
-세인트 세이야 페가사스노요-니
-
-세인트 세이야 페가서스처럼
-聖闘士　星矢　今こそ　はばたけ
-
-세인트 세이야 이마코소 하바타케
-
-세인트 세이야 지금이야말로 날아올라라
-
-
-
- ペガサス幻想　そうさ夢だけは
-
-페가사스 판타지- 소-사 유메다케와
-
-페가서스 판타지 그래, 꿈만큼은
-誰も奪えない　心の翼だから
-
-다레모 우바에나이 코코로노 츠바사다카라
-
-누구도 빼앗을 수 없는 마음의 날개니까
-
- 
-
-聖闘士　星矢　少年はみんな
-
-세인트 세이야 쇼-넨와 민나
-
-세인트 세이야 소년은 모두
-
-聖闘士　星矢　明日の勇者　oh yeah
-
-세인트 세이야 아시타노 유-샤 oh yeah
-
-세인트 세이야 내일의 용사들 oh yeah
-聖闘士　星矢　ペガサスのように
-
-세인트 세이야 페가사스노요-니
-
-세인트 세이야 페가서스처럼
-聖闘士　星矢　今こそ　はばたけ
-
-세인트 세이야 이마코소 하바타케
-
-세인트 세이야 지금이야말로 날아올라라
+	<h2 class="lodgment_title">Essay Best</h2>
+	
+	<div class="ranking_top ranking_top1">
+		<span>1</span>
+		<div class="ranking_profile">
+			<b class="my_profile my_profile4">
+				<c:choose>
+					<c:when test="${essayList[0].mem_profile eq ''}">
+						<img src="/img/no_profile.png"> 
+					</c:when>
+					<c:otherwise>
+						<img src="/upload/${essayList[0].mem_profile}" onerror="src='/img/no_profile.png';"> 
+					</c:otherwise>
+				</c:choose>
+			</b>
+		</div>
+		<ul>
+			<li><b>${essayList[0].mem_nick}</b><span>${essayList[0].essay_title}</span></li>
+			<li><span><i class="far fa-comment"></i>${essayList[0].comment_count}개 </span><span><i class="fas fa-heart likeDel" style="color:#ff0000;"></i> ${essayList[0].essay_like_count}개</span><span><i class="fas fa-eye"></i> ${essayList[0].essay_view_count} View</span></li>
+		</ul>
+	</div>
+	
+	
+	<div class="ranking_top ranking_top2">
+		<span>2</span>
+		<div class="ranking_profile">
+			<b class="my_profile my_profile4">
+				<c:choose>
+					<c:when test="${essayList[1].mem_profile eq ''}">
+						<img src="/img/no_profile.png"> 
+					</c:when>
+					<c:otherwise>
+						<img src="/upload/${essayList[1].mem_profile}" onerror="src='/img/no_profile.png';"> 
+					</c:otherwise>
+				</c:choose>
+			</b>
+		</div>
+		<ul>
+			<li><b>${essayList[1].mem_nick}</b><span>${essayList[1].essay_title}</span></li>
+			<li><span><i class="far fa-comment"></i>${essayList[1].comment_count}개 </span><span><i class="fas fa-heart likeDel" style="color:#ff1111;"></i> ${essayList[1].essay_like_count}개</span><span><i class="fas fa-eye"></i> ${essayList[1].essay_view_count} View</span></li>
+		</ul>
+	</div>
+	
+	<div class="ranking_top ranking_Mar ranking_top3">
+		<span>3</span>
+		<div class="ranking_profile">
+			<b class="my_profile my_profile4">
+				<c:choose>
+					<c:when test="${essayList[2].mem_profile eq ''}">
+						<img src="/img/no_profile.png"> 
+					</c:when>
+					<c:otherwise>
+						<img src="/upload/${essayList[2].mem_profile}" onerror="src='/img/no_profile.png';"> 
+					</c:otherwise>
+				</c:choose>
+			</b>
+		</div>
+		<ul>
+			<li><b>${essayList[2].mem_nick}</b><span>${essayList[2].essay_title}</span></li>
+			<li><span><i class="far fa-comment"></i>${essayList[2].comment_count}개 </span><span><i class="fas fa-heart likeDel" style="color:#ff2222;"></i> ${essayList[2].essay_like_count}개</span><span><i class="fas fa-eye"></i> ${essayList[2].essay_view_count} View</span></li>
+		</ul>
+	</div>
+
+	<div id="container" class="bestContainer">
+	<table class="board_list_wrap">
+		<colgroup>
+			<col width="5%">
+			<col width="20%">
+			<col width="20%">
+			<col width="25%">
+			<col width="10%">
+			<col width="10%">
+			<col width="10%">
+		</colgroup>
+		
+		<thead>
+			<tr>
+				<th>순위</th>
+				<th>위버</th>
+				<th>여행지역</th>
+				<th>제목</th>
+				<th>댓글수</th>
+				<th>좋아요</th>
+				<th>조회수</th>
+			</tr>
+		</thead>
+		
+		<tbody class="board_listF board_listBest">
+			<c:forEach items="${essayList}" var="essayVo" >
+			<tr class="essaySection">
+				<td>${essayVo.rnum}</td>
+				<td style="display: none;">${essayVo.essay_id}</td>	
+				<td>
+					<b class="my_profile my_profile3">
+						<c:choose>
+							<c:when test="${essayVo.mem_profile eq ''}">
+								<img src="/img/no_profile.png"> 
+							</c:when>
+							<c:otherwise>
+								<img src="/upload/${essayVo.mem_profile}" onerror="src='/img/no_profile.png';"> 
+							</c:otherwise>
+						</c:choose>
+					</b>
+					<span class="my_profile_nick">${essayVo.mem_nick}</span>
+				</td>
+				<td>${essayVo.mapmark_sido} ${essayVo.mapmark_sigungu}</td>
+				<td>${essayVo.essay_title}</td>
+				<td class="center_td">${essayVo.comment_count}</td>
+				<td>${essayVo.essay_like_count}개</td>
+				<td>${essayVo.essay_view_count}뷰</td>
+			</tr>
+			</c:forEach>
+		</tbody>
+		
+	</table>
+
+	<%-- <nav class="pg_wrap">
+		<span class="pg">
+		
+			<c:set var="pageSize" value="10"/>
+				<a class="pg_start pg_page" href="/main/board?board_id=${board_id}&page=1&pageSize=${pageSize}"></a>
+				<a class="pg_page pg_prev" href="/main/board?board_id=${board_id}&page=${param.page - 1}&pageSize=${pageSize}"></a>			
+			<c:forEach var="pageWrap"  varStatus="status" begin="1" end="${pageCnt}">
+				<c:choose>
+					<c:when test="${status.index == param.page}"><a class="pg_current" href="/main/board?board_id=${board_id}&page=${status.index}&pageSize=${pageSize}">${status.index}</a></c:when>
+					<c:otherwise><a class="pg_page" href="/main/board?board_id=${board_id}&page=${status.index}&pageSize=${pageSize}">${status.index}</a></c:otherwise>
+				</c:choose>
+			</c:forEach>
+			
+				<a class="pg_page pg_next" href="/main/board?board_id=${board_id}&page=${param.page + 1}&pageSize=${pageSize}"></a>
+				<a class="pg_page pg_end" href="/main/board?board_id=${board_id}&page=${pageCnt}&pageSize=${pageSize}"></a>
+			
+		</span>
+	</nav> --%>
 	
 </div>
 
