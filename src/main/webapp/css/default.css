@@ -1434,10 +1434,17 @@ a.btn_ov02:hover,a.ov_listall:hover{background:#3f51b5}
 
 .hashtag_text { font-size: 1em; font-weight: bold; color: #1087e3;}
 .hashtag_text a { font-size: 1em; font-weight: bold; color: #1087e3 !important; }
+
+.top_num {     
+	width: 100%;
+    height: 15px;
+    display: inline-block;
+}
+
 /* 추가 적인 부분*/
 .center_td { text-align: center !important;}
 
-.btn_submit {
+.sub_container .btn_submit {
     width: 40px;
     height: 40px;
     border: 0;

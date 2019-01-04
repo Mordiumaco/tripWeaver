@@ -158,7 +158,7 @@ function leadingZeros(n, digits) {
 			</li>
 		</ul>
 	</div>
-
+	<div class="top_num"><b>TOP 30</b></div>
 	<div id="container" class="bestContainer">
 	<table class="board_list_wrap">
 		<colgroup>
