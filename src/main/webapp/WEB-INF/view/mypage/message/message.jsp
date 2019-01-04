@@ -262,7 +262,6 @@ ul {
 	<div id="follow_count">
 		<!-- follow count ajax -->
 	</div>
-	
 	<div class="mes_friend">
 		<ul class="mes_friendUl">
 			<c:forEach items="${followingVOs}" var="following">

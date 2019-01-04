@@ -3,7 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 	
@@ -12,5 +14,10 @@
 	<context:component-scan base-package="kr.co.tripweaver">
 	   <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
+	
+	<bean id="statisticsTask" class="kr.co.tripweaver.util.batch.StatisticsTask"/>
+	<task:scheduler id="scheduler" pool-size="10"/>
+	<task:executor id="taskExcutor" pool-size="10"/>
+	<task:annotation-driven executor="taskExcutor" scheduler="scheduler"/>
 	
 </beans>
