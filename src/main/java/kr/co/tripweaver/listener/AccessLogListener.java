@@ -6,6 +6,8 @@ import javax.servlet.http.HttpSessionListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import kr.co.tripweaver.manager.conn_stat.model.ConnStatVO;
 
@@ -16,14 +18,19 @@ public class AccessLogListener implements HttpSessionListener {
 	
 	@Override
 	public void sessionCreated(HttpSessionEvent se) {
+		
+//		String referer = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().getHeader("referer");
+		
 		HttpSession session = se.getSession();
 		count++;
 		logger.debug("sessionCreated : {}", session.getId());
+//		logger.debug("referer : {}", referer);
 		
 		//접속자VO에 속성들 저장
 		ConnStatVO connInfo = new ConnStatVO();
 		connInfo.setSession_id(session.getId());
-		
+//		connInfo.setConn_ref(referer);
+	
 		//세션에 접속자VO 속성저장
 		session.setAttribute("connInfo", connInfo);
 		session.setAttribute("count", count);

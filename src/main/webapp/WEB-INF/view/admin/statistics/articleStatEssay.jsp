@@ -512,7 +512,7 @@ div .connstat_table {
 		                    "visible":false
 		                },
 		                 "tooltip":{
-		                    "text":"%v 건 몇%",
+		                    "text":"%v 건",
 		                    "shadow":false,
 		                    "border-radius":3
 		                }
@@ -600,7 +600,7 @@ div .connstat_table {
 		                    "visible":false
 		                },
 		                 "tooltip":{
-		                    "text":"%v BN",
+		                    "text":"%v 건",
 		                    "shadow":false,
 		                    "border-radius":3
 		                }
@@ -837,7 +837,7 @@ div .connstat_table {
 	</div>
 	<form id="search" action="/artstat/artstatEssay">
 		<label for="datepicker"><span id="dateTypeName"></span>
-			<input type="text" id="datepicker" name="datepicker" class="datepicker" placeholder="기간을 선택해주세요"/>
+			<input type="text" id="datepicker" name="datepicker" class="datepicker" placeholder="기간을 선택해주세요" readonly="readonly"/>
 		</label>
 		<input type="hidden" id="dateType" name="dateType">
 		<input type="button" value="검색" class="btn_submit" id="search_btn">

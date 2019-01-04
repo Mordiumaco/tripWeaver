@@ -526,4 +526,11 @@ public class MainController {
 		return resultMemberVo.getMem_pass();
 		
 	}
+	
+	
+	@RequestMapping("/privacy")
+	public String privacy() {
+		return "privacy";
+	}
+	
 }

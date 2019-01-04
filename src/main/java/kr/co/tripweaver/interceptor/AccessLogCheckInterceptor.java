@@ -90,7 +90,7 @@ public class AccessLogCheckInterceptor extends HandlerInterceptorAdapter {
 				}
 				// browser
 				if (agent.indexOf("Trident") > -1) {
-					browser = "MSIE";
+					browser = "MISE";
 				} else if (agent.indexOf("Chrome") > -1) {
 					browser = "Chrome";
 				} else if (agent.indexOf("Opera") > -1) {

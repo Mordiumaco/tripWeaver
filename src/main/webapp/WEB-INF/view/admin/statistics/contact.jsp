@@ -416,7 +416,7 @@
 		</select> 
 		
 		<label for="datepicker"><span id="dateTypeName"></span>
-			<input type="text" id="datepicker" name="datepicker" class="datepicker" placeholder="기간을 선택해주세요"/>
+			<input type="text" id="datepicker" name="datepicker" class="datepicker" placeholder="기간을 선택해주세요" readonly="readonly"/>
 		</label>
 		
 		<input type="hidden" id="dateType" name="dateType">
@@ -435,10 +435,6 @@
 		<p>접속자 집계 통계 리스트 입니다.</p>
 	</div>
 
-	<div class="btn_fixed_top">
-		<a href="./itemstocklist.php" class="btn_02 btn">상품재고관리</a> <a
-			href="./itemlist.php" class="btn_01 btn">상품등록</a>
-	</div>
 
 	<div id="contact_list_ajax">
 		<!-- contact_list_ajax 페이지 -->

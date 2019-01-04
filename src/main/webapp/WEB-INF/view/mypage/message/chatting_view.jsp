@@ -170,17 +170,20 @@ $(document).ready(function(){
 	});
 	
 	$('#exit_btn').on('click', function() {
-		var mem_nick = '${loginInfo.mem_nick}';
-		if(msg != ""){
-			message = {};
-			message.msg_cnt = '"' + mem_nick + '"님이 퇴장하셨습니다.';
-			message.msg_date = new Date();
-			message.mem_id = 'admin';
-			message.group_id = '${group_id}';
+		var conf = confirm("채팅방을 나가시겠습니까?");
+		if(conf){
+			var mem_nick = '${loginInfo.mem_nick}';
+			if(msg != ""){
+				message = {};
+				message.msg_cnt = '"' + mem_nick + '"님이 퇴장하셨습니다.';
+				message.msg_date = new Date();
+				message.mem_id = 'admin';
+				message.group_id = '${group_id}';
+			}
+			sock.send(JSON.stringify(message));
+			
+			$('#exit_frm').submit();
 		}
-		sock.send(JSON.stringify(message));
-		
-		$('#exit_frm').submit();
 	});
 });
 
