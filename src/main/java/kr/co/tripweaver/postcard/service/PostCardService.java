@@ -256,6 +256,10 @@ public class PostCardService implements IPostCardService{
 			List<String> hashTagList = hashTagService.hashtagPostCard(postCardVO.getPc_id());
 			
 			postCardVO.setHashTagList(hashTagList);
+			
+			// 박찬배 이미지 파일 가져오는 부분 추가
+			postCardVO.setAttachmentList(attachmentService.selectPostcardFile(postCardVO.getPc_id()));
+			
 		}
 		
 		return postCardList;

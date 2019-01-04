@@ -270,10 +270,14 @@ to {transform: translate(30px);}
 /*==================  메인 컨텐츠 02  슬라이더 부분 시작 ============================*/
 .main_con_02 { width: 1190px; height:250px; margin: 30px auto; border-bottom: 1px solid #ddd; }
 
-.slides .sl_left { float: left;}
-.slides .sl_left img {    
+.slides .sl_left { float: left;
 	width: 184px !important;
     height: 152px !important;
+    overflow: hidden;
+    text-align: center;
+}
+.slides .sl_left img {    
+ 	width: 140% !important;
 }
 .slides>a { width: 50%; float: left;}
 .slides>a:hover { background: #fff;}

@@ -373,7 +373,9 @@ text = text.replace("&nbsp;",""); */
 		    			<li>
 		    		</c:if>
 		    		<a>
-				      	<div class="sl_left"><img src="/img/main_01.jpg" /></div>
+				      	<div class="sl_left">
+		      				<img src="/upload/postcard/${recentPostCardVo.attachmentList[0].att_file_name}" onerror="imgError(this)">
+				      	</div>
 				      	<div class="sl_right">
 				      		<ul>
 				      			<li>Post Card<%-- <c:forEach items="${recentPostCardVo.hashTagList}" var="hashTagVo">${hashTagVo.tag_word} </c:forEach> --%></li>

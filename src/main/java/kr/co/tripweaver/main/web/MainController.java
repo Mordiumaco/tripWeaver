@@ -22,6 +22,7 @@ import kr.co.tripweaver.article.model.ArticleVO;
 import kr.co.tripweaver.article.service.IArticleService;
 import kr.co.tripweaver.board.model.BoardVO;
 import kr.co.tripweaver.board.service.IBoardService;
+import kr.co.tripweaver.common.attachment.service.IAttachmentService;
 import kr.co.tripweaver.essay.model.EssayVO;
 import kr.co.tripweaver.essay.service.IEssayService;
 import kr.co.tripweaver.member.model.MemberVO;
@@ -56,6 +57,9 @@ public class MainController {
 	
 	@Autowired
 	IMemberService memberService;
+	
+	@Autowired
+	IAttachmentService attachmentService;
 	
 	@RequestMapping("/main")
 	public String mainView(Model model) {
