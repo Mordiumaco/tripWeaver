@@ -16,7 +16,7 @@ public class StatisticsTask {
 		statisticsTaskDao.connectionStatistics();
 	}
 	
-	@Scheduled(cron = "0 * * * * *") //매시 정각이 될때마다 (1시간마다)
+	@Scheduled(cron = "0 0 * * * *") //매시 정각이 될때마다 (1시간마다)
 	public void connectionTimeStatistics() {
 		statisticsTaskDao.connectionTimeStatistics();
 	}
