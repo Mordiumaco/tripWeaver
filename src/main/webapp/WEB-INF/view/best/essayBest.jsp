@@ -30,6 +30,12 @@
 
 	<h2 class="lodgment_title">Essay Best</h2>
 	
+	<div class="local_desc01 local_desc">
+	    <p>
+			Essay Best는 매월 1일 부터 마지막일을 기준으로 상위권 30인을 기준으로 합니다.
+	    </p>
+	</div>
+	
 	<div class="ranking_top ranking_top1">
 		<span>1</span>
 		<div class="ranking_profile">

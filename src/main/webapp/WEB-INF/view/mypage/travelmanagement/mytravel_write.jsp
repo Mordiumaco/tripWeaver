@@ -94,8 +94,8 @@ function goMypage(){
 		
 		var container = document.getElementById('map');
 		var options = {
-			center: new daum.maps.LatLng(33.450701, 126.570667),
-			level: 3
+			  center : new daum.maps.LatLng(35.7683, 128.708), // 지도의 중심좌표
+		      level : 13 // 지도의 확대 레벨
 		};
 	
 		var map = new daum.maps.Map(container, options);

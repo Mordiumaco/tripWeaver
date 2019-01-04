@@ -23,7 +23,7 @@ $(function(){
 	$(".followLayer").hide();
 	
 	//프로필 사진 부분을 클릭했을 때 언팔로우 팔로우 여부 확인
-	$('#post_left_wrap').on('click', '.postli_l', function(event){
+	$('#post_left_wrap').on('click', '.postInfo', function(event){
 		
 		let logincheck = "${loginInfo.mem_id}";
 		

@@ -29,6 +29,16 @@ public interface IFollowDao {
 	public List<MemberVO> selectFollowing(Map<String, Object> params);
 	
 	/**
+	* Method : selectFollowingById
+	* 작성자 : jin
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 해당 멤버의 팔로잉 멤버리스트 반환하는 메서드
+	 */
+	public List<MemberVO> selectFollowingById(Map<String, Object> params);
+	
+	/**
 	* Method : selectFollowerCount
 	* 작성자 : jin
 	* 변경이력 :
@@ -42,11 +52,21 @@ public interface IFollowDao {
 	* Method : selectFollower
 	* 작성자 : jin
 	* 변경이력 :
-	* @param mem_id
+	* @param params
 	* @return
 	* Method 설명 : 해당 멤버의 팔로워 멤버리스트를 반환하는 메서드
 	 */
 	public List<MemberVO> selectFollower(Map<String, Object> params);
+	
+	/**
+	* Method : selectFollowerById
+	* 작성자 : jin
+	* 변경이력 :
+	* @param params
+	* @return
+	* Method 설명 : 해당 멤버의 팔로워 멤버리스트를 반환하는 메서드
+	 */
+	public List<MemberVO> selectFollowerById(Map<String, Object> params);
 	
 	/**
 	* Method : insertFollowing
@@ -98,4 +118,14 @@ public interface IFollowDao {
 	* Method 설명 : 팔로워에 대한 FollowVO정보리스트를 반환하는 메서드
 	 */
 	public List<FollowVO> selectFollow(String mem_id);
+	
+	/**
+	* Method : selectFollower
+	* 작성자 : jin
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 팔로잉에 대한 FollowVO정보리스트를 반환하는 메서드
+	 */
+	public List<FollowVO> selectFollow2(String mem_id);
 }
