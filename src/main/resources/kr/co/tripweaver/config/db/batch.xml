@@ -40,7 +40,7 @@
 		SELECT TO_DATE(TO_CHAR(SYSDATE, 'yyyy.MM.dd HH24'), 'yyyy.MM.dd HH24:MI:SS') AS timestat_date,
 		       COUNT(CASE TO_CHAR(conn_time, 'yyyy.MM.dd HH24') WHEN TO_CHAR(SYSDATE, 'yyyy.MM.dd HH24') THEN 1 END) AS timestat_count
 		FROM conninformation c
-		GROUP BY SYSDATE-1
+		GROUP BY SYSDATE
 	</insert>
 
 </mapper>
