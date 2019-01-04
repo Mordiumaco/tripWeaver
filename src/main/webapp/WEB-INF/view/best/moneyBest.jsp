@@ -137,7 +137,7 @@
 						<span class="my_profile_nick">${essayVo.mem_nick}</span>
 					</td>
 					<td class="center_td money"><fmt:formatNumber value="${essayVo.totalmoney}"></fmt:formatNumber></td>
-					<td >대전광역시 중구</td>
+					<td >${essayVo.mapmark_sido} ${essayVo.mapmark_sigungu}</td>
 					<td>${essayVo.essay_title}</td>
 					<td>${essayVo.essay_like_count}개</td>
 					<td>${essayVo.essay_view_count}뷰</td>

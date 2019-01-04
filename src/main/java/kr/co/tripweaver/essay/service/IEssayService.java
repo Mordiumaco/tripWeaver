@@ -131,4 +131,14 @@ public interface IEssayService {
 	*/
 	public List<ClusterVO> bestMoneyEssayList();
 	
+	/**
+	* Method : bestEssayList
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2019. 1. 4.
+	* 변경이력 :
+	* @return
+	* Method 설명 : 해당 에세이 베스트 랭킹을 위한 에세이 리스트 
+	*/
+	public List<ClusterVO> bestEssayList();
+	
 }

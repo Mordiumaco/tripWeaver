@@ -182,17 +182,18 @@ function fboardlist_submit(f) {
 	</table>
 	
 	<div class="board_tail">
-		<form action="javascript:searchFt(1);" method="get" >
+		<form action="/article/articlePageList" method="get" >
 			<ul class="bt_left">
 				<li>
-					<select name="search_key" id="search_key">
+					<select name="search" id="search">
 						<option value="art_title">제목</option>
-						<option value="po_contents">내용</option>
-						<option value="userid">회원아이디</option>
+						<option value="art_cnt">내용</option>
+						<option value="mem_id">글쓴이</option>
 					</select>
 				</li>
 				<li>
-					<input type="text" id="search_value" name="search_value" value="" required="required"> 
+					<input type="text" id="searchWord" name="searchWord" value="" required="required"> 
+					<input type="hidden" name="board_id" value="${board_id}"/>
 				</li>
 				<li>
 					<button class="btn_bd col_04" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>

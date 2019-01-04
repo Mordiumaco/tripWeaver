@@ -84,8 +84,21 @@ public class BestController {
 		return "best/postBest";
 	}
 	
+	/**
+	 * Method : essayBest
+	 * 작성자 : Jae Hyeon Choi
+	 * 생성날짜 : 2019. 1. 4.
+	 * 변경이력 : 
+	 * @param model
+	 * @return
+	 * Method 설명 : 에세이 베스트를 위한 뷰 컨트롤러
+	 */
 	@RequestMapping("/essayBest")
-	public String essayBest() {
+	public String essayBest(Model model) {
+		
+		List<ClusterVO> essayList = essayService.bestEssayList();
+		
+		model.addAttribute("essayList", essayList);
 		
 		return "best/essayBest";
 	}

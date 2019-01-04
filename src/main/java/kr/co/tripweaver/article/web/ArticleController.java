@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -108,22 +109,39 @@ public class ArticleController {
 	* Method 설명 : 게시글 페이지 리스트
 	*/
 	@RequestMapping("/articlePageList")
-	public String articleListView(PageVO pageVo, @RequestParam("board_id")String board_id, Model model,
+	public String articleListView(@RequestParam(value="page", required=false, defaultValue="1")String page, 
+			@RequestParam(value="pageSize", required=false, defaultValue="10")
+			String pageSize, @RequestParam(value="board_id", required=false)String board_id, Model model,
 			@RequestParam(value = "search", required=false, defaultValue="art_title") String search, 
 			@RequestParam(value = "searchWord", required=false, defaultValue="") String searchWord) {
 		
+		PageVO pageVo = new PageVO();
+		
+		pageVo.setPage(Integer.parseInt(page));
+		pageVo.setPageSize(Integer.parseInt(pageSize));
+		
+		
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("pageVo", pageVo);
 		param.put("board_id", board_id);
 		param.put("search", search);
 		param.put("searchWord", searchWord);
+		param.put("pageVo", pageVo);
 		
-		List<ArticleVO> articleList = articleService.articlePagingList(param);
-
 //		int pageCnt = (int) articleList.get("pageCnt");
 
 		int totalArticleCnt = articleService.getArticleCnt(param);
-		int pageCnt = (int) Math.ceil(totalArticleCnt/pageVo.getPageSize()); 
+		
+		int pageCnt = 1;
+		
+		if(totalArticleCnt != 0) {
+			
+			pageCnt = (int) Math.ceil(totalArticleCnt/10)+1; 
+			
+		}else {
+			
+		}
+		
+		List<ArticleVO> articleList = articleService.articlePagingList(param);
 		
 		model.addAttribute("articleList", articleList);
 		logger.debug("articleList[loginInfo] : {} ", articleList);

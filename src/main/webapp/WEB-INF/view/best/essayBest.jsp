@@ -12,7 +12,20 @@
 	color: #1087e3;
 }
 </style>
-
+<script>
+	
+	$(function(){
+		$(".essaySection").css("cursor", "pointer");
+		
+		$(".board_listF").on("click", "tr", function(){
+	 		
+			let essay_id = $(this).find("td").eq(1).text();
+	 		
+			location.href = "/essay/essayView?essay_id="+essay_id;
+	 	});	
+	});
+ 	
+</script>
 <div class="sub_container">
 
 	<h2 class="lodgment_title">Essay Best</h2>
@@ -21,12 +34,19 @@
 		<span>1</span>
 		<div class="ranking_profile">
 			<b class="my_profile my_profile4">
-				<img src="/upload/profile/profile1.jpg">
+				<c:choose>
+					<c:when test="${essayList[0].mem_profile eq ''}">
+						<img src="/img/no_profile.png"> 
+					</c:when>
+					<c:otherwise>
+						<img src="/upload/${essayList[0].mem_profile}" onerror="src='/img/no_profile.png';"> 
+					</c:otherwise>
+				</c:choose>
 			</b>
 		</div>
 		<ul>
-			<li><b>닉네임 자리다</b><span>에세이 여행글 제목이다.</span></li>
-			<li><span><i class="far fa-comment"></i> 60개 </span><span><i class="fas fa-heart likeDel" style="color:#ff0000;"></i> 30개</span><span><i class="fas fa-eye"></i> 60 View</span></li>
+			<li><b>${essayList[0].mem_nick}</b><span>${essayList[0].essay_title}</span></li>
+			<li><span><i class="far fa-comment"></i>${essayList[0].comment_count}개 </span><span><i class="fas fa-heart likeDel" style="color:#ff0000;"></i> ${essayList[0].essay_like_count}개</span><span><i class="fas fa-eye"></i> ${essayList[0].essay_view_count} View</span></li>
 		</ul>
 	</div>
 	
@@ -35,12 +55,19 @@
 		<span>2</span>
 		<div class="ranking_profile">
 			<b class="my_profile my_profile4">
-				<img src="/upload/profile/profile1.jpg">
+				<c:choose>
+					<c:when test="${essayList[1].mem_profile eq ''}">
+						<img src="/img/no_profile.png"> 
+					</c:when>
+					<c:otherwise>
+						<img src="/upload/${essayList[1].mem_profile}" onerror="src='/img/no_profile.png';"> 
+					</c:otherwise>
+				</c:choose>
 			</b>
 		</div>
 		<ul>
-			<li><b>닉네임 자리다</b><span>에세이 여행글 제목이다.</span></li>
-			<li><span><i class="far fa-comment"></i> 60개 </span><span><i class="fas fa-heart likeDel" style="color:#ff0000;"></i> 30개</span><span><i class="fas fa-eye"></i> 60 View</span></li>
+			<li><b>${essayList[1].mem_nick}</b><span>${essayList[1].essay_title}</span></li>
+			<li><span><i class="far fa-comment"></i>${essayList[1].comment_count}개 </span><span><i class="fas fa-heart likeDel" style="color:#ff1111;"></i> ${essayList[1].essay_like_count}개</span><span><i class="fas fa-eye"></i> ${essayList[1].essay_view_count} View</span></li>
 		</ul>
 	</div>
 	
@@ -48,12 +75,19 @@
 		<span>3</span>
 		<div class="ranking_profile">
 			<b class="my_profile my_profile4">
-				<img src="/upload/profile/profile1.jpg">
+				<c:choose>
+					<c:when test="${essayList[2].mem_profile eq ''}">
+						<img src="/img/no_profile.png"> 
+					</c:when>
+					<c:otherwise>
+						<img src="/upload/${essayList[2].mem_profile}" onerror="src='/img/no_profile.png';"> 
+					</c:otherwise>
+				</c:choose>
 			</b>
 		</div>
 		<ul>
-			<li><b>닉네임 자리다</b><span>에세이 여행글 제목이다.</span></li>
-			<li><span><i class="far fa-comment"></i> 60개 </span><span><i class="fas fa-heart likeDel" style="color:#ff0000;"></i> 30개</span><span><i class="fas fa-eye"></i> 60 View</span></li>
+			<li><b>${essayList[2].mem_nick}</b><span>${essayList[2].essay_title}</span></li>
+			<li><span><i class="far fa-comment"></i>${essayList[2].comment_count}개 </span><span><i class="fas fa-heart likeDel" style="color:#ff2222;"></i> ${essayList[2].essay_like_count}개</span><span><i class="fas fa-eye"></i> ${essayList[2].essay_view_count} View</span></li>
 		</ul>
 	</div>
 
@@ -82,25 +116,35 @@
 		</thead>
 		
 		<tbody class="board_listF board_listBest">
-			<tr>
-				<td>1</td>
+			<c:forEach items="${essayList}" var="essayVo" >
+			<tr class="essaySection">
+				<td>${essayVo.rnum}</td>
+				<td style="display: none;">${essayVo.essay_id}</td>	
 				<td>
 					<b class="my_profile my_profile3">
-						<img src="/upload/profile/profile1.jpg">
+						<c:choose>
+							<c:when test="${essayVo.mem_profile eq ''}">
+								<img src="/img/no_profile.png"> 
+							</c:when>
+							<c:otherwise>
+								<img src="/upload/${essayVo.mem_profile}" onerror="src='/img/no_profile.png';"> 
+							</c:otherwise>
+						</c:choose>
 					</b>
-					<span class="my_profile_nick">닉네임</span>
+					<span class="my_profile_nick">${essayVo.mem_nick}</span>
 				</td>
-				<td >대전광역시 중구</td>
-				<td>즐거운 대전 여행</td>
-				<td class="center_td">10 개</td>
-				<td>258개</td>
-				<td>500뷰</td>
-			</tr>	
+				<td>${essayVo.mapmark_sido} ${essayVo.mapmark_sigungu}</td>
+				<td>${essayVo.essay_title}</td>
+				<td class="center_td">${essayVo.comment_count}</td>
+				<td>${essayVo.essay_like_count}개</td>
+				<td>${essayVo.essay_view_count}뷰</td>
+			</tr>
+			</c:forEach>
 		</tbody>
 		
 	</table>
 
-	<nav class="pg_wrap">
+	<%-- <nav class="pg_wrap">
 		<span class="pg">
 		
 			<c:set var="pageSize" value="10"/>
@@ -117,7 +161,7 @@
 				<a class="pg_page pg_end" href="/main/board?board_id=${board_id}&page=${pageCnt}&pageSize=${pageSize}"></a>
 			
 		</span>
-	</nav>
+	</nav> --%>
 	
 </div>
 

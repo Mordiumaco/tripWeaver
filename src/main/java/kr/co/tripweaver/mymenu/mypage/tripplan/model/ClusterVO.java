@@ -52,8 +52,15 @@ public class ClusterVO {
 	private String  mem_profile;
     private String essay_title;
     private Integer rnum;
+    private Integer comment_count;
     
     
+	public Integer getComment_count() {
+		return comment_count;
+	}
+	public void setComment_count(Integer comment_count) {
+		this.comment_count = comment_count;
+	}
 	public Integer getRnum() {
 		return rnum;
 	}
