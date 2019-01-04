@@ -4,9 +4,9 @@
 <footer>
 	<div class="footer_top">
 		<ul>
-			<li><a href="">광고/제휴 문의</a></li>
-			<li><a href="">개인 정보 방침</a></li>
-			<li><a href="">공지사항</a></li>
+			<li><a href="/main/board?board_id=141&page=1&pageSize=10">광고/제휴 문의</a></li>
+			<li><a href="/main/privacy">개인 정보 방침</a></li>
+			<li><a href="/main/board?board_id=bd00001&page=1&pageSize=10">공지사항</a></li>
 		</ul>
 		<ul>
 			<li><a href=""></a></li>
