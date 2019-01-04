@@ -211,6 +211,9 @@
 			<!-- tripplan table 제목 -->
 			<li>제목: <b><input name="tripplan_title" type="text" placeholder="제목을 적어주세요." size="72" style="height: 40px; padding-left: 10px;" required="required"></b></li>
 			<!-- 이미지 파일 받을 부분 -->
+		</ul>
+		<ul style=" height: 60px; line-height: 60px;">
+			<!-- 이미지 파일 받을 부분 -->
 			<img id="image_section"/>
 			<li>대표이미지 : <b><input name="tripplan_image_file" type="file" onchange="loadFile(event)"/></b></li>
 		</ul>

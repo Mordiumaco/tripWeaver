@@ -32,6 +32,12 @@
 
 	<h2 class="lodgment_title">짠내 Best</h2>
 	
+	<div class="local_desc01 local_desc">
+	    <p>
+			짠내 Best는 매월 1일 부터 마지막일을 기준으로 상위권 30인을 기준으로 합니다.
+	    </p>
+	</div>
+	
 	<div class="ranking_top ranking_top1">
 		<span>1</span>
 		<div class="ranking_profile">
@@ -93,7 +99,7 @@
 		</ul>
 	</div>
 
-	<h1>TOP 100</h1>
+	<h1>TOP 30</h1>
 	<div id="container" class="bestContainer">
 	<table class="board_list_wrap">
 		<colgroup>

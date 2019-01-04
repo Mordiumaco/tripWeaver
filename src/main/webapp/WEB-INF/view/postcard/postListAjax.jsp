@@ -102,7 +102,7 @@ $(function() {
 		<c:when test="${pcl.pc_del == 'N'}">	
 			<ul class="postCard_con">
 				<li>
-					<div class="postli_l">
+					<div class="postli_l postInfo">
 						<b>
 							<img src="/file/read?mem_profile=${pcl.mem_profile}">
 						</b>
