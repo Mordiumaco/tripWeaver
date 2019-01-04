@@ -31,7 +31,8 @@ where rnum between #{pageVo.page}*#{pageVo.pageSize}-(#{pageVo.pageSize}-1) and 
 
 <insert parameterType="articleVo" id="insertArticle"> 
 insert into article (art_id, art_title, art_cnt, art_groupid, art_date, art_secret, art_del, board_id, mem_id, art_par_id) 
-values('art'||LPAD(art_seq.nextval, 5,'0'), #{art_title}, #{art_cnt}, art_seq.currval, sysdate, #{art_secret}, 'N', #{board_id}, #{mem_id}, null)
+values('art'||LPAD(art_seq.nextval, 5,'0'), #{art_title}, #{art_cnt}, art_seq.currval, sysdate, #{art_secret}, 'N', #{board_id}, #{mem_id},
+<choose><when test="art_par_id == null">null</when><otherwise>#{art_par_id}</otherwise></choose>)
 <selectKey resultType="String" keyProperty="art_id" order="AFTER">
         SELECT ('art'||LPAD(art_seq.currval, 5,'0')) from dual
 </selectKey>         

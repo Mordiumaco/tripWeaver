@@ -46,6 +46,7 @@ function commentEdit(m){
 		<div class="view_btn">
 			<ul>
 				<c:if test="${articleVo.mem_id eq loginInfo.mem_id}">
+				<li><button class="btn_bd col_03" type="submit" onclick="location.href='/main/board?board_id=${board_id}&page=1&pageSize=10&search_key=art_title&search_value='">목록</button></li>
 					<li>
 						<form action="/article/updateArticle" method="get">
 							<input type="hidden"  name="art_id" value="${articleVo.art_id}">
@@ -63,8 +64,10 @@ function commentEdit(m){
 				</c:if>
 			
 				<li>
-					<form action="/board/insertReplyView" method="get">
+					<form action="/article/insertReplyView" method="get">
 						<input type="hidden" name="art_id" value="${articleVo.art_id}">
+						<input type="hidden" name="board_id" value="${articleVo.board_id}">
+						<input type="hidden" name="art_par_id" value="${articleVo.art_id}">
 						<input class="btn_bd col_01" type="submit" value="답글">
 					</form>
 				</li>

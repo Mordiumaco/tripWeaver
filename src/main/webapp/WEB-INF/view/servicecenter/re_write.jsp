@@ -94,14 +94,13 @@ $(document).ready(function(){
 <div class="main_con" id="main_con">
 
 <div id="container">
-	<form action="/board/insertReply" method="post" id="frm" enctype="multipart/form-data">
+	<form action="/article/insertReply" method="post" id="frm" enctype="multipart/form-data">
 	
 
 	<div class="write_warp">
-		<input type="hidden" readonly="readonly" name="nt_id" value="${postsVo.nt_id}">
-		<input type="hidden" readonly="readonly" name="po_id" value="${postsVo.po_id}">
-		<input type="hidden" name="po_reply" value="${postsVo.po_reply}">
-		선택한 게시글 제목 : <strong>${postsVo.po_subject}</strong>
+		<input type="text" name="board_id" value="${board_id}">
+		<input type="text" name="art_par_id" value="${art_par_id}">
+		선택한 게시글 제목 : <strong>${articleVo.art_title}</strong>
 	</div>
 
 	
@@ -109,8 +108,8 @@ $(document).ready(function(){
 	<div class="write_warp">
 		<ul class="write_warpL">
 			<li><b>이름 &nbsp;&nbsp;: </b></li>
-			<li><label > ${S_USER.userId} </label></li>
-			<input type="hidden" id="userId" name="${S_USER.userId}">
+			<li><label > ${loginInfo.mem_id} </label></li>
+			<input type="hidden" id="userId" name="${loginInfo.mem_id}">
 		</ul>
 				
 	</div>
@@ -118,13 +117,13 @@ $(document).ready(function(){
 	<div class="write_warp">
 		<ul class="write_warpL">
 			<li><b>제목  &nbsp;&nbsp;: </b></li>
-			<li><input id="po_subject" name="po_subject" type="text"></li>
+			<li><input id="art_title" name="art_title" type="text" value="${articleVo.art_title}"></li>
 		</ul>
 	</div>
 	
 	<div class="write_warp">
 		<h3>내용</h3><br/>
-			<textarea name="smarteditor" id="smarteditor" rows="10" cols="100" style="width:100%; height:500px;"></textarea> 
+			<textarea name="art_cnt" id="smarteditor" rows="10" cols="100" style="width:100%; height:500px;"></textarea> 
 	</div>
 	
 		
@@ -132,7 +131,7 @@ $(document).ready(function(){
 	
 	<div class="write_warp">
 		<ul class="file_list">
-			<li class="file_list_li1"><b>첨부 파일 :</b> &nbsp;&nbsp; <input type="file" name="fl_flie1" ><div class="plus_btn">+</div> <div class="minus_btn">-</div></li>	
+			<li class="file_list_li1"><b>첨부 파일 :</b> &nbsp;&nbsp; <input type="file" name="attachments" ><div class="plus_btn">+</div> <div class="minus_btn">-</div></li>	
 		</ul>
 	</div>
 

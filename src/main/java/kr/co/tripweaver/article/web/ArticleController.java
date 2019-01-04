@@ -512,4 +512,121 @@ public class ArticleController {
 		
 		return "redirect: /article/articleDetail?art_id="+art_id;
 	}
+	
+	
+	@RequestMapping(value = "/insertReplyView", method = RequestMethod.GET)
+	public String insertReplyView(HttpSession session, @RequestParam("art_id") String art_id,
+			@RequestParam("board_id") String board_id,
+			@RequestParam("art_par_id") String art_par_id,
+			HttpServletRequest request, Model model) {
+
+		MemberVO memberVo = (MemberVO) session.getAttribute("loginInfo");
+
+		if (memberVo == null) {
+			return "loginCheckError";
+		}
+		logger.debug("memberVo[loginInfo] : {} ", memberVo);
+
+		model.addAttribute("board_id", board_id);
+		model.addAttribute("art_par_id", art_par_id);
+		
+		return "servicecenter/re_write";
+	}
+	
+	@RequestMapping(value = "/insertReply", method = RequestMethod.POST)
+	public String insertReply(HttpSession session,@RequestParam("board_id")String board_id, @RequestParam("art_cnt") String art_cnt,
+			@RequestParam("art_title") String art_title, @RequestParam(value="art_secret", required=false) String art_secret,
+			@RequestParam("art_par_id") String art_par_id,
+			@RequestParam("attachments") MultipartFile[] attachments, HttpServletRequest request)
+			throws IllegalStateException, IOException {
+
+		MemberVO memberVo = (MemberVO) session.getAttribute("loginInfo");
+
+		String mem_id = memberVo.getMem_id();
+		String[] att_file_name = new String[2] ;
+		String[] att_file_ori_name = new String[2];
+		String att_path = "attachment/";
+	
+		int cnt = 0;
+		String path = "C:/upload";
+		
+		for (MultipartFile file : attachments) {
+			
+			
+			if (file == null || file.isEmpty()) {
+				continue;
+			}
+
+			att_file_ori_name[cnt] = file.getOriginalFilename();
+			logger.debug("att_file_ori_name[cnt] {}", att_file_ori_name[cnt]);
+
+			String fileExt = FileUtil.getFileExt(att_file_ori_name[cnt]);
+			if (!(att_file_ori_name[cnt].equals(""))) {
+				att_file_name[cnt] = UUID.randomUUID().toString() + fileExt;
+			logger.debug("att_file_name[cnt] {}", att_file_name[cnt]);
+				file.transferTo(new File(path + File.separator + att_path + att_file_name[cnt]));
+			}
+			
+			cnt++;
+		}
+		
+		logger.debug("cnt{}", cnt);
+		for (int i = 0; i < att_file_ori_name.length; i++) {
+			logger.debug("서준영[]");
+			logger.debug("att_file_ori_name : {}", att_file_ori_name[i]);
+			logger.debug("att_path : {}", path);
+			logger.debug("att_file_name : {}", att_file_name[i]);
+			logger.debug("filter_id : {}", "article");
+		}
+		
+		
+		if(art_secret == null) {
+			art_secret = "N";
+		} else if(art_secret.equals("on")){
+			art_secret = "Y";
+		}
+		
+		ArticleVO articleVo = new ArticleVO();
+		articleVo.setArt_cnt(art_cnt);
+		articleVo.setArt_title(art_title);
+		articleVo.setArt_secret(art_secret);
+		articleVo.setBoard_id(board_id);
+		articleVo.setArt_par_id(art_par_id);
+		
+		logger.debug("art_secret[art_secret] : {} ", art_secret);
+		articleVo.setMem_id(mem_id);
+		
+		String art_id = articleService.insertArticle(articleVo);
+		if (art_id != null) {
+			logger.debug("최재현{}");
+			for (int i = 0; i < cnt; i++) {
+				Map<String, Object> param2 = new HashMap<String, Object>();
+				logger.debug("박동주[]");
+				logger.debug("att_file_ori_name{}", att_file_ori_name[i]);
+				logger.debug("att_path{}", path);
+				logger.debug("att_file_name{}", att_file_name[i]);
+				logger.debug("filter_id{}", "article");
+				logger.debug("att_rel_art_id{}", art_id);
+				
+				param2.put("att_file_ori_name", att_file_ori_name[i]);
+				param2.put("att_path", path);
+				param2.put("att_file_name", att_file_name[i]);
+				param2.put("filter_id", "article");
+				param2.put("att_rel_art_id", art_id);
+
+				int atInsert = attachmentService.attachmentInsert(param2);
+
+				if (atInsert != 0) {
+
+				} else {
+					System.out.println("**답글 첨부파일 오류**");
+					return "dbError";
+				}
+			}
+			return "redirect: /main/board?board_id="+board_id;
+		} else {
+			return "dbError";
+		}
+	}
+	
 }
