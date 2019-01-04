@@ -157,7 +157,6 @@ ul {
 <script type="text/javascript">
 	$(document).ready(function() {
 		var login_id = '${loginInfo.mem_id}';
-		follow_count(login_id);
 		
 		$('.followBtn').on({
 			click : function() {
@@ -221,7 +220,6 @@ ul {
 		});
 	}
 	function follow_count(mem_id) {
-		console.log('카운트 아작스 들어옴');
 		$.ajax({
 			url : "/follow/followCountAjax",
 			type : "post",
@@ -267,14 +265,13 @@ ul {
 	
 	<div class="mes_friend">
 		<ul class="mes_friendUl">
-		
 			<c:forEach items="${followingVOs}" var="following">
 				<li class="mes_f_list ${following.mem_id}">
 					<div><b class="my_profile my_profile2"><img src="/file/read?mem_profile=${following.mem_profile}"></b></div>
 					<ul>
 						<li>${following.mem_nick}</li>
 						<li>
-							<a href="/message/selectMessage11?login_id=${loginInfo.mem_id}&mem_id=${following.mem_id}">쪽지</a>
+							<a href="/message/selectMessage11?login_id=${loginInfo.mem_id}&mem_id=${following.mem_id}">메세지</a>
 							<input type="hidden" value="${following.mem_id}">
 							<input type="button" class="following followBtn" value="팔로잉">
 						</li>
@@ -299,7 +296,7 @@ ul {
 					<ul>
 						<li>${follower.mem_nick}</li>
 						<li>
-							<a href="/message/selectMessage11?login_id=${loginInfo.mem_id}&mem_id=${follower.mem_id}">쪽지</a>
+							<a href="/message/selectMessage11?login_id=${loginInfo.mem_id}&mem_id=${follower.mem_id}">메세지</a>
 							<input type="hidden" value="${follower.mem_id}">
 							<c:choose>
 								<c:when test="${fol_state == 0}">
@@ -313,8 +310,6 @@ ul {
 					</ul>
 				</li>
 			</c:forEach>
-
-
 			
 		</ul>
 	</div>

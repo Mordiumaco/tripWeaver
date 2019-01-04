@@ -71,7 +71,73 @@ $(document).ready(function(){
 			$(this).find(":radio").remove();
 		}
 	});
+	follow_count('${writerVo.mem_id}');
 });
+
+//팔로우 레이어팝업을 위한 메서드
+function layer_open2(el, follow){
+
+  var temp = $('#' + el);
+  var bg = temp.prev().hasClass('bg');    //dimmed 레이어를 감지하기 위한 boolean 변수
+
+  if(bg){
+     $('.layer2').fadeIn();  //'bg' 클래스가 존재하면 레이어가 나타나고 배경은 dimmed 된다. 
+  }else{
+  }
+  // 화면의 중앙에 레이어를 띄운다.
+  if (temp.outerHeight() < $(document).height() ) temp.css('margin-top', '-'+temp.outerHeight()/2+'px');
+  else temp.css('top', '0px');
+  if (temp.outerWidth() < $(document).width() ) temp.css('margin-left', '-'+temp.outerWidth()/2+'px');
+  else temp.css('left', '0px');
+
+  if(follow == 'following'){
+	  $("#follow_popup_title").text("팔로잉");
+  } else {
+	  $("#follow_popup_title").text("팔로워");
+  }
+
+  follow_pop_up(follow, "");
+  
+  temp.find('a.cbtn, a.close').click(function(e){
+     if(bg){
+        $('.layer2').fadeOut(); //'bg' 클래스가 존재하면 레이어를 사라지게 한다. 
+     }else{
+        temp.fadeOut();
+     }
+     e.preventDefault();
+  });
+
+  $('.bg, .close').click(function(e){ //배경을 클릭하면 레이어를 사라지게 하는 이벤트 핸들러
+     $('.layer2').fadeOut();
+     e.preventDefault();
+  });
+}
+
+function follow_pop_up(follow, stx) {
+	//팔로잉,팔로워 구분하는 변수 필요
+	var writer_id = '${writerVo.mem_id}';
+	$.ajax({
+		url : "/follow/followListPopupAjax",
+		type : "get",
+		data : "mem_id=" + writer_id + "&follow=" + follow + "&stx1=" + stx + "&viewer=" + '${loginInfo.mem_id}',
+		success : function(dt) {
+			$("#follow_list_ajax").html(dt);
+		}
+	});
+}
+
+//ajax 팔로잉이벤트 팔로잉수 갱신
+function follow_count(mem_id) {
+	$.ajax({
+		url : "/follow/followCountMypageAjax",
+		type : "get",
+		data : {"mem_id":mem_id},
+		success : function(dt) {
+			$("#following_cnt").html(dt.followingCnt)
+			$("#follower_cnt").html(dt.followerCnt)
+		}
+	});
+}
 
 </script>
 
@@ -126,8 +192,16 @@ $(document).ready(function(){
 					<c:set var="generation" value="60대"></c:set>
 				</c:when>
 			</c:choose>
-			<li> <span>${generation}</span> <a href="/main/memModified">쪽지 보내기</a></li>
-			<li class="mypage_leftUl2_li2"><a href=""><b>${writerVo.mem_following_count}</b> 팔로잉</a> <a href=""><b>${writerVo.mem_follower_count}</b> 팔로워</a></li>
+			<li> <span>${generation}</span> 
+			
+			<c:if test="${loginInfo.mem_id ne writerVo.mem_id}">
+				<a onclick="window.open('/message/selectMessage11?login_id=${loginInfo.mem_id}&mem_id=${writerVo.mem_id}','window_name','width=417,height=500,location=no,status=no,scrollbars=yes');">메세지</a></li>
+			</c:if>
+			
+			<li class="mypage_leftUl2_li2">
+				<a href="javascript::" onclick="layer_open2('layer_2', 'following');return false;" class="follow_btn"><b id="following_cnt"></b> 팔로잉</a> 
+				<a href="javascript::" onclick="layer_open2('layer_2', 'follower');return false;" class="follow_btn"><b id="follower_cnt"></b> 팔로워</a>
+			</li>
 		</ul>
 		
 		<c:if test="${guidePlanList != null}">
@@ -235,3 +309,28 @@ $(document).ready(function(){
 	</div>
 
 </div>
+
+<div class="layer2">
+	<div class="bg"></div>
+	<div id="layer_2" class="pop_layer follow_pop_layer">
+		<div class="layer_con">
+			<form id="mypage_follow_search_form" action="/" method="post">
+			 <!-- 팔로잉/팔로워 구분 -->
+				<div class="mypage_follow_popup_title"><span id="follow_popup_title"></span><input type="text" name="stx1" id="stx1" placeholder="아이디를 입력해주세요"/><input type="button" id="follow_search_btn" value="검색"/><input type="button" class="close" id="follow_close" value="나가기"/></div>
+			</form>
+			<ul id="follow_list_ajax">
+				<!-- 리스트 ajax부분 -->
+				<li></li>
+			</ul>
+		</div>
+
+	</div>
+</div>
+<script>
+	$("#follow_search_btn").on("click", function() {
+		var stx = $("#stx1").val();
+		var follow = $("#follow_popup_title").html();
+		follow = follow == "팔로잉" ? "following" : "follower";
+		follow_pop_up(follow, stx);
+	});
+</script>

@@ -73,5 +73,37 @@ public class FollowService implements IFollowService {
 		resultMap.put("followerCnt", follower);
 		return resultMap;
 	}
+
+	@Override
+	public Map<String, Object> selectFollowList(Map<String, Object> params) {
+		String follow = (String) params.get("follow");
+		String mem_id = (String) params.get("mem_id");
+		String viewer = (String) params.get("viewer");
+		List<MemberVO> followList = null;
+		List<FollowVO> followVOs = null;
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		if(viewer.equals("")) {
+			if(follow.equals("following")) {
+				followList = followDao.selectFollowingById(params);
+			} else {
+				followList = followDao.selectFollowerById(params);
+				followVOs = followDao.selectFollow(mem_id);
+				resultMap.put("followVOs", followVOs);
+			}
+		} else {
+			followVOs = followDao.selectFollow2(viewer);
+			resultMap.put("followVOs", followVOs);
+			if(follow.equals("following")) {
+				followList = followDao.selectFollowingById(params);
+			} else {
+				followList = followDao.selectFollowerById(params);
+			}
+		}
+		
+		resultMap.put("followList", followList);
+		return resultMap;
+	}
+
 	
 }
