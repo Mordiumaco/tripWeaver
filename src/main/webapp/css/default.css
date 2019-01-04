@@ -1188,6 +1188,11 @@ a.btn_ov02:hover,a.ov_listall:hover{background:#3f51b5}
 
 /* 레이어 팝업  */
 
+/* 에세이 신고, 우측 팔로잉,팔로워 팝업구분을 위한 layer2생성 */
+.layer2 {display:none; position:fixed; _position:absolute; top:0; left:0; width:100%; height:100%; z-index:100;}
+.layer2 .bg {position:absolute; top:0; left:0; width:100%; height:100%; background:#000; opacity:.5; filter:alpha(opacity=50);}
+.layer2 .pop_layer {display:block;}
+
 .layer1 {display:none; position:fixed; _position:absolute; top:0; left:0; width:100%; height:100%; z-index:100;}
 .layer1 .bg {position:absolute; top:0; left:0; width:100%; height:100%; background:#000; opacity:.5; filter:alpha(opacity=50);}
 .layer1 .pop_layer {display:block;}
@@ -1343,6 +1348,28 @@ a.btn_ov02:hover,a.ov_listall:hover{background:#3f51b5}
 .postcard_pop_layer ul li:nth-child(3) a {  background: #fff;  padding: 5px 20px; cursor: pointer; color: #666;}
 
 
+/* 팔로우 팝업 */
+.follow_pop_layer { width: 450px !important; height: 500px !important; overflow-y: scroll; border-radius: 10px;}
+.mypage_follow_li { width: 196px !important; height: 90px !important; float: left; }
+.mypage_follow_li ul { width: 96px; height:80px; margin: 5px; float: left; }
+.mypage_follow_li ul li {margin: 5px 0px;}
+.mypage_follow_li ul li:nth-child(2) {font-size: 13px; color: #a9a9a9;}
+.mypage_follow_profile { width: 80px !important; margin: 5px; float: left;}
+#follow_list_ajax { margin-top: 10px;}
+#follow_popup_title { font-weight: bold; font-size: 20px; float: left; margin-left: 15px;}
+#mypage_follow_search_form { width: 180px;}
+.mypage_follow_popup_title {width: 380px !important; height: 30px !important; }
+#stx1 { margin-left: 60px; margin-top: 3px;}
+#follow_search_btn  {margin-left: 6px; margin-top: 3px;}
+#follow_close { margin-left: 6px; margin-top: 3px;}
+.followBtn { margin-left: 3px; width: 53px;}
+
+
+
+
+
+
+
 /* 팔로우 팔로잉 추가 css */
 .followLayer {
 	position: absolute;
@@ -1434,10 +1461,17 @@ a.btn_ov02:hover,a.ov_listall:hover{background:#3f51b5}
 
 .hashtag_text { font-size: 1em; font-weight: bold; color: #1087e3;}
 .hashtag_text a { font-size: 1em; font-weight: bold; color: #1087e3 !important; }
+
+.top_num {     
+	width: 100%;
+    height: 15px;
+    display: inline-block;
+}
+
 /* 추가 적인 부분*/
 .center_td { text-align: center !important;}
 
-.btn_submit {
+.sub_container .btn_submit {
     width: 40px;
     height: 40px;
     border: 0;

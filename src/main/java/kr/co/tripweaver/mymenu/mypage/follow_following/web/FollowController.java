@@ -1,5 +1,7 @@
 package kr.co.tripweaver.mymenu.mypage.follow_following.web;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.tripweaver.member.model.MemberVO;
 import kr.co.tripweaver.mymenu.mypage.follow_following.model.FollowVO;
 import kr.co.tripweaver.mymenu.mypage.follow_following.service.IFollowService;
 
@@ -45,6 +48,8 @@ public class FollowController {
 		return "/mypage/message/message_follow_count_ajax";
 	}
 	
+
+	
 	/**
 	* Method : selectFollow
 	* 작성자 : Jae Hyeon Choi
@@ -61,5 +66,34 @@ public class FollowController {
 		int resultCnt = followService.selectFolState(followVo);
 		
 		return resultCnt;
+	}
+	
+		@RequestMapping("/followCountMypageAjax")
+	@ResponseBody
+	public Map<String, Object> followCountMypageAjax(@RequestParam("mem_id") String mem_id){
+		
+		Map<String, Object> resultMap = followService.followCount(mem_id);
+		
+		return resultMap;
+	}
+	
+	@RequestMapping("/followListPopupAjax")
+	public String followListPopupAjax(@RequestParam("mem_id") String mem_id, @RequestParam(value="viewer", required=false) String viewer, @RequestParam("follow") String follow, @RequestParam(value="stx1", required=false) String stx, Model model) {
+		System.out.println("mem_id : " + mem_id + " viewer : " + viewer + " follow : " + follow + " stx1 : " + stx);
+		stx = stx == null ? "" : stx;
+		viewer = viewer == null ? "" : viewer;
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("mem_id", mem_id);
+		params.put("stx", stx);
+		params.put("follow", follow);
+		params.put("viewer", viewer);
+		Map<String, Object> resultMap = followService.selectFollowList(params);
+		
+		resultMap.put("follow", follow);
+		resultMap.put("ess_writer_id", mem_id);
+		
+		model.addAllAttributes(resultMap);
+		
+		return "/mypage/myPageFollowPopup";
 	}
 }
