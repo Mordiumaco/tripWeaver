@@ -241,7 +241,7 @@ div .connstat_table {
 				                }
 				            },
 				            "scale-y":{
-				                "values":"0:25:5",
+				                "values":"0:70:5",
 				                "line-color":"#D9D7D5",
 				                "line-width":"1px",
 				                "tick":{
@@ -359,7 +359,7 @@ div .connstat_table {
                 }
             },
             "scale-y": {
-                "values": "0:10:1",
+                "values": "0:25:1",
                 "short": true,
                 "line-color": "#7E7E7E",
                 "tick": {
@@ -462,7 +462,7 @@ div .connstat_table {
 	</div>
 	<form id="search" action="/artstat/artstatPostcard">
 		<label for="datepicker"><span id="dateTypeName"></span>
-			<input type="text" id="datepicker" name="datepicker" class="datepicker" placeholder="기간을 선택해주세요"/>
+			<input type="text" id="datepicker" name="datepicker" class="datepicker" placeholder="기간을 선택해주세요" readonly="readonly"/>
 		</label>
 		<input type="hidden" id="dateType" name="dateType">
 		<input type="button" value="검색" class="btn_submit" id="search_btn">

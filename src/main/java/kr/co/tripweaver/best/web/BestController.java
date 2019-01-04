@@ -35,11 +35,40 @@ public class BestController {
 	* @param model
 	* @return
 	* Method 설명 : 짠내 베스트를 위한 뷰 컨트롤러
+	 * @throws ParseException 
 	*/
 	@RequestMapping("/moneyBest")
-	public String moneyBest(Model model) {
+	public String moneyBest(Model model, @RequestParam(value="datepicker" , required = false) String date ) throws ParseException {
 		
-		List<ClusterVO> essayList = essayService.bestMoneyEssayList();
+		String endDate = null;
+		String startDate = null;
+		
+		if(date == null) {
+			Date dateNew = new Date();
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(dateNew);
+			SimpleDateFormat simpleDate = new SimpleDateFormat("yyyyMM");
+			String ym = simpleDate.format(dateNew);
+			endDate = ym + calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+			startDate = ym + "01";
+		}else {
+			Calendar calendar = Calendar.getInstance();
+			SimpleDateFormat simpleDate = new SimpleDateFormat("yyyyMM");
+			Date date2 = simpleDate.parse(date);
+			calendar.setTime(date2);
+			
+			endDate = date + calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+			startDate = date + "01";
+		}
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		
+			params.put("startDate", startDate);
+	
+			params.put("endDate", endDate);
+		
+		
+		List<ClusterVO> essayList = essayService.bestMoneyEssayList(params);
 		
 		model.addAttribute("essayList", essayList);
 		
@@ -92,11 +121,40 @@ public class BestController {
 	 * @param model
 	 * @return
 	 * Method 설명 : 에세이 베스트를 위한 뷰 컨트롤러
+	 * @throws ParseException 
 	 */
 	@RequestMapping("/essayBest")
-	public String essayBest(Model model) {
+	public String essayBest(Model model, @RequestParam(value="datepicker" , required = false) String date ) throws ParseException {
 		
-		List<ClusterVO> essayList = essayService.bestEssayList();
+		String endDate = null;
+		String startDate = null;
+		
+		if(date == null) {
+			Date dateNew = new Date();
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(dateNew);
+			SimpleDateFormat simpleDate = new SimpleDateFormat("yyyyMM");
+			String ym = simpleDate.format(dateNew);
+			endDate = ym + calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+			startDate = ym + "01";
+		}else {
+			Calendar calendar = Calendar.getInstance();
+			SimpleDateFormat simpleDate = new SimpleDateFormat("yyyyMM");
+			Date date2 = simpleDate.parse(date);
+			calendar.setTime(date2);
+			
+			endDate = date + calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+			startDate = date + "01";
+		}
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		
+			params.put("startDate", startDate);
+	
+			params.put("endDate", endDate);
+		
+		
+		List<ClusterVO> essayList = essayService.bestEssayList(params);
 		
 		model.addAttribute("essayList", essayList);
 		

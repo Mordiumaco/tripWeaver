@@ -20,7 +20,7 @@
 			    <tr>
 			        <th scope="col" id="mb_list_chk" rowspan="2">
 			            <label for="chkall" class="sound_only">회원 전체</label>
-			            <input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
+			            <input type="checkbox" name="chkall" value="1" id="chkall" >
 			        </th>
 			        <th scope="col" id="mb_list_mailc">신고코드</th>
 			        <th scope="col" id="mb_list_id">신고내용</th>
@@ -36,9 +36,7 @@
 		    	<c:forEach items="${pareamsMap.reportVo}" var="repostVo">
 				    <tr class="bg0">
 				        <td headers="mb_list_chk" class="td_chk">
-				            <input type="hidden" name="mb_id[0]" value="pcpcggg3@naver.com" id="mb_id_0">
-				            <label for="chk_0" class="sound_only">pcpcggg3@naver.com 님</label>
-				            <input type="checkbox" name="chk[]" value="0" id="chk_0">
+				            <input type="checkbox" name="chk" value="0" id="chk" class="ab">
 				        </td>
 				        <td headers="mb_list_id"  class="td_name sv_use">${repostVo.report_id}</td>
 				        <td headers="mb_list_cert"  class="td_mbcert">${repostVo.rep_cnt}</td>
@@ -67,7 +65,7 @@
 				        	 <c:choose>
 				        		<c:when test="${ letter eq 'p' }" >
 				        			<form class="updateReport" method="post" action="/report/updatePostReport">
-				        				<input type="hidden" name="pc_id" value="${repostVo.report_rel_art_id}">
+				        				<input type="hidden" class="post_id" name="pc_id" value="${repostVo.report_rel_art_id}">
 					        			
 						        		<c:choose>
 				        					<c:when test="${repostVo.report_proc_sta == 'N'}">
@@ -81,7 +79,7 @@
 				        		</c:when>
 				        		<c:otherwise>
 				        			<form class="updateReport" method="post" action="/report/updateEssayReport">
-				        				<input type="hidden" name="essay_id" value="${repostVo.report_rel_art_id}">
+				        				<input type="hidden" class="post_id" name="essay_id" value="${repostVo.report_rel_art_id}">
 				        				<c:choose>
 				        					<c:when test="${repostVo.report_proc_sta == 'N'}">
 				        						<a href="/essay/essayView?essay_id=${repostVo.report_rel_art_id}" target="blink" >${repostVo.report_rel_art_id}</a>

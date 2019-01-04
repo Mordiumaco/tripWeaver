@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="batchSQL">
+
+	<!-- 접속자 통계 쿼리문 -->
+	<insert id="batch_connStat">
+		INSERT INTO connstat 
+		SELECT SYSDATE AS connstat_date,
+		       COUNT(*) AS connstat_visiters,
+		       COUNT(CASE conn_ref WHEN 'Email' THEN 1 END) AS referer_email,
+		       COUNT(CASE conn_ref WHEN 'Blog' THEN 1 END) AS referer_blog,
+		       COUNT(CASE conn_ref WHEN 'SNS' THEN 1 END) AS referer_sns,
+		       COUNT(CASE conn_ref WHEN 'Other' THEN 1 END) AS referer_others,
+		       COUNT(CASE conn_divice WHEN 'Mobile' THEN 1 END) AS divice_mobile,
+		       COUNT(CASE conn_divice WHEN 'Tablet' THEN 1 END) AS divice_tablet,
+		       COUNT(CASE conn_divice WHEN 'PC' THEN 1 END) AS divice_pc,
+		       COUNT(CASE conn_divice WHEN 'Other' THEN 1 END) AS divice_others,
+		       COUNT(CASE conn_browser WHEN 'FireFox' THEN 1 END) AS brow_firefox,
+		       COUNT(CASE conn_browser WHEN 'MISE' THEN 1 END) AS brow_mise,
+		       COUNT(CASE conn_browser WHEN 'Chrome' THEN 1 END) AS brow_chrome,
+		       COUNT(CASE conn_browser WHEN 'Opera' THEN 1 END) AS brow_opera,
+		       COUNT(CASE conn_browser WHEN 'Other' THEN 1 END) AS brow_others,
+		       COUNT(CASE conn_os WHEN 'Android' THEN 1 END) AS os_android,
+		       COUNT(CASE conn_os WHEN 'iOS' THEN 1 END) AS os_ios,
+		       COUNT(CASE conn_os WHEN 'Windows 10' THEN 1 END) AS os_windows10,
+		       COUNT(CASE conn_os WHEN 'Windows XP' THEN 1 END) AS os_windowsxp,
+		       COUNT(CASE conn_os WHEN 'Windows' THEN 1 END) AS os_windowsothers,
+		       COUNT(CASE conn_os WHEN 'Linux' THEN 1 END) AS os_linux,
+		       COUNT(CASE conn_os WHEN 'Macintosh' THEN 1 END) AS os_mecintosh,
+		       COUNT(CASE conn_os WHEN 'Other' THEN 1 END) AS os_others
+		FROM conninformation
+		WHERE conn_time BETWEEN TO_DATE(TO_CHAR(SYSDATE - 1, 'yyyy.MM.dd'), 'yyyy.MM.dd') AND TO_DATE(TO_CHAR(SYSDATE - 1, 'yyyy.MM.dd') || '23:59:59', 'yyyy.MM.dd HH24:MI:SS')
+	</insert>
+	
+	<!-- 접속시간별 통계 쿼리문 -->
+	<insert id="batch_connTimeStat">
+		INSERT INTO conntimestat
+		SELECT TO_DATE(TO_CHAR(SYSDATE, 'yyyy.MM.dd HH24'), 'yyyy.MM.dd HH24:MI:SS') AS timestat_date,
+		       COUNT(CASE TO_CHAR(conn_time, 'yyyy.MM.dd HH24') WHEN TO_CHAR(SYSDATE, 'yyyy.MM.dd HH24') THEN 1 END) AS timestat_count
+		FROM conninformation c
+		GROUP BY SYSDATE
+	</insert>
+
+</mapper>

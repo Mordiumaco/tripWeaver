@@ -75,7 +75,7 @@
 					        <th scope="col" id="mb_list_mailr">
 					        	<a href="">신청자</a>
 					        </th>
-					        <th scope="col" id="mb_list_auth">쪽지</th>
+					        <th scope="col" id="mb_list_auth">메세지</th>
 					 		<th scope="col" id="mb_list_auth">삭제</th>
 					    </tr>
 				    </thead>
@@ -103,7 +103,7 @@
 						           	 ${reservationForMyPageVo.mem_nick}   
 						        </td>
 						        <td headers="mb_list_grp" class="td_numsmall">
-						        	<a href="" class="btn btn_03">쪽지</a>
+						        	<a class="btn btn_03" onclick="window.open('/message/selectMessage11?login_id=${loginInfo.mem_id}&mem_id=${reservationForMyPageVo.mem_id}','window_name','width=417,height=500,location=no,status=no,scrollbars=yes');">메세지</a>
 						        </td>
 						        <td headers="mb_list_grp" class="td_numsmall">
 						        	<a href="/reserDelete?reser_id=${reservationForMyPageVo.reser_id}" class="btn btn_01" >삭제</a>

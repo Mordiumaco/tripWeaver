@@ -54,6 +54,7 @@
   	<mapper resource="kr/co/tripweaver/config/db/connInfo.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/reportreason.xml"/>
   	<mapper resource="kr/co/tripweaver/config/db/articleStat.xml"/>
+  	<mapper resource="kr/co/tripweaver/config/db/batch.xml"/>
   </mappers>
   
 </configuration>

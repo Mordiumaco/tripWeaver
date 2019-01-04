@@ -80,5 +80,23 @@ public class FollowDao implements IFollowDao {
 		List<FollowVO> followVOs = template.selectList("followSQL.selectFollow", mem_id);
 		return followVOs;
 	}
+
+	@Override
+	public List<MemberVO> selectFollowingById(Map<String, Object> params) {
+		List<MemberVO> memberVOs = template.selectList("followSQL.selectFollowingById", params);
+		return memberVOs;
+	}
+
+	@Override
+	public List<MemberVO> selectFollowerById(Map<String, Object> params) {
+		List<MemberVO> memberVOs = template.selectList("followSQL.selectFollowerById", params);
+		return memberVOs;
+	}
+
+	@Override
+	public List<FollowVO> selectFollow2(String mem_id) {
+		List<FollowVO> followVOs = template.selectList("followSQL.selectFollow2", mem_id);
+		return followVOs;
+	}
 	
 }

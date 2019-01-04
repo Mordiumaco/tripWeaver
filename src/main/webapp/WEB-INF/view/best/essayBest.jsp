@@ -25,11 +25,75 @@
 	 	});	
 	});
  	
+	$(function() {
+		
+		if($('#datepicker').val() == '' ){
+			$('#datepicker').val(getTimeStamp(new Date(), dateType));
+		}
+		
+		$("#datepicker").datepicker({
+		    dateFormat: 'yyyyMM',
+		    changeMonth: true,
+		    changeYear: true,
+		    showWeek : true,
+		    showButtonPanel: true,
+		    onClose: function(dateText, inst) {
+		        var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+		        var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+		        $(this).val(getTimeStamp(new Date(year, month, 1), dateType));
+		    }
+		});
+		
+		$("#datepicker").focus(function () {
+	        $(".ui-datepicker-calendar").hide();
+	        $("#ui-datepicker-div").position({
+	            my: "center top",
+	            at: "center bottom",
+	            of: $(this)
+	        });
+	    });
+		
+	});
+
+	function getTimeStamp(d, dType) {
+	   var s = leadingZeros(d.getFullYear(), 4) + leadingZeros(d.getMonth() + 1, 2);
+	   return s;
+	 }
+
+	function leadingZeros(n, digits) {
+		var zero = '';
+		n = n.toString();
+		
+		if (n.length < digits) {
+		  for (i = 0; i < digits - n.length; i++)
+		    zero += '0';
+		}
+		return zero + n;
+	}
+
 </script>
 <div class="sub_container">
 
 	<h2 class="lodgment_title">Essay Best</h2>
 	
+	<div class="local_desc01 local_desc">
+	    <p>
+			Essay Best는 매월 1일 부터 마지막일을 기준으로 상위권 30인을 기준으로 합니다.
+	    </p>
+	</div>
+	
+	<form  method="get" action="/essayBest">
+			
+		<label for="datepicker"><span id="dateTypeName"></span>
+			<input type="text" id="datepicker" name="datepicker" class="datepicker" placeholder="기간을 선택해주세요" required="required" readonly="readonly" value="${param.datepicker}">
+		</label>
+		
+		<input type="hidden" id="dateType" name="dateType" required="required" value="">
+		<input type="submit" value="검색" class="btn_submit333" id="search_btn">
+	</form>
+	
+	<br/>
+	<br/>
 	<div class="ranking_top ranking_top1">
 		<span>1</span>
 		<div class="ranking_profile">

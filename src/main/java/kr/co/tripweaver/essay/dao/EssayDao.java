@@ -286,13 +286,13 @@ public class EssayDao implements IEssayDao{
 	* Method 설명 : 해당 짠내 베스트 랭킹을 위한 에세이 리스트 
 	*/
 	@Override
-	public List<ClusterVO> bestMoneyEssayList(){
+	public List<ClusterVO> bestMoneyEssayList(Map<String, Object> params){
 		
 		List<ClusterVO> essayList = null;
 		
 		try {
 			
-			essayList = template.selectList("essaySQL.bestMoneyEssayList");
+			essayList = template.selectList("essaySQL.bestMoneyEssayList", params);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -311,13 +311,13 @@ public class EssayDao implements IEssayDao{
 	* @return
 	* Method 설명 : 해당 에세이 베스트 랭킹을 위한 에세이 리스트 
 	*/
-	public List<ClusterVO> bestEssayList(){
+	public List<ClusterVO> bestEssayList(Map<String, Object> params){
 		
 		List<ClusterVO> essayList = null;
 		
 		try {
 			
-			essayList = template.selectList("essaySQL.bestEssayList");
+			essayList = template.selectList("essaySQL.bestEssayList", params);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -84,7 +84,7 @@ function leadingZeros(n, digits) {
 		</label>
 		
 		<input type="hidden" id="dateType" name="dateType" required="required" value="">
-		<input type="submit" value="검색" class="btn_submit" id="search_btn">
+		<input type="submit" value="검색" class="btn_submit333" id="search_btn">
 	</form>
 	
 	<br/>
@@ -158,7 +158,7 @@ function leadingZeros(n, digits) {
 			</li>
 		</ul>
 	</div>
-
+	<div class="top_num"><b>TOP 30</b></div>
 	<div id="container" class="bestContainer">
 	<table class="board_list_wrap">
 		<colgroup>

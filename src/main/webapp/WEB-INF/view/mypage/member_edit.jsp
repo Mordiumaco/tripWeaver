@@ -77,7 +77,7 @@
 				<ul>
 					<li>
 						<label for="reg_mb_gender" class="sound_only">성별<strong>필수</strong></label>
-						<span><b>성별 : <c:if test="${loginInfo.mem_gender == 'M'}">남성</c:if><c:if test="${loginInfo.mem_gender == 'W'}">여성</c:if></b>
+						<span><b>성별 : <c:if test="${loginInfo.mem_gender == 'M'}">남성</c:if><c:if test="${loginInfo.mem_gender == 'F'}">여성</c:if></b>
 					</li>
 					<br/>
 					<li>
@@ -104,7 +104,7 @@
 					</c:if>
 					<br/>
 					<li>
-						<h2>연령대</h2>
+						<b class="dusfudeo">연령대 :</b>
 						<label for="reg_mb_age" class="sound_only">연령대<strong>필수</strong></label>
 						<select name="mem_age" id="mem_age">
 							<option value="0-9">0-9</option>

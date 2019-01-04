@@ -23,7 +23,7 @@ $(function(){
 	$(".followLayer").hide();
 	
 	//프로필 사진 부분을 클릭했을 때 언팔로우 팔로우 여부 확인
-	$('#post_left_wrap').on('click', '.postli_l', function(event){
+	$('#post_left_wrap').on('click', '.postInfo', function(event){
 		
 		let logincheck = "${loginInfo.mem_id}";
 		
@@ -725,7 +725,6 @@ function layer_open1(el){
 					 	<input type="hidden" id="filter_id" name="filter_id" value="postcard">
 					 	
 					 	<select name="rep_rea_id">
-					 		<option >신고사유 선택하세요.</option>
 					 		<c:forEach items="${reportVOs}" var="report">
 					 			<option value="${report.rep_rea_id}">${report.rep_rea_name}</option>
 					 		</c:forEach>

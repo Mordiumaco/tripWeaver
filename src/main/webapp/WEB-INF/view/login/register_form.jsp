@@ -55,7 +55,7 @@
 	</h2>
 	<!-- 회원정보 입력/수정 시작 { -->
 	<script src="https://demo.sir.kr/gnuboard5/js/jquery.register_form.js"></script>
-	<form id="fregisterform" name="fregisterform" action="" onsubmit="return fregisterform_submit(this);" method="post" enctype="multipart/form-data" autocomplete="off">
+	<form id="fregisterform" name="fregisterform" action="/join/memberJoinCheck" onsubmit="return fregisterform_submit(this);" method="post" enctype="multipart/form-data" autocomplete="off">
 		<input type="hidden" name="w" value=""> 
 		<input type="hidden" name="url" value=""> 
 		<input type="hidden" name="agree" value="1"> 
@@ -183,6 +183,12 @@
                 f.mem_name.focus();
                 return false;
             }
+	        
+            if (f.mem_name.value.length > 4) {
+                alert("이름을 4자 이하 입력하십시오.");
+                f.mem_name.focus();
+                return false;
+            }
 	            /*
 	            var pattern = /([^가-힣\x20])/i;
 	            if (pattern.test(f.mb_name.value)) {
@@ -199,8 +205,20 @@
 	                return false;
 	        }
 	            
+            if (f.mem_nick.value.length > 4) {
+           		 //var msg = reg_mb_nick_check();
+                alert("닉네임을 4자 이하 입력해 주세요");
+                f.mem_nick.focus();
+                return false;
+	        }
+	            
 	        //전화번호 검사
 	        if(f.mem_tel.value.length > 5){
+	        	
+	        	if(f.mem_tel.value.length > 20){
+	        		alert('전화번호가 너무 깁니다');
+	        		return false;
+	        	}
 	        	var regNumber = /^[0-9]*$/;
 	            var temp = $("#reg_mb_tel").val();
 	            if(!regNumber.test(temp))

@@ -16,6 +16,10 @@ function button_event(){
 	}
 }
 
+
+
+
+
 $(document).ready(function(){
 	$('#container').on('click','.essay_calendat_btn',function () {
 		$('.essay_calendar').hide('slow'); 
@@ -40,6 +44,8 @@ $(document).ready(function(){
 		
 		likeDelAjax(thisVar);
 	});
+	
+	
 });
 
 
@@ -103,7 +109,7 @@ $(document).ready(function(){
 </style>
 
 <div class="sub_container">
-
+	
 	<%@include file="essayRightMenu.jsp" %>
 	
 	<div class="essayLeft">
@@ -586,7 +592,6 @@ $(document).ready(function(){
 				 	<input type="hidden" id="filter_id" name="filter_id" value="postcard">
 				 	
 				 	<select name="rep_rea_id">
-				 		<option >신고사유 선택하세요.</option>
 				 		<c:forEach items="${reportVOs}" var="report">
 				 			<option value="${report.rep_rea_id}">${report.rep_rea_name}</option>
 				 		</c:forEach>
