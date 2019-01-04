@@ -16,6 +16,10 @@ function button_event(){
 	}
 }
 
+
+
+
+
 $(document).ready(function(){
 	$('#container').on('click','.essay_calendat_btn',function () {
 		$('.essay_calendar').hide('slow'); 
@@ -40,6 +44,8 @@ $(document).ready(function(){
 		
 		likeDelAjax(thisVar);
 	});
+	
+	
 });
 
 
@@ -103,7 +109,7 @@ $(document).ready(function(){
 </style>
 
 <div class="sub_container">
-
+	
 	<%@include file="essayRightMenu.jsp" %>
 	
 	<div class="essayLeft">
