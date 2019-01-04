@@ -25,7 +25,7 @@
 	 	});	
 	});
  	
-	$(function() {
+$(function() {
 		
 		if($('#datepicker').val() == '' ){
 			$('#datepicker').val(getTimeStamp(new Date(), dateType));
@@ -70,7 +70,6 @@
 		}
 		return zero + n;
 	}
-
 </script>
 <div class="sub_container">
 

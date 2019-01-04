@@ -361,7 +361,8 @@ to {transform: translate(30px);}
 .listRanking img { width:auto !important; height: 120px !important; border-radius: 50%;}
 
 .RankingA {
-	width: 60% !important;
+	
+	width: 85% !important;
 	height: 140px;
 	display: block;
 	margin: 0px auto 20px;

@@ -207,7 +207,7 @@ text = text.replace("&nbsp;",""); */
 	        
 	        
 	        
-	        function reload(){
+	         function reload(){
 	        	
 	        	$.ajax({
 					type: "GET",
@@ -280,7 +280,7 @@ text = text.replace("&nbsp;",""); */
 					 	
 					}
 				});
-	        }
+	        } 
 	        
 	    });
 	    
@@ -448,78 +448,165 @@ text = text.replace("&nbsp;",""); */
 		  <ul class="slides">
 		    <li>
 			    <h2 class="RankingTitle"> 이번 달 짠내 랭킹 </h2>
-			    <c:forEach items="moneyBestList" var="moneyBestVo" varStatus="loop">
-			    	 <a href="" class="RankingA">
-			    	 	${loop.index}
-				    <%-- 	<ul class="listRanking">
-				    		<li><span>${moneyBestVo.rnum}</span></li>
-				    		<li><img src="/img/p_0${moneyBestVo.rnum}.png" /></li>
-				    		<li>
-				    			닉네임 : <b>${moneyBestVo.mem_nick}</b> &nbsp; &nbsp;<span>투어 평균 금액 : <b><fmt:formatNumber value="${moneyBestVo.totalmoney}"></fmt:formatNumber></b></span> <h6>좋아요 : <b></b></h6>
-				    		</li>
-				    	</ul> --%>
-			    	</a>
-			    </c:forEach>
-			   <!--  <a href="" class="RankingA">
+			    <a href="" class="RankingA">
 			    	<ul class="listRanking">
-			    		<li><span>1</span></li>
-			    		<li><img src="/img/p_01.png" /></li>
+			    		<li><span>${moneyBestList[0].rnum}</span></li>
 			    		<li>
-			    			닉네임 : <b>최유정</b> &nbsp; &nbsp;<span>투어 평균 금액 : <b>500</b></span> <h6>좋아요 : <b> 4852</b></h6>
+			    			<c:choose>
+								<c:when test="${moneyBestList[0].mem_profile eq ''}">
+									<img src="/img/no_profile.png"> 
+								</c:when>
+								<c:otherwise>
+									<img src="/upload/${moneyBestList[0].mem_profile}" onerror="src='/img/no_profile.png';"> 
+								</c:otherwise>
+							</c:choose>
+						</li>
+			    		<li>
+			    			닉네임 : <b>${moneyBestList[0].mem_nick}</b> &nbsp; &nbsp;<span>투어 평균 금액 : <b><fmt:formatNumber value="${moneyBestList[0].totalmoney}"></fmt:formatNumber></b></span> <h6>좋아요 : <b> ${moneyBestList[0].essay_like_count}</b></h6>
 			    		</li>
 			    	</ul>
 		    	</a>
 		    	<a href="" class="RankingA">
 			    	<ul class="listRanking">
-			    		<li><span>2</span></li>
-			    		<li><img src="/img/p_02.png" /></li>
+			    		<li><span>${moneyBestList[1].rnum}</span></li>
 			    		<li>
-			    			닉네임 : <b>최유정</b> &nbsp; &nbsp;<span>투어 평균 금액 : <b>500</b></span> <h6>좋아요 : <b> 4852</b></h6>
+			    			<c:choose>
+								<c:when test="${moneyBestList[1].mem_profile eq ''}">
+									<img src="/img/no_profile.png"> 
+								</c:when>
+								<c:otherwise>
+									<img src="/upload/${moneyBestList[1].mem_profile}" onerror="src='/img/no_profile.png';"> 
+								</c:otherwise>
+							</c:choose>
+			    		</li>
+			    		<li>
+			    			닉네임 : <b>${moneyBestList[1].mem_nick}</b> &nbsp; &nbsp;<span>투어 평균 금액 : <b><fmt:formatNumber value="${moneyBestList[1].totalmoney}"></fmt:formatNumber></b></span> <h6>좋아요 : <b> ${moneyBestList[1].essay_like_count}</b></h6>
 			    		</li>
 			    	</ul>
 		    	</a>
 		    	<a href="" class="RankingA">
 			    	<ul class="listRanking">
-			    		<li><span>3</span></li>
-			    		<li><img src="/img/p_03.png" /></li>
+			    		<li><span>${moneyBestList[2].rnum}</span></li>
 			    		<li>
-			    			 닉네임 : <b>최유정</b> &nbsp; &nbsp;<span>투어 평균 금액 : <b>500</b></span> <h6>좋아요 : <b> 4852</b></h6>
+			    			<c:choose>
+								<c:when test="${moneyBestList[2].mem_profile eq ''}">
+									<img src="/img/no_profile.png"> 
+								</c:when>
+								<c:otherwise>
+									<img src="/upload/${moneyBestList[2].mem_profile}" onerror="src='/img/no_profile.png';"> 
+								</c:otherwise>
+							</c:choose>
+			    		</li>
+			    		<li>
+			    			닉네임 : <b>${moneyBestList[2].mem_nick}</b> &nbsp; &nbsp;<span>투어 평균 금액 : <b><fmt:formatNumber value="${moneyBestList[2].totalmoney}"></fmt:formatNumber></b></span> <h6>좋아요 : <b> ${moneyBestList[2].essay_like_count}</b></h6>
 			    		</li>
 			    	</ul>
-		    	</a> -->
+		    	</a>
 		    </li>
 		    
 		     <li>
-			    <h2 class="RankingTitle"> 이번 달 짠내 랭킹 </h2>
+			    <h2 class="RankingTitle"> 이번 달 에세이 랭킹 </h2>
+			    <a href="" class="RankingA">
+			    	<ul class="listRanking">
+			    		<li><span>${essayBestList[0].rnum}</span></li>
+			    		<li>
+			    			<c:choose>
+								<c:when test="${essayBestList[0].mem_profile eq ''}">
+									<img src="/img/no_profile.png"> 
+								</c:when>
+								<c:otherwise>
+									<img src="/upload/${essayBestList[0].mem_profile}" onerror="src='/img/no_profile.png';"> 
+								</c:otherwise>
+							</c:choose>
+			    		</li>
+			    		<li>
+			    			닉네임 : <b>${essayBestList[0].mem_nick}</b> &nbsp; &nbsp;<span> 조회수 : ${essayBestList[0].essay_view_count}</span> <h6>좋아요 : <b> ${essayBestList[0].essay_like_count}</b></h6>
+			    		</li>
+			    	</ul>
+		    	</a>
+		    	<a href="" class="RankingA">
+			    	<ul class="listRanking">
+			    		<li><span>${essayBestList[1].rnum}</span></li>
+			    		<li>
+			    			<c:choose>
+								<c:when test="${essayBestList[1].mem_profile eq ''}">
+									<img src="/img/no_profile.png"> 
+								</c:when>
+								<c:otherwise>
+									<img src="/upload/${essayBestList[1].mem_profile}" onerror="src='/img/no_profile.png';"> 
+								</c:otherwise>
+							</c:choose>
+			    		</li>
+			    		<li>
+			    			닉네임 : <b>${essayBestList[1].mem_nick}</b> &nbsp; &nbsp;<span> 조회수 : ${essayBestList[1].essay_view_count}</span> <h6>좋아요 : <b> ${essayBestList[1].essay_like_count}</b></h6>
+			    		</li>
+			    	</ul>
+		    	</a>
+		    	<a href="" class="RankingA">
+			    	<ul class="listRanking">
+			    		<li><span>${essayBestList[2].rnum}</span></li>
+			    		<li>
+			    			<c:choose>
+								<c:when test="${essayBestList[2].mem_profile eq ''}">
+									<img src="/img/no_profile.png"> 
+								</c:when>
+								<c:otherwise>
+									<img src="/upload/${essayBestList[2].mem_profile}" onerror="src='/img/no_profile.png';"> 
+								</c:otherwise>
+							</c:choose>
+			    		</li>
+			    		<li>
+			    			닉네임 : <b>${essayBestList[2].mem_nick}</b> &nbsp; &nbsp;<span> 조회수 : ${essayBestList[2].essay_view_count}</span> <h6>좋아요 : <b> ${essayBestList[2].essay_like_count}</b></h6>
+			    		</li>
+			    	</ul>
+		    	</a>
+		    </li>
+		    
+		     <li>
+			    <h2 class="RankingTitle"> 이번 달 포스트 카드 랭킹 </h2>
 			    <a href="" class="RankingA">
 			    	<ul class="listRanking">
 			    		<li><span>1</span></li>
-			    		<li><img src="/img/p_01.png" /></li>
+			    		<li><img src="/file/read?mem_profile=${postcardVo[0].mem_profile}"></li>
 			    		<li>
-			    			닉네임 : <b>최유정</b> &nbsp; &nbsp;<span>투어 평균 금액 : <b>500</b></span> <h6>좋아요 : <b> 4852</b></h6>
+			    			닉네임 : <b>${postcardVo[0].mem_nick}</b> 
+			    			태그 : 
+								<c:forEach items="${postcardVo[0].hashTagList}" var="hash">
+									<b>&nbsp;#${hash}&nbsp;</b>
+								</c:forEach>
+			    			&nbsp; &nbsp;<span>댓글 수 : ${postcardVo[0].comt_count}</span> <h6>좋아요 : <b> ${postcardVo[0].pc_like_count}</b></h6>
 			    		</li>
 			    	</ul>
 		    	</a>
 		    	<a href="" class="RankingA">
 			    	<ul class="listRanking">
 			    		<li><span>2</span></li>
-			    		<li><img src="/img/p_02.png" /></li>
+			    		<li><img src="/file/read?mem_profile=${postcardVo[1].mem_profile}"></li>
 			    		<li>
-			    			닉네임 : <b>최유정</b> &nbsp; &nbsp;<span>투어 평균 금액 : <b>500</b></span> <h6>좋아요 : <b> 4852</b></h6>
+			    			닉네임 : <b>${postcardVo[1].mem_nick}</b> 
+			    			태그 : 
+								<c:forEach items="${postcardVo[1].hashTagList}" var="hash">
+									<b>&nbsp;#${hash}&nbsp;</b>
+								</c:forEach>
+			    			&nbsp; &nbsp;<span>댓글 수 : ${postcardVo[1].comt_count}</span> <h6>좋아요 : <b> ${postcardVo[1].pc_like_count}</b></h6>
 			    		</li>
 			    	</ul>
 		    	</a>
 		    	<a href="" class="RankingA">
 			    	<ul class="listRanking">
 			    		<li><span>3</span></li>
-			    		<li><img src="/img/p_03.png" /></li>
+			    		<li><img src="/file/read?mem_profile=${postcardVo[2].mem_profile}"></li>
 			    		<li>
-			    			닉네임 : <b>최유정</b> &nbsp; &nbsp;<span>투어 평균 금액 : <b>500</b></span> <h6>좋아요 : <b> 4852</b></h6>
+			    			닉네임 : <b>${postcardVo[2].mem_nick}</b> 
+			    			태그 : 
+								<c:forEach items="${postcardVo[2].hashTagList}" var="hash">
+									<b>&nbsp;#${hash}&nbsp;</b>
+								</c:forEach>
+			    			&nbsp; &nbsp;<span>댓글 수 : ${postcardVo[2].comt_count}</span> <h6>좋아요 : <b> ${postcardVo[2].pc_like_count}</b></h6>
 			    		</li>
 			    	</ul>
 		    	</a>
 		    </li>
-		    
 		    
 		  </ul>
 		</div>

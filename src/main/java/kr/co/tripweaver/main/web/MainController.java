@@ -122,22 +122,13 @@ public class MainController {
 		
 		
 
-		List<ClusterVO> moneyBestList = essayService.bestEssayList(params);
-		
-		logger.debug("moneyBestList Section = {}", moneyBestList);
-		logger.debug("moneyBestList Section = {}", moneyBestList);
-		
+		List<ClusterVO> essayBestList = essayService.bestEssayList(params);
+		Map<String, Object> returnMap = postCardService.bestPostSelect(params);
+		List<ClusterVO> moneyBestList= essayService.bestMoneyEssayList(params);
 		
 		
 		model.addAttribute("moneyBestList", moneyBestList);
-		
-		Map<String, Object> returnMap = postCardService.bestPostSelect(params);
-		
 		model.addAllAttributes(returnMap);
-		
-		
-		List<ClusterVO> essayBestList = essayService.bestMoneyEssayList(params);
-		
 		model.addAttribute("essayBestList", essayBestList);
 		//-------------------------------------
 		
