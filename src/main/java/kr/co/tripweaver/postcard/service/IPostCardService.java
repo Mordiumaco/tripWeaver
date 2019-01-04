@@ -111,4 +111,6 @@ public interface IPostCardService {
 	
 	
 	public PostCardVO selectSinglePost(String pc_id);
+	
+	public Map<String, Object> bestPostSelect(Map<String, Object> params);
 }

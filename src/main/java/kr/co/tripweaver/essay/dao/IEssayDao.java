@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.tripweaver.essay.model.EssayVO;
+import kr.co.tripweaver.mymenu.mypage.tripplan.model.ClusterVO;
 
 /**
 * IEssayDao.java
@@ -149,5 +150,26 @@ public interface IEssayDao {
 		*
 	 */
 	public int selectEssayClipAllNum(Map<String, Object> params);
+	
+	
+	/**
+	* Method : bestMoneyEssayList
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2019. 1. 3.
+	* 변경이력 :
+	* @return
+	* Method 설명 : 해당 짠내 베스트 랭킹을 위한 에세이 리스트 
+	*/
+	public List<ClusterVO> bestMoneyEssayList();
+	
+	/**
+	* Method : bestEssayList
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2019. 1. 4.
+	* 변경이력 :
+	* @return
+	* Method 설명 : 해당 에세이 베스트 랭킹을 위한 에세이 리스트 
+	*/
+	public List<ClusterVO> bestEssayList();
 	
 }

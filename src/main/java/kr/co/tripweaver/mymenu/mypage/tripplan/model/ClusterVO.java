@@ -46,9 +46,57 @@ public class ClusterVO {
     private Integer essay_traffic_exp;
     private Integer essay_room_exp;
     private Integer essay_other_exp;
-	
+	private Integer essay_view_count;
+	private Integer totalmoney;
+    private Integer essay_like_count;
+	private String  mem_profile;
+    private String essay_title;
+    private Integer rnum;
+    private Integer comment_count;
     
-	
+    
+	public Integer getComment_count() {
+		return comment_count;
+	}
+	public void setComment_count(Integer comment_count) {
+		this.comment_count = comment_count;
+	}
+	public Integer getRnum() {
+		return rnum;
+	}
+	public void setRnum(Integer rnum) {
+		this.rnum = rnum;
+	}
+	public String getEssay_title() {
+		return essay_title;
+	}
+	public void setEssay_title(String essay_title) {
+		this.essay_title = essay_title;
+	}
+	public String getMem_profile() {
+		return mem_profile;
+	}
+	public void setMem_profile(String mem_profile) {
+		this.mem_profile = mem_profile;
+	}
+	public Integer getEssay_view_count() {
+		return essay_view_count;
+	}
+	public void setEssay_view_count(Integer essay_view_count) {
+		this.essay_view_count = essay_view_count;
+	}
+	public Integer getTotalmoney() {
+		return totalmoney;
+	}
+	public void setTotalmoney(Integer totalmoney) {
+		this.totalmoney = totalmoney;
+	}
+	public Integer getEssay_like_count() {
+		return essay_like_count;
+	}
+	public void setEssay_like_count(Integer essay_like_count) {
+		this.essay_like_count = essay_like_count;
+	}
 	public Integer getEssay_meal_exp() {
 		return essay_meal_exp;
 	}

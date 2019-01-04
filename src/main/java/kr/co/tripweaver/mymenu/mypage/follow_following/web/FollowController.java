@@ -48,7 +48,27 @@ public class FollowController {
 		return "/mypage/message/message_follow_count_ajax";
 	}
 	
-	@RequestMapping("/followCountMypageAjax")
+
+	
+	/**
+	* Method : selectFollow
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2019. 1. 3.
+	* 변경이력 :
+	* @param followVo
+	* @return
+	* Method 설명 : 해당 팔로우 상태를 확인한다. 해당회원과 팔로우 상태일경우 1 아닐경우 0
+	*/
+	@ResponseBody
+	@RequestMapping("/followState")
+	public int selectFollowAjax(FollowVO followVo) {
+		
+		int resultCnt = followService.selectFolState(followVo);
+		
+		return resultCnt;
+	}
+	
+		@RequestMapping("/followCountMypageAjax")
 	@ResponseBody
 	public Map<String, Object> followCountMypageAjax(@RequestParam("mem_id") String mem_id){
 		
@@ -76,5 +96,4 @@ public class FollowController {
 		
 		return "/mypage/myPageFollowPopup";
 	}
-	
 }

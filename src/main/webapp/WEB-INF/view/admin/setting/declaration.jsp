@@ -114,6 +114,24 @@ $(document).ready(function(){
 	});
 });
 
+$( document ).ready( function() {
+    $( '.tb_wrap' ).on('click','#chkall', function() {
+      $( '.ab' ).prop( 'checked', this.checked );
+    } );
+  } );
+  
+ $(function() {
+	$('.container_wr').on('click','.allbtn', function() {
+	
+		$("input:checkbox[name=chk]:checked").each(function(i,elements){
+		    //해당 index(순서)값을 가져옵니다.
+		    index = $(elements).index("input:checkbox[name=chk]"); 
+		    $('.updateReport').eq(index).submit();
+
+		});
+	})
+});
+
 </script>
 
 
@@ -168,7 +186,7 @@ $(document).ready(function(){
 		</div>
 		
 		<div class="btn_fixed_top">
-		    <input type="submit" name="act_button" value="선택수정" onclick="document.pressed=this.value" class="btn btn_02">
+		    <input type="submit" name="act_button" value="선택수정" class="btn btn_02 allbtn">
 		</div>
 		
 		<div class="tb_wrap">

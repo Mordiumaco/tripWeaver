@@ -39,10 +39,31 @@ public class EssayVO {
 	private String  mem_id;
 	private String  tripplan_id;
 	private String  tripplan_image;
+	private String  totalmoney;
 	private Integer rnum;
+	private String  mem_nick;
+	private String  mem_profile;
 	
 	
 	
+	public String getMem_profile() {
+		return mem_profile;
+	}
+	public void setMem_profile(String mem_profile) {
+		this.mem_profile = mem_profile;
+	}
+	public String getMem_nick() {
+		return mem_nick;
+	}
+	public void setMem_nick(String mem_nick) {
+		this.mem_nick = mem_nick;
+	}
+	public String getTotalmoney() {
+		return totalmoney;
+	}
+	public void setTotalmoney(String totalmoney) {
+		this.totalmoney = totalmoney;
+	}
 	public Integer getRnum() {
 		return rnum;
 	}
