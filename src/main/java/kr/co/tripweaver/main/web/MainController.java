@@ -1,6 +1,9 @@
 package kr.co.tripweaver.main.web;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -98,6 +101,45 @@ public class MainController {
 		
 		model.addAttribute("recentPostCardList", postCardList);
 		
+		
+		//------------랭킹 부분 ----------------
+		String endDate = null;
+		String startDate = null;
+		
+		Date dateNew = new Date();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(dateNew);
+		SimpleDateFormat simpleDate = new SimpleDateFormat("yyyyMM");
+		String ym = simpleDate.format(dateNew);
+		endDate = ym + calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		startDate = ym + "01";
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		
+		params.put("startDate", startDate);
+
+		params.put("endDate", endDate);
+		
+		
+
+		List<ClusterVO> moneyBestList = essayService.bestEssayList(params);
+		
+		logger.debug("moneyBestList Section = {}", moneyBestList);
+		logger.debug("moneyBestList Section = {}", moneyBestList);
+		
+		
+		
+		model.addAttribute("moneyBestList", moneyBestList);
+		
+		Map<String, Object> returnMap = postCardService.bestPostSelect(params);
+		
+		model.addAllAttributes(returnMap);
+		
+		
+		List<ClusterVO> essayBestList = essayService.bestMoneyEssayList(params);
+		
+		model.addAttribute("essayBestList", essayBestList);
+		//-------------------------------------
 		
 		return "index";
 	}

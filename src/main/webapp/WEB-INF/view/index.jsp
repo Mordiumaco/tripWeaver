@@ -443,12 +443,24 @@ text = text.replace("&nbsp;",""); */
 </div>
 
 <div class="main_con_04">
-	<div class="con_04_wrap"">
+	<div class="con_04_wrap">
 		<div class="flexslider">
 		  <ul class="slides">
 		    <li>
 			    <h2 class="RankingTitle"> 이번 달 짠내 랭킹 </h2>
-			    <a href="" class="RankingA">
+			    <c:forEach items="moneyBestList" var="moneyBestVo" varStatus="loop">
+			    	 <a href="" class="RankingA">
+			    	 	${loop.index}
+				    <%-- 	<ul class="listRanking">
+				    		<li><span>${moneyBestVo.rnum}</span></li>
+				    		<li><img src="/img/p_0${moneyBestVo.rnum}.png" /></li>
+				    		<li>
+				    			닉네임 : <b>${moneyBestVo.mem_nick}</b> &nbsp; &nbsp;<span>투어 평균 금액 : <b><fmt:formatNumber value="${moneyBestVo.totalmoney}"></fmt:formatNumber></b></span> <h6>좋아요 : <b></b></h6>
+				    		</li>
+				    	</ul> --%>
+			    	</a>
+			    </c:forEach>
+			   <!--  <a href="" class="RankingA">
 			    	<ul class="listRanking">
 			    		<li><span>1</span></li>
 			    		<li><img src="/img/p_01.png" /></li>
@@ -474,7 +486,7 @@ text = text.replace("&nbsp;",""); */
 			    			 닉네임 : <b>최유정</b> &nbsp; &nbsp;<span>투어 평균 금액 : <b>500</b></span> <h6>좋아요 : <b> 4852</b></h6>
 			    		</li>
 			    	</ul>
-		    	</a>
+		    	</a> -->
 		    </li>
 		    
 		     <li>
