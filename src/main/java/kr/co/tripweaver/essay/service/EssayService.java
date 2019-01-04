@@ -139,8 +139,8 @@ public class EssayService implements IEssayService{
 	* @return
 	* Method 설명 : 해당 짠내 베스트 랭킹을 위한 에세이 리스트 
 	*/
-	public List<ClusterVO> bestMoneyEssayList(){
-		return essayDao.bestMoneyEssayList();
+	public List<ClusterVO> bestMoneyEssayList(Map<String, Object> params){
+		return essayDao.bestMoneyEssayList(params);
 	}
 	
 	/**
@@ -151,7 +151,7 @@ public class EssayService implements IEssayService{
 	* @return
 	* Method 설명 : 해당 에세이 베스트 랭킹을 위한 에세이 리스트 
 	*/
-	public List<ClusterVO> bestEssayList(){
-		return essayDao.bestEssayList();
+	public List<ClusterVO> bestEssayList(Map<String, Object> params){
+		return essayDao.bestEssayList(params);
 	}
 }

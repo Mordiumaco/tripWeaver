@@ -65,7 +65,7 @@
 	</select>
 	
 	<!-- 짠내 베스트 -->
-	<select id="bestMoneyEssayList" resultType="clusterVo">
+	<select id="bestMoneyEssayList" resultType="clusterVo" parameterType="Map">
 		select rownum rnum , essay_id , essay_title, essay_cnt, essay_date, tripplan_image, totalmoney, mem_nick, mem_profile, (select count(*) from likes WHERE LIKE_REL_ART_ID = essay_id) essay_like_count, essay_view_count, mapmark_sido, mapmark_sigungu
 		from
 		(
@@ -77,6 +77,7 @@
 		and mm.triparea_id = ta.triparea_id 
 		and ta.triparea_order = 1 
 		and ta.tripplan_id = tp.tripplan_id 
+		and e.essay_date between to_date(#{startDate},'yyyyMMdd') and to_date(#{endDate} || '23:59:59','yyyyMMdd HH24:MI:SS')
 		order by totalmoney asc
 		)
 		where rownum <![CDATA[<]]>=30
@@ -95,6 +96,7 @@
 		and mm.triparea_id = ta.triparea_id 
 		and ta.triparea_order = 1 
 		and ta.tripplan_id = tp.tripplan_id 
+		and e.essay_date between to_date(#{startDate},'yyyyMMdd') and to_date(#{endDate} || '23:59:59','yyyyMMdd HH24:MI:SS')
 		order by essay_like_count desc
 		)
 		where rownum <![CDATA[<]]>=30
