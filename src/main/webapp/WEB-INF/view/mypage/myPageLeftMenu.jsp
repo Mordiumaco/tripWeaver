@@ -81,11 +81,15 @@
 	<ul>
 		<li><c:choose>
 				<c:when test="${loginInfo.mem_profile == null}">
-					<img src="/img/no_profile.png">
+					<b class="my_profile my_profile10">
+						<img src="/img/no_profile.png">
+					</b>
 				</c:when>
 				<c:otherwise>
-					<img src="/upload/${loginInfo.mem_profile}"
-						onerror="src='/img/no_profile.png';">
+					<b class="my_profile my_profile10">
+						<img src="/upload/${loginInfo.mem_profile}"
+							onerror="src='/img/no_profile.png';">
+					</b>
 				</c:otherwise>
 			</c:choose></li>
 		<c:choose>

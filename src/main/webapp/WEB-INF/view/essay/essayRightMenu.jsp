@@ -253,10 +253,14 @@ function follow_count(mem_id) {
 			<li>
 				<c:choose>
 					<c:when test="${writerVo.mem_profile == null}">
-						<img src="/img/no_profile.png"> 
+						<b class="my_profile my_profile10">
+							<img src="/img/no_profile.png"> 
+						</b>
 					</c:when>
 					<c:otherwise>
-						<img src="/upload/${writerVo.mem_profile}" onerror="src='/img/no_profile.png';"> 
+						<b class="my_profile my_profile10">
+							<img src="/upload/${writerVo.mem_profile}" onerror="src='/img/no_profile.png';"> 
+						</b>
 					</c:otherwise>
 				</c:choose>
 			</li>
