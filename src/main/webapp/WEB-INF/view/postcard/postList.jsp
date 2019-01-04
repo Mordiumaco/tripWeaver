@@ -725,7 +725,6 @@ function layer_open1(el){
 					 	<input type="hidden" id="filter_id" name="filter_id" value="postcard">
 					 	
 					 	<select name="rep_rea_id">
-					 		<option >신고사유 선택하세요.</option>
 					 		<c:forEach items="${reportVOs}" var="report">
 					 			<option value="${report.rep_rea_id}">${report.rep_rea_name}</option>
 					 		</c:forEach>
