@@ -77,7 +77,7 @@
 				<ul>
 					<li>
 						<label for="reg_mb_gender" class="sound_only">성별<strong>필수</strong></label>
-						<span><b>성별 : <c:if test="${loginInfo.mem_gender == 'M'}">남성</c:if><c:if test="${loginInfo.mem_gender == 'W'}">여성</c:if></b>
+						<span><b>성별 : <c:if test="${loginInfo.mem_gender == 'M'}">남성</c:if><c:if test="${loginInfo.mem_gender == 'F'}">여성</c:if></b>
 					</li>
 					<br/>
 					<li>
