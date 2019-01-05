@@ -130,20 +130,31 @@ public class TripPlanService implements ITripPlanService{
 			logger.debug("positions X좌표: {}", positions.get(i).getAsJsonObject().get("ib").getAsString());
 			logger.debug("positions Y좌표: {}", positions.get(i).getAsJsonObject().get("jb").getAsString());
 			
-			xy.put("mapmark_x_coor", positions.get(i).getAsJsonObject().get("ib").getAsString());
-			xy.put("mapmark_y_coor", positions.get(i).getAsJsonObject().get("jb").getAsString());
+			xy.put("mapmark_x_coor", positions.get(i).getAsJsonObject().get("ib").getAsString().substring(0, 12));
+			xy.put("mapmark_y_coor", positions.get(i).getAsJsonObject().get("jb").getAsString().substring(0, 12));
 			
-			ClusterVO clusterVo = tripPlanDao.selectClusterVoByXY(xy);
+			List<ClusterVO> clusterListByXY = tripPlanDao.selectClusterVoByXY(xy);
 			
-			if(clusterVo != null) {
-				clusterList.add(clusterVo);
+			if(clusterListByXY != null) {
+				clusterList.addAll(clusterListByXY);
 			}
 			
 			xy.clear();
 			
 		}
 		
-		return clusterList;
+		List<ClusterVO> resultClusterList = new ArrayList<>();
+		
+		//resultClusterList = clusterList.stream().distinct().collect(Collectors.toList());
+		
+		for(int i = 0; i < clusterList.size(); i++) {
+			if(!resultClusterList.contains(clusterList.get(i))) {
+				resultClusterList.add(clusterList.get(i));
+			}
+		}
+		
+		
+		return resultClusterList;
 	}
 	
 	/**

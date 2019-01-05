@@ -154,6 +154,8 @@ $(function() {
 		</ul>
 	</div>
 
+
+	<h1>TOP 30</h1>
 	<div id="container" class="bestContainer">
 	<table class="board_list_wrap">
 		<colgroup>

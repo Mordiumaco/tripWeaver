@@ -104,7 +104,7 @@ $(function() {
 				<li>
 					<div class="postli_l postInfo">
 						<b>
-							<img src="/file/read?mem_profile=${pcl.mem_profile}">
+							<img src="/file/read?mem_profile=${pcl.mem_profile}" onerror="src='/img/no_profile.png'">
 						</b>
 						<span>${pcl.mem_nick}</span>
 						<input type="hidden" id="mem_id" name="mem_id" value="${pcl.mem_id}">
@@ -132,7 +132,7 @@ $(function() {
 									</c:when>
 									<c:otherwise>
 											  	<li>
-											  		<img src="/upload/postcard/${att.att_file_name}">
+											  		<img src="/upload/postcard/${att.att_file_name}" onerror="src='/img/no_image.png'">
 											    </li>
 									</c:otherwise>
 								</c:choose>

@@ -11,6 +11,16 @@
 			return;
 		}
 		
+		if(mem_id.length > 3){
+         	var regNumber =  /^[-A-Za-z0-9_]/;
+             var temp = mem_id;
+             if(!regNumber.test(temp))
+             {
+                 alert('영문 및 숫자만 적어주세요');
+                 $("#mem_id").focus();
+                 return false;
+             }
+         }
 		
 	  $.ajax({
 			type: "GET",
@@ -163,6 +173,17 @@
 	    // submit 최종 폼체크
 	    function fregisterform_submit(f){
 	       
+	    	if(f.mem_id.value.length > 3){
+	         	var regNumber =  /^[-A-Za-z0-9_]/;
+	             var temp = f.mem_id.value;
+	             if(!regNumber.test(temp))
+	             {
+	                 alert('영문 및 숫자만 적어주세요');
+	                 $("#mem_id").focus();
+	                 return false;
+	             }
+	         }
+	    	
 	        if (f.mem_pass.value !== f.mem_pass_re.value) {
 	            alert("비밀번호가 같지 않습니다.");
 	            f.mem_pass.focus();

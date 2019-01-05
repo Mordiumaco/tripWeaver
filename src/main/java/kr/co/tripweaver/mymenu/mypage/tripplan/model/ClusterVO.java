@@ -228,8 +228,21 @@ public class ClusterVO {
 	}
 	public void setMem_nick(String mem_nick) {
 		this.mem_nick = mem_nick;
-	} 
+	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		
+		if(obj instanceof ClusterVO) {
+			ClusterVO clusterVo = (ClusterVO)obj;
+			
+			if(this.essay_id.equals(clusterVo.essay_id)) {
+				return true;
+			}
+		}
+		
+		return false;
+	} 
 	
 	
 }

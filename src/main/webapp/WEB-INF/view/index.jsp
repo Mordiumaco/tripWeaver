@@ -208,12 +208,13 @@ text = text.replace("&nbsp;",""); */
 	        
 	        
 	         function reload(){
-	        	
+	        	$("#essay_list_ul").html("");
 	        	$.ajax({
 					type: "GET",
 					url:"/main/reload",
 					data : "markers="+encodeURI(jsonInfo),
 					success : function(data){
+						$("#essay_list_ul").html("");
 						if(data.clusterList == ""){
 							var essayContent ="";
 							essayContent += '<li class="essay_list">';
@@ -286,7 +287,7 @@ text = text.replace("&nbsp;",""); */
 	    
 	    
 	    function onSearching(){
-	    	
+	    	$("#essay_list_ul").html("");
 	    	let theme = document.getElementsByName("theme")[0];
 	    	let season = document.getElementsByName("season")[0];
 	    	let peoType = document.getElementsByName("peoType")[0];
@@ -314,7 +315,7 @@ text = text.replace("&nbsp;",""); */
 				success : function(data){
 					$("#essay_list_ul").html("");
 				   console.log(data);
-				   if(data.clusterList.length == 0){
+				  /*  if(data.clusterList.length == 0){
 					   console.log("여기로 들어와따");
 					   var essayContent ="";
 						essayContent += '<li class="essay_list">';
@@ -329,17 +330,24 @@ text = text.replace("&nbsp;",""); */
 			            essayContent += '</li>';
 						$("#essay_list_ul").append(essayContent);
 					   return;
-				   }
+				   } */
 				   
 				   var bounds2 = new daum.maps.LatLngBounds();
 				   var markers = $(data.clusterList).map(function(i, clusterInfo) {
 			        	
 					   bounds2.extend(new daum.maps.LatLng(clusterInfo.mapmark_y_coor, clusterInfo.mapmark_x_coor));
 					   
-			            return new daum.maps.Marker({
+					   var marker = new daum.maps.Marker({
 			            	image: markerImage, // 마커이미지 설정 
 			                position : new daum.maps.LatLng(clusterInfo.mapmark_y_coor, clusterInfo.mapmark_x_coor)
 			            });
+					   
+					   
+					    daum.maps.event.addListener(marker, 'click', function() {
+			            	location.href='/essay/essayView?essay_id='+clusterInfo.essay_id;
+					    });
+					   
+			            return marker;
 			            
 			            
 			        });
