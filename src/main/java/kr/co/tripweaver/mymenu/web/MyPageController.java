@@ -227,6 +227,9 @@ public class MyPageController {
 			return "loginCheckError";
 		}
 		
+		logger.debug("category : {}", category);
+		logger.debug("searchValue : {}", searchValue);
+		
 		Map<String, String> param = new HashMap<>();
 		
 		param.put("page", page);
@@ -275,7 +278,7 @@ public class MyPageController {
 	}
 	
 	/**
-	* Method : postCardPageAjaxView
+	* Method : boardPageAjaxView
 	* 작성자 : Jae Hyeon Choi
 	* 생성날짜 : 2018. 12. 28.
 	* 변경이력 :
@@ -283,10 +286,12 @@ public class MyPageController {
 	* @param page
 	* @param model
 	* @return
-	* Method 설명 : 해당하는 포스트카드 목록을 불러옴
+	* Method 설명 : 해당하는 게시판 목록을 불러옴
 	*/
 	@RequestMapping("/boardPageAjax")
-	public String postCardPageAjaxView(HttpSession session, String page, Model model, String board_id) {
+	public String boardPageAjaxView(HttpSession session, String page, Model model, String board_id
+			,@RequestParam(name="sfl", defaultValue="title", required=false) String category
+			,@RequestParam(name="stx", defaultValue="", required=false) String searchValue) {
 		
 		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
 		
@@ -299,6 +304,7 @@ public class MyPageController {
 		param.put("page", page);
 		param.put("mem_id", memberVo.getMem_id());
 		param.put("board_id", board_id);
+		param.put(category, searchValue);
 		
 		List<ArticleVO> articleList = articleSerivce.selectEssayByMemIdAndBoardIdForBoard(param);
 		

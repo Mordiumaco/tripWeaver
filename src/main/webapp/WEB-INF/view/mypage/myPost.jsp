@@ -84,7 +84,7 @@
 		$.ajax({
 			type: "POST",
 			url: "/mypage/essayPageAjax",
-			data: "page="+page,
+			data: "page="+page+"&sfl="+category+"&stx="+searchValue,
 			success : function(data){
 				$(data.essayList).map(function(i, essayVo){
 					essaySection += '<tr class="bg0">';
@@ -199,10 +199,36 @@
 		function boardPage(page, board_id, endPage){
 			var articleSection = "";
 				
+			let category = '';
+			let searchValue = '';
+			
+			switch(board_id){
+				case "bd00002": //자유게시판
+					category = $("#web3").find("#sfl").val();
+					searchValue = $("#web3").find("#stx").val();
+					break;
+				case "bd00003": //가이드 신청
+					category = $("#web4").find("#sfl").val();
+					searchValue = $("#web4").find("#stx").val();
+					break;
+				case "bd00004": //QnA 
+					category = $("#web5").find("#sfl").val();
+					searchValue = $("#web5").find("#stx").val();
+					break;
+				case "bd00006": //가이드 찾기
+					category = $("#web6").find("#sfl").val();
+					searchValue = $("#web6").find("#stx").val();
+					break;
+				case "bd00007": //파트너 찾기
+					category = $("#web7").find("#sfl").val();
+					searchValue = $("#web7").find("#stx").val();
+					break;
+			}
+			
 			$.ajax({
 				type: "POST",
 				url: "/mypage/boardPageAjax",
-				data: "page="+page+"&board_id="+board_id,
+				data: "page="+page+"&board_id="+board_id+"&sfl="+category+"&stx="+searchValue,
 				success : function(data){
 					
 					$(data.articleList).map(function(i, articleVo){
@@ -268,14 +294,14 @@
 					<h1 class="mypage_title">에세이 게시물 관리</h1>
 					
 				
-					<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="post">
+					<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="post" onsubmit="return false;">
 						<label for="sfl" class="sound_only">검색대상</label>
 						<select name="sfl" id="sfl">
 						    <option value="title">제목</option>
 						</select>
 						<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
 						<input type="text" name="stx" value="" id="stx" required="" class="required frm_input">
-						<input type="submit" class="btn_submit" value="검색">
+						<a href="javascript: essayPage(1)"><input type="button" class="btn_submit" value="검색"></a>
 					</form>
 				
 				
@@ -343,7 +369,7 @@
 				<h1 class="mypage_title">포스트카드 관리</h1>
 					
 				
-					<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
+					<!-- <form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
 						<label for="sfl" class="sound_only">검색대상</label>
 						<select name="sfl" id="sfl">
 						    <option value="title">제목</option>
@@ -351,7 +377,7 @@
 						<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
 						<input type="text" name="stx" value="" id="stx" required="" class="required frm_input">
 						<input type="submit" class="btn_submit" value="검색">
-					</form>
+					</form> -->
 				
 				
 					
@@ -393,14 +419,14 @@
 				<h1 class="mypage_title">자유게시판 관리</h1>
 					
 				
-					<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
+					<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get" onsubmit="return false;">
 						<label for="sfl" class="sound_only">검색대상</label>
 						<select name="sfl" id="sfl">
 						    <option value="title">제목</option>
 						</select>
 						<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
 						<input type="text" name="stx" value="" id="stx" required="" class="required frm_input">
-						<input type="submit" class="btn_submit" value="검색">
+						<a href="javascript: boardPage(1, board00002, 1)"><input type="submit" class="btn_submit" value="검색"></a>
 					</form>
 				
 				
@@ -447,14 +473,14 @@
 				<h1 class="mypage_title">가이드 지원</h1>
 					
 				
-					<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
+					<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get" onsubmit="return false;">
 						<label for="sfl" class="sound_only">검색대상</label>
 						<select name="sfl" id="sfl">
 						    <option value="title">제목</option>
 						</select>
 						<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
 						<input type="text" name="stx" value="" id="stx" required="" class="required frm_input">
-						<input type="submit" class="btn_submit" value="검색">
+						<a href="javascript: boardPage(1, board00003, 1)"><input type="submit" class="btn_submit" value="검색"></a>
 					</form>
 				
 				
@@ -502,14 +528,14 @@
 				<h1 class="mypage_title"> Q & A</h1>
 					
 				
-					<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
+					<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get" onsubmit="return false;">
 						<label for="sfl" class="sound_only">검색대상</label>
 						<select name="sfl" id="sfl">
 						    <option value="title">제목</option>
 						</select>
 						<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
 						<input type="text" name="stx" value="" id="stx" required="" class="required frm_input">
-						<input type="submit" class="btn_submit" value="검색">
+						<a href="javascript: boardPage(1, board00004, 1)"><input type="submit" class="btn_submit" value="검색"></a>
 					</form>
 				
 				
@@ -565,14 +591,14 @@
 			<h1 class="mypage_title">가이드 찾기</h1>
 					
 				
-					<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
+					<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get" onsubmit="return false;">
 						<label for="sfl" class="sound_only">검색대상</label>
 						<select name="sfl" id="sfl">
 						    <option value="title">제목</option>
 						</select>
 						<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
 						<input type="text" name="stx" value="" id="stx" required="" class="required frm_input">
-						<input type="submit" class="btn_submit" value="검색">
+						<a href="javascript: boardPage(1, board00006, 1)"><input type="submit" class="btn_submit" value="검색"></a>
 					</form>
 				
 				
@@ -628,14 +654,14 @@
 			<h1 class="mypage_title">파트너 찾기</h1>
 					
 				
-					<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
+					<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get" onsubmit="false">
 						<label for="sfl" class="sound_only">검색대상</label>
 						<select name="sfl" id="sfl">
 						    <option value="title">제목</option>
 						</select>
 						<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
 						<input type="text" name="stx" value="" id="stx" required="" class="required frm_input">
-						<input type="submit" class="btn_submit" value="검색">
+						<a href="javascript: boardPage(1, board00007, 1)"><input type="submit" class="btn_submit" value="검색"></a>
 					</form>
 				
 				
