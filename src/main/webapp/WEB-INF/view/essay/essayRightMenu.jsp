@@ -232,8 +232,8 @@ function follow_count(mem_id) {
 		type : "get",
 		data : {"mem_id":mem_id},
 		success : function(dt) {
-			$("#following_cnt").html(dt.followingCnt)
-			$("#follower_cnt").html(dt.followerCnt)
+			$("#following_cnt").html(dt.followingCnt);
+			$("#follower_cnt").html(dt.followerCnt);
 		}
 	});
 }
