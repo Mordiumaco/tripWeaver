@@ -54,8 +54,11 @@
   	<if test="mem_name != null">
   		mem_name = #{mem_name},
   	</if>
-	 mem_age = #{mem_age}, mem_profile = #{mem_profile}
-  	where mem_id = #{mem_id}
+  	<if test="mem_profile != null and mem_profile != '' ">
+  		mem_profile = #{mem_profile},
+  	</if>
+	 mem_age = #{mem_age}
+  	 where mem_id = #{mem_id}
   </update>
   
   <!-- 모든 회원리스트를 조회 -->
