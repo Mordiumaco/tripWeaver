@@ -76,7 +76,11 @@
 	
 	function essayPage(page){
 		var essaySection = "";
-			
+		
+		let category = $("#web1").find("#sfl").val();
+		let searchValue = $("#web1").find("#stx").val();
+		
+		
 		$.ajax({
 			type: "POST",
 			url: "/mypage/essayPageAjax",
@@ -264,10 +268,10 @@
 					<h1 class="mypage_title">에세이 게시물 관리</h1>
 					
 				
-					<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
+					<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="post">
 						<label for="sfl" class="sound_only">검색대상</label>
 						<select name="sfl" id="sfl">
-						    <option value="mb_nick">제목</option>
+						    <option value="title">제목</option>
 						</select>
 						<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
 						<input type="text" name="stx" value="" id="stx" required="" class="required frm_input">
@@ -342,7 +346,7 @@
 					<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
 						<label for="sfl" class="sound_only">검색대상</label>
 						<select name="sfl" id="sfl">
-						    <option value="mb_nick">제목</option>
+						    <option value="title">제목</option>
 						</select>
 						<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
 						<input type="text" name="stx" value="" id="stx" required="" class="required frm_input">
@@ -392,7 +396,7 @@
 					<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
 						<label for="sfl" class="sound_only">검색대상</label>
 						<select name="sfl" id="sfl">
-						    <option value="mb_nick">제목</option>
+						    <option value="title">제목</option>
 						</select>
 						<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
 						<input type="text" name="stx" value="" id="stx" required="" class="required frm_input">
@@ -446,7 +450,7 @@
 					<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
 						<label for="sfl" class="sound_only">검색대상</label>
 						<select name="sfl" id="sfl">
-						    <option value="mb_nick">제목</option>
+						    <option value="title">제목</option>
 						</select>
 						<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
 						<input type="text" name="stx" value="" id="stx" required="" class="required frm_input">
@@ -501,7 +505,7 @@
 					<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
 						<label for="sfl" class="sound_only">검색대상</label>
 						<select name="sfl" id="sfl">
-						    <option value="mb_nick">제목</option>
+						    <option value="title">제목</option>
 						</select>
 						<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
 						<input type="text" name="stx" value="" id="stx" required="" class="required frm_input">
@@ -564,7 +568,7 @@
 					<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
 						<label for="sfl" class="sound_only">검색대상</label>
 						<select name="sfl" id="sfl">
-						    <option value="mb_nick">제목</option>
+						    <option value="title">제목</option>
 						</select>
 						<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
 						<input type="text" name="stx" value="" id="stx" required="" class="required frm_input">
@@ -627,7 +631,7 @@
 					<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
 						<label for="sfl" class="sound_only">검색대상</label>
 						<select name="sfl" id="sfl">
-						    <option value="mb_nick">제목</option>
+						    <option value="title">제목</option>
 						</select>
 						<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
 						<input type="text" name="stx" value="" id="stx" required="" class="required frm_input">

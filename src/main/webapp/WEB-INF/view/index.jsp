@@ -264,6 +264,12 @@ text = text.replace("&nbsp;",""); */
 				            essayContent += '<li class="essay_list">';
 				            essayContent +=	'<a href="/essay/essayView?essay_id='+clusterInfo.essay_id+'">';
 				            essayContent += '<div class="essay_img">';
+				            
+				            
+				            if(clusterInfo.essay_filter != 'G'){
+				            	essayContent += '<span>가이드</span>';
+				            }
+				            
 				            essayContent += '<img src="/upload/'+clusterInfo.tripplan_image+'" onerror="imgError(this)";/>';
 				            essayContent += '</div>';
 				            essayContent += '<ul class="essay_info">';

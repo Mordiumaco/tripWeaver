@@ -217,7 +217,9 @@ public class MyPageController {
 	* Method 설명 : 페이지에 해당하는 에세이 객체 목록을 받아옴 
 	*/
 	@RequestMapping("/essayPageAjax")
-	public String essayPageAjaxView(HttpSession session, String page, Model model) {
+	public String essayPageAjaxView(HttpSession session, String page, Model model
+			,@RequestParam(name="sfl", defaultValue="title", required=false) String category
+			,@RequestParam(name="stx", defaultValue="", required=false) String searchValue) {
 		
 		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
 		
@@ -229,6 +231,7 @@ public class MyPageController {
 		
 		param.put("page", page);
 		param.put("mem_id", memberVo.getMem_id());
+		param.put(category, searchValue);
 		
 		List<EssayVO> essayList = essayService.selectEssayByMemIdForBoard(param);
 		

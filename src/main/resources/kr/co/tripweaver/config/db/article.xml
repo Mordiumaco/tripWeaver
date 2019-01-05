@@ -63,6 +63,9 @@ where art_id = #{art_id}
 		(
 		    select * from article where mem_id = #{mem_id}
 		    and board_id = #{board_id}
+		    <if test="title != null">
+		    	and art_title like '%'||#{title}||'%'
+		    </if>
 		    order by art_date asc
 		) myarticle
 		where rownum between 1+((to_number(#{page})-1)*10) and (to_number(#{page})*10)

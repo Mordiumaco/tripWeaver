@@ -24,6 +24,10 @@
 		from
 		(
 		    select * from essay where mem_id = #{mem_id}
+		    <if test="title != null">
+		    	and essay_title like '%'||#{title}||'%'
+		    </if>
+		)
 		    order by essay_date asc
 		) myessay
 		where rownum between 1+((to_number(#{page})-1)*10) and (to_number(#{page})*10)
