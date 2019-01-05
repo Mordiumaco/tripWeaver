@@ -38,7 +38,23 @@
   <!-- 회원 정보 변경 쿼리 -->
   <update id="updateMember" parameterType="memberVo">
   	update member
-  	set mem_email = #{mem_email}, mem_pass = #{mem_pass}, mem_name = #{mem_name}, mem_nick = #{mem_nick}, mem_tel = #{mem_tel}, mem_age = #{mem_age}, mem_profile = #{mem_profile}
+  	set 
+  	<if test="mem_pass != null">
+  		mem_pass = #{mem_pass},
+  	</if>
+  	<if test="mem_nick != null">
+  		mem_nick = #{mem_nick},
+  	</if>
+  	<if test="mem_tel != null">
+  		mem_tel = #{mem_tel},
+  	</if>
+  	<if test="mem_email != null">
+  		mem_email = #{mem_email},
+  	</if>
+  	<if test="mem_name != null">
+  		mem_name = #{mem_name},
+  	</if>
+	 mem_age = #{mem_age}, mem_profile = #{mem_profile}
   	where mem_id = #{mem_id}
   </update>
   

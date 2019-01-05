@@ -70,9 +70,8 @@
 					</ul>
 				</div>
 			</c:if>
-			<c:if test="${loginInfo.mem_pass == ''}">
-				<input type="hidden" name="mem_id" value="${loginInfo.mem_id}" id="reg_mb_id" readonly="readonly" class="frm_input half_input required " >
-			</c:if>
+			
+			<input type="hidden" name="mem_id" value="${loginInfo.mem_id}" id="reg_mb_id" readonly="readonly" class="frm_input half_input required " >
 			<div class="tbl_frm01 tbl_wrap">
 				<ul>
 					<li>
