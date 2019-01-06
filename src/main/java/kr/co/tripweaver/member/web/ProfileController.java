@@ -5,22 +5,26 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.tripweaver.util.file.FilePath;
+
 @RequestMapping("file")
 @Controller
 public class ProfileController {
 	
-	private final String PATH = "C:\\upload\\";
-	
 	@RequestMapping("read")
-	public void read(@RequestParam("mem_profile") String mem_profile, HttpServletResponse response) throws IOException {
-
-		File f = new File(PATH + mem_profile);
+	public void read(@RequestParam("file") String file, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		//톰캣경로가 아니라 java프로젝트 경로
+		String path = FilePath.PATH;
+		
+		File f = new File(path + file);
 		FileInputStream fis = new FileInputStream(f);
 
 		byte[] buffer = new byte[512];

@@ -256,7 +256,7 @@ ul {
 		<b>내프로필</b> 
 		<div>
 <%-- 			<b class="my_profile"><img src="/file/read?mem_profile=${loginInfo.mem_profile}"></b> --%>
-			<b class="my_profile"><img src="/upload/${loginInfo.mem_profile}"></b>
+			<b class="my_profile"><img src="/file/read?file=${loginInfo.mem_profile}"></b>
 		</div>
 		<ul>
 			<li>${loginInfo.mem_nick}</li>
@@ -272,7 +272,7 @@ ul {
 				<ul class="mes_friendUl">
 					<c:forEach items="${followingVOs}" var="following">
 						<li class="mes_f_list ${following.mem_id}">
-							<div><b class="my_profile my_profile2"><img src="/file/read?mem_profile=${following.mem_profile}"></b></div>
+							<div><b class="my_profile my_profile2"><img src="/file/read?file=${following.mem_profile}"></b></div>
 							<ul>
 								<li>${following.mem_nick}</li>
 								<li>
@@ -296,7 +296,7 @@ ul {
 							</c:if>
 						</c:forEach>
 						<li class="mes_f_list ${follower.mem_id}">
-							<div><b class="my_profile my_profile2"><img src="/file/read?mem_profile=${follower.mem_profile}"></b></div>
+							<div><b class="my_profile my_profile2"><img src="/file/read?file=${follower.mem_profile}"></b></div>
 							<ul>
 								<li>${follower.mem_nick}</li>
 								<li>
