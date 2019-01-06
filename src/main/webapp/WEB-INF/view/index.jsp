@@ -321,7 +321,7 @@ text = text.replace("&nbsp;",""); */
 				success : function(data){
 					$("#essay_list_ul").html("");
 				   console.log(data);
-				  /*  if(data.clusterList.length == 0){
+				   if(data.clusterList.length == 0){
 					   console.log("여기로 들어와따");
 					   var essayContent ="";
 						essayContent += '<li class="essay_list">';
@@ -336,7 +336,7 @@ text = text.replace("&nbsp;",""); */
 			            essayContent += '</li>';
 						$("#essay_list_ul").append(essayContent);
 					   return;
-				   } */
+				   }
 				   
 				   var bounds2 = new daum.maps.LatLngBounds();
 				   var markers = $(data.clusterList).map(function(i, clusterInfo) {
