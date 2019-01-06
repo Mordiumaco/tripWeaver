@@ -159,7 +159,7 @@
 		</div>
 		<div class="btn_confirm">
 			<a href="/main/main" class="btn_cancel">취소</a> 
-			<input type="submit" value="회원가입" id="btn_submit" class="btn_cancel" accesskey="s" disabled="disabled">
+			<input type="submit" value="회원가입" id="btn_submit" class="btn_cancel btn_submit" accesskey="s" disabled="disabled">
 		</div>
 	</form>
 	<script>

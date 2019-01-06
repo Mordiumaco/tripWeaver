@@ -1536,3 +1536,12 @@ a.btn_ov02:hover,a.ov_listall:hover{background:#3f51b5}
 .fileSection { width: 60%; margin: 0 auto ; text-align: center; border:1px solid #ddd; border-bottom: 0; padding-bottom: 10px; padding-top: 10px; border-radius: 8px 8px 0 0;}
 .fileSection  img { margin-bottom:10px; }
 
+
+
+/* 메인 랭킹  퍼블리싱 수정*/
+.main_ranring_tag { line-height: normal; display: inline-block; width: 350px; overflow: hidden; text-overflow: ellipsis; height: 20px; white-space: nowrap;  margin-left: 10px;     vertical-align: sub;}
+.main_ranring_tag b { color: #0064ff ;}
+
+
+/* 마이페이지 게시글 관리 제목 레프트 정렬*/
+.tbl_wrap td:nth-child(2) { text-align: left;}

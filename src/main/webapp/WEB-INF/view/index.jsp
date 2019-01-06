@@ -273,7 +273,7 @@ text = text.replace("&nbsp;",""); */
 				            essayContent += '<img src="/upload/'+clusterInfo.tripplan_image+'" onerror="imgError(this)";/>';
 				            essayContent += '</div>';
 				            essayContent += '<ul class="essay_info">';
-				            essayContent += '<li>'+(parseInt((clusterInfo.essay_meal_exp+clusterInfo.essay_room_exp+clusterInfo.essay_traffic_exp+clusterInfo.essay_other_exp)/10000))+'<span>만원</span> <h6>'+clusterInfo.mem_nick+'</h6></li>';
+				            essayContent += '<li>'+(parseInt((clusterInfo.essay_meal_exp+clusterInfo.essay_room_exp+clusterInfo.essay_traffic_exp+clusterInfo.essay_other_exp)/10000))+'<span> 만원</span> <h6>'+clusterInfo.mem_nick+'</h6></li>';
 				            essayContent += '<li>여행지  : '+clusterInfo.mapmark_sido+' '+clusterInfo.mapmark_sigungu+'</li>';
 				            essayContent += '<li>'+theme+' / '+ season+ ' / '+ peo_type +'</li>';
 				            essayContent += '</ul>';
@@ -462,7 +462,7 @@ text = text.replace("&nbsp;",""); */
 		  <ul class="slides">
 		    <li>
 			    <h2 class="RankingTitle"> 이번 달 짠내 랭킹 </h2>
-			    <a href="" class="RankingA">
+			    <a href="/moneyBest" class="RankingA">
 			    	<ul class="listRanking">
 			    		<li><span>${moneyBestList[0].rnum}</span></li>
 			    		<li>
@@ -480,7 +480,7 @@ text = text.replace("&nbsp;",""); */
 			    		</li>
 			    	</ul>
 		    	</a>
-		    	<a href="" class="RankingA">
+		    	<a href="/moneyBest" class="RankingA">
 			    	<ul class="listRanking">
 			    		<li><span>${moneyBestList[1].rnum}</span></li>
 			    		<li>
@@ -498,7 +498,7 @@ text = text.replace("&nbsp;",""); */
 			    		</li>
 			    	</ul>
 		    	</a>
-		    	<a href="" class="RankingA">
+		    	<a href="/moneyBest" class="RankingA">
 			    	<ul class="listRanking">
 			    		<li><span>${moneyBestList[2].rnum}</span></li>
 			    		<li>
@@ -520,7 +520,7 @@ text = text.replace("&nbsp;",""); */
 		    
 		     <li>
 			    <h2 class="RankingTitle"> 이번 달 에세이 랭킹 </h2>
-			    <a href="" class="RankingA">
+			    <a href="/essayBest" class="RankingA">
 			    	<ul class="listRanking">
 			    		<li><span>${essayBestList[0].rnum}</span></li>
 			    		<li>
@@ -538,7 +538,7 @@ text = text.replace("&nbsp;",""); */
 			    		</li>
 			    	</ul>
 		    	</a>
-		    	<a href="" class="RankingA">
+		    	<a href="/essayBest" class="RankingA">
 			    	<ul class="listRanking">
 			    		<li><span>${essayBestList[1].rnum}</span></li>
 			    		<li>
@@ -556,7 +556,7 @@ text = text.replace("&nbsp;",""); */
 			    		</li>
 			    	</ul>
 		    	</a>
-		    	<a href="" class="RankingA">
+		    	<a href="/essayBest" class="RankingA">
 			    	<ul class="listRanking">
 			    		<li><span>${essayBestList[2].rnum}</span></li>
 			    		<li>
@@ -578,44 +578,50 @@ text = text.replace("&nbsp;",""); */
 		    
 		     <li>
 			    <h2 class="RankingTitle"> 이번 달 포스트 카드 랭킹 </h2>
-			    <a href="" class="RankingA">
+			    <a href="/postBest" class="RankingA">
 			    	<ul class="listRanking">
 			    		<li><span>1</span></li>
 			    		<li><img src="/file/read?mem_profile=${postcardVo[0].mem_profile}"></li>
 			    		<li>
 			    			닉네임 : <b>${postcardVo[0].mem_nick}</b> 
+			    			<div class="main_ranring_tag">
 			    			태그 : 
 								<c:forEach items="${postcardVo[0].hashTagList}" var="hash">
 									<b>&nbsp;#${hash}&nbsp;</b>
 								</c:forEach>
+							</div>
 			    			&nbsp; &nbsp;<span>댓글 수 : ${postcardVo[0].comt_count}</span> <h6>좋아요 : <b> ${postcardVo[0].pc_like_count}</b></h6>
 			    		</li>
 			    	</ul>
 		    	</a>
-		    	<a href="" class="RankingA">
+		    	<a href="/postBest" class="RankingA">
 			    	<ul class="listRanking">
 			    		<li><span>2</span></li>
 			    		<li><img src="/file/read?mem_profile=${postcardVo[1].mem_profile}"></li>
 			    		<li>
-			    			닉네임 : <b>${postcardVo[1].mem_nick}</b> 
+			    			닉네임 : <b>${postcardVo[1].mem_nick}</b>
+			    			<div class="main_ranring_tag">
 			    			태그 : 
 								<c:forEach items="${postcardVo[1].hashTagList}" var="hash">
 									<b>&nbsp;#${hash}&nbsp;</b>
 								</c:forEach>
+							</div> 
 			    			&nbsp; &nbsp;<span>댓글 수 : ${postcardVo[1].comt_count}</span> <h6>좋아요 : <b> ${postcardVo[1].pc_like_count}</b></h6>
 			    		</li>
 			    	</ul>
 		    	</a>
-		    	<a href="" class="RankingA">
+		    	<a href="/postBest" class="RankingA">
 			    	<ul class="listRanking">
 			    		<li><span>3</span></li>
 			    		<li><img src="/file/read?mem_profile=${postcardVo[2].mem_profile}"></li>
 			    		<li>
-			    			닉네임 : <b>${postcardVo[2].mem_nick}</b> 
+			    			닉네임 : <b>${postcardVo[2].mem_nick}</b>
+			    			<div class="main_ranring_tag"> 
 			    			태그 : 
 								<c:forEach items="${postcardVo[2].hashTagList}" var="hash">
 									<b>&nbsp;#${hash}&nbsp;</b>
 								</c:forEach>
+							</div>
 			    			&nbsp; &nbsp;<span>댓글 수 : ${postcardVo[2].comt_count}</span> <h6>좋아요 : <b> ${postcardVo[2].pc_like_count}</b></h6>
 			    		</li>
 			    	</ul>
