@@ -336,11 +336,12 @@ function updateReciveCount(obj) {
 			<li><a class="back" href="/message/chatRoomListView?mem_id=${loginInfo.mem_id}">&#9664; </a></li>
 			<li class="mes_title">
 				<div class="my_profile"><img src="/file/read?mem_profile=${loginInfo.mem_profile}" ></div>
-				<div><b>
-					<c:forEach items="memNickList" var="nick">
+				<div>
+					<b>${chatrrom_name}</b>
+					<c:forEach items="${memNickList}" var="nick">
 						${nick}&nbsp;
 					</c:forEach>
-				</b>${chatrrom_name}</div>
+				</div>
 			</li>
 		</ul>
 		<form id="exit_frm" action="/message/exitChatroom">
