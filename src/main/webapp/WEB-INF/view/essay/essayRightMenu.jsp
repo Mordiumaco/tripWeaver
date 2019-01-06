@@ -161,10 +161,16 @@ $(document).ready(function(){
 	
 	//해당 예약일자가 현 날짜를 지났을 경우 input pox를 삭제한다
 	$(".reservation_list").each(function(){
+		
+		
 		let startDay = new Date($(this).find(".start_day").text());
 		let nowDay = new Date();
 		
-		if(startDay < nowDay){
+		if(parseInt($(this).find(".leftPeople").text()) == 0){
+			$(this).css({"opacity":"0.2"});
+			$(this).find(":radio").attr("disabled", "disabled");
+			$(this).find(":radio").remove();
+		}else if(startDay < nowDay){
 			$(this).css({"opacity":"0.2"});
 			$(this).find(":radio").attr("disabled", "disabled");
 			$(this).find(":radio").remove();
@@ -237,6 +243,28 @@ function follow_count(mem_id) {
 		}
 	});
 }
+
+
+	
+function peopleCount(fm){
+	
+	let leftPeople = parseInt($('#reservationForm').find(":radio[name=guideplan_id]:checked").parents(".reservation_list").find('.leftPeople').text());
+	let reservationPeople = parseInt($('#reservationForm').find(":input[name=reser_apply_peo_count]").val());
+
+	if(reservationPeople < 0 || reservationPeople == 0){
+		alert('정상적인 인원을 적어주세요. 0 혹은 그 이하는 받지 않습니다.');
+		return false;
+	}
+	
+	if(leftPeople < reservationPeople){
+		alert('해당 예약 인원의 정원을 초과하였습니다.');
+		return false;
+	}
+	
+	return true;
+}
+	
+
 
 </script>
 
@@ -313,7 +341,7 @@ function follow_count(mem_id) {
 		
 		<c:if test="${guidePlanList != null}">
 			<h6 class="leftUl2_title">예약 가능한 날짜</h6>
-			<form action="/reservationForEssay" method="post">
+			<form action="/reservationForEssay" method="post" onsubmit="return peopleCount(this);" id="reservationForm">
 			<c:forEach items="${guidePlanList}" var="guidePlanVo" varStatus="loop">
 				<table class="reservation_list reservation_list${loop.index+1}">
 					<tr>
@@ -330,7 +358,7 @@ function follow_count(mem_id) {
 					</tr>
 					<tr>
 						<th>예약 가능한 남은 인원</th>
-						<td>${guidePlanVo.guideplan_peo_count-guidePlanVo.total_res_people_count}</td>
+						<td class="leftPeople">${guidePlanVo.guideplan_peo_count-guidePlanVo.total_res_people_count}</td>
 					</tr>
 					<tr>
 						<th>선택</th>
