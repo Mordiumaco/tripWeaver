@@ -106,7 +106,7 @@ $(function(){
 function flogin_submit(f)
 {
   	if(f.mem_id.value.length > 3){
-     	var regNumber =  /^[-A-Za-z0-9_]/;
+     	var regNumber =  /^[A-Za-z0-9+]*$/;
          var temp = f.mem_id.value;
          if(!regNumber.test(temp))
          {

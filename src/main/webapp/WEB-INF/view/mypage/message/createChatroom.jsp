@@ -160,12 +160,27 @@ ul {
 
 #inviteList span { padding: 4px 8px; background: #ffeb33; border:1px solid #e8d73f; border-radius: 5px; display: inline-block; margin-bottom: 6px;}
 
+#inviteList { background-color: white; height: 150px;}
+
 .btn_create{
 	background: #ffeb33;
     border: 1px solid #e8d73f;
     padding: 5px 10px;
     border-radius: 3px;
     vertical-align: bottom;
+}
+
+#inviteListBox {
+	width: 400px;
+	height: 200px;
+	background-color: white;
+	padding: 10px 0px;
+	margin-bottom: 30px;
+}
+
+.fixed {
+	position: fixed;
+	top:  0px;
 }
 
 .btn_create:hover { background: #bfb021;}
@@ -175,6 +190,16 @@ ul {
 	$(document).ready(function() {
 		var login_id = '${loginInfo.mem_id}';
 		follow_count(login_id);
+		
+		//대화상대초대리스트 박스 스크롤
+		var inviteListBoxOffset = $('#inviteListBox').offset();
+		$(window).scroll(function() {
+			if($(document).scrollTop() > inviteListBoxOffset.top){
+				$('#inviteListBox').addClass('fixed');
+			} else {
+				$('#inviteListBox').removeClass('fixed');
+			}
+		})
 		
 		var inviteListNick = new Array();
 		var inviteListId = new Array();
@@ -270,8 +295,8 @@ ul {
 				<input type="button" id="createChatroom" class="btn_create" value="생성">
 			</div>
 		</form>
-		<div><b>대화상대 초대</b></div> 
-		<div>
+		<div id="inviteListBox">
+			<div><b>대화상대 초대</b></div> 
 			<div id="inviteList">
 				
 			</div>
