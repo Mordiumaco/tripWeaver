@@ -93,7 +93,7 @@ function leadingZeros(n, digits) {
 		<span>1</span>
 		<div class="ranking_profile">
 			<b class="my_profile my_profile4">
-				<img src="/file/read?mem_profile=${postcardVo[0].mem_profile}">
+				<img src="/file/read?mem_profile=${postcardVo[0].mem_profile}" onerror="src='/img/no_profile.png';">
 			</b>
 		</div>
 		<ul>
@@ -117,7 +117,7 @@ function leadingZeros(n, digits) {
 		<span>2</span>
 		<div class="ranking_profile">
 			<b class="my_profile my_profile4">
-				<img src="/file/read?mem_profile=${postcardVo[1].mem_profile}">
+				<img src="/file/read?mem_profile=${postcardVo[1].mem_profile}" onerror="src='/img/no_profile.png';">
 			</b>
 		</div>
 		<ul>
@@ -140,7 +140,7 @@ function leadingZeros(n, digits) {
 		<span>3</span>
 		<div class="ranking_profile">
 			<b class="my_profile my_profile4">
-				<img src="/file/read?mem_profile=${postcardVo[2].mem_profile}">
+				<img src="/file/read?mem_profile=${postcardVo[2].mem_profile}" onerror="src='/img/no_profile.png';">
 			</b>
 		</div>
 		<ul>
@@ -184,10 +184,20 @@ function leadingZeros(n, digits) {
 				<tr>
 					<td>${i.index + 1}</td>
 					<td>
-						<b class="my_profile my_profile3">
-							<img src="/file/read?mem_profile=${post.mem_profile}">
-						</b>
-						<span class="my_profile_nick">${post.mem_nick}</span>
+						<c:choose>
+							<c:when test="${post.mem_profile == null }">
+								<b class="my_profile my_profile3">
+									<img src="/img/no_profile.png" onerror="src='/img/no_profile.png';">
+								</b>
+								<span class="my_profile_nick">${post.mem_nick}</span>
+							</c:when>
+							<c:otherwise>
+								<b class="my_profile my_profile3">
+									<img src="/file/read?mem_profile=${post.mem_profile}" onerror="src='/img/no_profile.png';">
+								</b>
+								<span class="my_profile_nick">${post.mem_nick}</span>
+							</c:otherwise>
+						</c:choose>
 					</td>
 					<td class="center_td00 hashtag_text">
 						<c:forEach items="${post.hashTagList}" var="hash">

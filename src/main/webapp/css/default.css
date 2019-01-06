@@ -1545,3 +1545,7 @@ a.btn_ov02:hover,a.ov_listall:hover{background:#3f51b5}
 
 /* 마이페이지 게시글 관리 제목 레프트 정렬*/
 .tbl_wrap td:nth-child(2) { text-align: left;}
+
+
+/*삭제된 게시글 추가*/
+.list_decoration {text-decoration: overline;} 
