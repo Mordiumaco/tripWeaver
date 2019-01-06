@@ -1,7 +1,6 @@
-<%@include file="../head.jsp" %> 
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@include file="../head.jsp" %> 
 
 <link rel="stylesheet" href="/css/style.css">
 
@@ -129,7 +128,7 @@ function fboardlist_submit(f) {
 		</ul>
 		<ul class="bt_right">
 			<c:if test="${loginInfo.mem_author == 0}">
-			<li><button class="btn_bd col_01" type="submit" onclick="location.href='/article/articleView?board_id=${board_id}'"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp; 글쓰기</button></li>
+			<li><button class="btn_bd col_01" type="submit" onclick="location.href='/article/articleView?board_id=${board_id}'"><i class="far fa-edit"></i>&nbsp; 글쓰기</button></li>
 			</c:if>
 		</ul>
 	</div>
@@ -203,7 +202,7 @@ function fboardlist_submit(f) {
 		<ul class="bt_right">
 			<li><button class="btn_bd col_03" type="submit" onclick="location.href='/main/board?board_id=${board_id}&page=1&pageSize=10&search_key=art_title&search_value='">목록</button></li>
 			<c:if test="${loginInfo.mem_author == 0 }">
-				<li><button class="btn_bd col_01" type="submit" onclick="location.href='/article/articleView?board_id=${board_id}'"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp; 글쓰기</button></li>
+				<li><button class="btn_bd col_01" type="submit" onclick="location.href='/article/articleView?board_id=${board_id}'"><i class="far fa-edit"></i>&nbsp; 글쓰기</button></li>
 			</c:if>
 		</ul>
 		

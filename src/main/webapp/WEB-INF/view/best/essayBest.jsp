@@ -180,7 +180,7 @@ $(function() {
 			</tr>
 		</thead>
 		
-		<tbody class="board_listF board_listBest">
+		<tbody class="board_listF board_listBest board_listBest111111">
 			<c:forEach items="${essayList}" var="essayVo" >
 			<tr class="essaySection">
 				<td>${essayVo.rnum}</td>

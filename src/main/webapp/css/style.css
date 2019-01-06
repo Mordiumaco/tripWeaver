@@ -134,6 +134,11 @@
 	
 }
 
+.board_listBest111111 td:nth-child(3) {
+	text-align: left;
+	padding-left: 10px;
+}
+
 
 /******************************* 페이징 처리 *********************************************/
 /* 페이징 */
@@ -158,7 +163,7 @@ box-shadow: inset 1px 1px 2px #222542;
 
 
 /********************************** 페이지 뷰 ******************************************/
-#bo_v_file {margin:10px 0;border:1px solid #d4d4d4}
+#bo_v_file {margin:10px 0;border:1px solid #d4d4d4; width: 100%; display: inline-block; padding-bottom: 10px;}
 #bo_v_file h2 {padding:10px;background: #f3f3f3; margin-top: 0 ;}
 #bo_v_file ul {margin:0;padding:5px 0;list-style:none}
 #bo_v_file li {padding:5px 10px;position:relative;}
