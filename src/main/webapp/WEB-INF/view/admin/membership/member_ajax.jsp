@@ -140,37 +140,37 @@
 <nav class="pg_wrap"><span class="pg">
 	<c:choose>
 		<c:when test="${memberVOs.size() > 0}">
-	<fmt:parseNumber var="page" value="${pageVO.page/10}" integerOnly="true"/>
-	<c:choose>
-		<c:when test="${page != 0 && pageVO.page%10 == 0}">
-			<c:set var="startIndex" value="${((page) * 10)-9}"/>
-			<c:set var="endIndex" value="${(page) * 10 <= pageCnt ? (page) * 10 : pageCnt}"/>
-		</c:when>
-		<c:otherwise>
-			<c:set var="startIndex" value="${((page + 1) * 10)-9}"/>
-			<c:set var="endIndex" value="${(page + 1) * 10 <= pageCnt ? (page + 1) * 10 : pageCnt}"/>
-		</c:otherwise>
-	</c:choose>
-	<span class="sound_only">열린</span>
-		<c:if test="${pageVO.page != 1}">
-			<a href="javascript:memberPage(1)" class="pg_page pg_start">맨앞</a>
-			<a href="javascript:memberPage(${pageVO.page - 1})" class="pg_page pg_prev">이전</a>
-		</c:if>
-		<c:forEach begin="${startIndex}" end="${endIndex}" varStatus="i">
+			<fmt:parseNumber var="page" value="${pageVO.page/10}" integerOnly="true"/>
 			<c:choose>
-				<c:when test="${pageVO.page == i.index}">
-					<strong class="pg_current">${i.index}</strong><span class="sound_only">페이지</span>
+				<c:when test="${page != 0 && pageVO.page%10 == 0}">
+					<c:set var="startIndex" value="${((page) * 10)-9}"/>
+					<c:set var="endIndex" value="${(page) * 10 <= pageCnt ? (page) * 10 : pageCnt}"/>
 				</c:when>
 				<c:otherwise>
-					<a href="javascript:memberPage(${i.index})" class="pg_page">${i.index}<span class="sound_only">페이지</span></a>
+					<c:set var="startIndex" value="${((page + 1) * 10)-9}"/>
+					<c:set var="endIndex" value="${(page + 1) * 10 <= pageCnt ? (page + 1) * 10 : pageCnt}"/>
 				</c:otherwise>
 			</c:choose>
-		</c:forEach>
-		<c:if test="${pageVO.page != pageCnt}">
-			<a href="javascript:memberPage(${pageVO.page + 1})" class="pg_page pg_next">다음</a>
-			<a href="javascript:memberPage(${pageCnt})" class="pg_page pg_end">맨끝</a>
-		</c:if>
-	</span>
+			<span class="sound_only">열린</span>
+				<c:if test="${pageVO.page != 1}">
+					<a href="javascript:memberPage(1)" class="pg_page pg_start">맨앞</a>
+					<a href="javascript:memberPage(${pageVO.page - 1})" class="pg_page pg_prev">이전</a>
+				</c:if>
+				<c:forEach begin="${startIndex}" end="${endIndex}" varStatus="i">
+					<c:choose>
+						<c:when test="${pageVO.page == i.index}">
+							<strong class="pg_current">${i.index}</strong><span class="sound_only">페이지</span>
+						</c:when>
+						<c:otherwise>
+							<a href="javascript:memberPage(${i.index})" class="pg_page">${i.index}<span class="sound_only">페이지</span></a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:if test="${pageVO.page != pageCnt}">
+					<a href="javascript:memberPage(${pageVO.page + 1})" class="pg_page pg_next">다음</a>
+					<a href="javascript:memberPage(${pageCnt})" class="pg_page pg_end">맨끝</a>
+				</c:if>
+			</span>
 		</c:when>
 		<c:otherwise>
 			<strong class="pg_current">1</strong><span class="sound_only">페이지</span>

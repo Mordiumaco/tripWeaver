@@ -427,8 +427,8 @@ public class MyPageController {
 	
 	/**
 	* Method : memberEditForm
-	* 작성자 : Jae Hyeon Choi
-	* 생성날짜 : 2019. 1. 2.
+	* 작성자 : Jae Hyeon Choi/ jin
+	* 생성날짜 : 2019. 1. 2. / 2019. 1. 7.(수정)
 	* 변경이력 :
 	* @param model
 	* @return

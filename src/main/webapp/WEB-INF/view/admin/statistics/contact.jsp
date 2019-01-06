@@ -161,9 +161,9 @@
 					        {
 					            "type":"pie",
 					            "x":0,
-					            "y":0,
-					            "width":362,
-					            "height":250,
+					            "y":30,
+					            "width":450,
+					            "height":400,
 					            "plotarea":{
 					                "margin":30,
 					            },
@@ -184,7 +184,7 @@
 					                "value-box":{
 					                    "text":"%data-index",
 					                    "color":"#000",
-					                    "font-size":11,
+					                    "font-size":20,
 					                    "font-weight":"normal",
 					                    "offset-r":"55%",
 					                    "connector":{
@@ -196,43 +196,44 @@
 					        },
 					        {
 					            "type":"grid",
-					            "x":362,
-					            "y":0,
-					            "width":362,
-					            "height":250,
+					            "x":480,
+					            "y":70,
+					            "width":400,
+					            "height":400,
 					            "plotarea":{
 					                "margin":"15 0 0 0"
 					            },
 					            "options":{
 					                "col-labels":["순위","구분","비율","합계"],
-					                "col-widths":["30","50%","20%","30%"],
+					                "col-widths":["15%","35%","20%","30%"],
 					                "style":{
 					                    ".th":{
 					                        "background-color":"#fff",
 					                        "color":"#666",
-					                        "font-size":10,
+					                        "font-size":20,
 					                        "font-weight":"normal",
 					                        "border-bottom":"1px solid #aaa",
 					                        "border-right":"0px solid #fff"
 					                    },
 					                    ".td":{
-					                        "height":30,
+					                        "height":50,
+					                        "font-size":20,
 					                        "background-color":"#fff",
 					                        "border-bottom":"1px solid #aaa",
 					                        "font-weight":"normal",
 					                        "border-right":"0px solid #fff"
 					                    },
 					                    ".td_1":{
-					                        "offset-x":-30,
-					                        "padding-left":38
+					                        "offset-x":-60,
+					                        "padding-left":68
 					                    },
 					                    ".td_2":{
-					                        "offset-x":-30,
-					                        "padding-left":38
+					                        "offset-x":-60,
+					                        "padding-left":68
 					                    },
 					                    ".td_3":{
-					                        "offset-x":-30,
-					                        "padding-left":38
+					                        "offset-x":-60,
+					                        "padding-left":68
 					                    },
 					                    ".td_0_0":{
 					                        "text-align":"center",
