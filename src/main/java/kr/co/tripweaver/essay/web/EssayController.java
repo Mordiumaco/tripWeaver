@@ -463,6 +463,8 @@ public class EssayController {
 		
 		List<DailyPlanVO> dailyPlanList = dailyPlanService.selectDailyPlanByTripplanId(tripplan_id);
 		
+		
+		
 		model.addAttribute("essayVo", essayVo);
 		model.addAttribute("tripplanVo", tripplanVo);
 		model.addAttribute("mapMarkerList", mapMarkerList);

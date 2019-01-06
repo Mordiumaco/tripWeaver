@@ -2,7 +2,14 @@
     pageEncoding="UTF-8"%>
     
 <%@include file="/WEB-INF/view/head.jsp" %>
-
+<script>
+	//해당 tripplan 삭제 여부를 묻는 메세지
+	function tripplanDeleteCheck(tripplan_id){
+		confirm('해당일 여행일정을 지우시겠습니까?');
+		
+		location.href = '/myplan/mytravel_delete?tripplan_id='+tripplan_id;
+	}
+</script>
 <div class="sub_container">
 	<%@include file="myPageLeftMenu.jsp" %>
 	
@@ -53,7 +60,7 @@
 					<b>${loginInfo.mem_name}</b>
 				</div>
 				<div>
-					<a href="/myplan/mytravel_delete?tripplan_id=${mypageTripPlanForListVo.tripplan_id}"><button>삭제</button></a> &nbsp;
+					<a href="javascript: tripplanDeleteCheck('${mypageTripPlanForListVo.tripplan_id}')"><button>삭제</button></a> &nbsp;
 					<a href="/myplan/mytravel_update?tripplan_id=${mypageTripPlanForListVo.tripplan_id}"><button>수정</button></a>
 				</div>
 			</li>

@@ -139,7 +139,7 @@ $( function() {
 						<textarea name="dailyplan_cnt" id="dailyplan_cnt" maxlength="600">${temp2} </textarea>
 					</td>
 					<td>
-						<c:set var="temp2" value="${fn:replace(dailyPlanVo.dailyplan_room, '<br/>', crlf)}"/>
+						<c:set var="temp3" value="${fn:replace(dailyPlanVo.dailyplan_room, '<br/>', crlf)}"/>
 						<textarea name="dailyplan_room" id="dailyplan_room" maxlength="600">${temp3} </textarea>
 					</td>
 				</tr>
