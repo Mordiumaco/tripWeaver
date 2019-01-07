@@ -67,10 +67,11 @@ function validation(){
 $(document).ready(function(){
 	var j = 1;
 	$(".plus_btn").on("click",function(){
-		if( j < 5){
+		if( j < 2){
 			j++;
 			$(".file_list").append("<li class='file_list_li"+j+"'><b>첨부 파일 :</b> &nbsp;&nbsp; <input type='file' name='fl_flie"+j+"' >");
 		} else {
+			alert("파일은 최대 2개 까지 입니다.");
 			return ;	
 		}
 	});
@@ -98,9 +99,9 @@ $(document).ready(function(){
 	
 
 	<div class="write_warp">
-		<input type="text" name="board_id" value="${board_id}">
-		<input type="text" name="art_par_id" value="${art_par_id}">
-		선택한 게시글 제목 : <strong>${articleVo.art_title}</strong>
+		<input type="hidden" name="board_id" value="${board_id}">
+		<input type="hidden" name="art_par_id" value="${art_par_id}">
+		선택한 게시글 제목 : <strong>"${art_title}"</strong>
 	</div>
 
 	

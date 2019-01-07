@@ -67,11 +67,11 @@ function validation(){
 $(document).ready(function(){
 	var j = 1;
 	$(".plus_btn").on("click",function(){
-		if( j < 5){
+		if( j < 2){
 			j++;
 			$(".file_list").append("<li class='file_list_li"+j+"'><b>첨부 파일 :</b> &nbsp;&nbsp; <input type='file' name='fl_flie' >");
 		} else {
-			alert("파일은 최대 5개 까지 입니다.");
+			alert("파일은 최대 2개 까지 입니다.");
 			return ;	
 		}
 	});
