@@ -80,7 +80,9 @@ text = text.replace("&nbsp;",""); */
 			</li>
 			
 			<li>
-				<a href="/essay/write">Essay 글쓰기</a>
+				<c:if test="${loginInfo != null}">
+					<a href="/essay/write">Essay 글쓰기</a>
+				</c:if>
 			</li>
 		</ul>
 	</div>

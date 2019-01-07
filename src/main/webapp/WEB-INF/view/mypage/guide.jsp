@@ -6,6 +6,14 @@
 <div class="sub_container">
 	<%@include file="myPageLeftMenu.jsp" %>
 	
+	<script>
+		//해당 tripplan 삭제 여부를 묻는 메세지
+		function reservationDeleteCheck(reser_id){
+			if(confirm('해당일 예약 건을 지우시겠습니까?')){
+				location.href = '/reserDelete?reser_id='+reser_id;
+			}
+		}
+	</script>
 	<div class="mypage_right">
 		<h1 class="mypage_title">나의 투어관리</h1>
 		
@@ -107,7 +115,7 @@
 						        	<a class="btn btn_03" onclick="window.open('/message/selectMessage11?login_id=${loginInfo.mem_id}&mem_id=${reservationForMyPageVo.mem_id}','window_name','width=417,height=500,location=no,status=no,scrollbars=yes');">메세지</a>
 						        </td>
 						        <td headers="mb_list_grp" class="td_numsmall">
-						        	<a href="/reserDelete?reser_id=${reservationForMyPageVo.reser_id}" class="btn btn_01" >삭제</a>
+						        	<a href="javascript: reservationDeleteCheck('${reservationForMyPageVo.reser_id}')" class="btn btn_01" >삭제</a>
 						        </td>
 						    </tr>
 				    	</c:forEach>
