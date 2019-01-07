@@ -149,8 +149,8 @@ function postAllModifiedAjax(submitIndex, index) {
 		type: "post" ,
 		data : "pc_id="+submitIndex,
 		success : function(dt) {
-			var text_id = $('mb_list_open').eq(index).text();
-			$('mb_list_open').eq(index).html('text_id');
+			var text_id = $('.mb_list_open').eq(index).text();
+			$('.mb_list_open').eq(index).html(text_id);
 			$('.mb_list_mailr').eq(index).html('Y');
 			$('.td_numsmall').eq(index).html('');
 		}
@@ -164,6 +164,9 @@ function essayAllModifiedAjax(submitIndex, index) {
 		type: "post" ,
 		data : "essay_id="+submitIndex,
 		success : function(dt) {
+			var text_id = $('.mb_list_open').eq(index).text();
+			$('.mb_list_open').eq(index).html(text_id);
+			$('.mb_list_mailr').eq(index).html('Y');
 			$('.td_numsmall').eq(index).html('');
 		}
 	})
@@ -211,6 +214,7 @@ function essayAllModifiedAjax(submitIndex, index) {
 			<select name="report_proc_sta" id="sfl3">
 				<option value="">전체</option>
 			    <option value="N">처리 미완료</option>
+			    
 			    <option value="Y">처리 완료</option>
 			</select>
 			<input type="button" class="btn_submit" value="검색">
