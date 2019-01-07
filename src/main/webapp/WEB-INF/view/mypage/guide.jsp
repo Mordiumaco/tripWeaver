@@ -15,7 +15,7 @@
 		}
 	</script>
 	<div class="mypage_right">
-		<h1 class="mypage_title">나의 투어관리</h1>
+		<h1 class="mypage_title">나의 예약</h1>
 		
 		<div class="local_ov01 local_ov">
 		    <a href="" class="ov_listall">전체목록</a>
