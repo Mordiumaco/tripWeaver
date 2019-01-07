@@ -75,6 +75,28 @@ public class ReservationController {
 			return "dbError";
 		}
 		
-		return "redirect: /main/main";
+		return "redirect: /mypage/guide";
+	}
+	
+	/**
+	 * Method : reservationDeleteView
+	 * 작성자 : Jae Hyeon Choi
+	 * 생성날짜 : 2018. 12. 29.
+	 * 변경이력 : 
+	 * @param reser_id
+	 * @return
+	 * 해당 예약을 삭제하는 메서드
+	 */
+	@RequestMapping("reserDelete2")
+	public String reservationDeleteView2(String reser_id){
+		
+		int resultCnt = reservationService.reserDeleteByReserId(reser_id);
+		
+		//제대로 정보기입이 안되었으면 에러 페이지로 이동시킨다. 
+		if(resultCnt == 0) {
+			return "dbError";
+		}
+		
+		return "redirect: /mypage/reservation";
 	}
 }

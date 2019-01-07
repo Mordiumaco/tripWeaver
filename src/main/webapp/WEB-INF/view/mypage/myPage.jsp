@@ -5,9 +5,9 @@
 <script>
 	//해당 tripplan 삭제 여부를 묻는 메세지
 	function tripplanDeleteCheck(tripplan_id){
-		confirm('해당일 여행일정을 지우시겠습니까?');
-		
-		location.href = '/myplan/mytravel_delete?tripplan_id='+tripplan_id;
+		if(confirm('해당일 여행일정을 지우시겠습니까?')){
+			location.href = '/myplan/mytravel_delete?tripplan_id='+tripplan_id;
+		}
 	}
 </script>
 <div class="sub_container">
