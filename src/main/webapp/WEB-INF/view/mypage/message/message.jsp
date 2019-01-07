@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -156,6 +157,8 @@ ul {
 <script src="/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		follow_count('${loginInfo.mem_id}');
+		
 		var login_id = '${loginInfo.mem_id}';
 		
 		$('.followBtn').on({
@@ -253,7 +256,7 @@ ul {
 		<b>내프로필</b> 
 		<div>
 <%-- 			<b class="my_profile"><img src="/file/read?mem_profile=${loginInfo.mem_profile}"></b> --%>
-			<b class="my_profile"><img src="/upload/${loginInfo.mem_profile}"></b>
+			<b class="my_profile"><img src="/file/read?file=${loginInfo.mem_profile}"></b>
 		</div>
 		<ul>
 			<li>${loginInfo.mem_nick}</li>
@@ -262,56 +265,64 @@ ul {
 	<div id="follow_count">
 		<!-- follow count ajax -->
 	</div>
-	<div class="mes_friend">
-		<ul class="mes_friendUl">
-			<c:forEach items="${followingVOs}" var="following">
-				<li class="mes_f_list ${following.mem_id}">
-					<div><b class="my_profile my_profile2"><img src="/file/read?mem_profile=${following.mem_profile}"></b></div>
-					<ul>
-						<li>${following.mem_nick}</li>
-						<li>
-							<a href="/message/selectMessage11?login_id=${loginInfo.mem_id}&mem_id=${following.mem_id}">메세지</a>
-							<input type="hidden" value="${following.mem_id}">
-							<input type="button" class="following followBtn" value="팔로잉">
-						</li>
-					</ul>
-				</li>
-			</c:forEach>
-		</ul>
-	</div>
 	
-	<div class="mes_friend no_line">
-		<ul class="mes_friendUl">
-	
-			<c:forEach items="${followerVOs}" var="follower">
-				<c:set var="fol_state" value=""/>
-				<c:forEach items="${followVOs}" var="fol">
-					<c:if test="${fol.mem_id2 == follower.mem_id}">
-						<c:set var="fol_state" value="${fol.fol_state}"/>
-					</c:if>
-				</c:forEach>
-				<li class="mes_f_list ${follower.mem_id}">
-					<div><b class="my_profile my_profile2"><img src="/file/read?mem_profile=${follower.mem_profile}"></b></div>
-					<ul>
-						<li>${follower.mem_nick}</li>
-						<li>
-							<a href="/message/selectMessage11?login_id=${loginInfo.mem_id}&mem_id=${follower.mem_id}">메세지</a>
-							<input type="hidden" value="${follower.mem_id}">
-							<c:choose>
-								<c:when test="${fol_state == 0}">
-									<input type="button" class="follower followBtn" value="팔로우">
-								</c:when>
-								<c:otherwise>
+	<c:choose>
+		<c:when test="${fn:length(followingVOs) > 0 || fn:length(followerVOs) > 0}">
+			<div class="mes_friend">
+				<ul class="mes_friendUl">
+					<c:forEach items="${followingVOs}" var="following">
+						<li class="mes_f_list ${following.mem_id}">
+							<div><b class="my_profile my_profile2"><img src="/file/read?file=${following.mem_profile}"></b></div>
+							<ul>
+								<li>${following.mem_nick}</li>
+								<li>
+									<a href="/message/selectMessage11?login_id=${loginInfo.mem_id}&mem_id=${following.mem_id}">메세지</a>
+									<input type="hidden" value="${following.mem_id}">
 									<input type="button" class="following followBtn" value="팔로잉">
-								</c:otherwise>
-							</c:choose>
+								</li>
+							</ul>
 						</li>
-					</ul>
-				</li>
-			</c:forEach>
+					</c:forEach>
+				</ul>
+			</div>
 			
-		</ul>
-	</div>
+			<div class="mes_friend no_line">
+				<ul class="mes_friendUl">
+					<c:forEach items="${followerVOs}" var="follower">
+						<c:set var="fol_state" value=""/>
+						<c:forEach items="${followVOs}" var="fol">
+							<c:if test="${fol.mem_id2 == follower.mem_id}">
+								<c:set var="fol_state" value="${fol.fol_state}"/>
+							</c:if>
+						</c:forEach>
+						<li class="mes_f_list ${follower.mem_id}">
+							<div><b class="my_profile my_profile2"><img src="/file/read?file=${follower.mem_profile}"></b></div>
+							<ul>
+								<li>${follower.mem_nick}</li>
+								<li>
+									<a href="/message/selectMessage11?login_id=${loginInfo.mem_id}&mem_id=${follower.mem_id}">메세지</a>
+									<input type="hidden" value="${follower.mem_id}">
+									<c:choose>
+										<c:when test="${fol_state == 0}">
+											<input type="button" class="follower followBtn" value="팔로우">
+										</c:when>
+										<c:otherwise>
+											<input type="button" class="following followBtn" value="팔로잉">
+										</c:otherwise>
+									</c:choose>
+								</li>
+							</ul>
+						</li>
+					</c:forEach>
+				</ul>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div style="width: 400px; text-align: center; height:100px; margin-top: 150px;">조회된 리스트가 없습니다.</div>
+		</c:otherwise>
+	</c:choose>
+	
+	
 	
 </body>
 </html>

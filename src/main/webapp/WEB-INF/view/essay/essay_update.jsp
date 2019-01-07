@@ -424,7 +424,6 @@ function call()
 						</c:forEach>
 					</table>
 				</div>
-				
 				<%-- 나의 일정을 클릭하면 나오는 정보 끝 --%>
 				
 				

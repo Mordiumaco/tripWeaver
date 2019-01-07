@@ -39,10 +39,6 @@
 				    
 				    <thead>
 					    <tr>
-					        <th scope="col" id="mb_list_chk" rowspan="2">
-					            <label for="chkall" class="sound_only">회원 전체</label>
-					            <input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
-					        </th>
 					        <th scope="col" id="mb_list_mailc"><a href="">이메일</a></th>
 					        <th scope="col" id="mb_list_id"><a href="">이름</a></th>
 					        <th scope="col" id="mb_list_mobile">닉네임</th>
@@ -54,11 +50,6 @@
 				    
 				    <tbody>
 					    <tr class="bg0">
-					        <td headers="mb_list_chk" class="td_chk" rowspan="2">
-					            <input type="hidden" name="mb_id[0]" value="pcpcggg3@naver.com" id="mb_id_0">
-					            <label for="chk_0" class="sound_only">pcpcggg3@naver.com 님</label>
-					            <input type="checkbox" name="chk[]" value="0" id="chk_0">
-					        </td>
 					        <td headers="mb_list_id"  class="td_name sv_use">
 					            pcpcggg3@naver.com                   
 					        </td>
@@ -82,7 +73,7 @@
 		</form>
 			
 			<div class="btn_list03 btn_list">
-		        <a href="./member_list.php">회원 전체보기</a>
+		        <a href="/manage/memberView?page=1&pageSize=10">회원 전체보기</a>
 		    </div>
 
 			<h2>신규 가이드 지원 5건 목록</h2>
@@ -119,10 +110,6 @@
 				    
 				    <thead>
 					    <tr>
-					        <th scope="col" id="mb_list_chk" rowspan="2">
-					            <label for="chkall" class="sound_only">회원 전체</label>
-					            <input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
-					        </th>
 					        <th scope="col" id="mb_list_mailc"><a href="">이메일</a></th>
 					        <th scope="col" id="mb_list_id"><a href="">이름</a></th>
 					        <th scope="col" id="mb_list_mobile">닉네임</th>
@@ -134,11 +121,6 @@
 				    
 				    <tbody>
 					    <tr class="bg0">
-					        <td headers="mb_list_chk" class="td_chk" rowspan="2">
-					            <input type="hidden" name="mb_id[0]" value="pcpcggg3@naver.com" id="mb_id_0">
-					            <label for="chk_0" class="sound_only">pcpcggg3@naver.com 님</label>
-					            <input type="checkbox" name="chk[]" value="0" id="chk_0">
-					        </td>
 					        <td headers="mb_list_id"  class="td_name sv_use">
 					            pcpcggg3@naver.com                   
 					        </td>
@@ -163,7 +145,7 @@
 		</form>
 			
    		<div class="btn_list03 btn_list">
-		     <a href="./member_list.php">가이드 지원 전체보기</a>
+		     <a href="/main/board?board_id=bd00003">가이드 지원 전체보기</a>
 		</div>
 </section>
  

@@ -11,6 +11,16 @@
 			return;
 		}
 		
+		if(mem_id.length > 3){
+         	var regNumber =  /^[-A-Za-z0-9_]/;
+             var temp = mem_id;
+             if(!regNumber.test(temp))
+             {
+                 alert('영문 및 숫자만 적어주세요');
+                 $("#mem_id").focus();
+                 return false;
+             }
+         }
 		
 	  $.ajax({
 			type: "GET",
@@ -103,7 +113,7 @@
 						<input type="text" name="mem_nick" value="" id="reg_mb_nick" required="" class="frm_input required nospace  half_input" size="10" maxlength="20" placeholder="닉네임"> 
 						<span id="msg_mb_nick"></span>
 						<span class="frm_info"> 
-							공백없이 한글,영문,숫자만 입력 가능 (한글2자, 영문4자이상)
+							공백없이 한글,영문,숫자만 입력 가능 (한글4자, 영문4자 이하)
 							<br>
 							닉네임을 바꾸시면 앞으로 60일 이내에는 변경 할 수 없습니다.
 						</span>
@@ -138,10 +148,6 @@
 				<h2>기타 개인설정</h2>
 				<ul>
 					<li>
-						<label for="reg_mb_mailling" class="frm_label">메일링서비스</label>
-						<input type="checkbox" name="mem_mailling" value="1" id="reg_mb_mailling" checked=""> 정보 메일을 받겠습니다.
-					</li>
-					<li>
 						<label for="reg_mb_open" class="frm_label">정보공개</label> 
 						<input type="hidden" name="mb_open_default" value=""> 
 						<input type="checkbox" name="mem_open" value="1" checked="" id="reg_mb_open"> 다른분들이 나의 정보를 볼 수 있도록 합니다. 
@@ -153,7 +159,7 @@
 		</div>
 		<div class="btn_confirm">
 			<a href="/main/main" class="btn_cancel">취소</a> 
-			<input type="submit" value="회원가입" id="btn_submit" class="btn_cancel" accesskey="s" disabled="disabled">
+			<input type="submit" value="회원가입" id="btn_submit" class="btn_cancel btn_submit" accesskey="s" disabled="disabled">
 		</div>
 	</form>
 	<script>
@@ -163,6 +169,17 @@
 	    // submit 최종 폼체크
 	    function fregisterform_submit(f){
 	       
+	    	if(f.mem_id.value.length > 3){
+	         	var regNumber =  /^[A-Za-z0-9+]*$/;
+	             var temp = f.mem_id.value;
+	             if(!regNumber.test(temp))
+	             {
+	                 alert('영문 및 숫자만 적어주세요');
+	                 $("#mem_id").focus();
+	                 return false;
+	             }
+	         }
+	    	
 	        if (f.mem_pass.value !== f.mem_pass_re.value) {
 	            alert("비밀번호가 같지 않습니다.");
 	            f.mem_pass.focus();
@@ -189,6 +206,8 @@
                 f.mem_name.focus();
                 return false;
             }
+            
+    
 	            /*
 	            var pattern = /([^가-힣\x20])/i;
 	            if (pattern.test(f.mb_name.value)) {
@@ -210,8 +229,17 @@
                 alert("닉네임을 4자 이하 입력해 주세요");
                 f.mem_nick.focus();
                 return false;
+	        }else{
+	        	 var regNumber =  /^[-A-Za-z0-9가-힣_]/;
+	             var temp = f.mem_nick.value;
+	             if(!regNumber.test(temp))
+	             {
+	                 alert('특수문자 불가');
+	                 $("#mem_nick").focus();
+	                 return false;
+	             }
 	        }
-	            
+            
 	        //전화번호 검사
 	        if(f.mem_tel.value.length > 5){
 	        	

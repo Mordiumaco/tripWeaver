@@ -87,8 +87,8 @@
 				</c:when>
 				<c:otherwise>
 					<b class="my_profile my_profile10">
-						<img src="/upload/${loginInfo.mem_profile}"
-							onerror="src='/img/no_profile.png';">
+<%-- 						<img src="/upload/${loginInfo.mem_profile}" onerror="src='/img/no_profile.png';"> --%>
+						<img src="/file/read?file=${loginInfo.mem_profile}" onerror="src='/img/no_profile.png';">
 					</b>
 				</c:otherwise>
 			</c:choose></li>
@@ -142,7 +142,7 @@
 		<%-- --%>
 		<li class="mypage_leftHover"><a href="/mypage/myPost">게시글 관리</a></li>
 		<li class="mypage_leftHover"><a class="pointer"
-			onclick="window.open('/main/message','window_name','width=417,height=500,location=no,status=no,scrollbars=yes');">메시지</a></li>
+			onclick="window.open('/message/mainView?mem_id=${loginInfo.mem_id}','window_name','width=417,height=500,location=no,status=no,scrollbars=yes');" target="blank">메시지</a></li>
 		<li class="mypage_leftHover"><a
 			href="/allPostClip?page=1&pageSize=9&mem_id=${loginInfo.mem_id}&tag_search=&search_title=m.mem_nick">클립보드</a></li>
 	</ul>

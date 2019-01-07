@@ -53,8 +53,16 @@ public class ClusterVO {
     private String essay_title;
     private Integer rnum;
     private Integer comment_count;
+    private String essay_filter;
     
     
+    
+	public String getEssay_filter() {
+		return essay_filter;
+	}
+	public void setEssay_filter(String essay_filter) {
+		this.essay_filter = essay_filter;
+	}
 	public Integer getComment_count() {
 		return comment_count;
 	}
@@ -228,8 +236,21 @@ public class ClusterVO {
 	}
 	public void setMem_nick(String mem_nick) {
 		this.mem_nick = mem_nick;
-	} 
+	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		
+		if(obj instanceof ClusterVO) {
+			ClusterVO clusterVo = (ClusterVO)obj;
+			
+			if(this.essay_id.equals(clusterVo.essay_id)) {
+				return true;
+			}
+		}
+		
+		return false;
+	} 
 	
 	
 }

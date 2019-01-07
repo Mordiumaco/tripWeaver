@@ -15,19 +15,25 @@
 			memberPage(1);
 			
 			$("#memberPage").on("click", ".update", function() {
-				var tr = $(this).parent().parent();
-				var mem_id = tr.children().eq(1).find('span').text();
-				var target = document.getElementById(mem_id);
-				var mem_author = target.options[target.selectedIndex].value;
-				var page = tr.children().eq(1).find('input').val();
-				memberUpdate(mem_id, mem_author, page);
+				var conf = confirm("수정하시겠습니까?");
+				if(conf){
+					var tr = $(this).parent().parent();
+					var mem_id = tr.children().eq(1).find('span').text();
+					var target = document.getElementById(mem_id);
+					var mem_author = target.options[target.selectedIndex].value;
+					var page = tr.children().eq(1).find('input').val();
+					memberUpdate(mem_id, mem_author, page);
+				}
 			});
 			
 			$("#memberPage").on("click", ".delete", function() {
-				var tr = $(this).parent().parent();
-				var mem_id = tr.children().eq(1).find('span').text();
-				var page = tr.children().eq(1).find('input').val();
-				memberDelete(mem_id, page);
+				var conf = confirm("삭제하시겠습니까?");
+				if(conf){
+					var tr = $(this).parent().parent();
+					var mem_id = tr.children().eq(1).find('span').text();
+					var page = tr.children().eq(1).find('input').val();
+					memberDelete(mem_id, page);
+				}
 			});
 			
 			$("#search").on("click", function() {
@@ -45,9 +51,12 @@
 					delArr += mem_id + ";";
 				});
 				if(delArr == ""){
-					alert("삭제할 인원을 선탣해주세요");
+					alert("삭제할 인원을 선택해주세요");
 				} else {
-					memberChkDelete(delArr, page);
+					var conf = confirm("삭제하시겠습니까?");
+					if(conf){
+						memberChkDelete(delArr, page);
+					}
 				}
 			});
 			
@@ -69,7 +78,10 @@
 				if(upArr == ""){
 					alert("수정할 인원을 선택해주세요");
 				} else {
-					memberChkUpdate(upArr, auArr, page);
+					var conf = confirm("수정하시겠습니까?");
+					if(conf){
+						memberChkUpdate(upArr, auArr, page);
+					}
 				}				
 			});
 			

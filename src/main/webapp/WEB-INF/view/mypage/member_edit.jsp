@@ -35,14 +35,14 @@
 					<input type="file" name="mem_profile_file" id="mem_profile">
 				</div>
 			</c:when>
-			<c:when test="${fn:substring(loginInfo.mem_profile,0,7) != 'profile'}">
+			<c:when test="${fn:substring(loginInfo.mem_profile,0,8) != '/profile'}">
 				<div class="fileSection">
 					<input type="file" name="mem_profile_file" id="mem_profile">
 				</div>
 			</c:when>
 			<c:otherwise>
 				<div class="fileSection">
-					<img alt="profile" src="/upload/${loginInfo.mem_profile}" style="width:10em;" onerror="src='/img/no_profile.png';"><br/>
+					<img alt="profile" src="/file/read?file=${loginInfo.mem_profile}" style="width:10em;" onerror="src='/img/no_profile.png';"><br/>
 					파일명 : ${loginInfo.mem_profile} <a href="javascript: deleteProfile()" class="btn btn_02">프로필 변경</a> 
 				</div>
 			</c:otherwise>
@@ -70,7 +70,7 @@
 					</ul>
 				</div>
 			</c:if>
-			<c:if test="${loginInfo.mem_pass == ''}">
+			<c:if test="${loginInfo.mem_pass == null}">
 				<input type="hidden" name="mem_id" value="${loginInfo.mem_id}" id="reg_mb_id" readonly="readonly" class="frm_input half_input required " >
 			</c:if>
 			<div class="tbl_frm01 tbl_wrap">

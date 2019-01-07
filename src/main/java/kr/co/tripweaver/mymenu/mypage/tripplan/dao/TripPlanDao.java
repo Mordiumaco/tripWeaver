@@ -200,20 +200,20 @@ public class TripPlanDao implements ITripPlanDao{
 	* Method 설명 : xy 값을 받으면 해당 ClusterVo 값을 반환한다. 
 	*/
 	@Override
-	public ClusterVO selectClusterVoByXY(Map<String, String> xy) {
+	public List<ClusterVO> selectClusterVoByXY(Map<String, String> xy) {
 		
-		ClusterVO clusterVo =  null;
+		List<ClusterVO> clusterList =  null;
 		
 		try {
 			
-			clusterVo = template.selectOne("tripplanSQL.selectClusterVoByXY", xy);
+			clusterList = template.selectList("tripplanSQL.selectClusterVoByXY", xy);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			return clusterVo;
+			return clusterList;
 		}
 		
-		return clusterVo;
+		return clusterList;
 	}
 	
 	/**

@@ -115,7 +115,7 @@ public class LoginController {
 		if(existedMember == null) {
 			
 			//다시 로그인 하도록 로그인 페이지 뷰로 리턴
-			return "/login/login";
+			return "redirect: /main/login";
 			
 		//해당 아이디와 비밀번호가 일치하는 경우 
 		}else {

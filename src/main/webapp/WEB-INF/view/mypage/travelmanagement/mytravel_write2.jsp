@@ -199,11 +199,22 @@
 		}
 	}
 	
-	
+
+	function formChecker(){
+		
+		let peopleCount = $(':input[name=tripplan_peo_count]').val();
+		
+		if(peopleCount < 0){
+			alert('인원수를 0보다 큰 값을 입력해주세요!');
+			return false;
+		}
+		
+		return true;
+	}
 	
 </script>
 <!-- 모든 정보를 받아올 폼 -->
-<form name="planForm" class="planForm" action="/myplan/mytravelForm" method="post" enctype="multipart/form-data" runat="server">
+<form name="planForm" class="planForm" action="/myplan/mytravelForm" method="post" enctype="multipart/form-data" runat="server" onsubmit="return formChecker();">
 <div class="sub_container">
 	<h1 class="mypage_title">나의여행 일정 작성 </h1>	
 	<div class="essay_filter">

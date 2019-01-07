@@ -217,6 +217,7 @@ div .connstat_table {
 				                    "type":"circle"
 				                },
 				                "item":{
+				                	"font-size" : 15,
 				                    "font-color":"#7E7E7E"
 				                }
 				            },
@@ -237,11 +238,12 @@ div .connstat_table {
 				                    "visible":false
 				                },
 				                "item":{
+				                	"font-size" : 15,
 				                    "color":"#8B8B8B"
 				                }
 				            },
 				            "scale-y":{
-				                "values":"0:70:5",
+				                "step": 5,
 				                "line-color":"#D9D7D5",
 				                "line-width":"1px",
 				                "tick":{
@@ -251,6 +253,7 @@ div .connstat_table {
 				                    "line-style":"dotted"
 				                },
 				                "item":{
+				                	"font-size" : 15,
 				                    "color":"#8B8B8B"
 				                }
 				            },
@@ -278,6 +281,9 @@ div .connstat_table {
 		var myChart_writer = 
         {
             "type": "bar",
+			"legend": {
+            	
+            },
             "stacked": true,
             "stack-type": "normal",
             "background-color": "#FFFFFF",
@@ -354,12 +360,13 @@ div .connstat_table {
                     "visible": false
                 },
                 "item": {
+                	"font-size" : 15,
                     "font-family": "arial",
                     "font-color": "#8B8B8B"
                 }
             },
             "scale-y": {
-                "values": "0:25:1",
+                "step": 5,
                 "short": true,
                 "line-color": "#7E7E7E",
                 "tick": {
@@ -369,22 +376,27 @@ div .connstat_table {
                     "line-style": "solid"
                 },
                 "item": {
+                	"font-size" : 15,
                     "font-family": "arial",
                     "font-color": "#8B8B8B"
                 }
             },
             "series": [
                 {
+                	"text": "남성",
                     "values": male,
                     "background-color": "#1E82FF"
                 },
                 {
+                	"text": "여성",
                     "values": female,
                     "background-color": "#FF4646"
                 }
             ],
-            "tooltip": {
-                "visible": false
+            "tooltip":{
+                "text":"%v 건",
+                "shadow":false,
+                "border-radius":3
             }
         }
 ;

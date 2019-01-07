@@ -149,6 +149,9 @@ function postAllModifiedAjax(submitIndex, index) {
 		type: "post" ,
 		data : "pc_id="+submitIndex,
 		success : function(dt) {
+			var text_id = $('mb_list_open').eq(index).text();
+			$('mb_list_open').eq(index).html('text_id');
+			$('.mb_list_mailr').eq(index).html('Y');
 			$('.td_numsmall').eq(index).html('');
 		}
 	})

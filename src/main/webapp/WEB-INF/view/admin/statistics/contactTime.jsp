@@ -131,7 +131,7 @@ div .connstat_table {
 		 	    ]
 		 	},
 		 	tooltip:{
-		 	  text:"%v<br>%kv",
+		 	  text:"%v명<br>%kv시",
 		 	  borderRadius: 2
 		 	},
 		 	crosshairX:{

@@ -105,6 +105,17 @@ $(function(){
 });
 function flogin_submit(f)
 {
+  	if(f.mem_id.value.length > 3){
+     	var regNumber =  /^[A-Za-z0-9+]*$/;
+         var temp = f.mem_id.value;
+         if(!regNumber.test(temp))
+         {
+             alert('영문 및 숫자만 적어주세요');
+             $("#mem_id").focus();
+             return false;
+         }
+     }
+	
     return true;
 }
 </script>

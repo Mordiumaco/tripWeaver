@@ -2,6 +2,7 @@ package kr.co.tripweaver.mymenu.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,8 @@ import kr.co.tripweaver.mymenu.reservation.model.ReservationForMyPageVO;
 import kr.co.tripweaver.mymenu.reservation.service.IReservationService;
 import kr.co.tripweaver.postcard.model.PostCardVO;
 import kr.co.tripweaver.postcard.service.IPostCardService;
+import kr.co.tripweaver.util.file.FilePath;
+import kr.co.tripweaver.util.file.FileUtil;
 
 /**
 * MyPageController.java
@@ -217,7 +220,9 @@ public class MyPageController {
 	* Method 설명 : 페이지에 해당하는 에세이 객체 목록을 받아옴 
 	*/
 	@RequestMapping("/essayPageAjax")
-	public String essayPageAjaxView(HttpSession session, String page, Model model) {
+	public String essayPageAjaxView(HttpSession session, String page, Model model
+			,@RequestParam(name="sfl", defaultValue="title", required=false) String category
+			,@RequestParam(name="stx", defaultValue="", required=false) String searchValue) {
 		
 		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
 		
@@ -225,10 +230,14 @@ public class MyPageController {
 			return "loginCheckError";
 		}
 		
+		logger.debug("category : {}", category);
+		logger.debug("searchValue : {}", searchValue);
+		
 		Map<String, String> param = new HashMap<>();
 		
 		param.put("page", page);
 		param.put("mem_id", memberVo.getMem_id());
+		param.put(category, searchValue);
 		
 		List<EssayVO> essayList = essayService.selectEssayByMemIdForBoard(param);
 		
@@ -272,7 +281,7 @@ public class MyPageController {
 	}
 	
 	/**
-	* Method : postCardPageAjaxView
+	* Method : boardPageAjaxView
 	* 작성자 : Jae Hyeon Choi
 	* 생성날짜 : 2018. 12. 28.
 	* 변경이력 :
@@ -280,10 +289,12 @@ public class MyPageController {
 	* @param page
 	* @param model
 	* @return
-	* Method 설명 : 해당하는 포스트카드 목록을 불러옴
+	* Method 설명 : 해당하는 게시판 목록을 불러옴
 	*/
 	@RequestMapping("/boardPageAjax")
-	public String postCardPageAjaxView(HttpSession session, String page, Model model, String board_id) {
+	public String boardPageAjaxView(HttpSession session, String page, Model model, String board_id
+			,@RequestParam(name="sfl", defaultValue="title", required=false) String category
+			,@RequestParam(name="stx", defaultValue="", required=false) String searchValue) {
 		
 		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
 		
@@ -296,6 +307,7 @@ public class MyPageController {
 		param.put("page", page);
 		param.put("mem_id", memberVo.getMem_id());
 		param.put("board_id", board_id);
+		param.put(category, searchValue);
 		
 		List<ArticleVO> articleList = articleSerivce.selectEssayByMemIdAndBoardIdForBoard(param);
 		
@@ -415,8 +427,8 @@ public class MyPageController {
 	
 	/**
 	* Method : memberEditForm
-	* 작성자 : Jae Hyeon Choi
-	* 생성날짜 : 2019. 1. 2.
+	* 작성자 : Jae Hyeon Choi/ jin
+	* 생성날짜 : 2019. 1. 2. / 2019. 1. 7.(수정)
 	* 변경이력 :
 	* @param model
 	* @return
@@ -439,25 +451,34 @@ public class MyPageController {
 		}
 		
 		//처음에 대표 이미지 파일이 있는지 먼저 확인해본다.
-		String directory = "C:/upload/profile/";
-		if(!mem_profile_file.isEmpty()) {
+		if(!(mem_profile_file==null)) {
 			//이미지 파일이 존재한다면 이부분이 실행된다.
 			byte[] bytes = mem_profile_file.getBytes();
+			String path = FilePath.PATH;
+			String att_path = "/profile";
+			String att_file_ori_name = mem_profile_file.getOriginalFilename();
+			String fileExt = FileUtil.getFileExt(att_file_ori_name);
+			String att_file_name = UUID.randomUUID().toString() + fileExt;
 			
-			String fileName = UUID.randomUUID().toString()+mem_profile_file.getOriginalFilename();
+			//각자 java프로젝트 upload폴더에 저장
+			File fileTest = new File(path + att_path + File.separator + att_file_name);
 			
 			
-			mem_profile_file.transferTo(new File(directory + File.separator + fileName));
-			
-			
-			
-			if(!fileName.endsWith(".jpg")&&!fileName.endsWith(".gif")&&fileName.endsWith(".png")){
-				File fileTest = new File(directory+fileName);
+			if(!att_file_name.endsWith(".jpg")&&!att_file_name.endsWith(".gif")&&!att_file_name.endsWith(".png")){
 				fileTest.delete();
 			}else{
-				memberVo.setMem_profile("profile/"+fileName);
+				//수정전 이미지가 존재한다면 삭제한다.
+				File prev_file = new File(path + InfoMemberVo.getMem_profile());
+				if(prev_file.exists()) {
+					if(prev_file.delete()) {
+						logger.debug("기존 파일 삭제 성공");
+					} else {
+						logger.debug("기존 파일 삭제 실패");
+					}
+				}
+				mem_profile_file.transferTo(fileTest);
+				memberVo.setMem_profile(att_path + "/" + att_file_name);
 			}
-			
 		}else {
 			//이미지 파일이 존재하지 않는다면 이부분이 실행된다.
 			memberVo.setMem_profile("");

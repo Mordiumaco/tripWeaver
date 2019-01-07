@@ -311,7 +311,8 @@ function goMypage(){
 			
 			//달력에 값이 있는지 확인 
 			var dateChecker = document.getElementById("datepicker").value;
-		
+			var formChecker = true;
+			
 			//달력 관련 input에 값이 없거나 공백이면 다시 입력하라고 한다. 
 			if(dateChecker == "" || dateChecker == null){
 				alert("출발일을 정해주세요");
@@ -320,9 +321,28 @@ function goMypage(){
 				
 			}else{
 				
-				return true;
+				//days check 로직 추가(2019.01.06 추가)
+				$(':input[name=days]').each(function(index){
+					
+					let days = parseInt($(this).val());
+					
+					if(days < 0){
+						alert('0보다 작은 수는 적용할 수 없습니다.')
+						formChecker = false;
+						return;
+					}
+				});
+				
+				
+				if(formChecker){
+					return true;					
+				}else{
+					return false;
+				}
 				
 			}
+			
+			
 			
 		}
 	

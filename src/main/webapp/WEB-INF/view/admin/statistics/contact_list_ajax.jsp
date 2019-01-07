@@ -54,11 +54,14 @@
 </div>
 
 <nav class="pg_wrap">
-	<span class="pg"> <fmt:parseNumber var="pages"
-			integerOnly="true" value="${pageVO.page/pageVO.pageSize}" /> <c:set
-			var="start" value="${pages*pageVO.pageSize + 1}" /> <c:set var="end"
-			value="${start + 9 > pageCnt? pageCnt : start + 9}" /> <c:if
-			test="${pageVO.page != 1}">
+	<span class="pg"> 
+		<fmt:parseNumber var="pages" integerOnly="true" value="${pageVO.page/pageVO.pageSize}" />
+		<c:if test="${pageVO.page%pageVO.pageSize eq 0}">
+			<c:set var="pages" value="${pages - 1}"/>
+		</c:if> 
+		<c:set var="start" value="${pages*pageVO.pageSize + 1}" /> 
+		<c:set var="end" value="${start + 9 > pageCnt? pageCnt : start + 9}" /> 
+		<c:if test="${pageVO.page != 1}">
 			<a href="javascript:contact_list(1)"
 				class="pg_page pg_start">맨앞</a>
 			<a href="javascript:contact_list(${pageVO.page - 1})"

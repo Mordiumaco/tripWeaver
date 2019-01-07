@@ -103,7 +103,7 @@ public interface ITripPlanDao {
 	* @return
 	* Method 설명 : xy 값을 받으면 해당 ClusterVo 값을 반환한다. 
 	*/
-	public ClusterVO selectClusterVoByXY(Map<String, String> xy);
+	public List<ClusterVO> selectClusterVoByXY(Map<String, String> xy);
 	
 	
 	/**

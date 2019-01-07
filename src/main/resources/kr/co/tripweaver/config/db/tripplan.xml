@@ -63,7 +63,8 @@
  		e.essay_meal_exp essay_meal_exp,
         e.essay_traffic_exp essay_traffic_exp,
         e.essay_room_exp essay_room_exp,
-        e.essay_other_exp essay_other_exp
+        e.essay_other_exp essay_other_exp,
+        e.essay_filter essay_filter
 		from mapmarker mm, triparea ta, tripplan tp, member m, essay e 
 		where mm.triparea_id = ta.triparea_id 
 		and ta.triparea_order = 1 
@@ -96,7 +97,8 @@
  		e.essay_meal_exp essay_meal_exp,
         e.essay_traffic_exp essay_traffic_exp,
         e.essay_room_exp essay_room_exp,
-        e.essay_other_exp essay_other_exp
+        e.essay_other_exp essay_other_exp,
+        e.essay_filter essay_filter
 		from mapmarker mm, triparea ta, tripplan tp, member m, essay e
 		where mm.triparea_id = ta.triparea_id 
 		and ta.triparea_order = 1 
@@ -131,7 +133,9 @@
  		e.essay_meal_exp essay_meal_exp,
         e.essay_traffic_exp essay_traffic_exp,
         e.essay_room_exp essay_room_exp,
-        e.essay_other_exp essay_other_exp
+        e.essay_other_exp essay_other_exp,
+        (e.essay_meal_exp+e.essay_traffic_exp+e.essay_room_exp+e.essay_other_exp) totalmoney,
+        e.essay_filter essay_filter
 		from mapmarker mm, triparea ta, tripplan tp, member m, essay e
 		where mm.triparea_id = ta.triparea_id 
 		and ta.triparea_order = 1 
@@ -158,6 +162,15 @@
 		<if test="enmyeondong != null">
 			and mm.mapmarker_enbmyeondong like #{enmyeondong}||'%'
 		</if>
+		<choose>
+			<when test="priceMin != null and priceMax != null">
+			  and (e.essay_meal_exp+e.essay_traffic_exp+e.essay_room_exp+e.essay_other_exp) <![CDATA[>]]>= #{priceMin} 
+			  and (e.essay_meal_exp+e.essay_traffic_exp+e.essay_room_exp+e.essay_other_exp) <![CDATA[<]]>=#{priceMax}
+			</when>
+			<when test="priceMin != null">
+			  and (e.essay_meal_exp+e.essay_traffic_exp+e.essay_room_exp+e.essay_other_exp) <![CDATA[<]]>= #{priceMin}
+			</when>
+		</choose>
 	</select>
 	
 </mapper>

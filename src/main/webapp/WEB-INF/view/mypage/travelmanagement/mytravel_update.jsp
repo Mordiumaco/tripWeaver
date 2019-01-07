@@ -30,10 +30,22 @@ $( function() {
 	function goMypage(){
 		location.href = '/main/mypage'
 	}
+	
+	function formChecker(){
+		
+		let peopleCount = $(':input[name=tripplan_peo_count]').val();
+		
+		if(peopleCount < 0){
+			alert('인원수를 0보다 큰 값을 입력해주세요!');
+			return false;
+		}
+		
+		return true;
+	}
 </script>
 
 <div class="sub_container">
-<form action="/myplan/mytravelFormUpdate" method="post" enctype="multipart/form-data">
+<form action="/myplan/mytravelFormUpdate" method="post" enctype="multipart/form-data" onsubmit="return formChecker();">
 	<input name="tripplan_id" type="hidden" value="${tripplanVo.tripplan_id}">
 	<h1 class="mypage_title">나의여행 일정 수정</h1>	
 	<div class="essay_filter">
@@ -139,7 +151,7 @@ $( function() {
 						<textarea name="dailyplan_cnt" id="dailyplan_cnt" maxlength="600">${temp2} </textarea>
 					</td>
 					<td>
-						<c:set var="temp2" value="${fn:replace(dailyPlanVo.dailyplan_room, '<br/>', crlf)}"/>
+						<c:set var="temp3" value="${fn:replace(dailyPlanVo.dailyplan_room, '<br/>', crlf)}"/>
 						<textarea name="dailyplan_room" id="dailyplan_room" maxlength="600">${temp3} </textarea>
 					</td>
 				</tr>

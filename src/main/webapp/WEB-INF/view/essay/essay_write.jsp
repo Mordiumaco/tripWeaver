@@ -48,6 +48,7 @@
 			},
 			fOnAppLoad : function(){
 				oEditors2.getById["smarteditor2"].exec("PASTE_HTML", ["ㅎㅇ"]);
+				$('#smart_editor2_content').hide();
 			}
 			
 		}); */
@@ -59,7 +60,45 @@
 				// id가 smarteditor인 textarea에 에디터에서 대입
 				oEditors.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
 				// 이부분에 에디터 validation 검증
-				$(this).parents("#frm").submit();
+				let titleValue = $('#web1').find(':input[name=essay_title]').val();
+				let formCheck = true;
+				
+				if(titleValue == '' || titleValue < 5){
+					alert('제목을 적어주세요 [5자 이상]');
+					return false;
+				}
+				
+				$('#web1').find(':input[type=number]').each(function(index){
+					
+					let moneyValue = $(this).val();
+					
+					
+					if(moneyValue != ''){
+				     	var regNumber =  /^[0-9+]*$/;
+				         if(!regNumber.test(moneyValue))
+				         {
+				             alert('숫자만 적어주세요');
+				             formCheck = false;
+				             return false;
+				         }
+				    }else{
+				    	alert('비어있는 비용값을 적어주세요');
+				    	formCheck = false;
+				    	return false;
+				    }
+					
+					if(moneyValue < 0){
+						 alert('0 미만의 숫자를 적지 말아주세요.');
+						 formCheck = false;
+						 return false;
+					}
+					
+					
+				});
+				
+				if(formCheck){
+					$(this).parents("#frm").submit();
+				}
 			}
 		});
 		
@@ -69,7 +108,58 @@
 				// id가 smarteditor인 textarea에 에디터에서 대입
 				oEditors2.getById["smarteditor2"].exec("UPDATE_CONTENTS_FIELD", []);
 				// 이부분에 에디터 validation 검증
-				$(this).parents("#frm").submit();
+				let titleValue = $('#web2').find(':input[name=essay_title]').val();
+				let formCheck = true;
+				
+				if(titleValue == '' || titleValue < 5){
+					alert('제목을 적어주세요 [5자 이상]');
+					return false;
+				}
+				
+				$('#web2').find(':input[type=number]').each(function(index){
+					
+					let moneyValue = $(this).val();
+					
+					
+					if(moneyValue != ''){
+				     	var regNumber =  /^[0-9+]*$/;
+				         if(!regNumber.test(moneyValue))
+				         {
+				             alert('숫자만 적어주세요');
+				             formCheck = false;
+				             return false;
+				         }
+				         moneyValue = parseInt(moneyValue);
+				    }else{
+				    	alert('비어있는 비용값을 적어주세요');
+				    	formCheck = false;
+				    	return false;
+				    }
+					
+					if(moneyValue < 0){
+						 alert('0 미만의 숫자를 적지 말아주세요.');
+						 formCheck = false;
+						 return false;
+					}
+					
+					
+				});
+				
+				
+				//가이드 인원 수 체크
+				$('#web2').find(':input[name= guideplan_peo_count]').each(function(index){
+					let guidePeoCount = parseInt($(this).val());
+					
+					if(guidePeoCount < 0 || guidePeoCount ==0){
+						alert("해당 인원은 1명 이상의 인원을 입력해주세요.");
+						formCheck = false;
+					}
+				});
+				
+				
+				if(formCheck){
+					$(this).parents("#frm").submit();
+				}
 			}
 		});
 		
@@ -110,6 +200,15 @@ function button_event(){
 }
 
 $(document).ready(function(){
+	$('.essay_filter').hide();
+	$('.view_title').hide();
+	$('.essay_calendar3').hide();
+	$('.essay_calendat_btn').hide();
+	$('.essay_calendar').hide();
+	$('#map').hide();
+	$('#map2').hide();
+	
+	
 	$('#container').on('click','.essay_calendat_btn',function () {
 		$('.essay_calendar').hide('slow'); 
 		$('.essay_calendat_btn').addClass('essay_calendar2');
@@ -209,7 +308,8 @@ $( function() {
       changeYear : true,
       changeMonth : true,
       yearRange : "1930:2020",
-      dateFormat: "yy-mm-dd"
+      dateFormat: "yy-mm-dd",
+      minDate: 0
     });
 } );
 
@@ -222,7 +322,7 @@ $( function() {
       changeYear : true,
       changeMonth : true,
       yearRange : "1930:2020",
-      dateFormat: "yy-mm-dd"
+      dateFormat: "yy-mm-dd",
     });
 } );
 
@@ -465,6 +565,14 @@ function call()
 					map2.setBounds(bounds2);
 					
 					 $('.layer1').fadeOut();
+					 
+					 $('.essay_filter').show();
+					 $('.view_title').show();
+					 $('.essay_calendar3').show();
+					 $('.essay_calendat_btn').show();
+					 $('.essay_calendar').show();
+					 $('#map').show();
+					 $('#map2').show();
 				}
 			}); 
 		
@@ -627,7 +735,7 @@ function call()
 							<h2 class="view_title">제목: <input type="text" name="essay_title" placeholder="제목을 적어주세요."></h2>
 							
 							<p class="view_con">
-								<textarea name="essay_cnt" id="smarteditor" rows="10" cols="100" style="width:100%; height:600px;">어 스마트 에디터 적용해</textarea> 
+								<textarea name="essay_cnt" id="smarteditor" rows="10" cols="100" style="width:100%; height:600px;"> </textarea> 
 							</p>
 							
 							
@@ -758,7 +866,7 @@ function call()
 							<h2 class="view_title">제목: <input type="text" name="essay_title" placeholder="제목을 적어주세요."></h2>
 							
 							<p class="view_con2">
-								<textarea name="essay_cnt" id="smarteditor2" rows="10" cols="100" style="width: 100%; height: 600px;">가이드 섹션 확인중</textarea>
+								<textarea name="essay_cnt" id="smarteditor2" rows="10" cols="100" style="width: 100%; height: 600px;"> </textarea>
 							</p>
 							
 							<h2 class="view_title">가이드 일정 선택하기</h2>

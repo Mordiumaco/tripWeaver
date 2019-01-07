@@ -94,7 +94,7 @@
 				        	</c:choose>
 				        </td>
 				        <td headers="mb_list_auth" class="td_mbstat">${repostVo.mem_id}</td>
-				        <td headers="mb_list_mailr">${repostVo.report_proc_sta}</td>
+				        <td headers="mb_list_mailr" class="mb_list_mailr">${repostVo.report_proc_sta}</td>
 				        <td headers="mb_list_grp" class="td_numsmall">
 				        	<c:choose>
 				        		<c:when test="${repostVo.report_proc_sta == 'N'}">

@@ -25,7 +25,7 @@
 	 	});	
 	});
  	
-	$(function() {
+$(function() {
 		
 		if($('#datepicker').val() == '' ){
 			$('#datepicker').val(getTimeStamp(new Date(), dateType));
@@ -70,7 +70,6 @@
 		}
 		return zero + n;
 	}
-
 </script>
 <div class="sub_container">
 
@@ -155,6 +154,8 @@
 		</ul>
 	</div>
 
+
+	<h1>TOP 30</h1>
 	<div id="container" class="bestContainer">
 	<table class="board_list_wrap">
 		<colgroup>
@@ -179,7 +180,7 @@
 			</tr>
 		</thead>
 		
-		<tbody class="board_listF board_listBest">
+		<tbody class="board_listF board_listBest board_listBest111111">
 			<c:forEach items="${essayList}" var="essayVo" >
 			<tr class="essaySection">
 				<td>${essayVo.rnum}</td>
