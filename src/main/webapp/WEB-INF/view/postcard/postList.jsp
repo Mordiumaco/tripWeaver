@@ -4,6 +4,8 @@
 <%@include file="../head.jsp" %>
 <link rel="stylesheet" href="/css/flexslider2.css" type="text/css" media="screen" />
 
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
 <script type="text/javascript">
 
 //새로고침 감지해서 탑0 으로 보내기
@@ -203,7 +205,7 @@ $(document).ready(function(){
 	$('#post_left_wrap').on('click','.postCard_con .btn_share',function(){
 	    //$(this).siblings("#bo_v_sns").fadeToggle();
 	    
-	    $(this).siblings(".bo_v_sns").fadeToggle();
+	    $(this).siblings(".show_kakao").fadeToggle();
 		
 
 	});
@@ -536,7 +538,7 @@ function layer_open1(el){
 			
 		});
 	});
-
+	
 </script>
 
 		

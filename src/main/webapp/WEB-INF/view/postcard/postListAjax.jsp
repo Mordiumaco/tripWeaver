@@ -8,15 +8,6 @@
 
 <script type="text/javascript">
 
-/* 페이스북 링크 공유  */
-(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    //js = d.createElement(s); js.id = 580782545709565;
-    js = d.createElement(s); js.id = id;
-    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
 
 $('.postli5_con').hide();
 
@@ -180,8 +171,51 @@ $(function() {
 							<div class="postli_r"><i class="fa fa-share-alt fa-share-alt2 btn_share" aria-hidden="true"></i>
 								<ul class="show_kakao" style="display: none;">
 								    <li>
-								    	<div class="fb-share-button" data-href="http://192.168.203.53:8081/postCard/postCardList?u=${pcl.pc_id}&t=${pcl.pc_cnt}" data-layout="button_count"></div>
-								    	
+								    	<a href="javascript:;" id="kakao-link-btn"> 
+											<!-- 버튼이 생기는 부분, id는 맘대로 쓰시되 아래 js 코드도 동일하게 적용해주셔야 합니다. -->
+											<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" /> <!-- 톡 이미지 부분이고, 전 kakaolink_btn_small.png로 불러왔습니다.   -->
+										</a>
+										<script type="text/javascript">
+											// 카카오톡 링크 서비스
+											//<![CDATA[
+										    // // 사용할 앱의 JavaScript 키를 설정해 주세요.
+										    Kakao.init('3eacc4a71d2f1cf53f038748a49079ad');
+										    // // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+										    Kakao.Link.createDefaultButton({
+										      container: '#kakao-link-btn',  // 컨테이너는 아까 위에 버튼이 쓰여진 부분 id 
+										      objectType: 'feed',
+										      content: {  // 여기부터 실제 내용이 들어갑니다. 
+										        title: '${pcl.mem_id}', // 본문 제목
+										        description:'<c:forEach items="${pcl.hashTagList}" var="htl">#${htl}</c:forEach>',
+										        imageUrl: 'http://localhost:8081/file/read?file=/postcard/${pcl.attachmentList[0].att_file_name}', // 이미지
+										        link: {
+										          mobileWebUrl: 'http://localhost:8081/postCard/postCardList?mem_id=normal1&tag_search=',
+										          webUrl: 'http://localhost:8081/postCard/postCardList?mem_id=normal1&tag_search='
+										        }
+										      },
+										      social: {  /* 공유하면 소셜 정보도 같이 줄 수 있는데, 이 부분은 기반 서비스마다 적용이 쉬울수도 어려울 수도 있을듯 합니다. 전 연구해보고 안되면 제거할 예정 (망할 google  blogger...) */
+										        likeCount: ${pcl.pc_like_count},
+										      },
+										      buttons: [
+										        {
+										          title: '웹으로 보기',
+										          link: {
+										            mobileWebUrl: 'https://developers.kakao.com',
+										            webUrl: 'https://developers.kakao.com'
+										          }
+										        },
+										        {
+										          title: '앱으로 보기',
+										          link: {
+										            mobileWebUrl: 'https://developers.kakao.com',
+										            webUrl: 'https://developers.kakao.com'
+										          }
+										        }
+										      ]
+										    });
+										  //]]>
+										
+										</script>
 								    </li>
 		    					</ul>
 		
