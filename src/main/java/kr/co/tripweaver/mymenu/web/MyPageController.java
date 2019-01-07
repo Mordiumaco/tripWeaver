@@ -453,6 +453,7 @@ public class MyPageController {
 		//처음에 대표 이미지 파일이 있는지 먼저 확인해본다.
 		if(!(mem_profile_file==null)) {
 			//이미지 파일이 존재한다면 이부분이 실행된다.
+			
 			byte[] bytes = mem_profile_file.getBytes();
 			String path = FilePath.PATH;
 			String att_path = "/profile";

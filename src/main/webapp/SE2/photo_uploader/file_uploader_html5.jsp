@@ -2,6 +2,7 @@
 	* 화면명 : Smart Editor 2.8 에디터 - 다중 파일 업로드 처리
 	* 파일명 : /SE2/photo_uploader/file_uploader_html5.jsp
 --------------------------------------------------------------------------------%>
+<%@page import="kr.co.tripweaver.util.file.FilePath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.UUID"%>
@@ -23,7 +24,7 @@
 	String defaultPath = request.getServletContext().getRealPath("/");
 
 	// 파일 기본경로 _ 상세경로
-	String path = "C:/upload/essay" + File.separator;
+	String path = FilePath.PATH+ "/essay" + File.separator;
 
 	File file = new File(path);
 	if(!file.exists()) {
@@ -48,6 +49,7 @@
 	os.flush();
 	os.close();
 
-	sFileInfo += "&bNewLine=true&sFileName="+ name+"&sFileURL="+"/upload/essay/"+realname;
+	sFileInfo += "&bNewLine=true&sFileName="+ name+"&sFileURL=/directImg/"+realname;
+	
 	out.println(sFileInfo);
 %>
