@@ -390,7 +390,7 @@ text = text.replace("&nbsp;",""); */
 		    		</c:if>
 		    		<a>
 				      	<div class="sl_left">
-		      				<img src="/upload/postcard/${recentPostCardVo.attachmentList[0].att_file_name}" onerror="imgError(this)">
+		      				<img src="/file/read?file=/postcard/${recentPostCardVo.attachmentList[0].att_file_name}" onerror="imgError(this)">
 				      	</div>
 				      	<div class="sl_right">
 				      		<ul>
@@ -450,7 +450,7 @@ text = text.replace("&nbsp;",""); */
 					</c:otherwise>
 				</c:choose>
 				<li><i class="fa fa-clock-o" aria-hidden="true"></i> <fmt:formatDate value="${recentEssayVo.essay_date}" pattern="YYYY. MM. dd"/></li>
-				<li class="essayImageSection"><img src="/upload/${recentEssayVo.tripplan_image}" onerror="imgError(this)"/></li>
+				<li class="essayImageSection"><img src="/file/read?file=/${recentEssayVo.tripplan_image}" onerror="imgError(this)"/></li>
 			</ul>
 		</a>
 	</div>
@@ -473,7 +473,7 @@ text = text.replace("&nbsp;",""); */
 									<img src="/img/no_profile.png"> 
 								</c:when>
 								<c:otherwise>
-									<img src="/upload/${moneyBestList[0].mem_profile}" onerror="src='/img/no_profile.png';"> 
+									<img src="/file/read?file=${moneyBestList[0].mem_profile}" onerror="src='/img/no_profile.png';"> 
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -491,7 +491,7 @@ text = text.replace("&nbsp;",""); */
 									<img src="/img/no_profile.png"> 
 								</c:when>
 								<c:otherwise>
-									<img src="/upload/${moneyBestList[1].mem_profile}" onerror="src='/img/no_profile.png';"> 
+									<img src="/file/read?file=${moneyBestList[1].mem_profile}" onerror="src='/img/no_profile.png';"> 
 								</c:otherwise>
 							</c:choose>
 			    		</li>
@@ -509,7 +509,7 @@ text = text.replace("&nbsp;",""); */
 									<img src="/img/no_profile.png"> 
 								</c:when>
 								<c:otherwise>
-									<img src="/upload/${moneyBestList[2].mem_profile}" onerror="src='/img/no_profile.png';"> 
+									<img src="/file/read?file=${moneyBestList[2].mem_profile}" onerror="src='/img/no_profile.png';"> 
 								</c:otherwise>
 							</c:choose>
 			    		</li>
@@ -531,7 +531,7 @@ text = text.replace("&nbsp;",""); */
 									<img src="/img/no_profile.png"> 
 								</c:when>
 								<c:otherwise>
-									<img src="/upload/${essayBestList[0].mem_profile}" onerror="src='/img/no_profile.png';"> 
+									<img src="/file/read?file=${essayBestList[0].mem_profile}" onerror="src='/img/no_profile.png';"> 
 								</c:otherwise>
 							</c:choose>
 			    		</li>
@@ -549,7 +549,7 @@ text = text.replace("&nbsp;",""); */
 									<img src="/img/no_profile.png"> 
 								</c:when>
 								<c:otherwise>
-									<img src="/upload/${essayBestList[1].mem_profile}" onerror="src='/img/no_profile.png';"> 
+									<img src="/file/read?file=${essayBestList[1].mem_profile}" onerror="src='/img/no_profile.png';"> 
 								</c:otherwise>
 							</c:choose>
 			    		</li>
@@ -567,7 +567,7 @@ text = text.replace("&nbsp;",""); */
 									<img src="/img/no_profile.png"> 
 								</c:when>
 								<c:otherwise>
-									<img src="/upload/${essayBestList[2].mem_profile}" onerror="src='/img/no_profile.png';"> 
+									<img src="/file/read?file=${essayBestList[2].mem_profile}" onerror="src='/img/no_profile.png';"> 
 								</c:otherwise>
 							</c:choose>
 			    		</li>
@@ -583,7 +583,7 @@ text = text.replace("&nbsp;",""); */
 			    <a href="/postBest" class="RankingA">
 			    	<ul class="listRanking">
 			    		<li><span>1</span></li>
-			    		<li><img src="/file/read?mem_profile=${postcardVo[0].mem_profile}"></li>
+			    		<li><img src="/file/read?file=${postcardVo[0].mem_profile}"></li>
 			    		<li>
 			    			닉네임 : <b>${postcardVo[0].mem_nick}</b> 
 			    			<div class="main_ranring_tag">
@@ -599,7 +599,7 @@ text = text.replace("&nbsp;",""); */
 		    	<a href="/postBest" class="RankingA">
 			    	<ul class="listRanking">
 			    		<li><span>2</span></li>
-			    		<li><img src="/file/read?mem_profile=${postcardVo[1].mem_profile}"></li>
+			    		<li><img src="/file/read?file=${postcardVo[1].mem_profile}"></li>
 			    		<li>
 			    			닉네임 : <b>${postcardVo[1].mem_nick}</b>
 			    			<div class="main_ranring_tag">
@@ -615,7 +615,7 @@ text = text.replace("&nbsp;",""); */
 		    	<a href="/postBest" class="RankingA">
 			    	<ul class="listRanking">
 			    		<li><span>3</span></li>
-			    		<li><img src="/file/read?mem_profile=${postcardVo[2].mem_profile}"></li>
+			    		<li><img src="/file/read?file=${postcardVo[2].mem_profile}"></li>
 			    		<li>
 			    			닉네임 : <b>${postcardVo[2].mem_nick}</b>
 			    			<div class="main_ranring_tag"> 

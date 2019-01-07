@@ -632,7 +632,7 @@ function layer_open1(el){
 									<img src="../img/no_profile.png">
 								</c:when>
 								<c:otherwise>
-									<img src="/file/read?mem_profile=${loginInfo.mem_profile}">
+									<img src="/file/read?file=${loginInfo.mem_profile}">
 								</c:otherwise>
 							</c:choose>
 							

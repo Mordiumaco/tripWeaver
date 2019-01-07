@@ -20,7 +20,7 @@ $(document).ready(function(){
 			<li>
 				<div class="postli_l">
 					<b>
-						<img src="/file/read?mem_profile=${postcardVo.mem_profile}">
+						<img src="/file/read?file=${postcardVo.mem_profile}">
 					</b>
 					<span>${postcardVo.mem_nick}</span>
 					<input type="hidden" id="pc_id" name="pc_id" value="${postcardVo.pc_id}">
@@ -35,11 +35,11 @@ $(document).ready(function(){
 								<c:when test="${fn:length(attVo) == 0}">
 								</c:when>
 								<c:when test="${fn:length(attVo) == 1}">
-									<img src="/upload/postcard/${att.att_file_name}">
+									<img src="/file/read?file=/postcard/${att.att_file_name}">
 								</c:when>
 								<c:otherwise>
 										  	<li>
-										  		<img src="/upload/postcard/${att.att_file_name}">
+										  		<img src="/file/read?file=/postcard/${att.att_file_name}">
 										    </li>
 								</c:otherwise>
 							</c:choose>

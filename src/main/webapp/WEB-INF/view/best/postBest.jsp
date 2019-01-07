@@ -93,7 +93,7 @@ function leadingZeros(n, digits) {
 		<span>1</span>
 		<div class="ranking_profile">
 			<b class="my_profile my_profile4">
-				<img src="/file/read?mem_profile=${postcardVo[0].mem_profile}" onerror="src='/img/no_profile.png';">
+				<img src="/file/read?file=${postcardVo[0].mem_profile}" onerror="src='/img/no_profile.png';">
 			</b>
 		</div>
 		<ul>
@@ -117,7 +117,7 @@ function leadingZeros(n, digits) {
 		<span>2</span>
 		<div class="ranking_profile">
 			<b class="my_profile my_profile4">
-				<img src="/file/read?mem_profile=${postcardVo[1].mem_profile}" onerror="src='/img/no_profile.png';">
+				<img src="/file/read?file=${postcardVo[1].mem_profile}" onerror="src='/img/no_profile.png';">
 			</b>
 		</div>
 		<ul>
@@ -140,7 +140,7 @@ function leadingZeros(n, digits) {
 		<span>3</span>
 		<div class="ranking_profile">
 			<b class="my_profile my_profile4">
-				<img src="/file/read?mem_profile=${postcardVo[2].mem_profile}" onerror="src='/img/no_profile.png';">
+				<img src="/file/read?file=${postcardVo[2].mem_profile}" onerror="src='/img/no_profile.png';">
 			</b>
 		</div>
 		<ul>
@@ -193,7 +193,7 @@ function leadingZeros(n, digits) {
 							</c:when>
 							<c:otherwise>
 								<b class="my_profile my_profile3">
-									<img src="/file/read?mem_profile=${post.mem_profile}" onerror="src='/img/no_profile.png';">
+									<img src="/file/read?file=${post.mem_profile}" onerror="src='/img/no_profile.png';">
 								</b>
 								<span class="my_profile_nick">${post.mem_nick}</span>
 							</c:otherwise>
