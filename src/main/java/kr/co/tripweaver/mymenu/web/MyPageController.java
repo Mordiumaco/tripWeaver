@@ -232,6 +232,7 @@ public class MyPageController {
 		
 		logger.debug("category : {}", category);
 		logger.debug("searchValue : {}", searchValue);
+		logger.debug("page essayPageAjax : {}", page);
 		
 		Map<String, String> param = new HashMap<>();
 		

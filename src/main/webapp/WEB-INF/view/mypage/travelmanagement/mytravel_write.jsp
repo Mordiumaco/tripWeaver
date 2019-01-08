@@ -14,7 +14,7 @@ function goMypage(){
 
 </script>
 
-<form method="post" action="/myplan/mytravel_write2" onsubmit="return checkData()" >
+<form method="post" action="/myplan/mytravel_write2" onsubmit="return checkData();" >
 
 <div class="sub_container">
 	
@@ -332,6 +332,11 @@ function goMypage(){
 						return;
 					}
 				});
+				
+				if($(".markerSchedule").find("ul").length == 1){
+					alert('여행갈 곳을 찍어주세요');
+					formChecker = false;
+				}
 				
 				
 				if(formChecker){
