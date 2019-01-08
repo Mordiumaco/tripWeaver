@@ -56,7 +56,7 @@
 	function essayPageSort(){
 		var essayPagingSection = '';
 		essayPagingSection +='<a onclick="essayPage(1)" class="pg_page pg_start">처음</a>'
-		essayPagingSection +='<a href="" onclick="essayPage('+(currentEssayPage-1)+')" class="pg_page pg_prev">이전</a>';
+		essayPagingSection +='<a onclick="essayPage('+(currentEssayPage-1 == 1 ? 1 : 1)+')" class="pg_page pg_prev">이전</a>';
 		essayPagingSection +='';
 		
 		for(let i = 1; i <= parseInt("${essayTotalPage}"); i++){
@@ -64,11 +64,11 @@
 				essayPagingSection += '<strong class="pg_current">'+i+'</strong>';
 				continue;
 			}
-			essayPagingSection +='<a href="" onclick="essayPage('+i+')" class="pg_page">${loop.index}</a>';
+			essayPagingSection +='<a onclick="essayPage('+i+')" class="pg_page">'+i+'</a>';
 		}
 		
-		essayPagingSection +='<a href="" onclick="essayPage('+(currentEssayPage-1)+')" class="pg_page pg_next">다음</a>';
-		essayPagingSection +='<a href="" onclick="essayPage('+parseInt("${essayTotalPage}")+')" class="pg_page pg_end">맨끝</a>';
+		essayPagingSection +='<a onclick="essayPage('+(currentEssayPage-1 == ${essayTotalPage} ? ${essayTotalPage} : ${essayTotalPage} )+')" class="pg_page pg_next">다음</a>';
+		essayPagingSection +='<a onclick="essayPage('+parseInt("${essayTotalPage}")+')" class="pg_page pg_end">맨끝</a>';
 		
 		$('.essayPagingSection').html(essayPagingSection);
 	}
@@ -113,7 +113,7 @@
 	function postCardPageSort(){
 		var postCardPagingSection = '';
 		postCardPagingSection +='<a onclick="postCardPage(1)" class="pg_page pg_start">처음</a>'
-		postCardPagingSection +='<a href="" onclick="postCardPage('+(currentPostCardPage-1)+')" class="pg_page pg_prev">이전</a>';
+		postCardPagingSection +='<a onclick="postCardPage('+(currentPostCardPage-1 == 1 ? 1:1)+')" class="pg_page pg_prev">이전</a>';
 		postCardPagingSection +='';
 		
 		for(let i = 1; i <= parseInt("${postCardTotalPage}"); i++){
@@ -121,11 +121,11 @@
 				postCardPagingSection += '<strong class="pg_current">'+i+'</strong>';
 				continue;
 			}
-			postCardPagingSection +='<a href="" onclick="postCardPage('+i+')" class="pg_page">${loop.index}</a>';
+			postCardPagingSection +='<a onclick="postCardPage('+i+')" class="pg_page">${loop.index}</a>';
 		}
 		
-		postCardPagingSection +='<a href="" onclick="postCardPage('+(currentPostCardPage-1)+')" class="pg_page pg_next">다음</a>';
-		postCardPagingSection +='<a href="" onclick="postCardPage('+parseInt("${postCardTotalPage}")+')" class="pg_page pg_end">맨끝</a>';
+		postCardPagingSection +='<a onclick="postCardPage('+(currentPostCardPage-1 == ${postCardTotalPage} ? ${postCardTotalPage}: ${postCardTotalPage})+')" class="pg_page pg_next">다음</a>';
+		postCardPagingSection +='<a onclick="postCardPage('+parseInt("${postCardTotalPage}")+')" class="pg_page pg_end">맨끝</a>';
 		
 		$('.postCardPagingSection').html(postCardPagingSection);
 	}

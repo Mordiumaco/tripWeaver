@@ -82,7 +82,7 @@
 				             return false;
 				         }
 				    }else{
-				    	alert('비어있는 비용값을 적어주세요');
+				    	alert('비어있는 내용 및 비용값을 적어주세요');
 				    	formCheck = false;
 				    	return false;
 				    }
@@ -131,7 +131,7 @@
 				         }
 				         moneyValue = parseInt(moneyValue);
 				    }else{
-				    	alert('비어있는 비용값을 적어주세요');
+				    	alert('비어있는 내용 및 비용값을 적어주세요');
 				    	formCheck = false;
 				    	return false;
 				    }
