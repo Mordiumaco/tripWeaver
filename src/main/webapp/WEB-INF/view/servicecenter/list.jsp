@@ -4,6 +4,8 @@
 
 <link rel="stylesheet" href="/css/style.css">
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+
 <script type="text/javascript">
 
 /* tr 페이지 선택 이동*/
@@ -127,9 +129,17 @@ function fboardlist_submit(f) {
 			<li>&nbsp;&nbsp;<b>${pageCnt}</b> &nbsp;페이지</li>
 		</ul>
 		<ul class="bt_right">
-			<c:if test="${loginInfo.mem_author == 0}">
-			<li><button class="btn_bd col_01" type="submit" onclick="location.href='/article/articleView?board_id=${board_id}'"><i class="far fa-edit"></i>&nbsp; 글쓰기</button></li>
-			</c:if>
+			<c:choose>
+				<c:when test="${loginInfo.mem_author eq 0}">
+					<li><button class="btn_bd col_01" type="submit" onclick="location.href='/article/articleView?board_id=${board_id}'"><i class="far fa-edit"></i>&nbsp; 글쓰기</button></li>
+				</c:when>
+				<c:when test="${loginInfo.mem_author eq 1 && board_id != 'bd00001'}">
+					<li><button class="btn_bd col_01" type="submit" onclick="location.href='/article/articleView?board_id=${board_id}'"><i class="far fa-edit"></i>&nbsp; 글쓰기</button></li>
+				</c:when>
+				<c:when test="${loginInfo.mem_author eq 2 && board_id != 'bd00001'}">
+					<li><button class="btn_bd col_01" type="submit" onclick="location.href='/article/articleView?board_id=${board_id}'"><i class="far fa-edit"></i>&nbsp; 글쓰기</button></li>
+				</c:when>
+			</c:choose>
 		</ul>
 	</div>
 	
@@ -152,6 +162,12 @@ function fboardlist_submit(f) {
 		</thead>
 		
 		<tbody class="board_listF">
+<%-- 			<c:when test="${fn:length(articleList) == 0}"> --%>
+<!-- 				<ul class="bt_left"> -->
+<!-- 					<li>해당 조건에 게시물은 없습니다.</li> -->
+<!-- 				</ul> -->
+<%-- 			</c:when> --%>
+		
 			<c:forEach items="${articleList}" var="pv" varStatus="status"  >
 				<c:choose >
 					<c:when test="${pv.art_del != 'Y'}">
@@ -215,7 +231,14 @@ function fboardlist_submit(f) {
 			
 			
 				<a class="pg_start pg_page" href="/main/board?board_id=${board_id}&page=1&pageSize=${pageSize}"></a>
-				<a class="pg_page pg_prev" href="/main/board?board_id=${board_id}&page=${param.page - 1}&pageSize=${pageSize}"></a>			
+				<c:choose>
+					<c:when test="${param.page == 1}">
+						<a class="pg_page pg_prev"></a>
+					</c:when>
+					<c:otherwise>
+						<a class="pg_page pg_prev" href="/main/board?board_id=${board_id}&page=${param.page - 1}&pageSize=${pageSize}"></a>			
+					</c:otherwise>
+				</c:choose>
 			
 			<c:forEach var="pageWrap"  varStatus="status" begin="1" end="${pageCnt}">
 
@@ -225,8 +248,16 @@ function fboardlist_submit(f) {
 				</c:choose>
 
 			</c:forEach>
-			
-				<a class="pg_page pg_next" href="/main/board?board_id=${board_id}&page=${param.page + 1}&pageSize=${pageSize}"></a>
+				
+				
+				<c:choose>
+					<c:when test="${param.page == pageCnt}">
+						<a class="pg_page pg_next"></a>
+					</c:when>
+					<c:otherwise>
+						<a class="pg_page pg_next" href="/main/board?board_id=${board_id}&page=${param.page + 1}&pageSize=${pageSize}"></a>			
+					</c:otherwise>
+				</c:choose>
 				<a class="pg_page pg_end" href="/main/board?board_id=${board_id}&page=${pageCnt}&pageSize=${pageSize}"></a>
 			
 		
