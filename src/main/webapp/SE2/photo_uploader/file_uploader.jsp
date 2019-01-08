@@ -2,6 +2,7 @@
 	* 화면명 : Smart Editor 2.8 에디터 - 싱글 파일 업로드 처리
 	* 파일명 : /SE2/photo_uploader/file_uploader.jsp
 --------------------------------------------------------------------------------%>
+<%@page import="kr.co.tripweaver.util.file.FilePath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.UUID"%>
@@ -14,8 +15,8 @@
 <%@ page import="org.apache.commons.fileupload.servlet.ServletFileUpload"%>
 <%
 	// 로컬경로에 파일 저장하기 ============================================
-	String return1 = "";
-	String return2 = "";
+	String return1 = FilePath.PATH + "essay" +File.separator;
+	String return2 = FilePath.PATH + "essay" +File.separator;
 	String return3 = "";
 	String name = "";
 
@@ -44,8 +45,8 @@
 					String defaultPath = request.getServletContext().getRealPath("/");
 
 					// 파일 기본경로 _ 상세경로
-					String path = defaultPath + "upload" + File.separator;
-
+					// String path = defaultPath + "upload" + File.separator;
+					String path = FilePath.PATH + "essay" +File.separator;
 					File file = new File(path);
 
 					// 디렉토리 존재하지 않을경우 디렉토리 생성
@@ -72,7 +73,7 @@
 					os.close();
 
 					///////////////// 서버에 파일쓰기 /////////////////
-					return3 += "&bNewLine=true&sFileName="+name+"&sFileURL=/upload/"+realname;
+					return3 += "&bNewLine=true&sFileName="+name+"&sFileURL=/file/read?file=essay/"+realname;
 				} else {
 					return3 += "&errstr=error";
 				}

@@ -8,15 +8,6 @@
 
 <script type="text/javascript">
 
-/* 페이스북 링크 공유  */
-(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    //js = d.createElement(s); js.id = 580782545709565;
-    js = d.createElement(s); js.id = id;
-    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
 
 $('.postli5_con').hide();
 
@@ -110,9 +101,9 @@ $(function() {
 						<li>
 							<div class="postli_l postInfo">
 								<b>
-									<img src="/file/read?mem_profile=${pcl.mem_profile}" onerror="src='/img/no_profile.png'">
+									<img src="/file/read?file=${pcl.mem_profile}" onerror="src='/img/no_profile.png'">
 								</b>
-								<span>${pcl.mem_nick}</span>
+								<span class="mem_nick_sns">${pcl.mem_nick}</span>
 								<input type="hidden" id="mem_id" name="mem_id" value="${pcl.mem_id}">
 								<input type="hidden" id="pc_id" name="pc_id" value="${pcl.pc_id}">
 							</div> 
@@ -134,11 +125,11 @@ $(function() {
 											<c:when test="${fn:length(pcl.attachmentList) == 0}">
 											</c:when>
 											<c:when test="${fn:length(pcl.attachmentList) == 1}">
-												<img src="/upload/postcard/${att.att_file_name}">
+												<img src="/file/read?file=/postcard/${att.att_file_name}">
 											</c:when>
 											<c:otherwise>
 													  	<li>
-													  		<img src="/upload/postcard/${att.att_file_name}" onerror="src='/img/no_image.png'">
+													  		<img src="/file/read?file=/postcard/${att.att_file_name}" onerror="src='/img/no_image.png'">
 													    </li>
 											</c:otherwise>
 										</c:choose>
@@ -180,8 +171,11 @@ $(function() {
 							<div class="postli_r"><i class="fa fa-share-alt fa-share-alt2 btn_share" aria-hidden="true"></i>
 								<ul class="show_kakao" style="display: none;">
 								    <li>
-								    	<div class="fb-share-button" data-href="http://192.168.203.53:8081/postCard/postCardList?u=${pcl.pc_id}&t=${pcl.pc_cnt}" data-layout="button_count"></div>
-								    	
+								    	<a href="javascript:;" id="kakao-link-btn"> 
+											<!-- 버튼이 생기는 부분, id는 맘대로 쓰시되 아래 js 코드도 동일하게 적용해주셔야 합니다. -->
+											<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" /> <!-- 톡 이미지 부분이고, 전 kakaolink_btn_small.png로 불러왔습니다.   -->
+										</a>
+										
 								    </li>
 		    					</ul>
 		
@@ -193,10 +187,7 @@ $(function() {
 							<div class="postli5_con content">${pcl.pc_cnt}</div>
 						</li>
 						<li class="hashTaglink">
-							
-							<c:forEach items="${pcl.hashTagList}" var="htl">
-								#<a>${htl}</a>
-							</c:forEach>
+							<c:forEach items="${pcl.hashTagList}" var="htl">#<a>${htl}</a></c:forEach>
 						</li>
 						<li><fmt:formatDate value="${pcl.pc_date}" pattern="yyyy. MM. dd"/></li>
 						<li class="postli5">

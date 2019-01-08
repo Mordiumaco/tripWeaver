@@ -147,7 +147,6 @@ public class MainController {
 		
 		model.addAttribute("clusterList", clusterList);
 		
-		
 		return "jsonView";
 	}
 	

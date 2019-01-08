@@ -132,12 +132,11 @@
 			<a href="javascript::" onclick="layer_open1('layer_1', 'follower');return false;" class="follow_btn"><b id="follower_cnt"></b> 팔로워</a>
 		</li>
 		<li class="mypage_leftHover"><a href="/main/mypage">나의 여행일정 관리</a></li>
-		<li class="mypage_leftHover"><a href="/mypage/guide">나의 투어관리</a></li>
+		<li class="mypage_leftHover"><a href="/mypage/guide">나의 예약</a></li>
 
 		<%-- 나의 예약관리는 가이드 레벨에서만 보임 if 조건 ㄱㄱ --%>
 		<c:if test="${loginInfo.mem_author == 2}">
-			<li class="mypage_leftHover"><a href="/mypage/reservation">나의
-					예약</a></li>
+			<li class="mypage_leftHover"><a href="/mypage/reservation">나의 투어관리</a></li>
 		</c:if>
 		<%-- --%>
 		<li class="mypage_leftHover"><a href="/mypage/myPost">게시글 관리</a></li>

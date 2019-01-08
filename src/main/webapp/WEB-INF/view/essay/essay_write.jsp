@@ -619,7 +619,9 @@ function call()
 			<div id="container">
 				<ul class="tab">
 					<li><a href="#web1" class="select">일반 사용자</a></li>
-					<li><a href="#web2">가이드 사용자</a></li>
+					<c:if test="${loginInfo.mem_author eq 2}">
+						<li><a href="#web2">가이드 사용자</a></li>
+					</c:if>
 				</ul>
 				
 				<ul class="content">

@@ -5,9 +5,9 @@
 <script>
 	//해당 tripplan 삭제 여부를 묻는 메세지
 	function tripplanDeleteCheck(tripplan_id){
-		confirm('해당일 여행일정을 지우시겠습니까?');
-		
-		location.href = '/myplan/mytravel_delete?tripplan_id='+tripplan_id;
+		if(confirm('해당일 여행일정을 지우시겠습니까?')){
+			location.href = '/myplan/mytravel_delete?tripplan_id='+tripplan_id;
+		}
 	}
 </script>
 <div class="sub_container">
@@ -39,7 +39,7 @@
 							<img src="/img/no_image.png"/>
 						</c:when>
 						<c:otherwise>
-							<img src="/upload/${mypageTripPlanForListVo.tripplan_image}"/>
+							<img src="/file/read?file=${mypageTripPlanForListVo.tripplan_image}"/>
 						</c:otherwise>
 					</c:choose>
 				</a>

@@ -4,6 +4,8 @@
 <%@include file="../head.jsp" %>
 <link rel="stylesheet" href="/css/flexslider2.css" type="text/css" media="screen" />
 
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
 <script type="text/javascript">
 
 //새로고침 감지해서 탑0 으로 보내기
@@ -201,11 +203,21 @@ $(document).ready(function(){
 	
 	//sns공유
 	$('#post_left_wrap').on('click','.postCard_con .btn_share',function(){
-	    //$(this).siblings("#bo_v_sns").fadeToggle();
 	    
-	    $(this).siblings(".bo_v_sns").fadeToggle();
+		var title = $(this).parents('.postCard_con').find('.mem_nick_sns').text();
+		var description = $(this).parents('.postCard_con').find('.hashTaglink').text();
+		var imageUrl = $(this).parents('.postCard_con').find('.slides img').eq(0).prop('src');
+		var likeCount = $(this).parents('.postCard_con').find('.likeNum').text();
 		
+		if(imageUrl == null ){
+			imageUrl = '<img src="/img/no_image.png">';
+		}
+		
+		$(this).parents('.postCard_con').find('#kakao-link-btn').addClass('kakao-link-btn');
 
+	    $(this).siblings(".show_kakao").fadeToggle();
+	    kakao(title, description, imageUrl, likeCount );
+	    $(this).parents('.postCard_con').find('#kakao-link-btn').removeClass('kakao-link-btn');
 	});
 	
 	
@@ -537,6 +549,48 @@ function layer_open1(el){
 		});
 	});
 
+function kakao(title, description, imageUrl, likeCount ) {
+	// 카카오톡 링크 서비스
+	//<![CDATA[
+    // // 사용할 앱의 JavaScript 키를 설정해 주세요.
+   // Kakao.init('3eacc4a71d2f1cf53f038748a49079ad');
+    if(!Kakao.Link) Kakao.init('3eacc4a71d2f1cf53f038748a49079ad');
+    // // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+    Kakao.Link.createDefaultButton({
+      container: '.kakao-link-btn',  // 컨테이너는 아까 위에 버튼이 쓰여진 부분 id 
+      objectType: 'feed',
+      content: {  // 여기부터 실제 내용이 들어갑니다. 
+        title: title, // 본문 제목
+        description: description,
+        imageUrl: imageUrl, // 이미지
+        link: {
+          mobileWebUrl: 'http://localhost:8081/postCard/postCardList?mem_id=normal1&tag_search=',
+          webUrl: 'http://localhost:8081/postCard/postCardList?mem_id=normal1&tag_search='
+        }
+      },
+      social: {  /* 공유하면 소셜 정보도 같이 줄 수 있는데, 이 부분은 기반 서비스마다 적용이 쉬울수도 어려울 수도 있을듯 합니다. 전 연구해보고 안되면 제거할 예정 (망할 google  blogger...) */
+        likeCount: Number(likeCount),
+      },
+      buttons: [
+        {
+          title: '웹으로 보기',
+		link: {
+            mobileWebUrl: 'https://developers.kakao.com',
+            webUrl: 'https://developers.kakao.com'
+          }
+        },
+        {
+          title: '앱으로 보기',
+          link: {
+            mobileWebUrl: 'https://developers.kakao.com',
+            webUrl: 'https://developers.kakao.com'
+          }
+        }
+      ]
+    });
+  //]]>
+}
+	
 </script>
 
 		
@@ -632,7 +686,7 @@ function layer_open1(el){
 									<img src="../img/no_profile.png">
 								</c:when>
 								<c:otherwise>
-									<img src="/file/read?mem_profile=${loginInfo.mem_profile}">
+									<img src="/file/read?file=${loginInfo.mem_profile}">
 								</c:otherwise>
 							</c:choose>
 							
@@ -741,4 +795,5 @@ function layer_open1(el){
 	    </div>   
 	</div> 
 	
+
 <%@include file="../tail.jsp" %>

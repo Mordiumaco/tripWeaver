@@ -31,6 +31,7 @@ import kr.co.tripweaver.mymenu.mypage.tripplan.service.IDailyPlanService;
 import kr.co.tripweaver.mymenu.mypage.tripplan.service.IMapMarkerService;
 import kr.co.tripweaver.mymenu.mypage.tripplan.service.ITripAreaService;
 import kr.co.tripweaver.mymenu.mypage.tripplan.service.ITripPlanService;
+import kr.co.tripweaver.util.file.FilePath;
 
 /**
 * MyPlanController.java
@@ -141,7 +142,7 @@ public class MyPlanController {
 		
 		//------------------------1. File Section -----------------------------
 		//처음에 대표 이미지 파일이 있는지 먼저 확인해본다.
-		String directory = "C:/upload/tripplan/";
+		String directory = FilePath.PATH+"/tripplan";
 		if(!tripplan_image_file.isEmpty()) {
 			//이미지 파일이 존재한다면 이부분이 실행된다.
 			byte[] bytes = tripplan_image_file.getBytes();
@@ -157,7 +158,8 @@ public class MyPlanController {
 				File fileTest = new File(directory+fileName);
 				fileTest.delete();
 			}else{
-				tripplanVo.setTripplan_image("tripplan/"+fileName);
+				
+				tripplanVo.setTripplan_image("/tripplan/"+fileName);
 			}
 			
 		}else {
