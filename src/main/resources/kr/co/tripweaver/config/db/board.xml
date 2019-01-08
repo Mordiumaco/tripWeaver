@@ -33,4 +33,24 @@
 		where board_id= #{board_id}
 	</update>
 	
+	<!-- 게시판 사용갯수 -->
+	<select id="boardUseCnt" resultType="int">
+		select count(*) from board
+		where board_use = 'Y' 
+		and board_del = 'N'
+	</select>
+	
+	<!-- 게시판 비사용갯수 -->
+	<select id="boardNotUseCnt" resultType="int">
+		select count(*) from board
+		where board_use = 'N'
+		and board_del = 'Y'
+	</select>
+	
+	<!-- 게시판 전체갯수 -->
+	<select id="boardAllCnt" resultType="int">
+		select count(*) from board 
+		where board_del = 'N'
+	</select>
+	
 </mapper>

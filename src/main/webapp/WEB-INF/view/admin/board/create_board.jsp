@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@include file="../adminHead.jsp"%>
 
 	<div class="main_con" id="main_con">
@@ -7,17 +8,17 @@
 		<div class="local_ov01 local_ov">
 		    <span class="btn_ov01">
 		    	<span class="ov_txt">전체 게시판</span>
-		    	<span class="ov_num"> 1,460개 </span>
+		    	<span class="ov_num">${boardAllCnt }</span>
 		    </span>
 		    
-		    <a class="btn_ov01"> 
-		    	<span class="ov_txt">사용 </span>
-		    	<span class="ov_num">0개</span>
+		    <a class="btn_ov01">
+			    <span class="ov_txt">사용 </span>
+			    <span class="ov_num">${boardUseCnt}</span>
 		    </a>
 		    
 		    <a class="btn_ov01"> 
 		    	<span class="ov_txt">비사용  </span>
-		    	<span class="ov_num">18개</span>
+		    	<span class="ov_num">${boardNotUseCnt }</span>
 		    </a>
 		</div>
 		<br/>
@@ -52,15 +53,15 @@
 							</select>
 						</li>
 						<li>
-							<input class="sm_${status.index} subBtn" type="submit" value="수정">
+							<input class="sm_${status.index} subBtn" type="submit" onclick="return confirm('수정하시겠습니까?');" value="수정">
 						</li>
 						<li>  
-							<a href="/board/boardDelete?board_id=${cr.board_id}"  class="subBtn subBtn2 subBtn5">삭제</a>
+							<a href="/board/boardDelete?board_id=${cr.board_id}" class="subBtn subBtn2 subBtn5" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
 						</li>
 					</ul>
 				</form>
 			</li>
-
+			
 			</c:forEach>
 			<li>
 				<form method="post" action="/board/boardCreate">	

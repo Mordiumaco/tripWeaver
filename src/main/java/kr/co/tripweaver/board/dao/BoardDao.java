@@ -60,5 +60,66 @@ public class BoardDao implements IBoardDao{
 		
 		return boardVo;
 	}
+
+	/**
+	* Method : boardUseCnt
+	* 작성자 : pc23
+	* 변경이력 :
+	* @return
+	* Method 설명 : 게시판 사용갯수
+	*/
+	@Override
+	public int boardUseCnt() {
+		
+		int boardUseCnt = 0;
+		
+		try {
+			
+			boardUseCnt = template.selectOne("boardSQL.boardUseCnt");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return boardUseCnt;
+	}
+
+	/**
+	* Method : boardNotUseCnt
+	* 작성자 : pc23
+	* 변경이력 :
+	* @return
+	* Method 설명 : 게시판 비사용갯수
+	*/
+	@Override
+	public int boardNotUseCnt() {
+		
+		int boardNotUseCnt = 0;
+		
+		try {
+			
+			boardNotUseCnt = template.selectOne("boardSQL.boardNotUseCnt");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return boardNotUseCnt;
+	}
+
+	@Override
+	public int boardAllCnt() {
+		
+		int boardAllCnt = 0;
+		
+		try {
+			
+			boardAllCnt = template.selectOne("boardSQL.boardAllCnt");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return boardAllCnt;
+	}
 	
 }

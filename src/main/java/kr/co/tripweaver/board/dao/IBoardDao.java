@@ -55,4 +55,32 @@ public interface IBoardDao {
 	 * 해당 board_id 에 해당하는 객체를 받아온다. 
 	 */
 	public BoardVO selectBoardByBoardId(String board_id);
+	
+	/**
+	* Method : boardUseCnt
+	* 작성자 : pc23
+	* 변경이력 :
+	* @param board_use
+	* @return
+	* Method 설명 : 게시판 사용갯수
+	*/
+	public int boardUseCnt();
+	
+	/**
+	* Method : boardNotUseCnt
+	* 작성자 : pc23
+	* 변경이력 :
+	* @return
+	* Method 설명 : 게시판 비사용갯수
+	*/
+	public int boardNotUseCnt();
+	
+	/**
+	* Method : boardAllCnt
+	* 작성자 : pc23
+	* 변경이력 :
+	* @return
+	* Method 설명 : 게시판 전체 갯수
+	*/
+	public int boardAllCnt();
 }
