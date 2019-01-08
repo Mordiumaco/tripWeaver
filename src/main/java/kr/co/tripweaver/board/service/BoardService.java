@@ -76,4 +76,39 @@ public class BoardService implements IBoardService{
 	public BoardVO selectBoardByBoardId(String board_id){
 		return boardDao.selectBoardByBoardId(board_id);
 	}
+
+	/**
+	* Method : boardUseCnt
+	* 작성자 : pc23
+	* 변경이력 :
+	* @param board_use
+	* @return
+	* Method 설명 : 게시판 사용갯수
+	*/
+	@Override
+	public int boardUseCnt() {
+		return boardDao.boardUseCnt();
+	}
+	
+	/**
+	* Method : boardNotUseCnt
+	* 작성자 : pc23
+	* 변경이력 :
+	* @return
+	* Method 설명 : 게시판 비사용갯수
+	*/
+	public int boardNotUseCnt() {
+		return boardDao.boardNotUseCnt();
+	}
+	
+	/**
+	* Method : boardAllCnt
+	* 작성자 : pc23
+	* 변경이력 :
+	* @return
+	* Method 설명 : 게시판 전체 갯수
+	*/
+	public int boardAllCnt() {
+		return boardDao.boardAllCnt();
+	}
 }

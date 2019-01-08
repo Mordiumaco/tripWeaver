@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,11 +28,20 @@ public class BoardController {
 	private IBoardService boardService;
 	
 	@RequestMapping(value="/boardCreate", method=RequestMethod.GET)
-	public String boardCreateView(@RequestParam(value="mem_id", required=false)String mem_id, HttpServletRequest request) {
+	public String boardCreateView(@RequestParam(value="mem_id", required=false)String mem_id, HttpServletRequest request,
+			Model model) {
 		
 		List<BoardVO> boardList = boardService.selectBoardAllList();
 		request.setAttribute("gnb", 2);
 		request.setAttribute("boardList", boardList);
+		
+		int boardAllCnt = boardService.boardAllCnt();
+		int boardUseCnt = boardService.boardUseCnt();
+		int boardNotUseCnt = boardService.boardNotUseCnt();
+		
+		model.addAttribute("boardAllCnt", boardAllCnt);
+		model.addAttribute("boardNotUseCnt", boardNotUseCnt);
+		model.addAttribute("boardUseCnt", boardUseCnt);
 		
 		return "admin/board/create_board";
 	}
@@ -56,7 +66,7 @@ public class BoardController {
 		request.setAttribute("gnb", 2);
 		request.setAttribute("boardList", boardList);
 		
-		return "admin/board/create_board";
+		return "redirect:/board/boardCreate";
 	}
 	
 	@RequestMapping(value="/boardUpdate", method=RequestMethod.POST)
@@ -103,7 +113,7 @@ public class BoardController {
 		request.setAttribute("gnb", 2);
 		request.setAttribute("boardList", boardList);
 		
-		return "admin/board/create_board";
+		return "redirect:/board/boardCreate";
 		
 	}
 	

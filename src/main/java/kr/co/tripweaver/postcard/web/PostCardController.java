@@ -30,6 +30,7 @@ import kr.co.tripweaver.manager.report.model.ReportVO;
 import kr.co.tripweaver.manager.report.service.IReportService;
 import kr.co.tripweaver.postcard.model.PostCardVO;
 import kr.co.tripweaver.postcard.service.IPostCardService;
+import kr.co.tripweaver.util.file.FilePath;
 import kr.co.tripweaver.util.model.PageVO;
 
 @RequestMapping("/postCard")
@@ -158,7 +159,7 @@ public class PostCardController {
 						attachmentVo.setAtt_file_ori_name(mufi.getOriginalFilename());
 						attachmentVo.setFilter_id("postcard");
 						
-						mufi.transferTo(new File("C:\\upload"+ att_path + File.separator + att_file_name));
+						mufi.transferTo(new File(FilePath.PATH+ att_path + File.separator + att_file_name));
 						listFileVo.add(attachmentVo);
 					}
 				} catch (IllegalStateException | IOException e) {
@@ -210,7 +211,7 @@ public class PostCardController {
 						attachmentVo.setAtt_file_ori_name(mufi.getOriginalFilename());
 						attachmentVo.setFilter_id("postcard");
 						
-						mufi.transferTo(new File("C:\\upload"+ att_path + File.separator + att_file_name));
+						mufi.transferTo(new File(FilePath.PATH+ att_path + File.separator + att_file_name));
 						listFileVo.add(attachmentVo);
 					}
 				} catch (IllegalStateException | IOException e) {
