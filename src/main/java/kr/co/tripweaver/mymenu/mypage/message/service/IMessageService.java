@@ -109,4 +109,24 @@ public interface IMessageService {
 	* 있으면 그 채팅방으로 없으면 새로운채팅방 생성하는 메서드(2개씩 세트임; 1/2, 3/4, 5/6 .....)
 	 */
 	public Map<String, Object> selectMessage11(String login_id, String mem_i);
+	
+	/**
+	* Method : updateChatroomName
+	* 작성자 : jin
+	* 변경이력 :
+	* @param participantVO
+	* @return
+	* Method 설명 : 채팅방 이름을 수정하는 메서드
+	 */
+	public int updateChatroomName(ParticipantVO participantVO);
+	
+	/**
+	* Method : insertParticipant
+	* 작성자 : jin
+	* 변경이력 :
+	* @param participantVO
+	* @return
+	* Method 설명 : 대화상대를 초대하는 메서드
+	 */
+	public int inviteParticipant(ParticipantVO participantVO);
 }

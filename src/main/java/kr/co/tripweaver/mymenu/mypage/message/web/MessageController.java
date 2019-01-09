@@ -146,4 +146,21 @@ public class MessageController {
 		model.addAllAttributes(resultMap);
 		return "mypage/message/chatting_view";
 	}
+	
+	@RequestMapping("updateChatroomName")
+	@ResponseBody
+	public String updateChatroomName(ParticipantVO participantVO) {
+		
+		int updCnt = messageService.updateChatroomName(participantVO);
+		
+		return participantVO.getChatroom_name();
+	}
+	
+	@RequestMapping("inviteParticipant")
+	@ResponseBody
+	public int inviteParticipant(ParticipantVO participantVO) {
+		int cnt = messageService.inviteParticipant(participantVO);
+		//cnt 1 : 초대성공, 2 : 이미 초대된 멤버
+		return cnt;
+	}
 }

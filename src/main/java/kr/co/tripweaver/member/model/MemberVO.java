@@ -14,8 +14,11 @@ public class MemberVO {
 	private Integer mem_following_count;
 	private String mem_profile;
 	private String mem_qrcode;
+	private String invited_nick;
+	private String invite_nick;
 	private String mem_del;
 	private int mem_author;
+	private String group_id;
 
 	public String getMem_email() {
 		return mem_email;
@@ -169,6 +172,36 @@ public class MemberVO {
 				+ ", mem_gender=" + mem_gender + ", mem_follower_count=" + mem_follower_count + ", mem_following_count="
 				+ mem_following_count + ", mem_profile=" + mem_profile + ", mem_qrcode=" + mem_qrcode + ", mem_del="
 				+ mem_del + ", mem_author=" + mem_author + "]";
+	}
+
+
+	public String getInvited_nick() {
+		return invited_nick;
+	}
+
+
+	public void setInvited_nick(String invited_nick) {
+		this.invited_nick = invited_nick;
+	}
+
+
+	public String getInvite_nick() {
+		return invite_nick;
+	}
+
+
+	public void setInvite_nick(String invite_nick) {
+		this.invite_nick = invite_nick;
+	}
+
+
+	public String getGroup_id() {
+		return group_id;
+	}
+
+
+	public void setGroup_id(String group_id) {
+		this.group_id = group_id;
 	}
 
 }

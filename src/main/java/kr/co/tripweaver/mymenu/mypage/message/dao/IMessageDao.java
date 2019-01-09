@@ -3,6 +3,7 @@ package kr.co.tripweaver.mymenu.mypage.message.dao;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.tripweaver.member.model.MemberVO;
 import kr.co.tripweaver.mymenu.mypage.message.model.MessageVO;
 import kr.co.tripweaver.mymenu.mypage.message.model.ParticipantVO;
 
@@ -36,7 +37,7 @@ public interface IMessageDao {
 	* @return
 	* Method 설명 : 해당 채팅방 구성원닉네임을 반환하는 메서드
 	 */
-	public List<String> selectParticipantNickList(String group_id);
+	public List<MemberVO> selectParticipantList(String group_id);
 	
 	/**
 	* Method : selectMessageList
@@ -195,4 +196,14 @@ public interface IMessageDao {
 	* Method 설명 : 1:1 쪽지 이벤트로 채팅방구성원이 2명인 구성원 정보 리스트를 반환하는 메서드(2개씩 세트임; 1/2, 3/4, 5/6 .....)
 	 */
 	public List<ParticipantVO> selectMessage11();
+	
+	/**
+	* Method : selectParticipantById
+	* 작성자 : jin
+	* 변경이력 :
+	* @param participantVO
+	* @return
+	* Method 설명 : 대화상대 초대전 이미 초대된 멤버인지 확인하는 메서드
+	 */
+	public int selectParticipantById(ParticipantVO participantVO);
 }

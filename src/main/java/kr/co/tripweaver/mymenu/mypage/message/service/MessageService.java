@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.tripweaver.member.model.MemberVO;
+import kr.co.tripweaver.member.service.IMemberService;
 import kr.co.tripweaver.mymenu.mypage.follow_following.service.IFollowService;
 import kr.co.tripweaver.mymenu.mypage.message.dao.IMessageDao;
 import kr.co.tripweaver.mymenu.mypage.message.model.MessageVO;
@@ -56,15 +58,18 @@ public class MessageService implements IMessageService {
 		//채팅방멤버아이디 모두 조회
 		List<String> mem_idList = messageDao.selectChatroomMemberList(messageVO.getGroup_id());
 		
-		mem_idList.remove(messageVO.getMem_id());
-		
-		//메세지수신여부 생성
-		for(String mem_id : mem_idList) {
-			if(!mem_id.equals(messageVO.getMem_id())) {
-				params.put("mem_id", mem_id);
-				messageDao.insertMsgReciver(params);
+		//관리자 알림메세지가 아니면
+		if(!(messageVO.getMem_id()).equals("admin")) {
+			mem_idList.remove(messageVO.getMem_id());
+			//메세지수신여부 생성
+			for(String mem_id : mem_idList) {
+				if(!mem_id.equals(messageVO.getMem_id())) {
+					params.put("mem_id", mem_id);
+					messageDao.insertMsgReciver(params);
+				}
 			}
 		}
+		
 		return msg_id;
 	}
 
@@ -74,12 +79,12 @@ public class MessageService implements IMessageService {
 		String group_id = (String) params.get("group_id");
 		
 		String chatrrom_name = messageDao.selectChatroomName(participantVO);
-		List<String> memNickList = messageDao.selectParticipantNickList(group_id);
+		List<MemberVO> memList = messageDao.selectParticipantList(group_id);
 		List<MessageVO> messageVOs = messageDao.selectMessageList(group_id);
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("chatrrom_name", chatrrom_name);
-		resultMap.put("memNickList", memNickList);
+		resultMap.put("memList", memList);
 		resultMap.put("messageVOs", messageVOs);
 		resultMap.put("group_id", group_id);
 		
@@ -143,8 +148,10 @@ public class MessageService implements IMessageService {
 		resultMap.put("chatrrom_name", chatroom_name);
 		resultMap.put("participantVOs", participantVOs);
 		
-		List<String> memNickList = messageDao.selectParticipantNickList(group_id);
+		List<MemberVO> memNickList = messageDao.selectParticipantList(group_id);
 		resultMap.put("memNickList", memNickList);
+		List<MemberVO> memList = messageDao.selectParticipantList(group_id); 
+		resultMap.put("memList", memList);
 		return resultMap;
 	}
 
@@ -193,6 +200,28 @@ public class MessageService implements IMessageService {
 		params.put("loginInfo", login_id);
 		params.put("chatroom_name", "[1:1]" + login_id + "," + mem_id);
 		return insertChatroom(params);
+	}
+
+	@Override
+	public int updateChatroomName(ParticipantVO participantVO) {
+		int updCnt = messageDao.updateChatroomName(participantVO);
+		return updCnt;
+	}
+
+	@Override
+	public int inviteParticipant(ParticipantVO participantVO) {
+		
+		//존재하는지 확인
+		int cnt = messageDao.selectParticipantById(participantVO);
+		participantVO.setChatroom_name(participantVO.getChatroom_name() == null || participantVO.getChatroom_name().equals("") ? "이름을 설정해주세요" : participantVO.getChatroom_name());
+		if(cnt < 1) {
+			//없으면 생성 
+			cnt = messageDao.insertParticipant(participantVO);
+		} else {
+			cnt = 2;
+		}
+		//cnt 1 : 초대성공, 2 : 이미 초대된 멤버
+		return cnt;
 	}
 }
 

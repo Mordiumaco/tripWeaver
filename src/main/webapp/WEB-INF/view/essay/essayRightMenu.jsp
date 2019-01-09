@@ -287,7 +287,7 @@ function peopleCount(fm){
 					</c:when>
 					<c:otherwise>
 						<b class="my_profile my_profile10">
-							<img src="/upload/${writerVo.mem_profile}" onerror="src='/img/no_profile.png';"> 
+							<img src="/file/read?file=${writerVo.mem_profile}" onerror="src='/img/no_profile.png';"> 
 						</b>
 					</c:otherwise>
 				</c:choose>

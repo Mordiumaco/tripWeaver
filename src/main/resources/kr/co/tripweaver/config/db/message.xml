@@ -10,7 +10,8 @@
 		        FROM participant p LEFT OUTER JOIN (SELECT *
 		                                        FROM (SELECT group_id, msg_cnt, msg_date
 		                                            , MAX(msg_date) OVER(PARTITION BY group_id) AS max_date 
-		                                              FROM message)
+		                                              FROM message
+		                                              WHERE mem_id != 'admin')
 		                                        WHERE msg_date = max_date) m
 		                        ON (p.group_id = m.group_id) , chatroom c, (SELECT a.group_id AS group_id, 
 		                                                                    NVL(b.cnt, 0) AS cnt 
@@ -39,8 +40,8 @@
 		AND mem_id = #{mem_id}
 	</select>
 	
-	<select id="selectParticipantNickList" parameterType="String" resultType="String">
-		SELECT m.mem_nick
+	<select id="selectParticipantList" parameterType="String" resultType="memberVo">
+		SELECT m.*
 		FROM participant p INNER JOIN member m
 		ON (p.mem_id = m.mem_id)
 		AND group_id = #{group_id}
@@ -81,7 +82,14 @@
 			SELECT 'msg' || LPAD(msg_seq.NEXTVAL, 5, 0) FROM DUAL
 		</selectKey>
 		INSERT INTO message
-		VALUES (#{msg_id}, #{msg_date}, #{msg_cnt}, #{mem_id}, #{group_id})
+		VALUES (#{msg_id}, #{msg_date}, #{msg_cnt}, #{mem_id}, #{group_id}
+		<if test="alram_mem_id == null">
+			, ''
+		</if>
+		<if test="alram_mem_id != null">
+			, #{alram_mem_id}
+		</if>
+		)
 	</insert>
 	
 	<delete id="deleteParticipant" parameterType="participantVo">
@@ -130,7 +138,7 @@
 	</select>
 	
 	<select id="selectGroupMsgCount" parameterType="String" resultType="messageVo">
-		SELECT msg.msg_id, COUNT(*) AS unread
+		SELECT msg.msg_id, msg.group_id, COUNT(*) AS unread
 		FROM msgReciver mr INNER JOIN message msg
 		ON (mr.msg_id = msg.msg_id AND msg.group_id = #{group_id})
 		GROUP BY msg.msg_id
@@ -158,5 +166,10 @@
 		                               HAVING COUNT(*) = 2) p2
 		ON (p2.group_id = p.group_id)
 	</select>
-	
+
+	<select id="selectParticipantById" parameterType="participantVo" resultType="int">
+		SELECT COUNT(*)
+		FROM participant
+		WHERE mem_id = #{mem_id} AND group_id = #{group_id}
+	</select>	
 </mapper>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -111,12 +112,63 @@ ul {
 
 .mes_con_listMy .unread { position: absolute; left: -20px; width: 10px; }
 
-#exit_btn { position: absolute; top: 0; right: 0; background: #ffeb33;  border: 1px solid #a79816; padding: 5px; border-radius: 0 0 5px 5px; font-size: 0.8em;}
+#roomName_btn:hover { background:#797016; color: #fff;}
+#exit_btn { background: #ffeb33;  border: 1px solid #a79816; padding: 5px; border-radius: 5px; font-size: 0.8em; margin: 5px 0px 10px 10px;}
 #exit_btn:hover { background:#797016; color: #fff;}
 
 #sendMessage { background:#ffeb33; border: 1px solid #e8d73f; padding: 5px 10px; border-radius: 3px;}
 #sendMessage:hover { background: #bfb021;}
 .mes_dateMy { position: absolute; left: -100px; width: 100px;}
+
+.admin_msg {
+	width: 380px;
+	height: 16px;
+	background-color: #aaa;
+	color: white;
+	text-align: center;
+	border-radius: 5px;
+}
+
+#memberCnt {
+	color: #ffeb33;
+}
+.cursor {cursor: pointer; color: #ffeb33;}
+
+#rightMenu {
+	width : 200px;
+	height: 400px;
+	background: white;
+	border-radius: 5px 0px 0px 0px;
+	position: absolute;
+	top: 0px;
+	right: -190px;
+	overflow-y: scroll;
+	z-index: 10;
+}
+
+#roomName { width: 75%; margin: 10px 5px 5px 25px;}
+
+#roomName_btn { background: #ffeb33;  border: 1px solid #a79816; padding: 5px; border-radius: 5px; font-size: 0.8em; float: left; margin: 5px 8px 10px 27px;}
+
+#rightMenu_02 { font-weight: bold; font-size: 15px;}
+
+#rightMenu_03 { width: 90%}
+
+.03_li { width: 80%; height: 90px; margin: 10px 5px 5px 15px;}
+
+.my_profile { width:80px ; height:80px; line-height:80px; border-radius: 50%; display: inline-block; vertical-align: bottom; overflow: hidden;}
+
+.mypage_follow_li { width: 196px !important; height: 90px !important; float: left; }
+
+.mypage_follow_profile { width: 80px !important; margin: 5px; float: left;}
+
+.msg_mem_nick {}
+
+.fold_btn { width: 30px; height: 50px; line-height:50px; position: fixed; top: 0px; right: 10px; background: #dddddd; text-align: center; border-radius: 15px 0 0 15px ; font-weight: bold; cursor: pointer; z-index: 11; }
+.fold_btn::after { content: ">";}
+
+.fold_btnAfter::after { content: "<";}
+
 </style>
 
  <!-- Web socket CDN -->
@@ -125,12 +177,44 @@ ul {
 <script language="JavaScript" type="text/javascript">
 var sock;
 var sock_alram;
+var sock_access;
 
 
 $(document).ready(function(){ 
 	connect();
 	connect_alram();
+	connect_access();
 	
+	$('#rightMenu').on('click','.fold_btn',function () {
+		$('.mypage_right2').animate({ right : '-190px'},200);
+		$('.fold_btn').animate({ right : '-1px'},200);
+		$('.fold_btn').addClass('fold_btnAfter');
+	}); 
+	
+	$('#rightMenu').on('click','.fold_btnAfter',function () {
+		$('.mypage_right2').animate({ right : '0px'},200);
+		$('.fold_btn').animate({ right : '190px'},200);
+		$('.fold_btn').removeClass('fold_btnAfter');
+	});
+	
+	$('#roomName_btn').on('click', function() {
+		var conf = confirm("채팅방이름을 수정하시겠습니까?");
+		var chatroom_name = $('#roomName').val();
+		var group_id = '${group_id}';
+		var mem_id = '${loginInfo.mem_id}';
+		if(conf){
+			$.ajax({
+				url : '/message/updateChatroomName',
+				type : 'post',
+				data : {'group_id':group_id,'mem_id':mem_id,'chatroom_name':chatroom_name},
+				success : function(dt) {
+					
+					$('#roomTitle').html(chatroom_name);
+					
+				}
+			});
+		}
+	});
 // 	var getRead = function () {
 // 		var deferred = $.Deferred();
 // 		try {
@@ -170,6 +254,7 @@ $(document).ready(function(){
 	});
 	
 	$('#exit_btn').on('click', function() {
+		//나간멤버아이디, 나간채팅방아이디
 		var conf = confirm("채팅방을 나가시겠습니까?");
 		if(conf){
 			var mem_nick = '${loginInfo.mem_nick}';
@@ -179,10 +264,13 @@ $(document).ready(function(){
 				message.msg_date = new Date();
 				message.mem_id = 'admin';
 				message.group_id = '${group_id}';
+				message.access = 'exit';
+				message.alram_mem_id = '${loginInfo.mem_id}';
 			}
-			sock.send(JSON.stringify(message));
-			
-			$('#exit_frm').submit();
+			sock.send(JSON.stringify(message));			//퇴장, 초대 메세지를 띄우기 위한 부분
+			message.mem_id = '${loginInfo.mem_id}';
+			sock_access.send(JSON.stringify(message));	//채팅방 대화상대 리스트 갱신을 위한 부분
+			$('#exit_frm').submit();					//채팅방리스트화면으로가는 부분
 		}
 	});
 });
@@ -229,10 +317,14 @@ function appendMessage(msg) {
 			html += '<li class="mes_con_list_text mes_con_list_textMy">';
 			html +=	msg.msg_cnt + '<span id="' + msg.msg_id + '" class="unread">' + msg.unread + '</span><span class="mes_date mes_dateMy">' + t + '</span></li></ul><div>';
 		} else if(msg.mem_id == 'admin') {
-			html = '<div><h6>' + msg.msg_cnt + '</h6></div>';
+			if(msg.access == 'exit'){ //채팅방나가기일때
+				html = '<div class="admin_msg"><h6>' + msg.msg_cnt + '&nbsp;<a class="cursor" onclick="invitedMember(\'' + msg.alram_mem_id + '\')">초대하기</a></h6></div>';
+			} else { //채팅방 초대일경우
+				html = '<div class="admin_msg"><h6>' + msg.msg_cnt + '</h6></div>';
+			}
 		} else {
 			html = '<div class="mes_con_list" >';
-			html += '<h6 class="my_profile my_profile2" ><img src="/file/read?mem_profile=' + msg.mem_profile + '"></h6>';
+			html += '<h6 class="my_profile my_profile2" ><img src="/file/read?file=' + msg.mem_profile + '"></h6>';
 			html += '<ul><li><b>' + msg.mem_nick + '</b>';
 			html += '</li>';
 			html += '<li class="mes_con_list_text">';
@@ -282,6 +374,7 @@ function connect_alram() {
 	};
 	sock_alram.onmessage = function(event) {
 		var data = event.data;
+			console.log("[alram] event.data : " + data);
 		if(data != '[]'){
 			console.log("[alram] data : " + data);
 			var obj = JSON.parse(data);
@@ -305,50 +398,151 @@ function read() {
 }
 //메세지 읽음인원 수정
 function updateReciveCount(obj) {
-	if(obj == '0'){
-// 		var className = document.getElementsByClassName('unread');
-		var abc = $('.unread').text(0);
-// 		console.log("className : " + className);
-// 		console.log("className.innerText1 : " + className.innerText);
-// 		className.innerText = '여기야여기!!';
-// 		console.log("className.innerText2 : " + className.innerText);
-	} else {
-		for(var i = 0; i < obj.length; i++){
-			console.log("updateReciveCount : " + obj[i].unread + ' : ' + obj[i].msg_id);
-			//obj에서 그룹아이디 가져와서 비교
-			var iii = '' + obj[i].msg_id;
-			var id = document.getElementById(iii);
-			console.log("id : " + id);
-			if(id.innerText != null){
-				id.innerText = '' + obj[i].unread;
-				console.log("id.innerText : " + document.getElementById(iii).innerText);
+	if(obj[0].group_id == '${group_id}'){
+		if(obj == '0'){
+			var abc = $('.unread').text(0);
+		} else {
+			for(var i = 0; i < obj.length; i++){
+				console.log("updateReciveCount : " + obj[i].unread + ' : ' + obj[i].msg_id);
+				//obj에서 그룹아이디 가져와서 비교
+				var iii = '' + obj[i].msg_id;
+				var id = document.getElementById(iii);
+				console.log("id : " + id);
+				if(id.innerText != null){
+					id.innerText = '' + obj[i].unread;
+					console.log("id.innerText : " + document.getElementById(iii).innerText);
+				}
 			}
 		}
 	}
 }
 
+function connect_access() {
+	sock_access = new SockJS('/access');
+	sock_access.onopen = function() {
+		console.log('[access] onopen : ' + sock);
+		read();
+	};
+	sock_access.onmessage = function(event) {
+		var data = event.data;
+		if(data != '[]'){
+			var obj = JSON.parse(data);
+			console.log("[access] data : " + data);
+			console.log("[access] obj : " + obj);
+			if(obj[0].group_id == '${group_id}'){
+				renewMember(obj);
+				if(obj[0].mem_qrcode == '2'){ //이미 초대된 멤버일경우
+					if(obj[0].invite_nick == '${loginInfo.mem_nick}'){ //누른사람과 로그인멤버가 같을경우만
+						alert('이미 초대된 멤버입니다.');
+					}
+				} else if(obj[0].mem_qrcode == '1'){ //초대가 아니라 퇴장일 수 도 있는거 잖아			
+					message = {};
+					message.msg_cnt = '"' + obj[0].invite_nick + '"님이 "' + obj[0].invited_nick + '"님을 초대완료 하였습니다.';
+					message.msg_date = new Date();
+					message.mem_id = 'admin';
+					message.group_id = '${group_id}';
+					message.access = 'invite';
+					sock.send(JSON.stringify(message));			//메세지
+				}
+			}
+		} else {
+		}
+	};
+	sock_access.onclose = function() {
+		console.log('[access] onclose');
+	}
+}
+
+function invitedMember(invited_id) {
+	//이미 초대된 인원인지 확인 아작스 보내서 이미 존재하는지 확인
+	//초대받는사람 아이디
+	//초대되는 방아이디, 방닉네임
+	//멤버 아이디말고 닉네임
+// 	var invite_id = '';		//초대받는사람ID
+	var conf = confirm('"' + invited_id + '"님을 초대하시겠습니까?');
+	var group_id = '${group_id}';
+	if(conf){
+		var invite_nick = '${loginInfo.mem_nick}';	//초대한사람
+		if(msg != ""){
+			message = {};
+			message.mem_id = invited_id;
+			message.group_id = '${group_id}';
+			message.access = 'invite';
+			message.invite_nick = invite_nick;
+			message.invited_nick = invited_id;
+			
+			sock_access.send(JSON.stringify(message));	//먼저 확인하고
+		}
+	}
+}
+
+function renewMember(obj) {
+	console.log('renewMember(obj) 들어옴');
+	console.log('renewMember(obj) : ' + obj);
+	//채팅방나가기를 눌렀을 경우
+	//초대하기를 눌었을 경우
+	//채팅방 인원수, 채팅방 대화상대 리스트 갱신
+	$("#memberCnt").html(obj.length);
+	
+	var html = "";
+	$.each(obj, function(idx, mem) {
+		html += '	<li class="03_li mes_f_list mypage_follow_li">';
+		html += '		<div class="mypage_follow_profile">';
+		html += '			<b class="my_profile my_profile2">';
+		html += '				<img src="/file/read?file=' + mem.mem_profile + '">';
+		html += '			</b>';	
+		html += '		</div>';
+		html += '		<div class="msg_mem_nick">' + mem.mem_nick + '</div>';
+		html += '	</li>';
+	});
+	$("#rightMenu_03").html(html);
+	
+}
 
 </script>
 </head>
 <body>
+	<!-- 우측메뉴 -->
+	<div id="rightMenu" class="mypage_right2">
+		<div class="fold_btn fold_btnAfter"></div>
+		<div id="rightMenu_01">
+			<div>
+				<input type="text" name="roomName" id="roomName" placeholder="방이름 수정"/>
+				<input type="button" id="roomName_btn" value="변경"/>
+			</div>
+			<form id="exit_frm" action="/message/chatRoomListView">
+				<input type="hidden" name="mem_id" value="${loginInfo.mem_id}">
+				<input type="button" id="exit_btn"  value="채팅방 나가기">
+			</form>
+		</div>
+		<div id="rightMenu_02">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;대화상대
+		</div>
+		<ul id="rightMenu_03">
+			<c:forEach items="${memList}" var="mem">
+				<li class="03_li mes_f_list mypage_follow_li">
+					<div class="mypage_follow_profile">
+						<b class="my_profile my_profile2">
+							<img src="/file/read?file=${mem.mem_profile}">
+						</b>
+					</div>
+					<div class="msg_mem_nick">${mem.mem_nick}</div>
+				</li>
+			</c:forEach>
+		</ul>
+		
+	</div>
+	<!--  -->
 	<div class="mes_head">
 		<ul>
 			<li><a class="back" href="/message/chatRoomListView?mem_id=${loginInfo.mem_id}">&#9664; </a></li>
 			<li class="mes_title">
-				<div class="my_profile"><img src="/file/read?mem_profile=${loginInfo.mem_profile}" ></div>
+				<div class="my_profile"><img src="/file/read?file=${loginInfo.mem_profile}" ></div>
 				<div>
-					<b>${chatrrom_name}</b>
-					<c:forEach items="${memNickList}" var="nick">
-						${nick}&nbsp;
-					</c:forEach>
+					<b id="roomTitle">${chatrrom_name}</b>&nbsp;<span id="memberCnt">${fn:length(memList)}</span>
 				</div>
 			</li>
 		</ul>
-		<form id="exit_frm" action="/message/exitChatroom">
-			<input type="hidden" name="group_id" value="${group_id}">
-			<input type="hidden" name="mem_id" value="${loginInfo.mem_id}">
-			<input type="button" id="exit_btn"  value="채팅방 나가기">
-		</form>
 	</div>
 	<div class="mes_con">
 		<c:set var="prev_mem_id" value=""/>
@@ -357,12 +551,17 @@ function updateReciveCount(obj) {
 		<c:forEach items="${messageVOs}" var="msg">
 			<c:choose>
 				<c:when test="${msg.mem_id eq 'admin'}">
-					<div><h6>${msg.msg_cnt}</h6></div>				
+					<c:if test="${fn:contains(msg.msg_cnt, '초대')}">
+						<div class="admin_msg"><h6>${msg.msg_cnt}</h6></div>				
+					</c:if>
+					<c:if test="${fn:contains(msg.msg_cnt, '퇴장')}">
+						<div class="admin_msg"><h6>${msg.msg_cnt}&nbsp;<a class="cursor" onclick="invitedMember('${msg.alram_mem_id}')">초대하기</a></h6></div>				
+					</c:if>
 				</c:when>
 				<c:otherwise>
 					<div class="mes_con_list ${msg.mem_id eq loginInfo.mem_id ? 'mes_con_listMy' : ''}" >
 						<c:if test="${msg.mem_id ne loginInfo.mem_id}">
-							<h6 class="my_profile my_profile2"><img src="/file/read?mem_profile=${msg.mem_profile}" ></h6>
+							<h6 class="my_profile my_profile2"><img src="/file/read?file=${msg.mem_profile}" ></h6>
 						</c:if>
 						<ul>
 							<li><c:if test="${msg.mem_id ne loginInfo.mem_id}"><b>${msg.mem_nick}</b></c:if></li>
@@ -380,6 +579,10 @@ function updateReciveCount(obj) {
 	<div class="mes_bottom">
 		<input type="text" id="msg" name="msg">
 		<input type="button" id="sendMessage" value="전송">
+	</div>
+	<!-- 우측 채팅방 멤버, 채팅방 나가기, 채팅방 이름 수정,  -->
+	<div>
+		
 	</div>
 </body>
 </html>

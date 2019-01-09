@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.tripweaver.member.model.MemberVO;
 import kr.co.tripweaver.mymenu.mypage.message.model.MessageVO;
 import kr.co.tripweaver.mymenu.mypage.message.model.ParticipantVO;
 
@@ -30,8 +31,8 @@ public class MessageDao implements IMessageDao {
 	}
 
 	@Override
-	public List<String> selectParticipantNickList(String group_id) {
-		List<String> memNickList = template.selectList("messageSQL.selectParticipantNickList", group_id);
+	public List<MemberVO> selectParticipantList(String group_id) {
+		List<MemberVO> memNickList = template.selectList("messageSQL.selectParticipantList", group_id);
 		return memNickList;
 	}
 
@@ -131,6 +132,12 @@ public class MessageDao implements IMessageDao {
 	public List<ParticipantVO> selectMessage11() {
 		List<ParticipantVO> participantVOs = template.selectList("messageSQL.selectMessage11");
 		return participantVOs;
+	}
+
+	@Override
+	public int selectParticipantById(ParticipantVO participantVO) {
+		int cnt = template.selectOne("messageSQL.selectParticipantById", participantVO);
+		return cnt;
 	}
 
 }

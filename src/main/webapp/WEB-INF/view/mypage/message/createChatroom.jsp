@@ -96,7 +96,7 @@ ul {
 .local_sch select{height:30px;margin-right:3px;border:1px solid #dcdcdc}
 .local_sch01{margin: 10px 0;}
 .local_sch02{}
-.local_sch01 .frm_input{height:30px;border:1px solid #dcdcdc;padding:0 5px; margin-left: 10px; width: 80%;}
+.local_sch01 .frm_input{height:30px;border:1px solid #dcdcdc;padding:0 5px; margin-left: 21px; width: 76%;}
 #frm .frm_input{height:30px;border:1px solid #dcdcdc;padding:0 5px; margin-left: 10px; width: 80%;}
 .local_sch01 .btn_submit{width:30px;height:30px;border:0;padding:0;background:url(../img/sch_btn.png) no-repeat 50% 50% #eee;border:1px solid #dcdcdc;text-indent:-999px;overflow:hidden;     vertical-align: middle }
 .local_sch01 .btn_create{width:20px;height:30px;border:0;padding:0;background:url(../img/baseline_mode_comment_black_18dp.png) no-repeat 50% 50% #eee;border:1px solid #dcdcdc;text-indent:-999px;overflow:hidden;     vertical-align: middle }
@@ -310,7 +310,7 @@ ul {
 		<ul class="mes_friendUl">
 			<c:forEach items="${followingVOs}" var="following">
 				<li class="mes_f_list mem_list">
-					<div><b class="my_profile my_profile2"><img src="/file/read?mem_profile=${following.mem_profile}"></b></div>
+					<div><b class="my_profile my_profile2"><img src="/file/read?file=${following.mem_profile}"></b></div>
 					<ul>
 						<li>${following.mem_nick}<input type="hidden" value="${following.mem_nick}"></li>
 						<li>
@@ -333,7 +333,7 @@ ul {
 					</c:if>
 				</c:forEach>
 				<li class="mes_f_list mem_list">
-					<div><b class="my_profile my_profile2"><img src="/file/read?mem_profile=${follower.mem_profile}"></b></div>
+					<div><b class="my_profile my_profile2"><img src="/file/read?file=${follower.mem_profile}"></b></div>
 					<ul>
 						<li>${follower.mem_nick}<input type="hidden" value="${follower.mem_nick}"></li>
 						<li>
