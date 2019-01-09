@@ -6,7 +6,7 @@
     
 <h1 class="mypage_title">Essay 클립보드</h1>
 				
-<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
+<form id="fsearch" name="fsearch"  onsubmit="return false;" class="local_sch01 local_sch" method="get">
 	<label for="sfl" class="sound_only">검색대상</label>
 	<select name="search_title" id="sfl">
 		<option value="e.essay_title">제목</option>
@@ -14,7 +14,7 @@
 	</select>
 	<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
 	<input type="text" name="stx" value="" id="stx" required="" class="required frm_input">
-	<input type="button" class="btn_submit" value="검색">
+	<input type="button" class="btn_submit2" value="검색">
 </form>
 
 <br/>
@@ -28,7 +28,7 @@
 						<img src="/img/no_image.png">
 					</c:when>
 					<c:otherwise>
-						<img src="/update/${essay.tripplan_image}">
+						<img src="/file/read?file=/${essay.tripplan_image}">
 					</c:otherwise>
 				</c:choose>
 			</li>

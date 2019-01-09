@@ -6,7 +6,7 @@
     
 <h1 class="mypage_title">PostCard 클립보드</h1>
 				
-<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
+<form id="fsearch" name="fsearch" onsubmit="return false;" class="local_sch01 local_sch" method="get">
 	<label for="sfl" class="sound_only">검색대상</label>
 	<select name="search_title" id="sfl">
 	    <option value="p.pc_cnt">내용</option>
@@ -28,7 +28,7 @@
 						<img src="/img/no_image.png">
 					</c:when>
 					<c:otherwise>
-						<img src="/upload${clip.att_path}/${clip.att_file_name}">
+						<img src="/file/read?file=${clip.att_path}/${clip.att_file_name}">
 					</c:otherwise>
 				</c:choose>
 			</li> 
