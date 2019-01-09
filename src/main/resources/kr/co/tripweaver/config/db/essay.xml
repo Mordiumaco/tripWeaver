@@ -17,20 +17,24 @@
 	<select id="selectEssayByEssayId" resultType="essayVo" parameterType="String">
 		select * from essay where essay_id = #{essay_id}
 	</select>
-	
 	<!-- 게시글 관리의 에세이 목록을 뽑기 위한 쿼리문-->
 	<select id="selectEssayByMemIdForBoard" resultType="essayVo" parameterType="Map">
-		select rownum rnum, myessay.*
-		from
-		(
-		    select * from essay where mem_id = #{mem_id}
-		    <if test="title != null">
-		    	and essay_title like '%'||#{title}||'%'
-		    </if>
-		    order by essay_date asc
-		) myessay
-		where rownum between 1+((to_number(#{page})-1)*10) and (to_number(#{page})*10)
-		order by rnum desc
+		select * from(
+			select * from(
+				select rownum rnum, myessay.*
+				from
+				(
+				    select * from essay where mem_id = #{mem_id}
+				    <if test="title != null">
+				    	and essay_title like '%'||#{title}||'%'
+				    </if>
+				    order by essay_date desc
+				) myessay
+				order by rnum asc
+			)
+		)
+		where rnum between 1+((to_number(#{page})-1)*10) and (to_number(#{page})*10)
+		
 	</select>
 	
 	<!-- 게시글 관리의 에세이 개수를 알기위한 쿼리문-->

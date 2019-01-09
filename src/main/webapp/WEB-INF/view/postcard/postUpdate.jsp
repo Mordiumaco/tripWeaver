@@ -200,7 +200,7 @@ $(document).ready(function(){
 								<img id="img1" src="/img/no_image.png" >
 							</c:when>
 							<c:otherwise>
-								<img id="img1" src="/upload/postcard/${attVo[0].att_file_name}" >
+								<img id="img1" src="/file/read?file=/postcard/${attVo[0].att_file_name}" >
 							</c:otherwise>
 						</c:choose>		
 					</li>
@@ -210,7 +210,7 @@ $(document).ready(function(){
 								<img id="img2" src="/img/no_image.png" >
 							</c:when>
 							<c:otherwise>
-								<img id="img2" src="/upload/postcard/${attVo[1].att_file_name}" >
+								<img id="img2" src="/file/read?file=/postcard/${attVo[1].att_file_name}" >
 							</c:otherwise>
 						</c:choose>		
 					</li>
@@ -220,7 +220,7 @@ $(document).ready(function(){
 								<img id="img3" src="/img/no_image.png" >
 							</c:when>
 							<c:otherwise>
-								<img id="img3" src="/upload/postcard/${attVo[2].att_file_name}" >
+								<img id="img3" src="/file/read?file=/postcard/${attVo[2].att_file_name}" >
 							</c:otherwise>
 						</c:choose>		
 					</li>
@@ -230,7 +230,7 @@ $(document).ready(function(){
 								<img id="img4" src="/img/no_image.png" >
 							</c:when>
 							<c:otherwise>
-								<img id="img4" src="/upload/postcard/${attVo[3].att_file_name}" >
+								<img id="img4" src="/file/read?file=/postcard/${attVo[3].att_file_name}" >
 							</c:otherwise>
 						</c:choose>		
 					</li>

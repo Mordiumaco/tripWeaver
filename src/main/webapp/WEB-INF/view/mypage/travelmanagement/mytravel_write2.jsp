@@ -203,6 +203,12 @@
 	function formChecker(){
 		
 		let peopleCount = $(':input[name=tripplan_peo_count]').val();
+		let title = $(':input[name=tripplan_title]').val();
+		
+		if(title.length < 2){
+			alert('최소한 2자 이상의 제목을 입력해주세요');
+			return false;
+		}
 		
 		if(peopleCount < 0){
 			alert('인원수를 0보다 큰 값을 입력해주세요!');
