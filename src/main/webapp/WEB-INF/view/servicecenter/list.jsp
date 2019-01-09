@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../head.jsp" %> 
 
 <link rel="stylesheet" href="/css/style.css">
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 
 <script type="text/javascript">
@@ -35,6 +35,7 @@ $(document).ready(function(){
 		$("#art_id").val(postsId);
 		$("#frm").submit();
 	});
+	
 	
 	//getAjaxList(1, 'po_subject', '');
 
@@ -180,11 +181,12 @@ function fboardlist_submit(f) {
 						</tr>
 					</c:when>
 					<c:otherwise>
-						<tr>
-							<td>${pv.art_id}</td>
+						<tr class="postsClick" style="background-color:#f00;cursor:pointer;">
+							<td>${pv.rnum}</td>
 							<td><span class="list_decoration">삭제된 글 입니다.</span></td>
-							<td>${pv.userid}</td>
+							<td>${pv.mem_id}</td>
 							<td><fmt:formatDate value="${pv.art_date}" pattern="yyyy-MM-dd"/></td>
+							<td style=" display: none;">${pv.art_id}</td>
 						</tr>
 					</c:otherwise>
 				</c:choose>
