@@ -949,7 +949,7 @@ function call()
 									<img src="/img/no_image.png"/>
 								</c:when>
 								<c:otherwise>
-									<img src="/upload/${mypageTripPlanForListVo.tripplan_image}"/>
+									<img src="/file/read?file=${mypageTripPlanForListVo.tripplan_image}"/>
 								</c:otherwise>
 							</c:choose>
 							<div class="mypage_list01" >
