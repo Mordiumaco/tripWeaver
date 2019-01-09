@@ -75,7 +75,7 @@ public class ArticleController {
 			return "dbError";
 		}
 		
-		return "redirect: /article/articleDetail?art_id="+art_id;
+		return "redirect:/article/articleDetail?art_id="+art_id;
 	}
 	
 	@RequestMapping("/deleteArticle")
@@ -95,7 +95,7 @@ public class ArticleController {
 			return "dbError";
 		}
 		
-		return "redirect: /article/articlePageList?board_id="+board_id+"&page=1&pageSize=10";
+		return "redirect:/article/articlePageList?board_id="+board_id+"&page=1&pageSize=10";
 	}
 	
 	/**

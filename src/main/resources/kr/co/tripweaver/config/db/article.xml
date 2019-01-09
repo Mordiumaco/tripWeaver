@@ -46,7 +46,7 @@ values('art'||LPAD(art_seq.nextval, 5,'0'), #{art_title}, #{art_cnt}, art_seq.cu
 
 <update parameterType="Map" id="articleDelete"> 
 update article 
-set art_title = '삭제된 게시글입니다.' 
+set art_del = 'Y'
 where art_id = #{art_id} 
 </update>
 
