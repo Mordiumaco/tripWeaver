@@ -89,8 +89,9 @@ $(function() {
 
 <c:choose>
 	<c:when test="${fn:length(postCardList) == 0}">
-		<ul class="postCard_con">
+		<ul class="postCard_con postCard_con_none">
 			<li>해당 조건에 게시물은 없습니다.</li>
+			<li><img src="/img/no_POST.jpg"></li>
 		</ul>
 	</c:when>
 	<c:otherwise>
