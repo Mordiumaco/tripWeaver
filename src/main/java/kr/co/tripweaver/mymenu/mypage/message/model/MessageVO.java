@@ -17,6 +17,8 @@ public class MessageVO {
 	private String chatroom_name;
 	private int cnt;				//채팅방인원수
 	private int rec_cnt;			//읽지않은 메세지 수
+	private String access;			//채팅방 나가기(exit), 초대(invite) 구분
+	private String alram_mem_id;	//초대될 멤버의 아이디, 퇴장
 	
 	public static MessageVO convertMessage(String msg) {
 		MessageVO messageVO = new MessageVO();
@@ -100,6 +102,25 @@ public class MessageVO {
 		return "MessageVO [unread=" + unread + ", mem_profile=" + mem_profile + ", mem_nick=" + mem_nick + ", msg_id="
 				+ msg_id + ", msg_date=" + msg_date + ", msg_cnt=" + msg_cnt + ", mem_id=" + mem_id + ", group_id="
 				+ group_id + ", chatroom_name=" + chatroom_name + "]";
+	}
+
+
+	public String getAccess() {
+		return access;
+	}
+
+	public void setAccess(String access) {
+		this.access = access;
+	}
+
+
+	public String getAlram_mem_id() {
+		return alram_mem_id;
+	}
+
+
+	public void setAlram_mem_id(String alram_mem_id) {
+		this.alram_mem_id = alram_mem_id;
 	}
 	
 	
