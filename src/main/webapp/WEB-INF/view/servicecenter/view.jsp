@@ -95,7 +95,7 @@ function commentEdit(m){
         				<c:forEach items="${attachmentList}" var="fv">
 			              	<li>
 				                <i class="fa fa-download" aria-hidden="true"></i>
-				                <img src="/upload//attachment/${fv.att_file_name}">
+<%-- 				                <img src="/upload//attachment/${fv.att_file_name}"> --%>
 				                <a href="/upload/attachment/${fv.att_file_name}" class="view_file_download">
 				                    <strong>${fv.att_file_ori_name}</strong>
 				                </a>

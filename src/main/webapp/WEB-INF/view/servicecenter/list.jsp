@@ -183,7 +183,7 @@ function fboardlist_submit(f) {
 					<c:otherwise>
 						<tr class="postsClick" style="background-color:#f00;cursor:pointer;">
 							<td>${pv.rnum}</td>
-							<td><span class="list_decoration">삭제된 글 입니다.</span></td>
+							<td><span class="list_decoration">삭제된 게시글입니다.</span></td>
 							<td>${pv.mem_id}</td>
 							<td><fmt:formatDate value="${pv.art_date}" pattern="yyyy-MM-dd"/></td>
 							<td style=" display: none;">${pv.art_id}</td>

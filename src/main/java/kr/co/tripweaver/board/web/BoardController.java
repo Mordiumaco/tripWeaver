@@ -92,7 +92,7 @@ public class BoardController {
 		request.setAttribute("gnb", 2);
 		request.setAttribute("boardList", boardList);
 		
-		return "admin/board/create_board";
+		return "redirect:/board/boardCreate";
 		
 	}
 
