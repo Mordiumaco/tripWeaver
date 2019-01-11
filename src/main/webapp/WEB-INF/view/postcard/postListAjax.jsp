@@ -192,7 +192,7 @@ $(function() {
 						</li>
 						<li><fmt:formatDate value="${pcl.pc_date}" pattern="yyyy. MM. dd"/></li>
 						<li class="postli5">
-							댓글 <b class="more_btn">보기 +</b>
+							댓글 <b class="more_btn3">보기 +</b>
 							<div class="postli5_con">
 								<span class="Post_comment">
 									<c:choose>

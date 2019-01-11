@@ -203,6 +203,19 @@ $(document).ready(function(){
 		$(this).removeClass('more_btn2');
 	});
 	
+	
+	$('#post_left_wrap').on('click','.postli5 .more_btn3',function () {
+		$(this).siblings('.postli5_con').show('100');
+		$(this).addClass('more_btn4');
+
+	});  
+	
+	$('#post_left_wrap').on('click','.postli5 .more_btn4',function () {
+		$(this).siblings('.postli5_con').hide('100');
+		$(this).removeClass('more_btn4');
+	});
+	
+	
 	//sns공유
 	$('#post_left_wrap').on('click','.postCard_con .btn_share',function(){
 	    

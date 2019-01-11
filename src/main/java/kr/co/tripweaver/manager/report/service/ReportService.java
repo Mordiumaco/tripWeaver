@@ -51,16 +51,15 @@ public class ReportService implements IReportService {
 	public Map<String, Object> selectRepost(Map<String, Object> params) {
 		
 		List<ReportVO> reportVOs = reportDao.selectRepost(params);
-		int selectRepostAllCnt = reportDao.selectRepostAll();
-		
-		System.out.println("reportVOs"+reportVOs.size());
-		
+		//int selectRepostAllCnt = reportDao.selectRepostAll();
+		int selectRepostConditionCnt = reportDao.selectRepostCondition(params);
+		 
 		PageVO pageVo = (PageVO) params.get("pageVo");
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("reportVo", reportVOs);
 		resultMap.put("page", pageVo.getPage());
-		resultMap.put("pageSize", PageUtil.pageCnt(selectRepostAllCnt, 10));
+		resultMap.put("pageSize", PageUtil.pageCnt(selectRepostConditionCnt, 10));
 		resultMap.put("filter_id", params.get("filter_id"));
 		resultMap.put("rep_rea_id", params.get("rep_rea_id"));
 		resultMap.put("report_proc_sta", params.get("report_proc_sta"));
@@ -85,7 +84,6 @@ public class ReportService implements IReportService {
 		int updateReportCnt = reportDao.updateReport(report_rel_art_id);
 		return updateReportCnt;
 	}
-	
-	
+
 	
 }

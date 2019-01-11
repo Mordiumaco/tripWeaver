@@ -223,6 +223,7 @@
 			    comt_rel_art_id
 			    , COUNT(*) as comt_count
 			    from comments 
+			    where comt_del = 'N'
 			    group by comt_rel_art_id
 			) c
 			on (p.pc_id = c.comt_rel_art_id ) left outer join (

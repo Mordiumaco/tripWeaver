@@ -112,22 +112,22 @@
 	<nav class="pg_wrap"><span class="pg">
 		<span class="sound_only">열린</span>
 			<c:if test="${param.page != 1}"> 
-				<a class="pg_page pg_start" href="javascript:getAjaxList('${filter_id}','${rep_rea_id }','${report_proc_sta }',1);"></a>
-				<a class="pg_page pg_prev" href="javascript:getAjaxList('${filter_id}','${rep_rea_id }','${report_proc_sta }','${param.page -1}');"></a>			
+				<a class="pg_page pg_start" href="javascript:getAjaxList(1);"></a>
+				<a class="pg_page pg_prev" href="javascript:getAjaxList('${param.page -1}');"></a>			
 			</c:if>
 			
 			<c:forEach var="pageWrap"  varStatus="status" begin="1" end="${pareamsMap.pageSize}">
 	
 				<c:choose>
-					<c:when test="${status.index == param.page}"><a class="pg_current" href="javascript:getAjaxList('${filter_id}','${rep_rea_id }','${report_proc_sta }','${status.index}');">${status.index}</a></c:when>
-					<c:otherwise><a class="pg_page" href="javascript:getAjaxList('${filter_id}','${rep_rea_id }','${report_proc_sta }','${status.index}');">${status.index}</a></c:otherwise>
+					<c:when test="${status.index == param.page}"><a class="pg_current" href="javascript:getAjaxList('${status.index}');">${status.index}</a></c:when>
+					<c:otherwise><a class="pg_page" href="javascript:getAjaxList('${status.index}');">${status.index}</a></c:otherwise>
 				</c:choose>
 	
 			</c:forEach>
 			
 			<c:if test="${pareamsMap.pageSize > param.page}">
-				<a class="pg_page pg_next" href="javascript:getAjaxList('${filter_id}','${rep_rea_id }','${report_proc_sta }','${param.page +1}');"></a>
-				<a class="pg_page pg_end" href="javascript:getAjaxList('${filter_id}','${rep_rea_id }','${report_proc_sta }','${pareamsMap.pageSize}');"></a>
+				<a class="pg_page pg_next" href="javascript:getAjaxList('${param.page +1}');"></a>
+				<a class="pg_page pg_end" href="javascript:getAjaxList('${pareamsMap.pageSize}');"></a>
 			</c:if>
 		</span>
 	</nav>
