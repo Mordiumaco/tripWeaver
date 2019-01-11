@@ -436,8 +436,7 @@
 						    <colgroup>
 						    	<col width="10%">
 						    	<col width="65%">
-						    	<col width="10%">
-						    	<col width="15%">
+						    	<col width="25%">
 						    
 						    </colgroup>
 						    
@@ -448,10 +447,6 @@
 							        </th>
 							        <th scope="col" id="mb_list_id">
 							        	<a href="">제목</a>
-							        </th>
-							        
-							        <th scope="col" id="mb_list_open">
-							        	<a href="">조회</a>
 							        </th>
 		
 							        <th scope="col" rowspan="2" id="mb_list_cert">
@@ -491,8 +486,7 @@
 						    <colgroup>
 						    	<col width="10%">
 						    	<col width="65%">
-						    	<col width="10%">
-						    	<col width="15%">
+						    	<col width="25%">
 						    
 						    </colgroup>
 						    
@@ -505,10 +499,6 @@
 							        	<a href="">제목</a>
 							        </th>
 							        
-							        <th scope="col" id="mb_list_open">
-							        	<a href="">조회</a>
-							        </th>
-		
 							        <th scope="col" rowspan="2" id="mb_list_cert">
 							        	<a href="">날짜</a>
 							        </th>
@@ -546,8 +536,7 @@
 						    <colgroup>
 						    	<col width="10%">
 						    	<col width="65%">
-						    	<col width="10%">
-						    	<col width="15%">
+						    	<col width="25%">
 						    
 						    </colgroup>
 						    
@@ -560,10 +549,6 @@
 							        	<a href="">제목</a>
 							        </th>
 							        
-							        <th scope="col" id="mb_list_open">
-							        	<a href="">조회</a>
-							        </th>
-		
 							        <th scope="col" rowspan="2" id="mb_list_cert">
 							        	<a href="">날짜</a>
 							        </th>
@@ -609,8 +594,7 @@
 						    <colgroup>
 						    	<col width="10%">
 						    	<col width="65%">
-						    	<col width="10%">
-						    	<col width="15%">
+						    	<col width="25%">
 						    
 						    </colgroup>
 						    
@@ -621,10 +605,6 @@
 							        </th>
 							        <th scope="col" id="mb_list_id">
 							        	<a href="">제목</a>
-							        </th>
-							        
-							        <th scope="col" id="mb_list_open">
-							        	<a href="">조회</a>
 							        </th>
 		
 							        <th scope="col" rowspan="2" id="mb_list_cert">
@@ -672,8 +652,7 @@
 						    <colgroup>
 						    	<col width="10%">
 						    	<col width="65%">
-						    	<col width="10%">
-						    	<col width="15%">
+						    	<col width="25%">
 						    
 						    </colgroup>
 						    
@@ -685,11 +664,6 @@
 							        <th scope="col" id="mb_list_id">
 							        	<a href="">제목</a>
 							        </th>
-							        
-							        <th scope="col" id="mb_list_open">
-							        	<a href="">조회</a>
-							        </th>
-		
 							        <th scope="col" rowspan="2" id="mb_list_cert">
 							        	<a href="">날짜</a>
 							        </th>
