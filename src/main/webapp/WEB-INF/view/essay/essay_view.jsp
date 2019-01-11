@@ -589,7 +589,7 @@ $(document).ready(function(){
 				 <li>
 				 	<input type="text" id="report_id" name="report_rel_art_id" readonly="readonly" value="${essayVo.essay_id}">
 				 	<input type="hidden" id="mem_id" name="mem_id" value="${loginInfo.mem_id}">
-				 	<input type="hidden" id="filter_id" name="filter_id" value="postcard">
+				 	<input type="hidden" id="filter_id" name="filter_id" value="essay">
 				 	
 				 	<select name="rep_rea_id">
 				 		<c:forEach items="${reportVOs}" var="report">

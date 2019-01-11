@@ -81,7 +81,8 @@ div .connstat_table {
 	$(document).ready(function() {
 		$('#datepicker').val('${year}.${input_str_day}');
 		$( "#datepicker" ).datepicker({
-			dateFormat: "yy.mm.dd"
+			dateFormat: "yy.mm.dd",
+	        maxDate : new Date()
 		});
 		
 		$('#search_btn').on('click', function() {

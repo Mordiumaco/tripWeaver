@@ -39,10 +39,27 @@
 		(SELECT  rownum rnum,rrnum.* FROM( 
                     select r.*
                     from report r
+                     where report_id like '%rep%'
+					 <if test="filter_id != ''">
+						and filter_id = #{filter_id}
+					</if>
+					<if test="rep_rea_id != null ">
+						and rep_rea_id = #{rep_rea_id}
+					</if>
+					<if test="report_proc_sta != ''">
+						and report_proc_sta = #{report_proc_sta}
+					</if>
                     ORDER by REPORT_id desc
                     )rrnum)rrrnum
 		where rrrnum.rnum between #{pageVo.page}*#{pageVo.pageSize}-(#{pageVo.pageSize}-1) and #{pageVo.page}*#{pageVo.pageSize}
-		
+	</select>
+	
+	<!-- 검색조건 총 숫자 구하기 -->
+	<select id="selectRepostCondition" resultType="int" parameterType="Map">
+		select 
+		     count(*) as count                      
+		from report
+		where report_id like '%rep%'
 		<if test="filter_id != ''">
 			and filter_id = #{filter_id}
 		</if>
@@ -52,7 +69,6 @@
 		<if test="report_proc_sta != ''">
 			and report_proc_sta = #{report_proc_sta}
 		</if>
-		
 	</select>
 	
 	<!-- 신고 총 숫자  -->
