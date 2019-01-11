@@ -40,6 +40,13 @@
 				memberPage(1);
 			});
 			
+			$("#stx").keydown(function(e) {
+				if(e.keyCode == 13){
+					//검색이벤트
+					memberPage(1);
+				}
+			});
+			
 			$("#memberPage").on("click", "#chkDelete", function() {
 				var delArr = "";
 				var page = "";
@@ -262,7 +269,7 @@
 	    
 	</div>
 	
-	<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
+	<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get" onsubmit="return false">
 		<label for="sfl" class="sound_only">검색대상</label>
 		<select name="sfl" id="sfl">
 		    <option value="mem_nick">닉네임</option>
