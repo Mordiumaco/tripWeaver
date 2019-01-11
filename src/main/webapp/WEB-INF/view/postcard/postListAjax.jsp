@@ -21,13 +21,31 @@ function alinkSplite(thisClick) {
 	var linkedContent = '';
 	for(var word in splitedArray)
 	{
-	  word = splitedArray[word];
+		word = splitedArray[word];
 	  
-	   if(word.indexOf('#') == 0) // # 문자를 찾는다.
+	   if(word.indexOf('#') != -1) // # 문자를 찾는다.
 	   {
-		   var word1 = word.substring(0, word.lastIndexOf('#'));
-		   var word2 = word.substring(word.lastIndexOf('#')+1);
-		   word = word1 + '<span>#<a>'+word2+'</a></span>';
+		   var word1 = word.substring(0, word.indexOf('#'));
+		   var word2 = word.substring(word.indexOf('#')+1);
+		   
+		   var wordSumText = '';
+		   
+		   if(word2.indexOf('#') != -1){
+			   word1Array = word2.split('#');
+			  
+			   for(var wordSum in word1Array){
+				   if(word1Array[wordSum] == ''){
+					   wordSumText += '#'+word1Array[wordSum];  
+				   }else{
+					   wordSumText += '<span>#<a>'+ word1Array[wordSum] +'</span></a>'; 
+				   }
+			   }
+		   } else {
+			   wordSumText += '<span>#<a>'+ word2 +'</span></a>'; 
+		   }
+		  
+		   
+		   word = word1 + wordSumText ;
 	   }
 	   linkedContent += word+' ';
 	}
