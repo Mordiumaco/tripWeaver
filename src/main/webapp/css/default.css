@@ -358,7 +358,7 @@ to {transform: translate(30px);}
 .listRanking li:nth-child(3) { width: 70%; line-height: 120px; font-size: 1.4em;}
 .listRanking li:nth-child(3) span b { color: #f4ac19; font-size: 1.5em; font-style: italic;}
 .listRanking li:nth-child(3) h6 { display: inline-block; margin-left: 20px; font-weight: normal;}
-.listRanking img { width:auto !important; height: 120px !important; border-radius: 50%;}
+.listRanking img { width:auto !important; height: 120px !important;}
 
 .RankingA {
 	
@@ -1551,7 +1551,7 @@ a.btn_ov02:hover,a.ov_listall:hover{background:#3f51b5}
 
 
 /* 메인 랭킹  퍼블리싱 수정*/
-.main_ranring_tag { line-height: normal; display: inline-block; width: 350px; overflow: hidden; text-overflow: ellipsis; height: 20px; white-space: nowrap;  margin-left: 10px;     vertical-align: sub;}
+.main_ranring_tag { line-height: normal; display: inline-block; width: 340px; overflow: hidden; text-overflow: ellipsis; height: 20px; white-space: nowrap;  margin-left: 10px;     vertical-align: sub;}
 .main_ranring_tag b { color: #0064ff ;}
 
 
@@ -1561,3 +1561,5 @@ a.btn_ov02:hover,a.ov_listall:hover{background:#3f51b5}
 
 /*삭제된 게시글 추가*/
 .list_decoration {text-decoration: overline;} 
+
+.my_profile12 {width: 120px; height: 120px;}
