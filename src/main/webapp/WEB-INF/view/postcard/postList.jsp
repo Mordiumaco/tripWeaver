@@ -170,6 +170,8 @@ $(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리�
     	 	page++;
     	 	console.log(page);
     	//}
+    	
+   	 
         
      } 
      var height = $(document).scrollTop();
@@ -399,6 +401,7 @@ function postcardListAjax(page) {
 	var tag_search = '${param.tag_search}';
 	var mem_id = '${loginInfo.mem_id}';
 	var pageSize = 1;
+	
 	if(sendAvaFalg == true){
 		sendAvaFalg =false;
 		$.ajax({
@@ -407,18 +410,23 @@ function postcardListAjax(page) {
 		    data: "mem_id="+mem_id+"&page="+page +"&tag_search="+tag_search,
 		    success : function(data){	
 		    	$('.loading').append('<img src="/img/loading.gif">');
-		    			    	
+	    	
 		    	setTimeout(function(e) {
 		    		$(data).appendTo('#post_left_wrap');
 		    		$('.loading img').remove();
 				}, 500);
+		    	
+		    	
 		    },
 		    complete : function(){
 		    	sendAvaFalg = true;
+		    	
 		    }
 		});
 	}
-};  
+	
+	
+}; 
 
 
 // 포스트 카드 삭제 아작스
@@ -590,7 +598,9 @@ function kakao(title, description, imageUrl, likeCount ) {
     });
   //]]>
 }
-	
+
+
+
 </script>
 
 		
