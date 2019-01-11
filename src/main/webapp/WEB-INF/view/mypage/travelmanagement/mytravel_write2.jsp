@@ -18,6 +18,27 @@
 		$('.triparea_stay_days').val(daysArray);
 		$('.mapMarkers').val('${positionInfo}');
 		
+		$(":input[name=tripplan_peo_type]").click(function(){
+			
+			let peoType = $(":input[name=tripplan_peo_type]").val();
+			
+			if(peoType == '1'){
+				
+				$(':input[name=tripplan_peo_count]').val('1');
+				$(':input[name=tripplan_peo_count]').attr('disabled', true);
+			}else{
+				$(':input[name=tripplan_peo_count]').val("");
+				$(':input[name=tripplan_peo_count]').attr('disabled', false);
+			}
+			
+		})
+		
+		if($(":input[name=tripplan_peo_type]").val()=='1'){
+			$(':input[name=tripplan_peo_count]').val('1');
+			$(':input[name=tripplan_peo_count]').attr('disabled', true);
+		}
+		
+		
 	} );
 	function goMypage(){
 		location.href = '/main/mypage'
