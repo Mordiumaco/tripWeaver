@@ -174,4 +174,13 @@ public interface IMemberService {
 	* Method 설명 : 회원 아이디와 일치하는 튜플에 정보를 업데이트 한다. 
 	*/
 	public int updateMember(MemberVO memberVo);
+	
+	/**
+	* Method : selectAdminMainMember
+	* 작성자 : jin
+	* 변경이력 :
+	* @return
+	* Method 설명 : 관리자 메인 페이지에 필요한 신규가입자, 신규가이드 지원 멤버 반환하는 메서드
+	 */
+	public Map<String, Object> selectAdminMainMember();
 }

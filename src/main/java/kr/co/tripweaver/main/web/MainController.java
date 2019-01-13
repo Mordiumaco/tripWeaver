@@ -260,7 +260,9 @@ public class MainController {
 	
 	@RequestMapping("/adminMain")
 	public String adminMainView(Model model) {
-		model.addAttribute("gnb", 0);
+		Map<String, Object> resultMap = memberService.selectAdminMainMember();
+		resultMap.put("gnb", 0);
+		model.addAllAttributes(resultMap);
 		return "admin/adminMain";
 	}
 	

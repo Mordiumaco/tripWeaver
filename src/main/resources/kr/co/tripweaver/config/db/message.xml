@@ -148,7 +148,7 @@
 		SELECT msg.msg_id, msg.group_id, COUNT(*) AS unread
 		FROM msgReciver mr INNER JOIN message msg
 		ON (mr.msg_id = msg.msg_id AND msg.group_id = #{group_id})
-		GROUP BY msg.msg_id
+		GROUP BY msg.msg_id, msg.group_id
 	</select>
 	
 	<delete id="deleteMsgReciver" parameterType="participantVo">

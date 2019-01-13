@@ -119,4 +119,16 @@
   		select * from member
   		where mem_id = #{mem_id} and mem_email = #{mem_email}
   </select>
+  
+  <!-- 관리자 신규 가이드 지원 5명 뭐리 -->
+  <select id="selectApplyGuide" resultType="memberVo">
+  	SELECT m.*
+	FROM member m INNER JOIN (SELECT ROWNUM , b.mem_id
+	                          FROM (SELECT *
+	                                FROM article a
+	                                WHERE a.board_id = 'bd00003'
+	                                ORDER BY a.art_date DESC) b
+	                          WHERE ROWNUM &lt;= 5) c 
+	ON (m.mem_id = c.mem_id)
+  </select>
 </mapper>

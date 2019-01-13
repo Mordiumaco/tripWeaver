@@ -171,4 +171,13 @@ public interface IMemberDao {
 	* Method 설명 : 회원 아이디와 일치하는 튜플에 정보를 업데이트 한다. 
 	*/
 	public int updateMember(MemberVO memberVo);
+	
+	/**
+	* Method : selectApplyGuide5
+	* 작성자 : jin
+	* 변경이력 :
+	* @return
+	* Method 설명 : 관리자 메인 신규 가이드 지원자 5인 정보 반환하는 메서드
+	 */
+	public List<MemberVO> selectApplyGuide5();
 }
