@@ -49,7 +49,7 @@
 	os.flush();
 	os.close();
 
-	sFileInfo += "&bNewLine=true&sFileName="+ name+"&sFileURL=/directImg/"+realname;
+	sFileInfo += "&bNewLine=true&sFileName="+ name+"&sFileURL=/directImg/essay"+realname;
 	
 	out.println(sFileInfo);
 %>

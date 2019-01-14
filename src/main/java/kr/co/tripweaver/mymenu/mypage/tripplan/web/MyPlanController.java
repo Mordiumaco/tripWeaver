@@ -127,7 +127,7 @@ public class MyPlanController {
 	@RequestMapping("/mytravelForm")
 	public ModelAndView mytrableFormView(String[] dailyplan_order, String[] dailyplan_cnt, 
 			String[] dailyplan_day, String[] dailyplan_traffic, String[] dailyplan_room,
-			String[] dailyplan_area, TripplanVO tripplanVo, @RequestParam("tripplan_image_file") MultipartFile tripplan_image_file,
+			String[] dailyplan_area, TripplanVO tripplanVo, @RequestParam(name="tripplan_image_file",required=false) MultipartFile tripplan_image_file,
 			String mapMarkers, String triparea_stay_days, HttpSession session) throws IOException{
 		
 		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");
@@ -332,7 +332,7 @@ public class MyPlanController {
 		//fileCheck 가  null 이면 파일이 들어가진다.
 		if(fileCheck == null){
 			//처음에 대표 이미지 파일이 있는지 먼저 확인해본다.
-			String directory = "C:/upload/tripplan/";
+			String directory = FilePath.PATH+"/tripplan/";
 			if(!tripplan_image_file.isEmpty()) {
 				//이미지 파일이 존재한다면 이부분이 실행된다.
 				byte[] bytes = tripplan_image_file.getBytes();
