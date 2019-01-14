@@ -127,7 +127,7 @@ public class MyPlanController {
 	@RequestMapping("/mytravelForm")
 	public ModelAndView mytrableFormView(String[] dailyplan_order, String[] dailyplan_cnt, 
 			String[] dailyplan_day, String[] dailyplan_traffic, String[] dailyplan_room,
-			String[] dailyplan_area, TripplanVO tripplanVo, @RequestParam("tripplan_image_file") MultipartFile tripplan_image_file,
+			String[] dailyplan_area, TripplanVO tripplanVo, @RequestParam(name="tripplan_image_file",required=false) MultipartFile tripplan_image_file,
 			String mapMarkers, String triparea_stay_days, HttpSession session) throws IOException{
 		
 		MemberVO memberVo = (MemberVO)session.getAttribute("loginInfo");

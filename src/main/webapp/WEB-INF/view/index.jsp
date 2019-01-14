@@ -269,7 +269,7 @@ text = text.replace("&nbsp;",""); */
 				            
 				            
 				            if(clusterInfo.essay_filter != 'G'){
-				            	/* essayContent += '<span>가이드</span>'; */
+				            	essayContent += '<span>가이드</span>';
 				            }
 				            
 				            essayContent += '<img src="/upload/'+clusterInfo.tripplan_image+'" onerror="imgError(this)";/>';
