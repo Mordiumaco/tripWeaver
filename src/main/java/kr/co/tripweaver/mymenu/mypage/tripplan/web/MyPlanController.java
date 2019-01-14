@@ -332,7 +332,7 @@ public class MyPlanController {
 		//fileCheck 가  null 이면 파일이 들어가진다.
 		if(fileCheck == null){
 			//처음에 대표 이미지 파일이 있는지 먼저 확인해본다.
-			String directory = "C:/upload/tripplan/";
+			String directory = FilePath.PATH+"/tripplan/";
 			if(!tripplan_image_file.isEmpty()) {
 				//이미지 파일이 존재한다면 이부분이 실행된다.
 				byte[] bytes = tripplan_image_file.getBytes();
