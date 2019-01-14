@@ -260,7 +260,15 @@ public class MainController {
 	
 	@RequestMapping("/adminMain")
 	public String adminMainView(Model model) {
+		
+		List<MemberVO> memberList = memberService.recentlyMember();
+		List<MemberVO> articleList = articleService.recentlyGuideArticle();
+		
+		model.addAttribute("memberList", memberList);
+		model.addAttribute("articleList", articleList);
 		model.addAttribute("gnb", 0);
+		
+		
 		return "admin/adminMain";
 	}
 	

@@ -302,5 +302,32 @@ public class MemberDao implements IMemberDao {
 		
 		return resultCnt;
 	}
+	
+	
+	/**
+	* Method : recentlyMember
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2019. 1. 14.
+	* 변경이력 :
+	* @return
+	* Method 설명 : 최신 회원 리스트
+	*/
+	@Override
+	public List<MemberVO> recentlyMember(){
+		
+		List<MemberVO> memberList = null;
+		
+		try {
+			
+			memberList = template.selectList("memberSQL.recentlyMember");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return memberList;
+			
+		} 
+		
+		return memberList;
+	}
 
 }

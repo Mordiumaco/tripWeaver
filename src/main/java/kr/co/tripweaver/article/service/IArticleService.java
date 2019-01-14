@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.tripweaver.article.model.ArticleVO;
+import kr.co.tripweaver.member.model.MemberVO;
 
 public interface IArticleService {
 
@@ -88,4 +89,14 @@ public interface IArticleService {
 	* Method 설명 : board_id와 mem_id를 주고 해당 회원이 쓴 게시물 갯수를 받아온다.
 	*/
 	public int articleTotalCount(Map<String, String> param);
+	
+	/**
+	* Method : recentlyGuideArticle
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2019. 1. 14.
+	* 변경이력 :
+	* @return
+	* Method 설명 : 최근 가이드 지원 게시글들
+	*/
+	public List<MemberVO> recentlyGuideArticle();
 }

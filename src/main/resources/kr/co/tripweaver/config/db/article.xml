@@ -84,4 +84,17 @@ where art_id = #{art_id}
 		) myarticle
 		order by rownum desc
 	</select>
+	
+	<!-- 가이드 최신글 -->
+	<select id="recentlyGuideArticle" resultType="memberVo">
+		select mem_name, mem_nick, mem_tel, mem_age, mem_gender, mem_email
+		from
+		(
+		select * from article, member
+		where board_id = 'bd00003'
+		and member.mem_id = article.mem_id
+		order by article.art_date desc
+		) mem
+		where rownum <![CDATA[<]]>=5
+	</select>
 </mapper>
