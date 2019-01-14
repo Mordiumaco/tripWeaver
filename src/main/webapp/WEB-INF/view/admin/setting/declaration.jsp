@@ -5,25 +5,27 @@
 <script type="text/javascript">
 
 $(function() {
-	getAjaxList('','','',1);
+	getAjaxList(1);
 	
 	$('.container_wr').on('click','.btn_submit', function() {
-		var sfl1 = $('#sfl1').val();
-		var sfl2 = $('#sfl2').val();
-		var sfl3 = $('#sfl3').val();
-		getAjaxList( sfl1 , sfl2, sfl3, '1');
+		getAjaxList(1);
 	});
 	
 	$('.container_wr').on('click','.btn_ov_01', function() {
-		getAjaxList( '' , '', '', 1);
+		$('#sfl1 option:eq(0)').prop("selected", true);
+		$('#sfl2 option:eq(0)').prop("selected", true);
+		$('#sfl3 option:eq(0)').prop("selected", true);
+		getAjaxList(1);
 	});
 	
 	$('.container_wr').on('click','.btn_ov_02', function() {
-		getAjaxList( '' , '', 'Y', 1);
+		$('#sfl3 option:eq(2)').prop("selected", true);
+		getAjaxList(1);
 	});
 	
 	$('.container_wr').on('click','.btn_ov_03', function() {
-		getAjaxList( '' , '', 'N', 1);
+		$('#sfl3 option:eq(1)').prop("selected", true);
+		getAjaxList(1);
 	});
 	
 	$('.tb_wrap').on('click','.btn_02', function (){
@@ -44,8 +46,12 @@ $(function() {
 })
 
 
-function getAjaxList(filter_id, rep_rea_id, report_proc_sta, page) {
+function getAjaxList(page) {
 	var pageSize = 10;
+	
+	var filter_id = $('#sfl1').val();
+	var rep_rea_id = $('#sfl2').val();
+	var report_proc_sta = $('#sfl3').val() ;
 
 	$.ajax({
 		url : "/report/declarationAjax",

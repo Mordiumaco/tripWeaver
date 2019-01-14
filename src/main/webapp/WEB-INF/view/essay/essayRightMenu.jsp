@@ -177,6 +177,7 @@ $(document).ready(function(){
 		}
 	});
 	follow_count('${writerVo.mem_id}');
+	
 });
 
 //팔로우 레이어팝업을 위한 메서드
@@ -449,7 +450,7 @@ function peopleCount(fm){
 	<div class="bg"></div>
 	<div id="layer_2" class="pop_layer follow_pop_layer">
 		<div class="layer_con">
-			<form id="mypage_follow_search_form" action="/" method="post">
+			<form id="mypage_follow_search_form" onsubmit="return false">
 			 <!-- 팔로잉/팔로워 구분 -->
 				<div class="mypage_follow_popup_title"><span id="follow_popup_title"></span><input type="text" name="stx1" id="stx1" placeholder="아이디를 입력해주세요"/><input type="button" id="follow_search_btn" value="검색"/><input type="button" class="close" id="follow_close" value="나가기"/></div>
 			</form>
@@ -463,9 +464,21 @@ function peopleCount(fm){
 </div>
 <script>
 	$("#follow_search_btn").on("click", function() {
+		follow_search();
+	});
+	
+	//팔로우 검색시 언터키 이벤트부분
+	$("#stx1").keydown(function(e) {
+		if(e.keyCode == 13){
+			//검색이벤트
+			follow_search();
+		}
+	});
+	
+	function follow_search() {
 		var stx = $("#stx1").val();
 		var follow = $("#follow_popup_title").html();
 		follow = follow == "팔로잉" ? "following" : "follower";
 		follow_pop_up(follow, stx);
-	});
+	}
 </script>

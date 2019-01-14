@@ -123,7 +123,8 @@ div .connstat_table {
 		            var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
 		            var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
 		            $(this).val(getTimeStamp(new Date(year, month, 1), dateType));
-		        }
+		        },
+		        maxDate : new Date()
 		    });
 
 		    $("#datepicker").focus(function () {
@@ -154,13 +155,15 @@ div .connstat_table {
 		        },
 				beforeShow : function() {
 					setTimeout("applyWeeklyHighlight()", 100);
-				}
+				},
+		        maxDate : new Date()
 		    });
 		} else {
 			$('#dateTypeName').text('일간');
 			//일간
 			$( "#datepicker" ).datepicker({
-				dateFormat: "yy.mm.dd"
+				dateFormat: "yy.mm.dd",
+		        maxDate : new Date()
 			});
 		}
 		
