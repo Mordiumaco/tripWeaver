@@ -572,9 +572,7 @@ function layer_open1(el){
 
 function kakao(title, description, imageUrl, likeCount ) {
 	// 카카오톡 링크 서비스
-	//<![CDATA[
     // // 사용할 앱의 JavaScript 키를 설정해 주세요.
-   // Kakao.init('3eacc4a71d2f1cf53f038748a49079ad');
     if(!Kakao.Link) Kakao.init('3eacc4a71d2f1cf53f038748a49079ad');
     // // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
     Kakao.Link.createDefaultButton({
@@ -589,8 +587,8 @@ function kakao(title, description, imageUrl, likeCount ) {
           webUrl: 'http://localhost:8081/postCard/postCardList?mem_id=normal1&tag_search='
         }
       },
-      social: {  /* 공유하면 소셜 정보도 같이 줄 수 있는데, 이 부분은 기반 서비스마다 적용이 쉬울수도 어려울 수도 있을듯 합니다. 전 연구해보고 안되면 제거할 예정 (망할 google  blogger...) */
-        likeCount: Number(likeCount),
+      social: {  
+        likeCount: Number(likeCount), //게시글 좋아요 숫자 넘기기
       },
       buttons: [
         {

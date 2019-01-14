@@ -36,7 +36,6 @@ public class RecommendationService {
                     + (start !=0 ? "&start=" +start :"")
             		+ (d_catg != null ? "&d_catg=" + d_catg : "" ));
             
-            System.out.println(url);
             
             URLConnection urlConn = url.openConnection();
             urlConn.setRequestProperty("X-Naver-Client-Id", clientID);
@@ -46,8 +45,7 @@ public class RecommendationService {
             XmlPullParser parser = factory.newPullParser();
             parser.setInput(
                     new InputStreamReader(urlConn.getInputStream()));
-            //Test에서 했던 방식은 DOM방식이기때문에? 
-            //그래서 이렇게 해도 된다?!??!??!? 
+            //Test에서 했던 방식은 DOM방식 
             
             String total = "";
             int eventType = parser.getEventType();
@@ -74,7 +72,6 @@ public class RecommendationService {
                     switch (tag) {
                     case "total":
                     	total = parser.nextText();
-                    	System.out.println("토오오오탈"+total);
                         break;
                     case "display":
                     	display = Integer.parseInt(parser.nextText());
