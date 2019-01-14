@@ -25,17 +25,17 @@
 			if(peoType == '1'){
 				
 				$(':input[name=tripplan_peo_count]').val('1');
-				$(':input[name=tripplan_peo_count]').attr('disabled', true);
+				$(':input[name=tripplan_peo_count]').attr('readonly', true);
 			}else{
 				$(':input[name=tripplan_peo_count]').val("");
-				$(':input[name=tripplan_peo_count]').attr('disabled', false);
+				$(':input[name=tripplan_peo_count]').attr('readonly', false);
 			}
 			
 		})
 		
 		if($(":input[name=tripplan_peo_type]").val()=='1'){
 			$(':input[name=tripplan_peo_count]').val('1');
-			$(':input[name=tripplan_peo_count]').attr('disabled', true);
+			$(':input[name=tripplan_peo_count]').attr('readonly', true);
 		}
 		
 		
