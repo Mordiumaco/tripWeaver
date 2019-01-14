@@ -268,12 +268,12 @@ text = text.replace("&nbsp;",""); */
 				            essayContent += '<div class="essay_img">';
 				            
 				            
-				            if(clusterInfo.essay_filter != 'G'){
+				            if(clusterInfo.essay_filter == 'G'){
 				            	essayContent += '<b>가이드</b>';
 				            	essayContent += '<span></span>';
 				            }
 				            
-				            essayContent += '<img src="/upload/'+clusterInfo.tripplan_image+'" onerror="imgError(this)";/>';
+				            essayContent += '<img src="/file/read?file=/'+clusterInfo.tripplan_image+'" onerror="imgError(this)";/>';
 				            essayContent += '</div>';
 				            essayContent += '<ul class="essay_info">';
 				            essayContent += '<li>'+(parseInt((clusterInfo.essay_meal_exp+clusterInfo.essay_room_exp+clusterInfo.essay_traffic_exp+clusterInfo.essay_other_exp)/10000))+'<span> 만원</span> <h6>'+clusterInfo.mem_nick+'</h6></li>';
@@ -621,7 +621,7 @@ text = text.replace("&nbsp;",""); */
 									<b>&nbsp;#${hash}&nbsp;</b>
 								</c:forEach>
 							</div>
-			    			 &nbsp;<span> 수 : ${postcardVo[0].comt_count}</span> <h6>좋아요 : <b> ${postcardVo[0].pc_like_count}</b></h6>
+			    			 &nbsp;<span> 댓글 수 : ${postcardVo[0].comt_count}</span> <h6>좋아요 : <b> ${postcardVo[0].pc_like_count}</b></h6>
 			    		</li>
 			    	</ul>
 		    	</a>
@@ -641,7 +641,7 @@ text = text.replace("&nbsp;",""); */
 									<b>&nbsp;#${hash}&nbsp;</b>
 								</c:forEach>
 							</div> 
-			    			 &nbsp;<span> 수 : ${postcardVo[1].comt_count}</span> <h6>좋아요 : <b> ${postcardVo[1].pc_like_count}</b></h6>
+			    			 &nbsp;<span> 댓글 수 : ${postcardVo[1].comt_count}</span> <h6>좋아요 : <b> ${postcardVo[1].pc_like_count}</b></h6>
 			    		</li>
 			    	</ul>
 		    	</a>
@@ -661,7 +661,7 @@ text = text.replace("&nbsp;",""); */
 									<b>&nbsp;#${hash}&nbsp;</b>
 								</c:forEach>
 							</div>
-			    			 &nbsp;<span> 수 : ${postcardVo[2].comt_count}</span> <h6>좋아요 : <b> ${postcardVo[2].pc_like_count}</b></h6>
+			    			 &nbsp;<span> 댓글 수 : ${postcardVo[2].comt_count}</span> <h6>좋아요 : <b> ${postcardVo[2].pc_like_count}</b></h6>
 			    		</li>
 			    	</ul>
 		    	</a>
