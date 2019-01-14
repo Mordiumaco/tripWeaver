@@ -206,4 +206,14 @@ public interface IMessageDao {
 	* Method 설명 : 대화상대 초대전 이미 초대된 멤버인지 확인하는 메서드
 	 */
 	public int selectParticipantById(ParticipantVO participantVO);
+	
+	/**
+	* Method : deleteMsgReciverByExit
+	* 작성자 : jin
+	* 변경이력 :
+	* @param participantVO
+	* @return
+	* Method 설명 : 채팅방 퇴장시 해당 채팅방 메세지 수신여부 모두 삭제해주는 메서드
+	 */
+	public int deleteMsgReciverByExit(ParticipantVO participantVO);
 }

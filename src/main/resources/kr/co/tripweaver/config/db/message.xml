@@ -179,4 +179,8 @@
 		FROM participant
 		WHERE mem_id = #{mem_id} AND group_id = #{group_id}
 	</select>	
+	
+	<delete id="deleteMsgReciverByExit" parameterType="participantVo">
+		
+	</delete>
 </mapper>
