@@ -24,5 +24,5 @@ public interface IReportService {
 	public int updateEssayReport(String essay_id);
 	
 	public int updateReport(String report_rel_art_id);
-	
+	 
 }

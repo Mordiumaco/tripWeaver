@@ -45,8 +45,8 @@ function commentEdit(m){
 	<div id="container">
 		<div class="view_btn">
 			<ul>
+				<li><button class="btn_bd col_03" type="submit" onclick="location.href='/main/board?board_id=${articleVo.board_id}&page=1&pageSize=10&search_key=art_title&search_value='">목록</button></li>
 				<c:if test="${articleVo.mem_id eq loginInfo.mem_id}">
-				<li><button class="btn_bd col_03" type="submit" onclick="location.href='/main/board?board_id=${board_id}&page=1&pageSize=10&search_key=art_title&search_value='">목록</button></li>
 					<li>
 						<form action="/article/updateArticle" method="get">
 							<input type="hidden"  name="art_id" value="${articleVo.art_id}">
@@ -176,18 +176,20 @@ function commentEdit(m){
 			</c:otherwise>
 		</c:choose>
 		
-		<div class="commentWrite">
-			<form action="/article/insertComment" method="post">
-				<ul>
-					<li>
-						<input type="text" name="comt_cnt" placeholder="내용을 적어주세요." required="required">
-						<input type="hidden" name="art_id" value="${param.art_id}"> 
-						<input type="hidden" name="board_id" value="${loginInfo.mem_id}">
-					</li>
-					<li><input class="btn_bd col_01" type="submit" value="댓글 작성"></li>
-				</ul>
-			</form>
-		</div>
+		<c:if test="${loginInfo != null}">
+			<div class="commentWrite">
+				<form action="/article/insertComment" method="post">
+					<ul>
+						<li>
+							<input type="text" name="comt_cnt" placeholder="내용을 적어주세요." required="required">
+							<input type="hidden" name="art_id" value="${param.art_id}"> 
+							<input type="hidden" name="board_id" value="${loginInfo.mem_id}">
+						</li>
+						<li><input class="btn_bd col_01" type="submit" value="댓글 작성"></li>
+					</ul>
+				</form>
+			</div>
+		</c:if>
 		
 	</div>
 </div>

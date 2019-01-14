@@ -13,7 +13,7 @@
 		    
 		    <a class="btn_ov01">
 			    <span class="ov_txt">사용 </span>
-			    <span class="ov_num">${boardUseCnt}</span>
+			    <span class="ov_num">${boardUseCnt }</span>
 		    </a>
 		    
 		    <a class="btn_ov01"> 

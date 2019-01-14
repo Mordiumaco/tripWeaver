@@ -135,4 +135,18 @@ public interface IReportDao {
 		*
 	 */
 	int updateReport(String report_rel_art_id);
+	
+	/**
+	 * 
+		* 
+		* Method : 
+		* 작성자 :  박찬배
+		* 생성날짜 : 2019. 01. 11
+		* 변경이력 :
+		* @param 
+		* @return
+		* Method 설명 : 검색결과 게시물수 알아오기
+		*
+	 */
+	int selectRepostCondition(Map<String, Object> params);
 }
