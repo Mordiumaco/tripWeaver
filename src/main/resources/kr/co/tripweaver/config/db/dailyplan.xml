@@ -11,7 +11,7 @@
 	</insert>
 
 	<select id="selectDailyPlanByTripplanId" parameterType="String" resultType="dailyPlanVo">
-		select * from dailyplan where tripplan_id = #{tripplan_id}
+		select * from dailyplan where tripplan_id = #{tripplan_id} order by dailyplan_order asc
 	</select>
 	
 	<update id="updateDailyPlanByDailyId" parameterType="dailyPlanVo">
