@@ -268,7 +268,7 @@ text = text.replace("&nbsp;",""); */
 				            essayContent += '<div class="essay_img">';
 				            
 				            
-				            if(clusterInfo.essay_filter != 'G'){
+				            if(clusterInfo.essay_filter == 'G'){
 				            	essayContent += '<b>가이드</b>';
 				            	essayContent += '<span></span>';
 				            }
