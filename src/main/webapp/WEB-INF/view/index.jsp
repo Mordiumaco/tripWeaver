@@ -621,7 +621,7 @@ text = text.replace("&nbsp;",""); */
 									<b>&nbsp;#${hash}&nbsp;</b>
 								</c:forEach>
 							</div>
-			    			 &nbsp;<span> 수 : ${postcardVo[0].comt_count}</span> <h6>좋아요 : <b> ${postcardVo[0].pc_like_count}</b></h6>
+			    			 &nbsp;<span> 댓글 수 : ${postcardVo[0].comt_count}</span> <h6>좋아요 : <b> ${postcardVo[0].pc_like_count}</b></h6>
 			    		</li>
 			    	</ul>
 		    	</a>
@@ -641,7 +641,7 @@ text = text.replace("&nbsp;",""); */
 									<b>&nbsp;#${hash}&nbsp;</b>
 								</c:forEach>
 							</div> 
-			    			 &nbsp;<span> 수 : ${postcardVo[1].comt_count}</span> <h6>좋아요 : <b> ${postcardVo[1].pc_like_count}</b></h6>
+			    			 &nbsp;<span> 댓글 수 : ${postcardVo[1].comt_count}</span> <h6>좋아요 : <b> ${postcardVo[1].pc_like_count}</b></h6>
 			    		</li>
 			    	</ul>
 		    	</a>
@@ -661,7 +661,7 @@ text = text.replace("&nbsp;",""); */
 									<b>&nbsp;#${hash}&nbsp;</b>
 								</c:forEach>
 							</div>
-			    			 &nbsp;<span> 수 : ${postcardVo[2].comt_count}</span> <h6>좋아요 : <b> ${postcardVo[2].pc_like_count}</b></h6>
+			    			 &nbsp;<span> 댓글 수 : ${postcardVo[2].comt_count}</span> <h6>좋아요 : <b> ${postcardVo[2].pc_like_count}</b></h6>
 			    		</li>
 			    	</ul>
 		    	</a>
