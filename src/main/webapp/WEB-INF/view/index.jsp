@@ -273,7 +273,7 @@ text = text.replace("&nbsp;",""); */
 				            	essayContent += '<span></span>';
 				            }
 				            
-				            essayContent += '<img src="/upload/'+clusterInfo.tripplan_image+'" onerror="imgError(this)";/>';
+				            essayContent += '<img src="/file/read?file=/'+clusterInfo.tripplan_image+'" onerror="imgError(this)";/>';
 				            essayContent += '</div>';
 				            essayContent += '<ul class="essay_info">';
 				            essayContent += '<li>'+(parseInt((clusterInfo.essay_meal_exp+clusterInfo.essay_room_exp+clusterInfo.essay_traffic_exp+clusterInfo.essay_other_exp)/10000))+'<span> 만원</span> <h6>'+clusterInfo.mem_nick+'</h6></li>';
