@@ -140,4 +140,10 @@ public class MessageDao implements IMessageDao {
 		return cnt;
 	}
 
+	@Override
+	public int deleteMsgReciverByExit(ParticipantVO participantVO) {
+		int cnt = template.delete("messageSQL.deleteMsgReciverByExit", participantVO);
+		return cnt;
+	}
+
 }

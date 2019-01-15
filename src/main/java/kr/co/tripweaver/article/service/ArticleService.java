@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.tripweaver.article.dao.IArticleDao;
 import kr.co.tripweaver.article.model.ArticleVO;
+import kr.co.tripweaver.member.model.MemberVO;
 
 @Service
 public class ArticleService implements IArticleService {
@@ -121,6 +122,16 @@ public class ArticleService implements IArticleService {
 		return articleDao.articleTotalCount(param);
 	}
 
-
+	/**
+	* Method : recentlyGuideArticle
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2019. 1. 14.
+	* 변경이력 :
+	* @return
+	* Method 설명 : 최근 가이드 지원 게시글들
+	*/
+	public List<MemberVO> recentlyGuideArticle(){
+		return articleDao.recentlyGuideArticle();
+	}
 	
 }

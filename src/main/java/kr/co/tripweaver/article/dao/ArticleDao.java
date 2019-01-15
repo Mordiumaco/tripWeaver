@@ -8,7 +8,9 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+
 import kr.co.tripweaver.article.model.ArticleVO;
+import kr.co.tripweaver.member.model.MemberVO;
 
 @Repository
 public class ArticleDao implements IArticleDao {
@@ -100,6 +102,29 @@ public class ArticleDao implements IArticleDao {
 		return resultCnt;
 	}
 
-
+	
+	/**
+	* Method : recentlyGuideArticle
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2019. 1. 14.
+	* 변경이력 :
+	* @return
+	* Method 설명 : 최근 가이드 지원 게시글들
+	*/
+	@Override
+	public List<MemberVO> recentlyGuideArticle(){
+		List<MemberVO> articleList = null;
+		
+		try {
+			
+			articleList = template.selectList("articleSQL.recentlyGuideArticle");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return articleList;
+		}
+		
+		return articleList;
+	}
 
 }
