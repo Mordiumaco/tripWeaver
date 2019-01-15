@@ -259,16 +259,6 @@ public class MemberService implements IMemberService {
 		return memberDao.updateMember(memberVo);
 	}
 
-	@Override
-	public Map<String, Object> selectAdminMainMember() {
-		List<MemberVO> guideList = memberDao.selectApplyGuide5();
-		
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("guideList", guideList);
-		
-		return resultMap;
-	}
-	
 	/**
 	* Method : recentlyMember
 	* 작성자 : Jae Hyeon Choi

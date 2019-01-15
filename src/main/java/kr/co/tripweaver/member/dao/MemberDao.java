@@ -331,10 +331,4 @@ public class MemberDao implements IMemberDao {
 	}
 
 
-	@Override
-	public List<MemberVO> selectApplyGuide5() {
-		List<MemberVO> memberVOs = template.selectList("memberSQL.selectApplyGuide");
-		return memberVOs;
-	}
-
 }
