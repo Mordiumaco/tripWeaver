@@ -55,7 +55,7 @@
 					
 					<c:otherwise>
 						<li><a href="/main/mypage" >마이 페이지</a></li>
-						<li><a class="pointer" onclick="window.open('/message/mainView?mem_id=${loginInfo.mem_id}','window_name','width=417,height=500,location=no,status=no,scrollbars=yes');" target="blank">메세지 &nbsp;<img src="/img/icon/message_icon.png" width="20px"><span id="alram" class="alram"></span></a></li>
+						<li><a class="pointer" onclick="window.open('/message/mainView?mem_id=${loginInfo.mem_id}','window_name','width=413,height=500,location=no,status=no,scrollbars=yes');" target="blank">메세지 &nbsp;<img src="/img/icon/message_icon.png" width="20px"><span id="alram" class="alram"></span></a></li>
 					</c:otherwise>
 				</c:choose>
 

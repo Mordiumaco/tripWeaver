@@ -208,7 +208,7 @@ a.btn_frmline{display:inline-block;background:#9eacc6;color:#fff;height:35px;lin
 a.btn_ov02,a.ov_listall{display:inline-block;line-height:30px;height:30px;font-size:0.92em;background:#565e8c;color:#fff;vertical-align:top;border-radius:5px;padding:0 7px }
 a.btn_ov02:hover,a.ov_listall:hover{background:#3f51b5}
 
-input.ov_listall{display:inline-block;line-height:30px;height:30px;font-size:0.92em;background:#35a07e;color:#fff;vertical-align:top;border-radius:5px;padding:0 7px }
+input.ov_listall{display:inline-block; height:30px;font-size:0.92em;background:#8590ce;color:#fff;vertical-align:top;border-radius:3px;padding:0 7px; border:1px solid #505b9a; }
 input.ov_listall:hover{background:#3f51b5}
 
 /*form*/
@@ -1321,6 +1321,17 @@ input[type="text"]{max-width:200px}
 
 
 
+/* 높이 설정*/
 
+.height22 { 
+	height: 30px;
+    vertical-align: bottom;
+    border: 1px solid #ddd;
+    padding-left: 10px;
+}
 
+addbtn {
+	border: 1px solid #3f51b5;
+	background: #;
+}
 

@@ -34,7 +34,7 @@
 	
 	$(document).ready(function() {
 		var term_btn = document.getElementById(dateType); 
-		$(term_btn).css({'background' : '#006400'});
+		$(term_btn).css({'background' : '#485498'});
 		if(dateType == 'week'){
 			
             var date = new Date();
@@ -420,7 +420,7 @@
 		</select> 
 		
 		<label for="datepicker"><span id="dateTypeName"></span>
-			<input type="text" id="datepicker" name="datepicker" class="datepicker" placeholder="기간을 선택해주세요" readonly="readonly"/>
+			<input type="text" id="datepicker" name="datepicker" class="datepicker height22" placeholder="기간을 선택해주세요" readonly="readonly"/>
 		</label>
 		
 		<input type="hidden" id="dateType" name="dateType">

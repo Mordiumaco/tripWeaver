@@ -61,7 +61,7 @@ ul {
 
 .mes_con_list_text { margin-top:5px; background:#fff; padding: 5px; border-radius: 4px; box-shadow: 1px 1px 3px #999; line-height: 160%;
 	display: inline-block;
-	max-width: 302px;
+	max-width: 213px;
 	word-wrap: break-word; 
 	-webkit-line-clamp: 6; 
 	-webkit-box-orient: vertical;
@@ -106,7 +106,7 @@ ul {
 }
 
 .my_profile2 img {
-	min-height: 60px;
+	width: 100%;
 	
 }
 
@@ -136,14 +136,14 @@ ul {
 
 #rightMenu {
 	width : 200px;
-	height: 400px;
 	background: white;
-	border-radius: 5px 0px 0px 0px;
 	position: absolute;
 	top: 0px;
-	right: -190px;
+	right: -200px;
 	overflow-y: scroll;
-	z-index: 10;
+	overflow-x: hidden;
+	z-index: 9999;
+	border: 1px solid #ddd;
 }
 
 #roomName { width: 75%; margin: 10px 5px 5px 25px;}
@@ -162,9 +162,9 @@ ul {
 
 .mypage_follow_profile { width: 80px !important; margin: 5px; float: left;}
 
-.msg_mem_nick {}
+.msg_mem_nick { float: left; line-height: 70px; font-weight: bold;}
 
-.fold_btn { width: 30px; height: 50px; line-height:50px; position: fixed; top: 0px; right: 10px; background: #dddddd; text-align: center; border-radius: 15px 0 0 15px ; font-weight: bold; cursor: pointer; z-index: 11; }
+.fold_btn { width: 30px; height: 50px; line-height:50px; position: absolute; top: 0px; right: 0px; background: #dddddd; text-align: center; border-radius: 15px 0 0 15px ; font-weight: bold; cursor: pointer; z-index: 11; }
 .fold_btn::after { content: ">";}
 
 .fold_btnAfter::after { content: "<";}
@@ -185,15 +185,15 @@ $(document).ready(function(){
 	connect_alram();
 	connect_access();
 	
-	$('#rightMenu').on('click','.fold_btn',function () {
-		$('.mypage_right2').animate({ right : '-190px'},200);
+	$('body').on('click','.fold_btn',function () {
+		$('.mypage_right2').animate({ right : '-200px'},200);
 		$('.fold_btn').animate({ right : '-1px'},200);
 		$('.fold_btn').addClass('fold_btnAfter');
 	}); 
 	
-	$('#rightMenu').on('click','.fold_btnAfter',function () {
+	$('body').on('click','.fold_btnAfter',function () {
 		$('.mypage_right2').animate({ right : '0px'},200);
-		$('.fold_btn').animate({ right : '190px'},200);
+		$('.fold_btn').animate({ right : '200px'},200);
 		$('.fold_btn').removeClass('fold_btnAfter');
 	});
 	
@@ -224,9 +224,11 @@ $(document).ready(function(){
 		}
 	});
 	
+	$('#rightMenu').css('height', $(window).height()-100);
     $('.mes_con').css('height', $(window).height()-180); 
     $(window).resize(function() { 
-        $('.mes_con').css('height', $(window).height()-180); 
+        $('.mes_con').css('height', $(window).height()-180);
+        $('#rightMenu').css('height', $(window).height()-100);
     }); 
 	$(".mes_con").scrollTop($(".mes_con")[0].scrollHeight); //스크롤 최하단으로이동
 	
@@ -476,8 +478,9 @@ function renewMember(obj) {
 </head>
 <body>
 	<!-- 우측메뉴 -->
+	<div class="fold_btn fold_btnAfter"></div>
 	<div id="rightMenu" class="mypage_right2">
-		<div class="fold_btn fold_btnAfter"></div>
+		
 		<div id="rightMenu_01">
 			<div>
 				<input type="text" name="roomName" id="roomName" placeholder="방이름 수정"/>

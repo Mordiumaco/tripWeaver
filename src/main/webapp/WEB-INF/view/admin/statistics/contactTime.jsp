@@ -192,9 +192,9 @@ div .connstat_table {
 	 
 </script>
 	
-	<form action="/connStat/connStatTime" id="conStat_form" method="get">
+	<form action="/connStat/connStatTime" id="conStat_form" method="get" class="local_sch01">
 		<label for="datepicker"><span id="dateTypeName">날짜선택 : </span>
-			<input type="text" id="datepicker" name="datepicker" class="datepicker" placeholder="기간을 선택해주세요" readonly="readonly"/>
+			<input type="text" id="datepicker" name="datepicker" class="datepicker height22" placeholder="기간을 선택해주세요" readonly="readonly"/>
 			<input type="button" value="검색" class="btn_submit" id="search_btn">
 		</label>
 	</form>

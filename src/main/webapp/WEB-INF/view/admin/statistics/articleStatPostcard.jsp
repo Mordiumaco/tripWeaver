@@ -93,7 +93,7 @@ div .connstat_table {
 	$(document).ready(function() {
 		
 		var term_btn = document.getElementById(dateType); 
-		$(term_btn).css({'background' : '#006400'});
+		$(term_btn).css({'background' : '#485498'});
 		
 		if(datepickerVal == null || datepickerVal == ""){
 			if(dateType == 'week'){
@@ -475,11 +475,11 @@ div .connstat_table {
 		<input type="button" id="week" class="ov_listall term_btn" value="주간">
 		<input type="button" id="day" class="ov_listall term_btn" value="일간">
 	</div>
-	<form id="search" action="/artstat/artstatPostcard">
+	<form id="search" action="/artstat/artstatPostcard" class="local_sch01 ">
 		<label for="datepicker"><span id="dateTypeName"></span>
-			<input type="text" id="datepicker" name="datepicker" class="datepicker" placeholder="기간을 선택해주세요" readonly="readonly"/>
+			<input type="text" id="datepicker" name="datepicker " class="datepicker height22" placeholder="기간을 선택해주세요" readonly="readonly"/>
 		</label>
-		<input type="hidden" id="dateType" name="dateType">
+		<input type="hidden" id="dateType" name="dateType" class="">
 		<input type="button" value="검색" class="btn_submit" id="search_btn">
 	</form>
 </div>
