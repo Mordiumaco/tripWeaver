@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +40,13 @@ public class MessageController {
 	}
 	
 	@RequestMapping("/chatRoomListView")
-	public String chattingView(MemberVO memberVO, Model model) {
+	public String chattingView(MemberVO memberVO, Model model, HttpSession session) {
 		List<MessageVO> messageVOs = messageService.selectChatroom(memberVO.getMem_id());
 		model.addAttribute("messageVOs", messageVOs);
+		
+		//세션에 담긴 group_id 초기화
+		session.setAttribute("group_id", "");
+		
 		return "mypage/message/chatting";
 	}
 	
@@ -53,7 +59,7 @@ public class MessageController {
 	}
 	
 	@RequestMapping("/chatRoomDetailView")
-	public String chatting_viewView(MessageVO messageVO, Model model) {
+	public String chatting_viewView(MessageVO messageVO, Model model, HttpSession session) {
 		String group_id = messageVO.getGroup_id();
 		ParticipantVO participantVO = new ParticipantVO();
 		participantVO.setGroup_id(group_id);
@@ -65,6 +71,10 @@ public class MessageController {
 		
 		Map<String, Object> resultMap = messageService.enterChatroom(params);
 		model.addAllAttributes(resultMap);
+		
+		//로그인 멤버 세션에 채팅방 group_id 저장
+		session.setAttribute("group_id", group_id);
+		
 		return "mypage/message/chatting_view";
 	}
 	

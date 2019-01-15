@@ -6,10 +6,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -17,6 +22,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.google.gson.Gson;
 
+import kr.co.tripweaver.member.model.MemberVO;
 import kr.co.tripweaver.mymenu.mypage.message.dao.IMessageDao;
 import kr.co.tripweaver.mymenu.mypage.message.model.MessageVO;
 import kr.co.tripweaver.mymenu.mypage.message.service.IMessageService;
@@ -35,6 +41,11 @@ public class MessgeHandler extends TextWebSocketHandler {
 		logger.debug("{} 연결됨", session.getId());
 		connectedMembers.add(session);
 		members.put(session.getId(), session);
+//		HttpServletRequest requset = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+//		HttpSession httpSession = requset.getSession();
+//		System.out.println("httpSession.getAttribute('group_id') :" + httpSession.getAttribute("group_id"));
+//		MemberVO memberVO = (MemberVO) httpSession.getAttribute("loginInfo");
+//		System.out.println("httpSession.getAttribute('loginInfo.mem_id') :" + memberVO.getMem_id());
 	}
 
 	@Override

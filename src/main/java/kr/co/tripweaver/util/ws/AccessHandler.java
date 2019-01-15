@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,12 +45,17 @@ public class AccessHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		
-//		ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
 //		HttpServletRequest request = sra.getRequest();
 //		MemberVO memberVO = (MemberVO) request.getSession().getAttribute("loginInfo");
 		logger.debug("{} 연결됨", session.getId());
 		connectedMembers.add(session);
 		members.put(session.getId(), session);
+//		ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+//		HttpServletRequest requset = sra.getRequest();
+//		HttpSession httpSession = requset.getSession();
+//		System.out.println("httpSession.getAttribute('group_id') :" + httpSession.getAttribute("group_id"));
+//		MemberVO memberVO = (MemberVO) httpSession.getAttribute("loginInfo");
+//		System.out.println("httpSession.getAttribute('loginInfo.mem_id') :" + memberVO.getMem_id());
 	}
 
 	@Override
@@ -80,8 +86,6 @@ public class AccessHandler extends TextWebSocketHandler {
 			cnt = messageService.inviteParticipant(participantVO);
 		}
 		
-//		List<String> memList = messageService.selectChatroomMemberList(group_id);
-		
 		//채팅방 인원리스트
 		List<MemberVO> memberVOs = messageDao.selectParticipantList(group_id);
 		memberVOs.get(0).setMem_qrcode(Integer.toString(cnt));
@@ -97,11 +101,7 @@ public class AccessHandler extends TextWebSocketHandler {
 		System.out.println("[AccessHandler] : " + jsonMessage);
 		while (sessionIds.hasNext()) {
 			sessionId = sessionIds.next();
-//			for(String mem_id : memList) {
-//				if(sessionId.equals(mem_id)) {
-					members.get(sessionId).sendMessage(new TextMessage(jsonMessage));
-//				}
-//			}
+				members.get(sessionId).sendMessage(new TextMessage(jsonMessage));
 		}
 	}
 

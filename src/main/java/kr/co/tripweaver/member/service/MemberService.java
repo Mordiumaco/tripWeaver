@@ -258,6 +258,16 @@ public class MemberService implements IMemberService {
 	public int updateMember(MemberVO memberVo) {
 		return memberDao.updateMember(memberVo);
 	}
+
+	@Override
+	public Map<String, Object> selectAdminMainMember() {
+		List<MemberVO> guideList = memberDao.selectApplyGuide5();
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("guideList", guideList);
+		
+		return resultMap;
+	}
 	
 	/**
 	* Method : recentlyMember
