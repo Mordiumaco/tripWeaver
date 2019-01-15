@@ -8,11 +8,18 @@
 		SELECT a.*, NVL(b.rec_cnt, 0) AS rec_cnt
 		FROM (SELECT p.*, p2.cnt, m.msg_cnt, m.msg_date
 		        FROM participant p LEFT OUTER JOIN (SELECT *
-		                                        FROM (SELECT group_id, msg_cnt, msg_date
-		                                            , MAX(msg_date) OVER(PARTITION BY group_id) AS max_date 
-		                                              FROM message
-		                                              WHERE mem_id != 'admin')
-		                                        WHERE msg_date = max_date) m
+		                                            FROM ( SELECT *
+		                                            FROM (SELECT group_id, msg_cnt, msg_date
+		                                                , MAX(msg_date) OVER(PARTITION BY group_id) AS max_date 
+		                                                  FROM message
+		                                                  WHERE mem_id != 'admin') m0
+		                                            WHERE msg_date = max_date) m1
+		                                            WHERE ROWID IN (SELECT MAX(ROWID) FROM (SELECT *
+		                                                                                    FROM (SELECT group_id, msg_cnt, msg_date
+		                                                                                        , MAX(msg_date) OVER(PARTITION BY group_id) AS max_date 
+		                                                                                          FROM message
+		                                                                                          WHERE mem_id != 'admin') m0
+		                                                                                    WHERE msg_date = max_date) GROUP BY group_id)) m
 		                        ON (p.group_id = m.group_id) , chatroom c, (SELECT a.group_id AS group_id, 
 		                                                                    NVL(b.cnt, 0) AS cnt 
 		                                                                    FROM chatroom a LEFT OUTER JOIN (SELECT group_id, 
@@ -24,7 +31,7 @@
 		        AND (p.group_id = c.group_id)
 		        AND (c.group_del = 'N')
 		        AND (m.group_id = p2.group_id)
-		        ORDER BY max_date DESC) a LEFT OUTER JOIN (SELECT c.group_id AS group_id, COUNT(*) AS rec_cnt
+		        ORDER BY msg_date DESC) a LEFT OUTER JOIN (SELECT c.group_id AS group_id, COUNT(*) AS rec_cnt
 		                                                    FROM chatroom c INNER JOIN message m
 		                                                    ON (c.group_id = m.group_id) LEFT OUTER JOIN msgreciver mr
 		                                                    ON (m.msg_id = mr.msg_id)
@@ -141,7 +148,7 @@
 		SELECT msg.msg_id, msg.group_id, COUNT(*) AS unread
 		FROM msgReciver mr INNER JOIN message msg
 		ON (mr.msg_id = msg.msg_id AND msg.group_id = #{group_id})
-		GROUP BY msg.msg_id
+		GROUP BY msg.msg_id, msg.group_id
 	</select>
 	
 	<delete id="deleteMsgReciver" parameterType="participantVo">
@@ -172,4 +179,8 @@
 		FROM participant
 		WHERE mem_id = #{mem_id} AND group_id = #{group_id}
 	</select>	
+	
+	<delete id="deleteMsgReciverByExit" parameterType="participantVo">
+		
+	</delete>
 </mapper>

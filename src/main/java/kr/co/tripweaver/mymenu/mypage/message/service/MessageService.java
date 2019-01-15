@@ -93,8 +93,12 @@ public class MessageService implements IMessageService {
 
 	@Override
 	public int exitChatroom(ParticipantVO participantVO) {
-		//participant 삭제
 		String group_id = participantVO.getGroup_id();
+		
+		//나간 인원 채팅방 수신여부 데이터 모두 삭제
+		int delCnt2 = messageDao.deleteMsgReciverByExit(participantVO);
+		
+		//participant 삭제
 		int delCnt = messageDao.deleteParticipant(participantVO); //구성원 삭제
 		
 		//해당 채팅방 participant 남아있는지 체크

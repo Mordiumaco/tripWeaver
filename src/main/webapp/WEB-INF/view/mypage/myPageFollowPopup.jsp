@@ -19,7 +19,7 @@
 							<li class="mes_f_list ${follow.mem_id} mypage_follow_li">
 								<div class="mypage_follow_profile">
 									<b class="my_profile my_profile2"><img
-										src="/file/read?mem_profile=${follow.mem_profile}"></b>
+										src="/file/read?file=${follow.mem_profile}"></b>
 								</div>
 								<ul>
 									<li>${follow.mem_nick}</li>
@@ -43,7 +43,7 @@
 							<li class="mes_f_list ${follower.mem_id} mypage_follow_li">
 								<div class="mypage_follow_profile">
 									<b class="my_profile my_profile2"><img
-										src="/file/read?mem_profile=${follower.mem_profile}"></b>
+										src="/file/read?file=${follower.mem_profile}"></b>
 								</div>
 								<ul>
 									<li>${follower.mem_nick}</li>

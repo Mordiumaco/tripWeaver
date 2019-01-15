@@ -43,30 +43,35 @@
 					        <th scope="col" id="mb_list_id"><a href="">이름</a></th>
 					        <th scope="col" id="mb_list_mobile">닉네임</th>
 					        <th scope="col" rowspan="2" id="mb_list_cert"><a href="">휴대폰</a></th>
-					        <th scope="col" id="mb_list_open"><a href="">생년월일</a></th>
+					        <th scope="col" id="mb_list_open"><a href="">연령대</a></th>
 					        <th scope="col" id="mb_list_mailr"><a href="">성별</a></th>
 					    </tr>
 				    </thead>
 				    
 				    <tbody>
-					    <tr class="bg0">
-					        <td headers="mb_list_id"  class="td_name sv_use">
-					            pcpcggg3@naver.com                   
-					        </td>
-					        <td headers="mb_list_cert"  class="td_mbcert">
-					            	박찬배
-					        </td>
-					        <td headers="mb_list_mailc">박진이 바보</td>
-					        <td headers="mb_list_open">
-					            010-6216-6693
-					        </td>
-					        <td headers="mb_list_mailr">
-					            1988-02-13
-					        </td>
-					        <td headers="mb_list_auth" class="td_mbstat">
-					           	 남       
-					        </td>
-					    </tr>
+				    	<c:forEach items="${memberList}" var="memberVo">
+				    		<tr class="bg0">
+						        <td headers="mb_list_id"  class="td_name sv_use">
+						            ${memberVo.mem_email}                  
+						        </td>
+						        <td headers="mb_list_cert"  class="td_mbcert">
+						            ${memberVo.mem_name}
+						        </td>
+						        <td headers="mb_list_mailc">${memberVo.mem_nick}</td>
+						        <td headers="mb_list_open">
+						           ${memberVo.mem_tel}
+						        </td>
+						        <td headers="mb_list_mailr">
+						            ${memberVo.mem_age}
+						        </td>
+						        <td headers="mb_list_auth" class="td_mbstat">
+						           	<c:choose>
+						           		<c:when test="${memberVo.mem_gender == 'M'}">남</c:when>
+						           		<c:when test="${memberVo.mem_gender == 'F'}">여</c:when>
+						           	</c:choose>       
+						        </td>
+						    </tr>
+				    	</c:forEach>
 				  </tbody>
 				</table>
 			</div>
@@ -114,31 +119,35 @@
 					        <th scope="col" id="mb_list_id"><a href="">이름</a></th>
 					        <th scope="col" id="mb_list_mobile">닉네임</th>
 					        <th scope="col" rowspan="2" id="mb_list_cert"><a href="">휴대폰</a></th>
-					        <th scope="col" id="mb_list_open"><a href="">생년월일</a></th>
+					        <th scope="col" id="mb_list_open"><a href="">연령대</a></th>
 					        <th scope="col" id="mb_list_mailr"><a href="">성별</a></th>
 					    </tr>
 				    </thead>
 				    
 				    <tbody>
-					    <tr class="bg0">
-					        <td headers="mb_list_id"  class="td_name sv_use">
-					            pcpcggg3@naver.com                   
-					        </td>
-					        <td headers="mb_list_cert"  class="td_mbcert">
-					            	박찬배
-					        </td>
-					        <td headers="mb_list_mailc">박진이 바보</td>
-					        <td headers="mb_list_open">
-					            010-6216-6693
-					        </td>
-					        <td headers="mb_list_mailr">
-					            1988-02-13
-					        </td>
-					        <td headers="mb_list_auth" class="td_mbstat">
-					           	 남       
-					        </td>
-					    </tr>
-				
+				   		<c:forEach items="${articleList}" var="memberVo">
+				    		<tr class="bg0">
+						        <td headers="mb_list_id"  class="td_name sv_use">
+						            ${memberVo.mem_email}                  
+						        </td>
+						        <td headers="mb_list_cert"  class="td_mbcert">
+						            ${memberVo.mem_name}
+						        </td>
+						        <td headers="mb_list_mailc">${memberVo.mem_nick}</td>
+						        <td headers="mb_list_open">
+						           ${memberVo.mem_tel}
+						        </td>
+						        <td headers="mb_list_mailr">
+						            ${memberVo.mem_age}
+						        </td>
+						        <td headers="mb_list_auth" class="td_mbstat">
+						           	<c:choose>
+						           		<c:when test="${memberVo.mem_gender == 'M'}">남</c:when>
+						           		<c:when test="${memberVo.mem_gender == 'F'}">여</c:when>
+						           	</c:choose>       
+						        </td>
+						    </tr>
+				    	</c:forEach>
 				  </tbody>
 				</table>
 			</div>

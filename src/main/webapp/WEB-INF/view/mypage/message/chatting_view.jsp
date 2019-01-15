@@ -215,19 +215,6 @@ $(document).ready(function(){
 			});
 		}
 	});
-// 	var getRead = function () {
-// 		var deferred = $.Deferred();
-// 		try {
-// 			deferred.resolve();
-// 		} catch (e) {
-// 			deferred.reject(e);
-// 		}
-// 		return deferred.promise();
-// 	}
-// 	getRead().done(function(msg) {
-// 		console.log("msg : " + msg);
-// 		read();	
-// 	});
 	
 	$("#sendMessage").on("click", function() {
 		if($("#msg").val() == ''){
@@ -278,17 +265,15 @@ $(document).ready(function(){
 function connect() {
 	sock = new SockJS('/message');
 	sock.onopen = function() {
-		console.log('onopen : ' + sock);
+		console.log('[message]onopen : ' + sock);
 	};
 	sock.onmessage = function(event) {
 		var data = event.data;
-		console.log(data);
 		var obj = JSON.parse(data);
-		console.log(obj);
 		appendMessage(obj);
 	};
 	sock.onclose = function() {
-		console.log('onclose');
+		console.log('[message]onclose');
 	};
 };
 
@@ -308,7 +293,6 @@ function send() {
 function appendMessage(msg) {
 	var html;
 	var t = getTimeStamp();
-	console.log("msg.mem_id : " + msg.mem_id + " + " + '${loginInfo.mem_id}');
 	if(msg.group_id == '${group_id}'){
 		if(msg.mem_id == '${loginInfo.mem_id}'){
 			html = '<div class="mes_con_list mes_con_listMy" >';
@@ -339,7 +323,9 @@ function appendMessage(msg) {
 		$('.mes_con').append(html);
 		$(".mes_con").scrollTop($(".mes_con")[0].scrollHeight);
 	}
+	
 	read();
+	console.log('append read() 까지 옴');
 }
 
 function getTimeStamp() {
@@ -374,11 +360,8 @@ function connect_alram() {
 	};
 	sock_alram.onmessage = function(event) {
 		var data = event.data;
-			console.log("[alram] event.data : " + data);
 		if(data != '[]'){
-			console.log("[alram] data : " + data);
 			var obj = JSON.parse(data);
-			console.log("[alram] obj : " + obj);
 			updateReciveCount(obj);
 		} else {
 			updateReciveCount('0');
@@ -398,20 +381,15 @@ function read() {
 }
 //메세지 읽음인원 수정
 function updateReciveCount(obj) {
-	if(obj[0].group_id == '${group_id}'){
-		if(obj == '0'){
-			var abc = $('.unread').text(0);
-		} else {
-			for(var i = 0; i < obj.length; i++){
-				console.log("updateReciveCount : " + obj[i].unread + ' : ' + obj[i].msg_id);
-				//obj에서 그룹아이디 가져와서 비교
-				var iii = '' + obj[i].msg_id;
-				var id = document.getElementById(iii);
-				console.log("id : " + id);
-				if(id.innerText != null){
-					id.innerText = '' + obj[i].unread;
-					console.log("id.innerText : " + document.getElementById(iii).innerText);
-				}
+	if(obj == '0'){
+		var abc = $('.unread').text(0);
+	} else {
+		for(var i = 0; i < obj.length; i++){
+			//obj에서 그룹아이디 가져와서 비교
+			var iii = '' + obj[i].msg_id;
+			var id = document.getElementById(iii);
+			if(id.innerText != null){
+				id.innerText = '' + obj[i].unread;
 			}
 		}
 	}
@@ -421,14 +399,11 @@ function connect_access() {
 	sock_access = new SockJS('/access');
 	sock_access.onopen = function() {
 		console.log('[access] onopen : ' + sock);
-		read();
 	};
 	sock_access.onmessage = function(event) {
 		var data = event.data;
 		if(data != '[]'){
 			var obj = JSON.parse(data);
-			console.log("[access] data : " + data);
-			console.log("[access] obj : " + obj);
 			if(obj[0].group_id == '${group_id}'){
 				renewMember(obj);
 				if(obj[0].mem_qrcode == '2'){ //이미 초대된 멤버일경우
@@ -454,11 +429,9 @@ function connect_access() {
 }
 
 function invitedMember(invited_id) {
-	//이미 초대된 인원인지 확인 아작스 보내서 이미 존재하는지 확인
 	//초대받는사람 아이디
 	//초대되는 방아이디, 방닉네임
 	//멤버 아이디말고 닉네임
-// 	var invite_id = '';		//초대받는사람ID
 	var conf = confirm('"' + invited_id + '"님을 초대하시겠습니까?');
 	var group_id = '${group_id}';
 	if(conf){

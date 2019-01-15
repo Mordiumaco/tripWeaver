@@ -35,6 +35,11 @@
   	<listener-class>kr.co.tripweaver.listener.AccessLogListener</listener-class>
   </listener>
   
+  <!-- paramter없이 HttpServletRequest request와 session을 사용하기위한 리스너 -->
+  <listener>
+  	<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+  </listener>
+  
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath:kr/co/tripweaver/config/spring/root-context.xml

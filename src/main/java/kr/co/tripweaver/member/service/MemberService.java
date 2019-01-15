@@ -254,8 +254,22 @@ public class MemberService implements IMemberService {
 	* @return
 	* Method 설명 : 회원 아이디와 일치하는 튜플에 정보를 업데이트 한다. 
 	*/
+	@Override
 	public int updateMember(MemberVO memberVo) {
 		return memberDao.updateMember(memberVo);
+	}
+
+	/**
+	* Method : recentlyMember
+	* 작성자 : Jae Hyeon Choi
+	* 생성날짜 : 2019. 1. 14.
+	* 변경이력 :
+	* @return
+	* Method 설명 : 최신 회원 리스트
+	*/
+	@Override
+	public List<MemberVO> recentlyMember(){
+		return memberDao.recentlyMember();
 	}
 	
 }

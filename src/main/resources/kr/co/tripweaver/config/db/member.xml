@@ -119,4 +119,11 @@
   		select * from member
   		where mem_id = #{mem_id} and mem_email = #{mem_email}
   </select>
+  
+  <!-- 최신 회원(나중에 수정 필요) -->
+  <select id="recentlyMember" resultType="memberVo">
+  	select * from 
+	(select * from member order by mem_id asc)
+	where rownum <![CDATA[<]]>= 5
+  </select>
 </mapper>
