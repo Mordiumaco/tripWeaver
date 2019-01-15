@@ -132,7 +132,7 @@
 			</b>
 		</div>
 		<ul>
-			<li><b>${essayList[0].mem_nick}</b><span>${essayList[1].essay_title}</span></li>
+			<li><b>${essayList[1].mem_nick}</b><span>${essayList[1].essay_title}</span></li>
 			<li><b class="money"><fmt:formatNumber value="${essayList[1].totalmoney}"></fmt:formatNumber>원</b><span><i class="fas fa-heart likeDel" style="color:#ff0000;"></i>${essayList[1].essay_like_count}개</span><span><i class="fas fa-eye"></i> ${essayList[1].essay_view_count} View</span></li>
 		</ul>
 	</div>

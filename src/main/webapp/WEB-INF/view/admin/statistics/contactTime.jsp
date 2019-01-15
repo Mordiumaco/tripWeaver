@@ -117,19 +117,7 @@ div .connstat_table {
 		 	  },
 		 	  label:{
 		 	    text: '접속자 수'
-		 	  },
-		 	  markers:[
-		 	    {
-		 	      type:'line',
-		 	      range: [23],
-		 	      lineColor:'#c62828',
-		 	      lineStyle:'dashed',
-		 	      label:{
-		 	        text:'지난달 최대 접속자 수',
-		 	        placement: 'right'
-		 	      }
-		 	    }
-		 	    ]
+		 	  }
 		 	},
 		 	tooltip:{
 		 	  text:"%v명<br>%kv시",
