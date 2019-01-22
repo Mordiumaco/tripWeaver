@@ -18,6 +18,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
+import kr.co.tripweaver.util.file.FilePath;
+
 /**
 * NaverLoginService.java
 *
@@ -59,8 +61,8 @@ public class NaverLoginService {
 	*/
 	public String NaverLoginAccessToken(HttpServletRequest request) throws UnsupportedEncodingException {
 		StringBuffer res = new StringBuffer();
-		String clientId = "hAi60RWrlDCU1L3kMH90";//애플리케이션 클라이언트 아이디값";
-		String clientSecret = "ZiJQLHBcOK";//애플리케이션 클라이언트 시크릿값";
+		String clientId = FilePath.NAVERKEY;//애플리케이션 클라이언트 아이디값";
+		String clientSecret = FilePath.NAVERSCK;//애플리케이션 클라이언트 시크릿값";
 		String code = request.getParameter("code");
 		String state = request.getParameter("state");
 		String redirectURI = URLEncoder.encode("main/main", "UTF-8");
@@ -183,8 +185,8 @@ public class NaverLoginService {
 	 * @throws UnsupportedEncodingException 
 	*/
 	public void naverUserLogOut(String access_token) throws UnsupportedEncodingException {
-		String clientId = "hAi60RWrlDCU1L3kMH90";//애플리케이션 클라이언트 아이디값";
-		String clientSecret = "ZiJQLHBcOK";//애플리케이션 클라이언트 시크릿값";
+		String clientId = FilePath.NAVERKEY;//애플리케이션 클라이언트 아이디값";
+		String clientSecret = FilePath.NAVERSCK;//애플리케이션 클라이언트 시크릿값";
 		String token = URLEncoder.encode(access_token, "UTF-8");
 		
 		System.out.println("token : "+token);

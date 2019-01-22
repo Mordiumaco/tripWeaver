@@ -1,3 +1,4 @@
+<%@page import="kr.co.tripweaver.util.file.FilePath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="head.jsp" %>
@@ -35,7 +36,7 @@ text = text.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
 text = text.replace("&nbsp;",""); */
 </script>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a5f2e82aa9bad5f393255b6d8c3200cb&libraries=clusterer"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%=FilePath.MAPKEY%>&libraries=clusterer"></script>
 <div class="filter_rap">
 	<div class="filter">
 		<ul>

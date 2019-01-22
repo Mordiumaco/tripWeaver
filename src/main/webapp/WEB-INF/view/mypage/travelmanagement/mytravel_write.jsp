@@ -1,10 +1,11 @@
+<%@page import="kr.co.tripweaver.util.file.FilePath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../../head.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/js/font-awesome/css/font-awesome.min.css">   
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a5f2e82aa9bad5f393255b6d8c3200cb&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%=FilePath.MAPKEY%>&libraries=services"></script>
 
 <script type="text/javascript">
 

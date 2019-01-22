@@ -1,10 +1,11 @@
+<%@page import="kr.co.tripweaver.util.file.FilePath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../head.jsp" %>
 
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/js/font-awesome/css/font-awesome.min.css">
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a5f2e82aa9bad5f393255b6d8c3200cb"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%=FilePath.MAPKEY%>"></script>
 <script src="/SE2/js/HuskyEZCreator.js"></script>
 <script type="text/javascript">
 	 // 개발되어 있는 소스에 맞추느라, 전역변수로 사용하였지만, 지역변수로 사용해도 전혀 무관 함.

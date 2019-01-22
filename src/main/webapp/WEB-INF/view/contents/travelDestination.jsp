@@ -1,3 +1,4 @@
+<%@page import="kr.co.tripweaver.util.file.FilePath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../head.jsp" %>
@@ -5,7 +6,7 @@
 <script type="text/javascript">
 
 //key
-var key = "Mslgp6qkRb0NprdclOGja92DX%2BGabfSzvMkTSnHGEnr4%2FmIN3T81Cj%2BeING4U0MHaqyUibfiHnzCKSuf4WdXTg%3D%3D";
+var key = '<%=FilePath.TOURKEY%>';
 
 var pageNum = "";
 var areacode = "";
